@@ -1,21 +1,21 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.17;
 
-import {Wave} from "../src/Wave.sol";
+import {Waves} from "../src/Waves.sol";
 
 import {Script} from "forge-std/Script.sol";
 
 /**
- * @title WaveScript
- * @notice Script for deploying Wave.
+ * @title WavesScript
+ * @notice Script for deploying Waves.
  * @dev https://book.getfoundry.sh/reference/forge/forge-script
  *
- * @dev This script is used to deploy Wave with forge script
+ * @dev This script is used to deploy Waves with forge script
  * example start anvil with `anvil` command and then run
- * forge script contracts/script/Wave.s.sol:Deploy --rpc-url http://localhost:8545 --broadcast -vvv
+ * forge script contracts/script/Waves.s.sol:Deploy --rpc-url http://localhost:8545 --broadcast -vvv
  * @dev Scripts can be used for any scripting not just deployment
  */
-contract WaveScript is Script {
+contract WavesScript is Script {
     function setUp() public {}
 
     function run() public {
@@ -25,8 +25,8 @@ contract WaveScript is Script {
         // start broadcast any transaction after this point will be submitted to chain
         vm.startBroadcast(deployerPrivateKey);
 
-        // deploy Wave
-        Wave counter = new Wave();
+        // deploy Waves
+        // Waves counter = new Waves();
 
         // stop broadcasting transactions
         vm.stopBroadcast();
