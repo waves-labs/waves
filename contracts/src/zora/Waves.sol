@@ -7,19 +7,21 @@ import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Burnable.sol";
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol";
 
+import "../Ticket.sol";
 import "./Synth.sol";
-import "./Ticket.sol";
 
 contract Waves is ERC1155, Ownable, Pausable, ERC1155Burnable, ERC1155Supply {
     struct Wave {
         uint256 id;
-        uint256 maxAmount;
-        uint256 claimedAmount;
-        bytes color;
+        uint256 maxAmount; // max amount of waves to be minted
+        uint256 claimedAmount; // amount of waves claimed
+        uint256 startTime; // time to start minting
+        uint256 setTime; // length of set in minutes
+        bytes color; // color of wave for gen art Synth
     }
 
     address public ticket;
-    address public attestationRegistry = address(0x0);
+    address public easRegistry = address(0x0);
     uint256 public postEventClaimTime;
     mapping(uint256 => Wave) public waves;
 
@@ -37,20 +39,42 @@ contract Waves is ERC1155, Ownable, Pausable, ERC1155Burnable, ERC1155Supply {
         _setURI(newuri);
     }
 
-    // Used by Event Organizer Relayer to mint waves
+    // Used by Event Organizer to update Waves
+    function updateWaves(Wave[] memory _waves) public onlyOwner {
+        for (uint256 i = 0; i < _waves.length; i++) {
+            waves[_waves[i].id] = _waves[i];
+        }
+    }
+
+    // Used by Event Organizer to remove Waves
+    function removeWaves(uint256[] memory _ids) public onlyOwner {
+        for (uint256 i = 0; i < _ids.length; i++) {
+            delete waves[_ids[i]];
+        }
+    }
+
+    // Used by Event Organizer Relayer to mint waves for attendees Synth
     function rewardWave(uint256 id, address synth) public onlyOwner whenNotPaused {
         _verifyWaveMint(synth, id);
 
         _mint(synth, id, 1, "");
     }
 
-    // Used by Attendee to mint waves via attestation
+    // Used by Attendee Synth to claim waves
     function claimWave(uint256 id, address synth) public whenNotPaused {
         _verifyWaveMint(synth, id);
 
         //TODO: Check Attestation Registry on Base/Optimism for valid attestation
 
         _mint(synth, id, 1, "");
+    }
+
+    function pause() public onlyOwner {
+        _pause();
+    }
+
+    function unpause() public onlyOwner {
+        _unpause();
     }
 
     function _verifyWaveMint(address to, uint256 id) internal view {
@@ -68,14 +92,6 @@ contract Waves is ERC1155, Ownable, Pausable, ERC1155Burnable, ERC1155Supply {
 
         uint256 endTime = TicketData.endTime();
         require(block.timestamp < endTime + postEventClaimTime, "Waves: event has ended");
-    }
-
-    function pause() public onlyOwner {
-        _pause();
-    }
-
-    function unpause() public onlyOwner {
-        _unpause();
     }
 
     function _beforeTokenTransfer(
