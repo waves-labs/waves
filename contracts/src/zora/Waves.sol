@@ -7,27 +7,22 @@ import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Burnable.sol";
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol";
 
-import "../Ticket.sol";
+import "../mode/Ticket.sol";
+import "../Types.sol";
 import "./Synth.sol";
 
 contract Waves is ERC1155, Ownable, Pausable, ERC1155Burnable, ERC1155Supply {
-    struct Wave {
-        uint256 id;
-        uint256 maxAmount; // max amount of waves to be minted
-        uint256 claimedAmount; // amount of waves claimed
-        uint256 startTime; // time to start minting
-        uint256 setTime; // length of set in minutes
-        bytes color; // color of wave for gen art Synth
-    }
-
-    address public ticket;
-    address public easRegistry = address(0x0);
     uint256 public postEventClaimTime;
+    address public ticket;
+    address public easRegistry;
     mapping(uint256 => Wave) public waves;
 
-    constructor(address _ticket, Wave[] memory _waves, string memory _baseUri, uint256 claimTime) ERC1155(_baseUri) {
-        ticket = _ticket;
+    constructor(uint256 claimTime, address _ticket, address eas, Wave[] memory _waves, string memory _baseUri)
+        ERC1155(_baseUri)
+    {
         postEventClaimTime = claimTime;
+        ticket = _ticket;
+        easRegistry = eas;
 
         for (uint256 i = 0; i < _waves.length; i++) {
             waves[_waves[i].id] = _waves[i];
@@ -53,20 +48,20 @@ contract Waves is ERC1155, Ownable, Pausable, ERC1155Burnable, ERC1155Supply {
         }
     }
 
-    // Used by Event Organizer Relayer to mint waves for attendees Synth
+    // Used by Event Organizer Relayer to mint waves for attendees Synth(ERC-6551)
     function rewardWave(uint256 id, address synth) public onlyOwner whenNotPaused {
         _verifyWaveMint(synth, id);
 
         _mint(synth, id, 1, "");
     }
 
-    // Used by Attendee Synth to claim waves
-    function claimWave(uint256 id, address synth) public whenNotPaused {
-        _verifyWaveMint(synth, id);
+    // Used by Attendee's Synth(ERC-6551) to claim waves
+    function claimWave(uint256 id) public whenNotPaused {
+        _verifyWaveMint(msg.sender, id);
 
-        //TODO: Check Attestation Registry on Base/Optimism for valid attestation
+        //TODO: Check Attestation Registry for valid attestation
 
-        _mint(synth, id, 1, "");
+        _mint(msg.sender, id, 1, "");
     }
 
     function pause() public onlyOwner {
