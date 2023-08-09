@@ -3,12 +3,34 @@ src = 'contracts/src'
 test = 'contracts/test'
 out = 'contracts/out'
 libs = ['contracts/lib']
-solc = '0.8.15'
+solc = '0.8.17'
 
 remappings = [
-  '@eth-optimism/contracts-bedrock/=node_modules/@eth-optimism/contracts-bedrock',
+  '@eth-optimism/contracts-bedrock/=node_modules/@eth-optimism/contracts-bedrock/',
+  '@ethereum-attestation-service/eas-contracts/=node_modules/@ethereum-attestation-service/eas-contracts/',
   '@openzeppelin/contracts/=node_modules/@openzeppelin/contracts/',
   '@openzeppelin/contracts-upgradeable/=node_modules/@openzeppelin/contracts-upgradeable/',
 ]
+
+[profile.base]
+eth_rpc_url = "https://mainnet.base.org"
+
+[profile.optimism]
+eth_rpc_url = "https://mainnet.optimism.io"
+
+[profile.zora]
+eth_rpc_url = "https://rpc.zora.energy"
+
+[profile.base-goerli]
+eth_rpc_url = "https://goerli.base.org"
+
+[profile.optimism-goerli]
+eth_rpc_url = "https://goerli.optimism.io"
+
+[profile.zora-goerli]
+eth_rpc_url = "https://testnet.rpc.zora.energy"
+
+[profile.mode-sepolia]
+eth_rpc_url = "https://sepolia.mode.network"
 
 # See more config options https://github.com/foundry-rs/foundry/tree/master/config

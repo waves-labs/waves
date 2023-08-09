@@ -5,19 +5,18 @@ import "@openzeppelin/contracts/interfaces/IERC1271.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/utils/introspection/IERC165.sol";
 import "@openzeppelin/contracts/utils/cryptography/SignatureChecker.sol";
-
-// import { IEAS, AttestationRequest, AttestationRequestData } from "@ethereum-attestation-service/eas-contracts/contracts/IEAS.sol";
-// import { NO_EXPIRATION_TIME, EMPTY_UID } from "@ethereum-attestation-service/eas-contracts/contracts/Common.sol";
+import {NO_EXPIRATION_TIME, EMPTY_UID} from "@ethereum-attestation-service/eas-contracts/contracts/Common.sol";
+import {
+    IEAS,
+    AttestationRequest,
+    AttestationRequestData
+} from "@ethereum-attestation-service/eas-contracts/contracts/IEAS.sol";
 
 import "../interfaces/IERC6551Account.sol";
 import "../interfaces/IERC6551Executable.sol";
 
 contract Synth is IERC165, IERC1271, IERC6551Account, IERC6551Executable {
     uint256 public state;
-
-    constructor() {
-        state = 0;
-    }
 
     // error InvalidEAS();
 
@@ -76,6 +75,7 @@ contract Synth is IERC165, IERC1271, IERC6551Account, IERC6551Executable {
         }
     }
 
+    // View functions
     function isValidSigner(address signer, bytes calldata) external view returns (bytes4) {
         if (_isValidSigner(signer)) {
             return IERC6551Account.isValidSigner.selector;
