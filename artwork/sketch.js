@@ -1,4 +1,4 @@
-let collectionArray = [1,0,0,0];
+let collectionArray = [1,1,1,1];
 
 function setup() {
   createCanvas(400, 400);
@@ -13,14 +13,14 @@ function draw() {
   }
   if (collectionArray[1] == 1) {
     fill(114, 9, 183, 1)
-    rect(0,200,200,200);
+    quad(0,300,100,400,300,200,100,200);
   }
   if (collectionArray[2] == 1) {
     fill(6, 201, 240, 1)
-    rect(200,0,200,200);
+    triangle(200,200,400,200,300,0);
   }
   if (collectionArray[3] == 1) {
     fill(247, 100, 50, 1)
-    rect(200,200,200,200);
+    ellipse(300,300,200,200);
   }
 }
