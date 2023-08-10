@@ -18,10 +18,13 @@ contract WavesResolver is SchemaResolver {
 
         emit Log(value);
 
+        // Mint Wave token if attestation is valid
+
         return true;
     }
 
     function onRevoke(Attestation calldata, /*attestation*/ uint256 /*value*/ ) internal pure override returns (bool) {
+        // Burn token if minted for attestation
         return true;
     }
 }

@@ -8,7 +8,9 @@ import "../src/zora/Waves.sol";
 import "../src/zora/WavesResolver.sol";
 
 contract ZoraTest is Test {
+    Synth public synth;
     Waves public waves;
+    WavesResolver public wavesResolver;
 
     // function setUp() public {
     //     waves = new Wave();
