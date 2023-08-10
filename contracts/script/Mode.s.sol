@@ -35,7 +35,21 @@ contract ModeScript is Script {
         // deploy SynthRegistry
         SynthRegistry synthRegistry = new SynthRegistry();
 
+        Wave[] memory waves = new Wave[](2);
+
+        waves[0] = Wave(0, 100, 0, block.timestamp, block.timestamp + 1 days, bytes32("red"));
+        waves[1] = Wave(1, 100, 0, block.timestamp, block.timestamp + 1 days, bytes32("blue"));
+
         // deploy SynthGenerator
+        (, address generator) = synthRegistry.registerEvent(
+            1 days, address(ticket), "https://github.com/SynesthesiaLabs/superhack/tree/main/contracts/src", waves
+        );
+
+        // deploy Synth
+        SynthGenerator synthGenerator = SynthGenerator(generator);
+
+        // mint Synth
+        // synthGenerator.generateSynth(attendee
 
         // stop broadcasting transactions
         vm.stopBroadcast();

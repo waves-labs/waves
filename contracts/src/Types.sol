@@ -7,5 +7,5 @@ struct Wave {
     uint256 claimedAmount; // amount of waves claimed
     uint256 startTime; // time to start minting
     uint256 setTime; // length of set in minutes
-    bytes color; // color of wave for gen art Synth
+    bytes32 color; // color of wave for gen art Synth
 }

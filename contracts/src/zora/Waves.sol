@@ -17,16 +17,23 @@ contract Waves is ERC1155, Ownable, Pausable, ERC1155Burnable, ERC1155Supply {
     address public easRegistry;
     mapping(uint256 => Wave) public waves;
 
-    constructor(uint256 claimTime, address _ticket, address eas, Wave[] memory _waves, string memory _baseUri)
-        ERC1155(_baseUri)
-    {
+    constructor(
+        uint256 claimTime,
+        address _ticket,
+        address _eas,
+        address _owner,
+        Wave[] memory _waves,
+        string memory _baseUri
+    ) ERC1155(_baseUri) {
         postEventClaimTime = claimTime;
         ticket = _ticket;
-        easRegistry = eas;
+        easRegistry = _eas;
 
         for (uint256 i = 0; i < _waves.length; i++) {
             waves[_waves[i].id] = _waves[i];
         }
+
+        transferOwnership(_owner);
     }
 
     // Used by Event Organizer to update the event JSON metadata

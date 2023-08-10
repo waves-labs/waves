@@ -40,7 +40,7 @@ contract ZoraScript is Script {
         initialWaves[2] = Wave(0, 100, 0, block.timestamp, 30 minutes, bytes("red"));
         initialWaves[3] = Wave(3, 100, 0, block.timestamp, 30 minutes, bytes("yellow"));
 
-        Waves waves = new Waves(address(ticket), initialWaves, "https://ipfs", block.timestamp + 1 days);
+        // Waves waves = new Waves(address(ticket), initialWaves, "https://ipfs", block.timestamp + 1 days);
 
         // deploy Synth
 

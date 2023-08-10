@@ -6,54 +6,18 @@ import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/utils/introspection/IERC165.sol";
 import "@openzeppelin/contracts/utils/cryptography/SignatureChecker.sol";
 
-// import { IEAS, AttestationRequest, AttestationRequestData } from "@ethereum-attestation-service/eas-contracts/contracts/IEAS.sol";
-// import { NO_EXPIRATION_TIME, EMPTY_UID } from "@ethereum-attestation-service/eas-contracts/contracts/Common.sol";
-
 import "../interfaces/IERC6551Account.sol";
 import "../interfaces/IERC6551Executable.sol";
 
 contract Synth is IERC165, IERC1271, IERC6551Account, IERC6551Executable {
     uint256 public state;
+    address public wavesAddress;
 
-    constructor() {
-        state = 0;
+    constructor(address _wavesAddress) {
+        wavesAddress = _wavesAddress;
     }
 
-    // error InvalidEAS();
-
-    // // The address of the global EAS contract.
-    // IEAS private immutable _eas;
-
-    // /// @notice Creates a new ExampleAttester instance.
-    // /// @param eas The address of the global EAS contract.
-    // constructor(IEAS eas) {
-    //     if (address(eas) == address(0)) {
-    //         revert InvalidEAS();
-    //     }
-
-    //     _eas = eas;
-    // }
-
-    // /// @notice Attests to a schema that receives a uint256 parameter.
-    // /// @param schema The schema UID to attest to.
-    // /// @param input The uint256 value to pass to to the resolver.
-    // /// @return The UID of the new attestation.
-    // function attestUint(bytes32 schema, uint256 input) external returns (bytes32) {
-    //     return _eas.attest(
-    //         AttestationRequest({
-    //             schema: schema,
-    //             data: AttestationRequestData({
-    //                 recipient: address(0), // No recipient
-    //                 expirationTime: NO_EXPIRATION_TIME, // No expiration time
-    //                 revocable: true,
-    //                 refUID: EMPTY_UID, // No references UI
-    //                 data: abi.encode(input), // Encode a single uint256 as a parameter to the schema
-    //                 value: 0 // No value/ETH
-    //             })
-    //         })
-    //     );
-    // }
-
+    // Public functions
     receive() external payable {}
 
     function execute(address to, uint256 value, bytes calldata data, uint256 operation)
@@ -76,6 +40,7 @@ contract Synth is IERC165, IERC1271, IERC6551Account, IERC6551Executable {
         }
     }
 
+    // View functions
     function isValidSigner(address signer, bytes calldata) external view returns (bytes4) {
         if (_isValidSigner(signer)) {
             return IERC6551Account.isValidSigner.selector;

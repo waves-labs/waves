@@ -8,20 +8,22 @@ import "../src/zora/Waves.sol";
 import "../src/zora/WavesResolver.sol";
 
 contract ZoraTest is Test {
+    Synth public synth;
     Waves public waves;
+    WavesResolver public wavesResolver;
 
-    function setUp() public {
-        waves = new Wave();
-        waves.setNumber(0);
-    }
+    // function setUp() public {
+    //     waves = new Wave();
+    //     waves.setNumber(0);
+    // }
 
-    function testIncrement() public {
-        waves.increment();
-        assertEq(waves.number(), 1);
-    }
+    // function testIncrement() public {
+    //     waves.increment();
+    //     assertEq(waves.number(), 1);
+    // }
 
-    function testSetNumber(uint256 x) public {
-        waves.setNumber(x);
-        assertEq(waves.number(), x);
-    }
+    // function testSetNumber(uint256 x) public {
+    //     waves.setNumber(x);
+    //     assertEq(waves.number(), x);
+    // }
 }
