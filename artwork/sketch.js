@@ -1,49 +1,26 @@
-let gridColors = 
-{
-  color1: [247, 37, 133, 1],
-  color2: [181, 23, 158, 1],
-  color3: [114, 9, 183, 1],
-  color4: [86, 11, 173, 1],
-  // color5: [58, 12, 163, 1],
-  // color6: [63, 55, 201, 1],
-  // color7: [67, 97, 238, 1],
-  // color8: [72, 149, 239, 1],
-  // color9: [76, 201, 240, 1],
-};
-
-let topLayer;
+let collectionArray = [1,0,0,0];
 
 function setup() {
-  let bottomLayer = createCanvas(400, 400);
-  drawGrid(2, 2, 400, 400);
-  topLayer = createGraphics(400, 400);
-  topLayer.background(100,100,100);
-  topLayer.imageMode(CENTER);
-  topLayer.strokeWeight(40);
-  topLayer.blendMode(REMOVE);
-}
-
-function drawGrid(rows, cols, canvasWidth, canvasHeight) {
-  let cellWidth = canvasWidth / cols;
-  let cellHeight = canvasHeight / rows;
-
-  for (let i = 0; i < rows; i++) {
-    for (let j = 0; j < cols; j++) {
-      let x = j * cellWidth;
-      let y = i * cellHeight;
-      stroke(255);
-      strokeWeight(0);
-      //fill(gridColors['color1'][0], gridColors['color1'][1], gridColors['color1'][2]);
-      fill(random(255), random(255), random(255));
-      rect(x, y, cellWidth, cellHeight);
-    }
-  }
+  createCanvas(400, 400);
+  background(230);
+  noStroke();
 }
 
 function draw() {
-  if (mouseIsPressed) {
-    topLayer.line(pmouseX, pmouseY, pmouseX, pmouseY);
+  if (collectionArray[0] == 1) {
+    fill(247, 37, 133, 1)
+    rect(0,0,200,200);
   }
-  // image(topLayer, 0, 0);
-  // image(bottomLayer, 0, 0, width, height);
+  if (collectionArray[1] == 1) {
+    fill(114, 9, 183, 1)
+    rect(0,200,200,200);
+  }
+  if (collectionArray[2] == 1) {
+    fill(6, 201, 240, 1)
+    rect(200,0,200,200);
+  }
+  if (collectionArray[3] == 1) {
+    fill(247, 100, 50, 1)
+    rect(200,200,200,200);
+  }
 }
