@@ -11,10 +11,16 @@ let gridColors =
   // color9: [76, 201, 240, 1],
 };
 
+let topLayer;
 
 function setup() {
-  let c = createCanvas(400, 400);
+  let bottomLayer = createCanvas(400, 400);
   drawGrid(2, 2, 400, 400);
+  topLayer = createGraphics(400, 400);
+  topLayer.background(100,100,100);
+  topLayer.imageMode(CENTER);
+  topLayer.strokeWeight(40);
+  topLayer.blendMode(REMOVE);
 }
 
 function drawGrid(rows, cols, canvasWidth, canvasHeight) {
@@ -32,4 +38,12 @@ function drawGrid(rows, cols, canvasWidth, canvasHeight) {
       rect(x, y, cellWidth, cellHeight);
     }
   }
+}
+
+function draw() {
+  if (mouseIsPressed) {
+    topLayer.line(pmouseX, pmouseY, pmouseX, pmouseY);
+  }
+  // image(topLayer, 0, 0);
+  // image(bottomLayer, 0, 0, width, height);
 }
