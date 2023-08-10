@@ -1,7 +1,9 @@
-import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
-import { Attestooooooor } from "./components";
+import { Appbar } from "./components/Layout/AppBar";
+import { Header } from "./components/Layout/Header";
+import Views from "./views";
 
 export function App() {
   /**
@@ -20,7 +22,7 @@ export function App() {
       {isConnected && (
         <>
           <hr />
-          <Attestooooooor />
+          {/* <Attestooooooor /> */}
           <hr />
         </>
       )}

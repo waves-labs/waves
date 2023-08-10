@@ -52,7 +52,7 @@ export { chains };
  * @see https://wagmi.sh/react/connectors
  */
 const { connectors } = getDefaultWallets({
-  appName: "Wave Collector",
+  appName: "WAVES",
   chains,
   projectId: import.meta.env.VITE_WALLETCONNECT_PROJECT_ID,
 });

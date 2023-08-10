@@ -1,11 +1,17 @@
 import "@rainbow-me/rainbowkit/styles.css";
-import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
+
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
 import { WagmiConfig } from "wagmi";
+import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
+
+import { AppProvider } from "./hooks/app/useApp";
+import { WefaProvider } from "./hooks/wefa/useWefa";
+import { SeedProvider } from "./hooks/wefa/useSeed";
 
 import { App } from "./App";
-import { chains, config } from "./wagmi";
+import { chains, config } from "./modules/wagmi";
 
 /**
  * Root providers and initialization of app
