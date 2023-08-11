@@ -5,27 +5,26 @@ import {
   useDisconnect,
   useSignMessage,
 } from "wagmi";
-import { useState } from "react";
 import { SiweMessage } from "siwe";
-import { InjectedConnector } from "wagmi/connectors/injected";
+import { useEffect, useState } from "react";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 
 import { apiClient } from "../modules/axios";
 
-export const useAuthWeb3 = () => {
+export const useWeb3 = () => {
   const chainId = useChainId();
   const { address } = useAccount();
-  const { connectAsync } = useConnect({
-    connector: new InjectedConnector({}),
-  });
   const { disconnectAsync } = useDisconnect();
+  const { error: connectError } = useConnect();
   const { signMessageAsync } = useSignMessage();
+  const { openConnectModal, connectModalOpen } = useConnectModal();
 
   const [error, setError] = useState<null | string>(null);
 
   async function handleConnect(): Promise<void> {
     try {
       setError(null);
-      await connectAsync();
+      openConnectModal?.();
     } catch (err: any) {
       err && err.message && setError(err.message);
       console.error("ERROR CONNECTING WALLET", err);
@@ -43,7 +42,7 @@ export const useAuthWeb3 = () => {
     }
   }
 
-  async function authenticate() {
+  async function login() {
     try {
       setError(null);
 
@@ -78,7 +77,7 @@ export const useAuthWeb3 = () => {
     }
   }
 
-  async function handleDisconnect(): Promise<void> {
+  async function logout(): Promise<void> {
     try {
       setError(null);
       await disconnectAsync();
@@ -89,12 +88,22 @@ export const useAuthWeb3 = () => {
     }
   }
 
+  useEffect(() => {
+    if (address && !connectModalOpen) {
+      login();
+    }
+  }, [address]);
+
+  useEffect(() => {
+    if (connectError) {
+      setError(connectError.message);
+    }
+  }, [connectError]);
+
   return {
     error,
     address,
-    handleConnect,
-    signMessage,
-    authenticate,
-    handleDisconnect,
+    login,
+    logout,
   };
 };

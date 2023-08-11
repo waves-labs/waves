@@ -1,8 +1,13 @@
-// import { toast } from "react-toastify";
 import { createMachine, assign } from "xstate";
 
-export interface ScannerContext {
-  transactionHash: string | null;
+export interface ScannerEvent {
+  eventName: string | null;
+  artist: string | null;
+  tokenAddress: string | null;
+  tokenId: number | null;
+}
+
+export interface ScannerContext extends ScannerEvent {
   error: string | null;
 }
 
@@ -10,8 +15,7 @@ export const scannerMachine = createMachine(
   {
     id: "scanner",
     version: "0.0.1",
-    description:
-      "Scanner machine for generating synths based on your Web3 experiences.",
+    description: "Scanner machine for collective Waves at IRL experiences.",
     type: "compound",
     strict: true,
     tsTypes: {} as import("./machine.typegen").Typegen0,
@@ -20,15 +24,10 @@ export const scannerMachine = createMachine(
     schema: {
       services: {} as {
         scanService: {
-          data: {
-            stats: any;
-          };
+          data: ScannerEvent;
         };
       },
       context: {
-        address: undefined,
-        stats: undefined,
-        transactionHash: null,
         error: null,
       } as ScannerContext,
     },
@@ -59,8 +58,11 @@ export const scannerMachine = createMachine(
   {
     actions: {
       scanned: assign((context, event) => {
-        // context.stats = event.data.stats;
-        context.error = null;
+        context = {
+          ...context,
+          ...event.data,
+          error: null,
+        };
 
         return context;
       }),
@@ -69,9 +71,10 @@ export const scannerMachine = createMachine(
           case "error.platform.scanService":
             // @ts-ignore
             if (event.data.message !== "No address provided.") {
-              // @ts-ignore
-              context.error = event.data.message;
             }
+
+            // @ts-ignore
+            context.error = event.data.message;
 
             break;
 

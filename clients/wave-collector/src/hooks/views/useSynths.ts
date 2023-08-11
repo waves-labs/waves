@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { config, SpringValue, useSpring } from "@react-spring/web";
 
+import { useSynth } from "../synth/useSynth";
+
 export interface SynthsDataProps {
   activeSynth: Synth | null;
   synths: Synth[];
@@ -12,7 +14,7 @@ export interface SynthsDataProps {
     transform: SpringValue<string>;
   };
   view: SynthsView;
-  changeView: (view: SynthsView) => void;
+  changeView: (view: SynthsView, synth?: Synth) => void;
 }
 
 export type SynthsView = "synths" | "synth";
@@ -20,6 +22,8 @@ export type SynthsView = "synths" | "synth";
 export const useSynths = (): SynthsDataProps => {
   const [view, setTab] = useState<SynthsView>("synths");
   const [activeSynth, setActiveSynth] = useState<Synth | null>(null);
+
+  const { synths } = useSynth();
 
   const statsSpring = useSpring({
     from: { opacity: 0, transform: "translate3d(0, -100%, 0)" },
@@ -49,7 +53,7 @@ export const useSynths = (): SynthsDataProps => {
 
   return {
     activeSynth,
-    synths: [],
+    synths,
     statsSpring,
     viewsSpring,
     view,

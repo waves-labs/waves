@@ -1,15 +1,16 @@
 import { assign } from "xstate";
 import { useMachine } from "@xstate/react";
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 import { SynthContext as SynthMachineContext, synthMachine } from "./machine";
 
 export interface SynthDataProps extends SynthMachineContext {
   isIdle: boolean;
   isMinting: boolean;
-  isBurning: boolean;
+  isGenerating: boolean;
+  synths: Synth[];
   mintSynth: (address: string) => void;
-  burnSynth: (id: number, address: string) => void;
+  generateArt: (synthAddrs: string) => void;
 }
 
 const SynthContext = createContext<SynthDataProps | null>(null);
@@ -18,71 +19,53 @@ type Props = {
   children: React.ReactNode;
 };
 
+const SYNTH_REGISTRY = import.meta.env.VITE_VERCEL_SYNTH_REGISTRY as string;
+
 export const SynthProvider = ({ children }: Props) => {
   const currentValue = useContext(SynthContext);
 
   if (currentValue) throw new Error("SynthProvider can only be used once");
 
+  const [synths, setSynths] = useState<Synth[]>([]);
+
+  function getSynths() {}
+
   const [state, send] = useMachine(synthMachine, {
     actions: {
       minted: assign((context, event) => {
-        context.imageVerified = true;
-        context.image = event.data.img;
-
-        const plantDetails = event.data.details;
-
-        if (plantDetails) {
-          // context.image &&
-          //   handleCreatePlant({
-          //     ...plantDetails,
-          //     id: `0x${nanoid()}`,
-          //     localId: nanoid(),
-          //     isUploaded: false,
-          //     caretakerAddress: context.address || "0x",
-          //     // spaceAddress: "0x",
-          //     name: context.plant.common_names[0],
-          //     description: plantDetails.wiki_description?.value,
-          //     image: context.image ?? context.plant.wiki_image?.value ?? "",
-          //     plantId: event.data.plantId,
-          //     createdAt: new Date().getMilliseconds(),
-          //     updatedAt: new Date().getMilliseconds(),
-          //   }).then(() => {
-          //     const energy = localStorage.getItem("energy");
-          //     if (energy) {
-          //       const energyInt = parseInt(energy);
-          //       localStorage.setItem("energy", `${energyInt + 4}`);
-          //     } else {
-          //       localStorage.setItem("energy", "4");
-          //     }
-          //   });
-        }
+        // TODO: Add the minted synth to the user's collection
 
         return context;
       }),
-      burned: assign((context, event) => {
-        // context.creature = creature;
+      generated: assign((context, event) => {
+        // TODO: Update synth state to generated
 
         return context;
       }),
     },
   });
 
-  function mintSynth(address: string) {
-    send({ type: "MINT", address });
+  function mintSynth(generatorAddrs: string) {
+    send({ type: "MINT", generatorAddrs });
   }
 
-  function burnSynth(id: number, address: string) {
-    send({ type: "BURN", id, address });
+  function generateArt(synthAddrs: string) {
+    send({ type: "GENERATE_ART", synthAddrs });
   }
+
+  useEffect(() => {
+    // If connected query blockchain for synths
+  }, []);
 
   return (
     <SynthContext.Provider
       value={{
         isIdle: state.matches("idle"),
         isMinting: state.matches("minting"),
-        isBurning: state.matches("burning"),
+        isGenerating: state.matches("generating"),
         mintSynth,
-        burnSynth,
+        generateArt,
+        synths,
         ...state.context,
       }}
     >

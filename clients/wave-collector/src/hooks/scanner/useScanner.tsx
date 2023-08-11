@@ -1,12 +1,12 @@
 import { useMachine } from "@xstate/react";
-import React, { useState, createContext, useContext } from "react";
-
-import { useMint } from "../useMint";
+import React, { createContext, useContext } from "react";
 
 import {
+  ScannerEvent,
   ScannerContext as ScannerMachineContext,
   scannerMachine,
 } from "./machine";
+import { apiClient } from "../../modules/axios";
 
 export interface ScannerState {
   isIdle: boolean;
@@ -15,9 +15,6 @@ export interface ScannerState {
 
 export interface ScannerDataProps extends ScannerMachineContext, ScannerState {
   scan: () => void;
-  address?: `0x${string}`;
-  artFlipped: boolean;
-  setFlippedArt: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const ScannerContext = createContext<ScannerDataProps | null>(null);
@@ -31,30 +28,29 @@ export const ScannerProvider = ({ children }: Props) => {
 
   if (currentValue) throw new Error("ScannerProvider can only be used once");
 
-  const [artFlipped, setFlippedArt] = useState(false);
-  const { address, writeAsync, openConnectModal } = useMint();
   const [state, send] = useMachine(scannerMachine, {
     actions: {
       revealWave: () => {
-        setFlippedArt(true);
+        // Navigate to the synths tab and show the synth with the new wave
       },
     },
     services: {
       scanService: async () => {
-        if (!address) {
-          openConnectModal && openConnectModal();
-          throw new Error("No address provided.");
-        }
-
         try {
-          const data = await writeAsync?.();
+          const { data } = await apiClient.post<ScannerEvent>("/waves/claim", {
+            synth: "0x0",
+            wave: "0x0",
+          });
 
           if (!data) {
-            throw new Error("No stats returned from getStats.");
+            throw new Error("Error catching wave, try again.");
           }
 
           return {
-            stats: data,
+            artist: data.artist,
+            eventName: data.eventName,
+            tokenAddress: data.tokenAddress,
+            tokenId: data.tokenId,
           };
         } catch (error) {
           throw error;
@@ -71,8 +67,6 @@ export const ScannerProvider = ({ children }: Props) => {
     <ScannerContext.Provider
       value={{
         scan,
-        artFlipped,
-        setFlippedArt,
         isIdle: state.matches("idle"),
         isScanning: state.matches("scanning"),
         ...state.context,
@@ -84,49 +78,11 @@ export const ScannerProvider = ({ children }: Props) => {
 };
 
 export const useScanner = (): ScannerDataProps => {
-  const [artFlipped, setFlippedArt] = useState(false);
-  const { address, writeAsync, openConnectModal } = useMint();
-  const [state, send] = useMachine(scannerMachine, {
-    actions: {
-      revealWave: () => {
-        setFlippedArt(true);
-      },
-    },
-    services: {
-      scanService: async () => {
-        if (!address) {
-          openConnectModal && openConnectModal();
-          throw new Error("No address provided.");
-        }
+  const context = useContext(ScannerContext);
 
-        try {
-          const data = await writeAsync?.();
-
-          if (!data) {
-            throw new Error("No stats returned from getStats.");
-          }
-
-          return {
-            stats: data,
-          };
-        } catch (error) {
-          throw error;
-        }
-      },
-    },
-  });
-
-  function scan() {
-    if (state.matches("idle")) send("SCAN");
+  if (!context) {
+    throw new Error("useScanner must be used within a ScannerProvider");
   }
 
-  return {
-    ...state.context,
-    isIdle: state.matches("idle"),
-    isScanning: state.matches("scanning"),
-    scan,
-    address,
-    artFlipped,
-    setFlippedArt,
-  };
+  return context;
 };

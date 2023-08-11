@@ -15,26 +15,25 @@ export const synthMachine = createMachine(
     id: "synth",
     version: "0.0.1",
     description:
-      "Synth machine for WEFA enabling discovery flow with creature creation.",
+      "Synth machine enabling users to mint a synth and generate art from it",
     type: "compound",
     strict: true,
     tsTypes: {} as import("./machine.typegen").Typegen0,
     predictableActionArguments: true,
-    tags: ["synth", "game", "nature", "critters", "creatures"],
     initial: "idle",
     schema: {
       services: {} as {
         mintService: {
           data: {
-            plantId: number;
-            details: any | undefined;
-            img: string;
+            synthAddress: string; // Address of synth
+            tokenAddress: string; // Address of NFT contract
+            tokenId: number; // Token ID of NFT
           };
         };
-        burnService: {
+        genArtService: {
           data: {
-            element: any;
-            img: string;
+            tokenAddress: string; // Address of NFT contract
+            tokenId: number; // Token ID of NFT
           };
         };
       },
@@ -53,9 +52,9 @@ export const synthMachine = createMachine(
             target: "minting",
             cond: "isMintValid",
           },
-          BURN: {
-            target: "burning",
-            cond: "isBurnValid",
+          GENERATE_ART: {
+            target: "generating",
+            cond: "isGenArtValid",
           },
         },
       },
@@ -73,13 +72,13 @@ export const synthMachine = createMachine(
           },
         },
       },
-      burning: {
+      generating: {
         invoke: {
-          id: "burnService",
-          src: "burnService",
+          id: "genArtService",
+          src: "genArtService",
           onDone: {
             target: "idle",
-            actions: "burned",
+            actions: "generated",
           },
           onError: {
             target: "idle",
@@ -88,19 +87,13 @@ export const synthMachine = createMachine(
         },
       },
     },
-    entry: async (context) => {
-      // toast.info("Synth machine entered.");
-    },
-    // exit: (context, event) => {
-    //   console.log("Synth machine exited.", context, event);
-    // },
   },
   {
     guards: {
       isMintValid: (_context, event: { image: string | ArrayBuffer }) => {
         return !!event.image;
       },
-      isBurnValid: (context, event: { element: any }) => {
+      isGenArtValid: (context, event: { element: any }) => {
         return !!context.image && !!event.element;
       },
     },
@@ -115,7 +108,7 @@ export const synthMachine = createMachine(
             context.error = event.data.message;
             break;
 
-          case "error.platform.burnService":
+          case "error.platform.genArtService":
             // @ts-ignore
             context.error = event.data.message;
             break;
@@ -125,50 +118,32 @@ export const synthMachine = createMachine(
         }
         console.log("Error!", context, event);
 
-        // toast.error(context.error || "Error with creature generator.");
-
         return context;
       }),
     },
     services: {
-      mintService: async (context, event: { image?: string }, _meta) => {
-        let image: string | null = context.image;
-
-        if (event.image) {
-          image = event.image;
-        }
-
-        if (!image) {
-          throw new Error("No image provided!");
-        }
-
-        // TODO: Add form image upload
-        // const formData = new FormData();
-
-        // formData.append("image", image, image.name);
-
-        // const data = {
-        //   // Add other parameters here
-        // };
-        // formData.append("data", JSON.stringify(data));
-
+      mintService: async (
+        context,
+        event: { generatorAddrs?: string },
+        _meta,
+      ) => {
         try {
           const { data } = await apiClient.post<{ plant: any }>(
             "/plants/detect",
-            { image },
+            {},
           );
 
           return {
-            plantId: data.plant.suggestions[0].id,
-            details: data.plant.suggestions[0].plant_details,
-            img: image,
+            synthAddress: "",
+            tokenAddress: "",
+            tokenId: 0,
           };
         } catch (error) {
-          console.log("Photo verification failed!", error);
+          console.log("Synth minting failed!", error);
           throw error;
         }
       },
-      burnService: async (context, event: { element?: any }) => {
+      genArtService: async (context, event: { element?: any }) => {
         try {
           const { data } = await apiClient.post<{ img: string }>(
             "/creatures/synth",
@@ -178,9 +153,12 @@ export const synthMachine = createMachine(
             },
           );
 
-          return { element: "", img: `data:image/png;base64,${data.img}` };
+          return {
+            tokenAddress: "",
+            tokenId: 0,
+          };
         } catch (error) {
-          console.log("Creature generation failed!", error);
+          console.log("Art generation failed!", error);
           throw error;
         }
       },

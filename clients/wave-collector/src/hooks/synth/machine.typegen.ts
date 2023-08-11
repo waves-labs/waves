@@ -3,8 +3,8 @@
 export interface Typegen0 {
   "@@xstate/typegen": true;
   internalEvents: {
-    "done.invoke.burnService": {
-      type: "done.invoke.burnService";
+    "done.invoke.genArtService": {
+      type: "done.invoke.genArtService";
       data: unknown;
       __tip: "See the XState TS docs to learn how to strongly type this.";
     };
@@ -13,8 +13,8 @@ export interface Typegen0 {
       data: unknown;
       __tip: "See the XState TS docs to learn how to strongly type this.";
     };
-    "error.platform.burnService": {
-      type: "error.platform.burnService";
+    "error.platform.genArtService": {
+      type: "error.platform.genArtService";
       data: unknown;
     };
     "error.platform.mintService": {
@@ -24,29 +24,29 @@ export interface Typegen0 {
     "xstate.init": { type: "xstate.init" };
   };
   invokeSrcNameMap: {
-    burnService: "done.invoke.burnService";
+    genArtService: "done.invoke.genArtService";
     mintService: "done.invoke.mintService";
   };
   missingImplementations: {
-    actions: "burned" | "minted";
+    actions: "generated" | "minted";
     delays: never;
     guards: never;
     services: never;
   };
   eventsCausingActions: {
-    burned: "done.invoke.burnService";
-    error: "error.platform.burnService" | "error.platform.mintService";
+    error: "error.platform.genArtService" | "error.platform.mintService";
+    generated: "done.invoke.genArtService";
     minted: "done.invoke.mintService";
   };
   eventsCausingDelays: {};
   eventsCausingGuards: {
-    isBurnValid: "BURN";
+    isGenArtValid: "GENERATE_ART";
     isMintValid: "MINT";
   };
   eventsCausingServices: {
-    burnService: "BURN";
+    genArtService: "GENERATE_ART";
     mintService: "MINT";
   };
-  matchesStates: "burning" | "idle" | "minting";
-  tags: "creatures" | "critters" | "game" | "nature" | "synth";
+  matchesStates: "generating" | "idle" | "minting";
+  tags: never;
 }
