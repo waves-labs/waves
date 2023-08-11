@@ -4,6 +4,7 @@ import svgr from "vite-plugin-svgr";
 import mkcert from "vite-plugin-mkcert";
 import { VitePWA } from "vite-plugin-pwa";
 import react from "@vitejs/plugin-react";
+import { nodePolyfills } from "vite-plugin-node-polyfills";
 
 /**
  * @see https://vitejs.dev/config/
@@ -13,23 +14,19 @@ export default defineConfig({
    * Defines global constant replacments
    * @see https://vitejs.dev/config/shared-options.html#define
    */
-  define: {
-    global: "globalThis",
-  },
-  resolve: {
-    /**
-     * Polyfills nodejs imports
-     * @see https://vitejs.dev/config/shared-options.html#resolve-alias
-     */
-    alias: {
-      process: "process/browser",
-      util: "util",
-    },
-  },
-  /**
-   * Enables react
-   * @see https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md
-   */
+  // define: {
+  //   global: "globalThis",
+  // },
+  // resolve: {
+  //   /**
+  //    * Polyfills nodejs imports
+  //    * @see https://vitejs.dev/config/shared-options.html#resolve-alias
+  //    */
+  //   alias: {
+  //     process: "process/browser",
+  //     util: "util",
+  //   },
+  // },
   plugins: [
     react(),
     mkcert(),
@@ -118,6 +115,20 @@ export default defineConfig({
           },
         ],
       },
+    }),
+    nodePolyfills({
+      // To exclude specific polyfills, add them to this list.
+      exclude: [
+        "fs", // Excludes the polyfill for `fs` and `node:fs`.
+      ],
+      // Whether to polyfill specific globals.
+      globals: {
+        Buffer: true, // can also be 'build', 'dev', or false
+        global: true,
+        process: true,
+      },
+      // Whether to polyfill `node:` protocol imports.
+      protocolImports: true,
     }),
   ],
 });
