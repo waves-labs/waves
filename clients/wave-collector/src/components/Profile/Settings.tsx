@@ -1,6 +1,9 @@
-import { themes, useApp } from "../../hooks/app/useApp";
+import { themes, useApp } from "../../hooks/useApp";
 
 interface ProfileSettingsProps {}
+
+// TODO: Polish styles to match designs
+// TODO:Add wallet connection and SIWE integration
 
 export const ProfileSettings: React.FC<ProfileSettingsProps> = () => {
   const { theme, toggleTheme, handlseSetTheme } = useApp();
@@ -32,18 +35,6 @@ export const ProfileSettings: React.FC<ProfileSettingsProps> = () => {
           />
         </label>
       </div>
-      {/* <div className="form-control w-52">
-        <label className="cursor-pointer label">
-          <span className="label-text">Enable Explore & Play Sound</span>
-          <input
-            type="checkbox"
-            className="toggle toggle-primary"
-            onClick={toggleTheme}
-            disabled
-            checked={false}
-          />
-        </label>
-      </div> */}
     </div>
   );
 };

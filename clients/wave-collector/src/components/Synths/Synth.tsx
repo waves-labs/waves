@@ -1,89 +1,72 @@
+import { css } from "@emotion/react";
 import React from "react";
-import { a, SpringValue } from "@react-spring/web";
+import { a, useSpring } from "@react-spring/web";
 
-export interface Action {
-  name: string;
-  onClick: () => void;
-  tooltip: string;
+import { SynthsView } from "../../hooks/views/useSynths";
+
+export interface SynthProps extends Synth {
+  view: SynthsView;
+  flipped?: boolean;
+  setFlipped?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export interface Badge {
-  name: string;
-  color?: string;
-  Icon?: React.FunctionComponent<
-    React.SVGProps<SVGSVGElement> & {
-      title?: string | undefined;
-    }
-  >;
-}
+// TODO: Polish styles to match designs
+// TODO: Add details to back of synth such as event, date, gen artist, etc
 
-export interface DeckCardData {
-  name: string;
-  description?: string | null;
-  image: string;
-  element?: WefaElement;
-  actions: Action[];
-  badges?: Badge[];
-}
-
-export interface DeckCardProps extends DeckCardData {
-  style?: {
-    opacity: SpringValue<number>;
-    transform: SpringValue<string>;
-  };
-  onClick?: React.MouseEventHandler<HTMLLIElement>;
-  paddingTop?: boolean;
-  isDesktop: boolean;
-}
-
-export const DeckCard: React.FC<DeckCardProps> = ({
-  name,
-  // description,
-  // element,
-  // actions,
-  image,
-  style,
-  isDesktop,
-  paddingTop,
-  onClick,
-  badges,
+export const Synth: React.FC<SynthProps> = ({
+  view,
+  flipped,
+  setFlipped,
+  // ...synth
 }) => {
+  const { transform, opacity } = useSpring({
+    opacity: flipped ? 1 : 0,
+    transform: `perspective(600px) rotateY(${flipped ? 180 : 0}deg)`,
+    config: { mass: 5, tension: 500, friction: 80 },
+  });
+
+  function handleSynthClick() {
+    view === "synth" && setFlipped && setFlipped((state) => !state);
+  }
+
   return (
-    <a.li style={style} onClick={onClick} className="w-full max-w-full">
-      <label
-        htmlFor="deck-viewer-dialog"
-        className={`${
-          isDesktop ? "" : `${paddingTop ? "mt-16" : ""}`
-        } w-full max-w-full unselectable bg-base-100 shadow-xl cursor-pointer flex justify-between items-center rounded-xl`}
+    <div
+      className={`relative aspect-square w-full bg-transparent`}
+      onClick={handleSynthClick}
+    >
+      <a.div
+        className="border-[0.75rem] sm:border-[1rem] lg:border-[1.5rem] border-black bg-black absolute w-full h-full grid place-items-center"
+        style={{ opacity: opacity.to((o) => 1 - o), transform }}
+        css={css`
+          box-shadow: 20px 20px 100px 0px rgba(0, 0, 0, 0.35);
+        `}
+      ></a.div>
+      <a.div
+        className="border-[0.75rem] sm:border-[1rem] md:border-[1.5rem] border-black bg-black absolute w-full h-full"
+        style={{
+          opacity,
+          transform,
+          rotateY: "180deg",
+        }}
+        css={css`
+          box-shadow: 20px 20px 100px 0px rgba(0, 0, 0, 0.35);
+        `}
       >
-        <div className="pl-4 flex flex-col flex-1 gap-3">
-          <h4 className="font-bold text-xl line-clamp-1 capitalize">{name}</h4>
-          <div className="flex gap-1 w-full flex-wrap">
-            {badges?.map(({ name, color, Icon }) => (
-              <div
-                key={name}
-                style={{
-                  background: color ? color : undefined,
-                  borderColor: color ? color : undefined,
-                }}
-                className={`flex badge md:badge-lg capitalize text-base-100 ${
-                  color ? `bg-[${color}]` : "badge-secondary"
-                } max-w-32 line-clamp-1`}
-              >
-                {Icon && <Icon className="w-4 h-4 fill-base-100" />}
-                {name}
-              </div>
-            ))}
+        <div className="synth-details flex items-center w-full mt-3 border-stone-800 border-2 rounded-sm divide-x divide-stone-800">
+          <div className="basis-1/4 px-4 py-2 sm:py-4 sm:px-8 flex flex-col gap-1 h-full">
+            <h4 className="font-light text-xs text-stone-400 tracking-wide uppercase">
+              Experiences
+            </h4>
+            <p className="font-medium text-white text-xs xs:text-base"></p>
+          </div>
+          <div className="basis-3/4 px-4 py-2 sm:py-4 sm:px-8 flex flex-col gap-1 h-full">
+            <h4 className="font-light text-xs text-stone-400 tracking-wide uppercase">
+              Favorite Artists
+            </h4>
+            <ul className="flex line-clamp-1 gap-1 flex-nowrap"></ul>
           </div>
         </div>
-        <figure className="h-28 w-28 basis-28 object-cover md:h-full md:w-48 aspect-square object-cover rounded-xl">
-          <img
-            src={image}
-            alt={name}
-            className="object-cover md:h-full md:w-48 aspect-square object-cover rounded-xl"
-          />
-        </figure>
-      </label>
-    </a.li>
+      </a.div>
+    </div>
   );
 };

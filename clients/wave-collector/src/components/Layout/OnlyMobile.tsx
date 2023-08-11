@@ -1,7 +1,9 @@
 import React from "react";
 import { a, config, useSpring } from "@react-spring/web";
 
-export const ComingSoon: React.FC = () => {
+// TODO: Update copy and add social links
+
+export const OnlyMobile: React.FC = () => {
   const spring = useSpring({
     from: { opacity: 0 },
     to: { opacity: 1 },

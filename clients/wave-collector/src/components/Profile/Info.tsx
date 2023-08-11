@@ -1,11 +1,11 @@
 import { SpringValue, a } from "@react-spring/web";
-// import { rankNames } from "../../constants";
-import { useApp } from "../../hooks/app/useApp";
+
+import { useApp } from "../../hooks/useApp";
+
+// TODO: Polish styles to match designs
 
 interface ProfileInfoProps {
   username?: string;
-  rank?: WefaRank;
-  xp?: number;
   avatar?: string;
   avatarSpring: {
     opacity: SpringValue<number>;
@@ -14,9 +14,6 @@ interface ProfileInfoProps {
 }
 
 export const ProfileInfo: React.FC<ProfileInfoProps> = ({
-  // username,
-  // xp,
-  // rank,
   avatar,
   avatarSpring,
 }) => {
@@ -43,16 +40,10 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
         <div className={`flex flex-col flex-1 gap-1`}>
           <div
             className={`flex text-primary items-center gap-2 justify-between w-full h-full`}
-            // style={{
-            //   color: rankColors[rank ?? 0],
-            // }}
           >
             <h3 className="text-xl font-bold capitalize">
               {generateUsername()}
             </h3>
-            {/* <p className="text-xl font-semibold badge">
-              {rankNames[rank ?? 0]}
-            </p> */}
           </div>
         </div>
       </div>
