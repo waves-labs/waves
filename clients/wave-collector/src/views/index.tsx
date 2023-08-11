@@ -1,30 +1,17 @@
-import {
-  Navigate,
-  Route,
-  Routes,
-  useLocation,
-  useSearchParams,
-} from "react-router-dom";
-import { useEffect } from "react";
-import { toast } from "react-toastify";
-import { a, useTransition } from "@react-spring/web";
+import { css } from "@emotion/react";
+import { a, config, useSpring, useTransition } from "@react-spring/web";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 
-import { useApp } from "../hooks/app/useApp";
-import { useDeck } from "../hooks/views/useSynths";
+import { useSynths } from "../hooks/views/useSynths";
 import { useExplore } from "../hooks/views/useExplore";
 import { useProfile } from "../hooks/views/useProfile";
 
-import Deck from "./Deck";
-import Play from "./Play";
+import Synths from "./Synths";
 import Explore from "./Explore";
 import Profile from "./Profile";
-import { usePlay } from "../hooks/views/usePlay";
-
-type LowerElement = "water" | "earth" | "fire" | "air";
 
 export default function Views() {
   const location = useLocation();
-  const [searchParams] = useSearchParams();
   const transitions = useTransition(location, {
     from: { opacity: 0 },
     enter: { opacity: 1 },
@@ -36,41 +23,68 @@ export default function Views() {
     },
   });
 
-  const { isDesktop, setTheme } = useApp();
-
-  const deck = useDeck();
-  const play = usePlay();
+  const synths = useSynths();
   const explore = useExplore();
   const profile = useProfile();
 
-  useEffect(() => {
-    const element = searchParams.get("element") as LowerElement | null;
+  const lastSynth = synths.synths ? synths.synths.length - 1 : 0;
 
-    if (element) {
-      setTheme(element);
-    }
+  const bgStyle = useSpring({
+    to: {
+      background: `linear-gradient(
+        151deg,
+        ${
+          synths.synths[lastSynth]?.waves?.[0]
+            ? synths.synths[lastSynth].waves[0].color
+            : "#e9e3dd"
+        }
+          10.39%,
+        ${
+          synths.synths[lastSynth]?.waves?.[1]
+            ? synths.synths[lastSynth].waves[1].color
+            : "#b2a79e"
+        }
+          56.43%,
+        ${
+          synths.synths[lastSynth]?.waves?.[2]
+            ? synths.synths[lastSynth].waves[2].color
+            : "#d6d0cb"
+        }
+          100%
+      )`,
+    },
+    config: {
+      ...config.slow,
+    },
+  });
 
-    if (isDesktop) {
-      toast.info("Use on mobile for best experience.");
-    }
-  }, []);
+  // const isStarted =
+  //   (state.isConnected ||
+  //     state.isSynthesizing ||
+  //     state.isSynthesized ||
+  //     state.isRefreshing) &&
+  //   !!stats?.experiences?.length;
 
   return transitions((style, location) => (
-    // <Profiler id="views" onRender={callback}>
     <a.main
-      className={`flex h-[calc(100dvh-4rem)] overflow-hidden max-h-[calc(100dvh-4rem)] ${
-        isDesktop ? "" : "overflow-y-contain"
-      }`}
-      style={style}
+      className={`flex h-[calc(100dvh-4rem)] overflow-hidden max-h-[calc(100dvh-4rem)] overflow-y-contain`}
+      style={{ ...style, ...bgStyle }}
+      // isStarted ?s"text-white" : ""
+      css={css`
+        background: linear-gradient(
+          151deg,
+          #e9e3dd 10.39%,
+          #b2a79e 56.43%,
+          #d6d0cb 100%
+        );
+      `}
     >
       <Routes location={location}>
-        <Route path="/deck" element={<Deck {...deck} />} />
-        <Route path="/play" element={<Play {...play} />} />
+        <Route path="/synths" element={<Synths {...synths} />} />
         <Route path="/explore" element={<Explore {...explore} />} />
         <Route path="/profile" element={<Profile {...profile} />} />
         <Route path="*" element={<Navigate to="/explore" />} />
       </Routes>
     </a.main>
-    // </Profiler>
   ));
 }

@@ -26,7 +26,7 @@ export const SynthsGallery: React.FC<SynthsGalleryProps> = ({
       {items.length ? (
         items.map((item, index) => {
           if (!item) return null;
-          if ("event" in item) {
+          if ("eventName" in item) {
             return <Synth key={index} {...item} view={view} />;
           } else {
             return <Wave key={index} {...item} onItemClick={onItemClick} />;

@@ -7,8 +7,6 @@ import { SynthsGallery } from "./Gallery";
 
 export interface SynthsViewerProps extends Synth {
   view: SynthsView;
-  flipped: boolean;
-  setFlipped: React.Dispatch<React.SetStateAction<boolean>>;
   paddingTop?: boolean;
   onItemClick: (item: Synth | Wave) => void;
   onBackClick?: () => void;
@@ -19,12 +17,12 @@ export interface SynthsViewerProps extends Synth {
 export const SynthsViewer: React.FC<SynthsViewerProps> = ({
   view,
   paddingTop,
-  flipped,
-  setFlipped,
   onBackClick,
   onItemClick,
   ...synth
 }) => {
+  const [flipped, setFlipped] = React.useState(false);
+
   return (
     <div className="relative">
       <div

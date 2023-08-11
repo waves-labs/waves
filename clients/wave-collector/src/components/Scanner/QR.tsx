@@ -1,8 +1,8 @@
 import React from "react";
+import { QrReader } from "react-qr-reader";
+import { Loader } from "../Loader";
 
 // TODO: Polish styles to match designs
-// TODO: Add QR code scanner
-// TODO: Add Loader for scanning
 
 interface QRScannerProps {
   isIdle: boolean;
@@ -12,33 +12,29 @@ interface QRScannerProps {
   onQRDetection: (code: string) => void;
 }
 
-export const QRScanner: React.FC<QRScannerProps> = ({ onQRDetection }) => {
-  async function handleImage(file: File | null) {
-    if (!file) {
-      return;
-    }
-
-    const url = URL.createObjectURL(file);
-  }
-
-  function handleUpload(event: React.ChangeEvent<HTMLInputElement>) {
-    const file = event.target.files?.[0];
-
-    if (file) {
-      handleImage(file);
-    }
-  }
+export const QRScanner: React.FC<QRScannerProps> = ({
+  isScanning,
+  onQRDetection,
+}) => {
+  async function handleQRDetection() {}
 
   return (
-    <div>
-      <input
-        className="hidden"
-        type="file"
-        accept="image/*"
-        capture="environment"
-        onChange={handleUpload}
+    <>
+      <QrReader
+        onResult={(result, error) => {
+          if (!!result) {
+            // setData(result?.text);
+            handleQRDetection();
+          }
+
+          if (!!error) {
+            console.info(error);
+          }
+        }}
+        constraints={{}}
+        // style={{ width: "100%" }}
       />
-      QRScanner
-    </div>
+      {isScanning && <Loader />}
+    </>
   );
 };
