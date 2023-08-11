@@ -1,12 +1,11 @@
 import { a, config, useSpring } from "@react-spring/web";
 import { Link, useLocation } from "react-router-dom";
 
-import { useApp } from "../../hooks/app/useApp";
-
-import { RC as CardsIcon } from "../../assets/icons/cards.svg";
+import { RC as WavesIcon } from "../../assets/icons/waves.svg";
 import { RC as WorldIcon } from "../../assets/icons/world.svg";
-import { RC as PlayIcon } from "../../assets/icons/bug.svg";
 import { RC as ProfileIcon } from "../../assets/icons/profile.svg";
+
+// TODO: Polish styles to match designs
 
 const tabs: {
   path: string;
@@ -18,14 +17,9 @@ const tabs: {
   >;
 }[] = [
   {
-    path: "/deck",
-    title: "Deck",
-    Icon: CardsIcon,
-  },
-  {
-    path: "/play",
-    title: "Play",
-    Icon: PlayIcon,
+    path: "/synths",
+    title: "Synths",
+    Icon: WavesIcon,
   },
   {
     path: "/explore",
@@ -41,7 +35,6 @@ const tabs: {
 
 export const Appbar = () => {
   const { pathname } = useLocation();
-  const { isDesktop } = useApp();
 
   const spring = useSpring({
     from: {
@@ -59,16 +52,9 @@ export const Appbar = () => {
     },
   });
 
-  {
-    /* Added a Div  to center Nav bar */
-  }
   return (
     <a.nav
-      className={
-        isDesktop
-          ? "relative tabs w-full bg-base-100 rounded-3xl py-2 px-4 max-w-2xl flex justify-around items-center shadow-lg mx-auto mt-16 z-10"
-          : "btm-nav z-20 bg-base-100 py-4 fixed bottom-0"
-      }
+      className={"btm-nav z-20 bg-base-100 py-4 fixed bottom-0"}
       style={spring}
     >
       {tabs.map(({ path, Icon, title }) => (
@@ -76,7 +62,7 @@ export const Appbar = () => {
           <button
             className={`flex flex-col items-center ${
               pathname === path ? "active tab-active" : ""
-            } ${isDesktop ? "tab" : ""}}`}
+            }`}
           >
             <Icon
               width={32}
