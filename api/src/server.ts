@@ -7,6 +7,7 @@ declare module "fastify" {
     nonce?: string;
     currentChallenge?: string;
     address?: string;
+    chainId?: number;
   }
 }
 
