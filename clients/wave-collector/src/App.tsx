@@ -1,31 +1,27 @@
-import { useAccount } from "wagmi";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { AppProvider, detectHandheld } from "./hooks/useApp";
+import { SynthProvider } from "./hooks/synth/useSynth";
+import { ScannerProvider } from "./hooks/scanner/useScanner";
 
 import { Appbar } from "./components/Layout/AppBar";
-import { Header } from "./components/Layout/Header";
+import { OnlyMobile } from "./components/Layout/OnlyMobile";
+
 import Views from "./views";
 
 export function App() {
-  /**
-   * Wagmi hook for getting account information
-   * @see https://wagmi.sh/docs/hooks/useAccount
-   */
-  const { isConnected } = useAccount();
-
   return (
-    <>
-      <h1>Wave Collector</h1>
-
-      {/** @see https://www.rainbowkit.com/docs/connect-button */}
-      <ConnectButton />
-
-      {isConnected && (
-        <>
-          <hr />
-          {/* <Attestooooooor /> */}
-          <hr />
-        </>
-      )}
-    </>
+    <AppProvider>
+      <SynthProvider>
+        <ScannerProvider>
+          {!detectHandheld() ? (
+            <OnlyMobile />
+          ) : (
+            <>
+              <Views />
+              <Appbar />
+            </>
+          )}
+        </ScannerProvider>
+      </SynthProvider>
+    </AppProvider>
   );
 }
