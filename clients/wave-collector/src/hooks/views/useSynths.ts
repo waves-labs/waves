@@ -1,39 +1,25 @@
 import { useState } from "react";
 import { config, SpringValue, useSpring } from "@react-spring/web";
 
-import { useWefa } from "../wefa/useWefa";
-
-export const height = window.innerHeight - 24;
-
-export interface DeckDataProps {
-  badges: WefaBadge[];
-  plants: Plant[];
+export interface SynthsDataProps {
+  activeSynth: Synth | null;
+  synths: Synth[];
   statsSpring: {
     opacity: SpringValue<number>;
     transform: SpringValue<string>;
   };
-  tabsSpring: {
+  viewsSpring: {
     transform: SpringValue<string>;
   };
-  creatures: Creature[];
-  // plantTrail: {
-  //   opacity: SpringValue<number>;
-  //   transform: SpringValue<string>;
-  // }[];
-  // creatureTrail: {
-  //   opacity: SpringValue<number>;
-  //   transform: SpringValue<string>;
-  // }[];
-  tab: DeckTab;
-  changeTab: (tab: DeckTab) => void;
+  view: SynthsView;
+  changeView: (view: SynthsView) => void;
 }
 
-export type DeckTab = "plants" | "creatures";
+export type SynthsView = "synths" | "synth";
 
-export const useDeck = (): DeckDataProps => {
-  const [tab, setTab] = useState<DeckTab>("plants");
-
-  const { badges, plants, creatures } = useWefa();
+export const useSynths = (): SynthsDataProps => {
+  const [view, setTab] = useState<SynthsView>("synths");
+  const [activeSynth, setActiveSynth] = useState<Synth | null>(null);
 
   const statsSpring = useSpring({
     from: { opacity: 0, transform: "translate3d(0, -100%, 0)" },
@@ -45,7 +31,7 @@ export const useDeck = (): DeckDataProps => {
     },
   });
 
-  const tabsSpring = useSpring({
+  const viewsSpring = useSpring({
     from: { transform: "translate3d(0, 100%, 0)" },
     to: { transform: "translate3d(0, 0%, 0)" },
     config: {
@@ -53,38 +39,20 @@ export const useDeck = (): DeckDataProps => {
     },
   });
 
-  // const plantTrail = useTrail(plants?.length ?? 0, {
-  //   from: { opacity: 0, transform: "translate3d(0, 30px, 0)" },
-  //   to: { opacity: 1, transform: "translate3d(0, 0px, 0)" },
-  //   config: {
-  //     ...config.gentle,
-  //     friction: 20,
-  //     clamp: true,
-  //   },
-  // });
-  // const creatureTrail = useTrail(creatures?.length ?? 0, {
-  //   from: { opacity: 0, transform: "translate3d(0, 30px, 0)" },
-  //   to: { opacity: 1, transform: "translate3d(0, 0px, 0)" },
-  //   config: {
-  //     ...config.gentle,
-  //     friction: 20,
-  //     clamp: true,
-  //   },
-  // });
+  function changeView(view: SynthsView, synth?: Synth) {
+    if (synth) {
+      setActiveSynth(synth);
+    }
 
-  function changeTab(tab: DeckTab) {
-    setTab(tab);
+    setTab(view);
   }
 
   return {
-    badges,
-    plants,
-    creatures,
+    activeSynth,
+    synths: [],
     statsSpring,
-    tabsSpring,
-    // plantTrail,
-    // creatureTrail,
-    tab,
-    changeTab,
+    viewsSpring,
+    view,
+    changeView,
   };
 };

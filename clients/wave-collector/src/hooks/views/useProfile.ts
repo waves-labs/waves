@@ -3,10 +3,6 @@ import { FetchBalanceResult } from "wagmi/dist/actions";
 import { SpringValue, config, useSpring } from "@react-spring/web";
 import { useAccount, useBalance, useEnsAvatar, useEnsName } from "wagmi";
 
-import { useWefa } from "../wefa/useWefa";
-// import { useGames } from "../games/useGames";
-// import { useWorlds } from "../openar/useWorlds";
-
 type Status =
   | "disconnected"
   | "connected"
@@ -17,10 +13,9 @@ type Status =
   | "loading"
   | "success";
 
-export type ProfileTab = "harvest" | "settings" | "wallet";
+export type ProfileTab = "info" | "settings";
 
 export interface ProfileDataProps {
-  badges: WefaBadge[];
   balance?: FetchBalanceResult;
   address?: string;
   accountStatus?: Status;
@@ -28,11 +23,6 @@ export interface ProfileDataProps {
   nameStatus?: Status;
   avatar?: string | null;
   avatarStatus?: Status;
-  // worlds: any[];
-  // worldFormRegister: any;
-  // handleWorldSubmit: any;
-  // onCreateWorld: any;
-  // games: any[];
   tab: ProfileTab;
   tabsSpring: {
     transform: SpringValue<string>;
@@ -45,15 +35,12 @@ export interface ProfileDataProps {
 }
 
 export const useProfile = (): ProfileDataProps => {
-  const [tab, setTab] = useState<ProfileTab>("harvest");
+  const [tab, setTab] = useState<ProfileTab>("info");
 
   const { data: balance } = useBalance();
   const { address, status: accountStatus } = useAccount();
   const { data: name, status: nameStatus } = useEnsName();
   const { data: avatar, status: avatarStatus } = useEnsAvatar();
-
-  // const { tictactoeGames } = useGames();
-  const { badges } = useWefa();
 
   const avatarSpring = useSpring({
     from: { opacity: 0, transform: "translate3d(0, -100%, 0)" },
@@ -68,22 +55,11 @@ export const useProfile = (): ProfileDataProps => {
     },
   });
 
-  // const { worlds, onCreateWorld, handleWorldSubmit, worldFormRegister } = useWorlds();
-
-  // console.log("Profile Data", {
-  //   // worlds,
-  //   tictactoeGames,
-  //   balance,
-  //   name,
-  //   avatar,
-  // });
-
   function changeTab(tab: ProfileTab) {
     setTab(tab);
   }
 
   return {
-    badges,
     balance,
     address,
     accountStatus,
@@ -91,11 +67,6 @@ export const useProfile = (): ProfileDataProps => {
     nameStatus,
     avatar,
     avatarStatus,
-    // worlds,
-    // worldFormRegister,
-    // handleWorldSubmit,
-    // onCreateWorld,
-    // games: [...tictactoeGames],
     tab,
     tabsSpring,
     changeTab,
