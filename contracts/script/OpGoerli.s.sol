@@ -3,14 +3,15 @@ pragma solidity ^0.8.17;
 
 import {Script} from "forge-std/Script.sol";
 
-import {Ticket} from "../src/mode/Ticket.sol";
-import {SynthRegistry} from "../src/mode/SynthRegistry.sol";
-import {SynthGenerator} from "../src/mode/SynthGenerator.sol";
+import {Ticket} from "../src/Ticket.sol";
+import {SynthRegistry} from "../src/SynthRegistry.sol";
+import {SynthGenerator} from "../src/SynthGenerator.sol";
 
 import "../src/Types.sol";
+import "../src/Constants.sol";
 
 /**
- * @title ZoraScript
+ * @title OpScript
  * @notice Script for deploying Wave Collector Contracts.
  * @dev https://book.getfoundry.sh/reference/forge/forge-script
  *
@@ -19,7 +20,7 @@ import "../src/Types.sol";
  * forge script contracts/script/Ticket.s.sol:Deploy --rpc-url http://localhost:8545 --broadcast -vvv
  * @dev Scripts can be used for development and testing, but they are not required for production.
  */
-contract ModeScript is Script {
+contract OpScript is Script {
     function setUp() public {}
 
     function run() public {

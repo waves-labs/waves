@@ -9,3 +9,8 @@ struct Wave {
     uint256 setTime; // length of set in minutes
     bytes32 color; // color of wave for gen art Synth
 }
+
+struct WaveUI {
+    uint256 id; // ID correlating to JSON metadata
+    bytes32 color; // color of wave for gen art Synth
+}

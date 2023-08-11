@@ -2,20 +2,25 @@
 pragma solidity ^0.8.17;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Burnable.sol";
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol";
 
-import "../mode/Ticket.sol";
-import "../Types.sol";
 import "./Synth.sol";
+import "./Types.sol";
+import "./Ticket.sol";
 
 contract Waves is ERC1155, Ownable, Pausable, ERC1155Burnable, ERC1155Supply {
     uint256 public postEventClaimTime;
     address public ticket;
     address public easRegistry;
     mapping(uint256 => Wave) public waves;
+
+    using Counters for Counters.Counter;
+
+    Counters.Counter private _tokenIdCounter;
 
     constructor(
         uint256 claimTime,
@@ -31,6 +36,8 @@ contract Waves is ERC1155, Ownable, Pausable, ERC1155Burnable, ERC1155Supply {
 
         for (uint256 i = 0; i < _waves.length; i++) {
             waves[_waves[i].id] = _waves[i];
+
+            _tokenIdCounter.increment();
         }
 
         transferOwnership(_owner);
@@ -42,17 +49,15 @@ contract Waves is ERC1155, Ownable, Pausable, ERC1155Burnable, ERC1155Supply {
     }
 
     // Used by Event Organizer to update Waves
-    function updateWaves(Wave[] memory _waves) public onlyOwner {
-        for (uint256 i = 0; i < _waves.length; i++) {
-            waves[_waves[i].id] = _waves[i];
-        }
+    function addWave(Wave memory _wave) public onlyOwner {
+        waves[_wave.id] = _wave;
     }
 
     // Used by Event Organizer to remove Waves
-    function removeWaves(uint256[] memory _ids) public onlyOwner {
-        for (uint256 i = 0; i < _ids.length; i++) {
-            delete waves[_ids[i]];
-        }
+    function removeWave(uint256 _id) public onlyOwner {
+        delete waves[_id];
+
+        _tokenIdCounter.decrement();
     }
 
     // Used by Event Organizer Relayer to mint waves for attendees Synth(ERC-6551)
@@ -69,6 +74,29 @@ contract Waves is ERC1155, Ownable, Pausable, ERC1155Burnable, ERC1155Supply {
         //TODO: Check Attestation Registry for valid attestation
 
         _mint(msg.sender, id, 1, "");
+    }
+
+    // Used by WAVES app to fetch WAVE tokens for synth
+    function getSynthWaves(address synth) public view returns (WaveUI[] memory) {
+        uint256[] memory ids = new uint256[](_tokenIdCounter.current());
+        address[] memory addrs = new address[](_tokenIdCounter.current());
+
+        for (uint256 i = 0; i < _tokenIdCounter.current(); i++) {
+            ids[i] = i;
+            addrs[i] = synth;
+        }
+
+        uint256[] memory balances = balanceOfBatch(addrs, ids);
+
+        WaveUI[] memory wavesUI = new WaveUI[](balances.length);
+
+        for (uint256 i = 0; i < balances.length; i++) {
+            if (balances[i] > 0) {
+                wavesUI[i] = WaveUI(waves[i].id, waves[i].color);
+            }
+        }
+
+        return wavesUI;
     }
 
     function pause() public onlyOwner {

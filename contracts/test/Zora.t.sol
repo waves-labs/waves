@@ -3,9 +3,9 @@ pragma solidity ^0.8.17;
 
 import "forge-std/Test.sol";
 
-import "../src/zora/Synth.sol";
-import "../src/zora/Waves.sol";
-import "../src/zora/WavesResolver.sol";
+import "../src/Synth.sol";
+import "../src/Waves.sol";
+import "../src/WavesResolver.sol";
 
 contract ZoraTest is Test {
     Waves public waves;

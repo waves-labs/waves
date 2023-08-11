@@ -6,19 +6,22 @@ import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/utils/introspection/IERC165.sol";
 import "@openzeppelin/contracts/utils/cryptography/SignatureChecker.sol";
 
-import "../interfaces/IERC6551Account.sol";
-import "../interfaces/IERC6551Executable.sol";
+import "./interfaces/IERC6551Account.sol";
+import "./interfaces/IERC6551Executable.sol";
 
 contract Synth is IERC165, IERC1271, IERC6551Account, IERC6551Executable {
     uint256 public state;
-    address public wavesAddress;
 
-    constructor(address _wavesAddress) {
-        wavesAddress = _wavesAddress;
-    }
-
-    // Public functions
+    // External functions
     receive() external payable {}
+
+    function generateArt(uint256 tokenId, address to, bytes calldata data) external {
+        require(_isValidSigner(msg.sender), "Invalid signer");
+        // TODO: Minr Art NFT
+        // TODO: Burn Synth NFT
+
+        IERC721(msg.sender).safeTransferFrom(address(this), to, tokenId, data);
+    }
 
     function execute(address to, uint256 value, bytes calldata data, uint256 operation)
         external

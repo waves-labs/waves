@@ -1,20 +1,21 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.17;
 
-import {Synth} from "../src/zora/Synth.sol";
-import {Waves} from "../src/zora/Waves.sol";
-import {Ticket} from "../src/mode/Ticket.sol";
+import {Script} from "forge-std/Script.sol";
+
+import {Ticket} from "../src/Ticket.sol";
+import {SynthRegistry} from "../src/SynthRegistry.sol";
+import {SynthGenerator} from "../src/SynthGenerator.sol";
 
 import "../src/Types.sol";
-
-import {Script} from "forge-std/Script.sol";
+import "../src/Constants.sol";
 
 /**
  * @title ZoraScript
  * @notice Script for deploying Wave Collector Contracts.
  * @dev https://book.getfoundry.sh/reference/forge/forge-script
  *
- * @dev This script is used to deploy Ticket, Waves, and Synth with forge script
+ * @dev This script is used to deploy Ticket, SynthGenerator, and SynthRegistry with forge script
  * example start anvil with `anvil` command and then run
  * forge script contracts/script/Ticket.s.sol:Deploy --rpc-url http://localhost:8545 --broadcast -vvv
  * @dev Scripts can be used for development and testing, but they are not required for production.
@@ -32,17 +33,24 @@ contract ZoraScript is Script {
         // deploy Ticket
         Ticket ticket = new Ticket( "Coachella", "COACH", block.timestamp, block.timestamp + 1 days, 100);
 
-        // deploy Waves
-        Wave[] memory initialWaves = new Wave[](4);
+        // deploy SynthRegistry
+        SynthRegistry synthRegistry = new SynthRegistry();
 
-        initialWaves[0] = Wave(1, 100, 0, block.timestamp, 30 minutes, bytes("blue"));
-        initialWaves[1] = Wave(2, 100, 0, block.timestamp, 30 minutes, bytes("green"));
-        initialWaves[2] = Wave(0, 100, 0, block.timestamp, 30 minutes, bytes("red"));
-        initialWaves[3] = Wave(3, 100, 0, block.timestamp, 30 minutes, bytes("yellow"));
+        Wave[] memory waves = new Wave[](2);
 
-        // Waves waves = new Waves(address(ticket), initialWaves, "https://ipfs", block.timestamp + 1 days);
+        waves[0] = Wave(0, 100, 0, block.timestamp, block.timestamp + 1 days, bytes32("red"));
+        waves[1] = Wave(1, 100, 0, block.timestamp, block.timestamp + 1 days, bytes32("blue"));
+
+        // deploy SynthGenerator
+        (, address generator) = synthRegistry.registerEvent(
+            1 days, address(ticket), "https://github.com/SynesthesiaLabs/superhack/tree/main/contracts/src", waves
+        );
 
         // deploy Synth
+        SynthGenerator synthGenerator = SynthGenerator(generator);
+
+        // mint Synth
+        // synthGenerator.generateSynth(attendee
 
         // stop broadcasting transactions
         vm.stopBroadcast();

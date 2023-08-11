@@ -6,10 +6,10 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
+import "./Synth.sol";
 import "./Ticket.sol";
-import "../Constants.sol";
-import "../zora/Synth.sol";
-import "../interfaces/IERC6551Registry.sol";
+import "./Constants.sol";
+import "./interfaces/IERC6551Registry.sol";
 
 contract SynthGenerator is ERC721, Pausable, Ownable {
     address public ticket;
