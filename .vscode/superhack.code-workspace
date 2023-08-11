@@ -1,13 +1,19 @@
 {
   "folders": [
     {
+      "name": "superhack",
       "path": ".."
     },
     {
+      "name": "contracts",
       "path": "../contracts"
     },
     {
+      "name": "wave-collector",
       "path": "../clients/wave-collector"
+    },
+    {
+      "path": "../api"
     }
   ],
   "settings": {
@@ -31,7 +37,7 @@
     "solidity.formatter": "forge",
     "solidity.compileUsingRemoteVersion": "v0.8.17",
     "solidity.remappings": [
-      "@eth-optimism/contracts-bedrock/=node_modules/@eth-optimism/contracts-bedrock",
+      // "forge-std/=node_modules/forge-std/src/",
       "@ethereum-attestation-service/eas-contracts/=node_modules/@ethereum-attestation-service/eas-contracts/",
       "@openzeppelin/contracts/=node_modules/@openzeppelin/contracts/",
       "@openzeppelin/contracts-upgradeable/=node_modules/@openzeppelin/contracts-upgradeable/"
