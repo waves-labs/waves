@@ -22,12 +22,9 @@ export default async function userController(fastify: FastifyInstance) {
       }
 
       req.session.nonce = undefined;
-      req.session.identifier = {
-        id: fields.address,
-        type: "ETHER",
-      };
+      req.session.address = fields.address;
 
-      reply.send({ identifier: req.session.identifier });
+      reply.send({ address: req.session.address });
     } catch (error) {
       const _error = error as Error;
       console.error(_error);
@@ -36,9 +33,9 @@ export default async function userController(fastify: FastifyInstance) {
   });
 
   fastify.post("/logout", async function (req: FastifyRequest, reply: FastifyReply) {
-    // req.session.username = null;
     req.session.nonce = undefined;
     req.session.currentChallenge = undefined;
+    req.session.address = undefined;
 
     req.session.destroy();
 

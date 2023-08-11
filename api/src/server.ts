@@ -4,9 +4,9 @@ import fastify from "fastify";
 
 declare module "fastify" {
   export interface Session {
-    // username: string | null;
     nonce?: string;
     currentChallenge?: string;
+    address?: string;
   }
 }
 
