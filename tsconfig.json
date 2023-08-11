@@ -15,13 +15,11 @@
     "strict": true,
     "target": "ESNext",
     "useDefineForClassFields": true,
-    "types": ["vite/client"],
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
     "jsxImportSource": "@emotion/react"
   },
-  "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["src"]
 }

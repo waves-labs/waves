@@ -4,27 +4,41 @@ pragma solidity 0.8.17;
 import {IEAS, Attestation} from "@ethereum-attestation-service/eas-contracts/contracts/IEAS.sol";
 import {SchemaResolver} from "@ethereum-attestation-service/eas-contracts/contracts/resolver/SchemaResolver.sol";
 
-/// @title WavesResolver
-/// @notice A sample schema resolver that logs a uint256 input.
-contract WavesResolver is SchemaResolver {
-    /// @notice Emitted to log a uint256 value.
-    /// @param value The attested value.
-    event Log(uint256 value);
+import "./Synth.sol";
+import "./Waves.sol";
+import "./Ticket.sol";
 
-    constructor(IEAS eas) SchemaResolver(eas) {}
+/// @title WavesResolver
+/// @notice A schema resolver for the Waves event schema
+contract WavesResolver is SchemaResolver {
+    struct EventSchema {
+        string eventName;
+        address ticketAddress;
+        address wavesAddress;
+        uint256 waveId;
+    }
+
+    address private immutable _targetAttester;
+
+    constructor(IEAS eas, address targetAttester) SchemaResolver(eas) {
+        _targetAttester = targetAttester;
+    }
 
     function onAttest(Attestation calldata attestation, uint256 /*value*/ ) internal override returns (bool) {
-        uint256 value = abi.decode(attestation.data, (uint256));
+        address recipient = attestation.recipient;
+        EventSchema memory schema = abi.decode(attestation.data, (EventSchema));
 
-        emit Log(value);
-
-        // Mint Wave token if attestation is valid
+        // TODO Check that recipient is a Synth
+        // TODO Check that ticket associated to waves
+        // TODO Call rewardWave on Waves (ERC-1155)
 
         return true;
     }
 
     function onRevoke(Attestation calldata, /*attestation*/ uint256 /*value*/ ) internal pure override returns (bool) {
-        // Burn token if minted for attestation
+        // TODO: Burn token if minted for attestation
+        // TODO: Call burnWave on Waves (ERC-1155)
+
         return true;
     }
 }

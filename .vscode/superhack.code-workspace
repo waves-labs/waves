@@ -9,11 +9,10 @@
       "path": "../contracts"
     },
     {
-      "name": "wave-collector",
-      "path": "../clients/wave-collector"
+      "path": "../api"
     },
     {
-      "path": "../api"
+      "path": "../../art/packages/client"
     }
   ],
   "settings": {

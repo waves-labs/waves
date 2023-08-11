@@ -1,7 +1,6 @@
 import { defineConfig } from "@wagmi/cli";
 import { foundry, react } from "@wagmi/cli/plugins";
-import * as chains from "wagmi/chains";
-import { ATTESTATION_STATION_ADDRESS } from "@eth-optimism/atst";
+// import * as chains from "wagmi/chains";
 
 /**
  * Wagmi cli will automatically generate react hooks from your forge contracts
@@ -19,7 +18,7 @@ import { ATTESTATION_STATION_ADDRESS } from "@eth-optimism/atst";
  * @see https://wagmi.sh/cli/plugins/actions
  */
 export default defineConfig({
-  out: "clients/wave-collector/src/generated.ts",
+  out: "src/generated.ts",
   plugins: [
     /**
      * Generates react hooks from your forge contracts
