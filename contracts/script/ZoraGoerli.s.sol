@@ -34,7 +34,7 @@ contract ZoraScript is Script {
         Ticket ticket = new Ticket( "Coachella", "COACH", block.timestamp, block.timestamp + 1 days, 100);
 
         // deploy SynthRegistry
-        SynthRegistry synthRegistry = new SynthRegistry();
+        SynthRegistry synthRegistry = new SynthRegistry(ZORA_GOERLI_EAS_ADDRESS);
 
         Wave[] memory waves = new Wave[](2);
 

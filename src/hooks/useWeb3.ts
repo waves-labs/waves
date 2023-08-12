@@ -50,7 +50,7 @@ export const useWeb3 = () => {
         await handleConnect();
       }
 
-      const nonceRes = await apiClient.get(`/user/identifier/nonce`, {});
+      const nonceRes = await apiClient.get(`/identity/nonce`, {});
 
       const nonce = await nonceRes.data;
 
@@ -65,7 +65,7 @@ export const useWeb3 = () => {
       });
       const signature = signMessage(message.prepareMessage());
 
-      await apiClient.post(`/user/identifier/login`, {
+      await apiClient.post(`/identity/login`, {
         body: {
           message,
           signature,
@@ -81,7 +81,7 @@ export const useWeb3 = () => {
     try {
       setError(null);
       await disconnectAsync();
-      await apiClient.post(`/user/logout`);
+      await apiClient.post(`/identity/logout`);
     } catch (err: any) {
       err && err.message && setError(err.message);
       console.error("ERROR DICONNECTING WALLET", err);

@@ -9,10 +9,20 @@
       "path": "../contracts"
     },
     {
+      "name": "api",
       "path": "../api"
     },
     {
+      "name": "src",
+      "path": "../src"
+    },
+    {
+      "name": "client",
       "path": "../../art/packages/client"
+    },
+    {
+      "name": "openar",
+      "path": "../../../../wefa/openar"
     }
   ],
   "settings": {

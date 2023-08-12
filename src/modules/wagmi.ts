@@ -22,7 +22,7 @@ const { chains, publicClient } = configureChains(
     zoraTestnet,
     {
       id: 919,
-      name: "MODE",
+      name: "Mode Sepolia",
       network: "mode",
       nativeCurrency: {
         name: "Ethereum",
