@@ -19,7 +19,7 @@ contract SynthGenerator is ERC721, Pausable, Ownable {
 
     using Counters for Counters.Counter;
 
-    Counters.Counter private _tokenIdCounter;
+    Counters.Counter private _synthIdCounter;
 
     constructor(address _ticket, address _waves, address _owner, string memory _eventName)
         ERC721(_eventName, "SYNTH")
@@ -31,22 +31,25 @@ contract SynthGenerator is ERC721, Pausable, Ownable {
     }
 
     // Used by Attendee to generate Synth (ERC-6551 & Gen Art token)
-    function generateSynth(address attendee) public whenNotPaused returns (address) {
+    function generateSynth() public whenNotPaused returns (address) {
         Ticket ticketContract = Ticket(ticket);
 
-        require(ticketContract.balanceOf(attendee) > 0, "SynthGenerator: must own ticket");
-        require(!attendeeClaimedSynth[attendee], "SynthGenerator: already claimed");
+        require(ticketContract.balanceOf(msg.sender) > 0, "SynthGenerator: must own ticket");
+        require(!attendeeClaimedSynth[msg.sender], "SynthGenerator: already claimed");
 
-        attendeeClaimedSynth[attendee] = true;
-        uint256 tokenId = _tokenIdCounter.current();
+        attendeeClaimedSynth[msg.sender] = true;
+        uint256 tokenId = _synthIdCounter.current();
 
-        _tokenIdCounter.increment();
-        _safeMint(attendee, tokenId);
+        _synthIdCounter.increment();
+        _safeMint(msg.sender, tokenId);
 
         IERC6551Registry erc6551Registry = IERC6551Registry(ERC6551_REGISTRY_ADDRESS);
 
+        // bytes memory initCallData =
+        //     abi.encodeWithSignature("initialize(address ticketAddrs, address wavesAddrs)", ticket, waves);
+
         address synth =
-            erc6551Registry.createAccount(SYNTH_ERC6551_IMPLEMENTATION_ADDRESS, 0, address(this), tokenId, 0, "");
+            erc6551Registry.createAccount(ERC6551_IMPLEMENTATION_ADDRESS, 0, address(this), tokenId, 0, "");
 
         synths.push(synth);
 

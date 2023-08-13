@@ -24,35 +24,35 @@ contract OpScript is Script {
     function setUp() public {}
 
     function run() public {
-        // read DEPLOYER_PRIVATE_KEY from environment variables
-        uint256 deployerPrivateKey = vm.envUint("DEPLOYER_PRIVATE_KEY");
+        // // read FORGE_PRIVATE_KEY from environment variables
+        uint256 deployerPrivateKey = vm.envUint("FORGE_PRIVATE_KEY");
 
         // start broadcast any transaction after this point will be submitted to chain
         vm.startBroadcast(deployerPrivateKey);
 
-        // deploy Ticket
-        Ticket ticket = new Ticket( "Coachella", "COACH", block.timestamp, block.timestamp + 1 days, 100);
+        // // deploy Ticket
+        // Ticket ticket = new Ticket( "Coachella", "COACH", block.timestamp, block.timestamp + 1 days, 100);
 
-        // deploy SynthRegistry
-        SynthRegistry synthRegistry = new SynthRegistry(OP_GOERLI_EAS_ADDRESS);
+        // // deploy SynthRegistry
+        // SynthRegistry synthRegistry = new SynthRegistry(OP_GOERLI_EAS_ADDRESS);
 
-        Wave[] memory waves = new Wave[](2);
+        // Wave[] memory waves = new Wave[](2);
 
-        waves[0] = Wave(0, 100, 0, block.timestamp, block.timestamp + 1 days, bytes32("red"));
-        waves[1] = Wave(1, 100, 0, block.timestamp, block.timestamp + 1 days, bytes32("blue"));
+        // waves[0] = Wave(0, 100, 0, block.timestamp, block.timestamp + 1 days, bytes32("red"));
+        // waves[1] = Wave(1, 100, 0, block.timestamp, block.timestamp + 1 days, bytes32("blue"));
 
-        // deploy SynthGenerator
-        (, address generator) = synthRegistry.registerEvent(
-            1 days, address(ticket), "https://github.com/SynesthesiaLabs/superhack/tree/main/contracts/src", waves
-        );
+        // // deploy SynthGenerator
+        // (, address generator) = synthRegistry.registerEvent(
+        //     1 days, address(ticket), "https://github.com/SynesthesiaLabs/superhack/tree/main/contracts/src", waves
+        // );
 
-        // deploy Synth
-        SynthGenerator synthGenerator = SynthGenerator(generator);
+        // // deploy Synth
+        // SynthGenerator synthGenerator = SynthGenerator(generator);
 
-        // mint Synth
-        // synthGenerator.generateSynth(attendee
+        // // mint Synth
+        // // synthGenerator.generateSynth(attendee
 
-        // stop broadcasting transactions
+        // // stop broadcasting transactions
         vm.stopBroadcast();
     }
 }

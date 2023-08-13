@@ -35,15 +35,15 @@ contract Ticket is ERC721, Pausable, Ownable {
     }
 
     // Used by Attendee to purchase tickets
-    function purchaseTicket(address attendee) public payable whenNotPaused {
-        require(msg.value == 0.001 ether, "Ticket: must send 1 ether");
+    function purchaseTicket() public payable whenNotPaused {
+        // require(msg.value == 0.0001 ether, "Ticket: must send 1 ether");
         require(block.timestamp < endTime, "Ticket: event has ended");
         require(_tokenIdCounter.current() <= maxSupply, "Ticket: sold out");
         require(balanceOf(msg.sender) == 0, "Ticket: already claimed");
 
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
-        _safeMint(attendee, tokenId);
+        _safeMint(msg.sender, tokenId);
     }
 
     function pause() public onlyOwner {
