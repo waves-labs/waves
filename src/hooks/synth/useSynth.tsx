@@ -4,7 +4,7 @@ import { useAccount } from "wagmi";
 import { createContext, useContext, useEffect, useState } from "react";
 
 import { SynthContext as SynthMachineContext, synthMachine } from "./machine";
-import { mockSynths } from "../../mockData";
+// import { mockSynths } from "../../mockData";
 import { useSynthGeneratorGenerateSynth } from "../../generated";
 
 export interface SynthDataProps extends SynthMachineContext {
@@ -31,9 +31,7 @@ export const SynthProvider = ({ children }: Props) => {
   const { address } = useAccount();
   const {} = useSynthGeneratorGenerateSynth({});
 
-  const [synths, setSynths] = useState<Synth[]>(mockSynths);
-
-  function getSynths() {}
+  const [synths, setSynths] = useState<Synth[]>([]);
 
   const [state, send] = useMachine(synthMachine, {
     actions: {
