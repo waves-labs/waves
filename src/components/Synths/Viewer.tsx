@@ -6,6 +6,8 @@ import { SynthsGallery } from "./Gallery";
 import { WaveDialog } from "./WaveDialog";
 import { useSynth } from "../../hooks/synth/useSynth";
 
+import { RC as ArrowLeft } from "../../assets/icons/arrow-left.svg";
+
 export interface SynthsViewerProps {}
 
 // TODO: Polish styles to match designs
@@ -37,10 +39,15 @@ export const SynthsViewer: React.FC<SynthsViewerProps> = ({}) => {
     }
   }
 
+  console.log("Synth", synth);
+
   return (
-    <div className="relative">
-      <Link className="" to="/synths">
-        Back to Synths
+    <div className="relative px-6 pt-12 w-full h-full">
+      <Link
+        className="absolute left-6 top-2 grid place-items-center w-12 h-12 unselectable"
+        to="/synths"
+      >
+        <ArrowLeft />
       </Link>
       {synth ? (
         <>

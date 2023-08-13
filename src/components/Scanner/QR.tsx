@@ -1,6 +1,7 @@
 import React from "react";
 import { QrReader } from "react-qr-reader";
 import { Loader } from "../Loader";
+import { useSynth } from "../../hooks/synth/useSynth";
 
 // TODO: Polish styles to match designs
 
@@ -16,17 +17,28 @@ export const QRScanner: React.FC<QRScannerProps> = ({
   isScanning,
   onQRDetection,
 }) => {
-  async function handleQRDetection() {}
-
+  const { synths } = useSynth();
   return (
     <>
       <QrReader
-        scanDelay={2000}
+        // scanDelay={2000}
         onResult={(result, error) => {
           if (!!result) {
-            console.log("QR Scan", result?.getText());
+            const url = new URL(result?.getText() as string);
 
-            handleQRDetection();
+            const artist = url.searchParams.get("artist");
+            const eventName = url.searchParams.get("event");
+
+            if (!artist || !eventName) {
+              console.info("Invalid QR Code");
+              return;
+            }
+
+            const synth: string = synths.find(
+              (synth) => eventName === synth.eventName,
+            )?.address as string;
+
+            onQRDetection(synth, eventName, artist);
           }
 
           if (!!error) {

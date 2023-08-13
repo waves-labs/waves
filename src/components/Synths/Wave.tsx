@@ -9,9 +9,9 @@ export const Wave: React.FC<WaveProps> = ({ data }) => {
   return (
     <label
       htmlFor="synths-dialog"
-      className={`w-full max-w-full unselectable shadow-xl cursor-pointer flex justify-between items-center rounded-xl`}
+      className={`w-1/2 unselectable shadow-xl cursor-pointer flex justify-between items-center`}
     >
-      {data.includes("https://") ? (
+      {data.includes("https://" || "assets") ? (
         <img
           src={data}
           alt="Wave"

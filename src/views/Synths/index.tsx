@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 import { SynthsDataProps } from "../../hooks/views/useSynths";
 
@@ -12,6 +12,7 @@ interface SynthsProps extends SynthsDataProps {}
 
 const Synths: React.FC<SynthsProps> = ({ synths, address }) => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   function handleItemClick(item: Synth | Wave) {
     if ("eventName" in item) {
@@ -20,20 +21,22 @@ const Synths: React.FC<SynthsProps> = ({ synths, address }) => {
   }
 
   return (
-    <section
-      className={`flex flex-col relative w-full items-center gap-3 px-6 pt-12`}
-    >
-      <label
-        htmlFor="synths-mint-dialog"
-        className={`absolute right-6 top-12 grid place-items-center w-10 h-10 unselectable`}
-      >
-        <AddIcon />
-      </label>
-      <SynthsGallery
-        items={address ? synths : []}
-        view="synths"
-        onItemClick={handleItemClick}
-      />
+    <section className={`flex flex-col relative w-full items-center gap-3`}>
+      {location.pathname === "/synths" && (
+        <div className="px-6 pt-12 w-full h-full">
+          <label
+            htmlFor="synths-mint-dialog"
+            className={`absolute right-6 top-2 grid place-items-center w-12 h-12 unselectable`}
+          >
+            <AddIcon />
+          </label>
+          <SynthsGallery
+            items={address ? synths : []}
+            view="synths"
+            onItemClick={handleItemClick}
+          />{" "}
+        </div>
+      )}
       <Outlet />
       <SynthsMintDialog />
     </section>

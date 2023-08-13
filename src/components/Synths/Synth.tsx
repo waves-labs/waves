@@ -19,7 +19,7 @@ export const Synth: React.FC<SynthProps> = ({
   flipped,
   setFlipped,
   eventName,
-  address,
+  // address,
   image,
   onClick,
 }) => {
@@ -33,9 +33,13 @@ export const Synth: React.FC<SynthProps> = ({
     view === "synth" && setFlipped && setFlipped((state) => !state);
   }
 
+  console.log("Synth Image", image);
+
   return (
     <div
-      className={`relative aspect-square w-full bg-transparent`}
+      className={`${
+        view === "synths" ? "w-1/2" : "w-full"
+      } relative aspect-square bg-transparent aspect-square`}
       onClick={onClick ?? handleSynthClick}
     >
       <a.div
