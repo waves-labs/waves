@@ -1,13 +1,13 @@
 import fs from "fs";
 import path from "path";
 import fastify from "fastify";
+import { SiweMessage } from "siwe";
 
 declare module "fastify" {
   export interface Session {
-    nonce?: string;
-    currentChallenge?: string;
-    address?: string;
-    chainId?: number;
+    nonce: string | null;
+    siwe: SiweMessage | null;
+    chainId?: 420 | 85431 | 999 | 919;
   }
 }
 

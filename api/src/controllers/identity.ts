@@ -13,32 +13,36 @@ export default async function userController(fastify: FastifyInstance) {
     const body = req.body as { message: string; signature: string };
 
     try {
-      const siweMessage = new SiweMessage(body.message);
-      const fields = await siweMessage.validate(body.signature);
-
-      if (fields.nonce !== req.session.nonce) {
-        reply.status(422).send({ error: "Invalid nonce." });
-        return;
+      if (!body.message || !body.signature || !req.session.nonce) {
+        return reply.status(400).send({ error: "Missing message, signature, or nonce" });
       }
 
-      req.session.nonce = undefined;
-      req.session.address = fields.address;
+      let SIWEObject = new SiweMessage(body.message);
+      const { data: message } = await SIWEObject.verify({ signature: body.signature, nonce: req.session.nonce });
 
-      reply.send({ address: req.session.address });
+      req.session.siwe = message;
+      if (message.expirationTime) {
+        req.session.cookie.expires = new Date(message.expirationTime);
+      }
+
+      req.session.save(() => reply.status(200).send(true));
     } catch (error) {
+      req.session.siwe = null;
+      req.session.nonce = null;
+
       const _error = error as Error;
       console.error(_error);
+
       return reply.status(400).send({ error: _error.message });
     }
   });
 
   fastify.post("/logout", async function (req: FastifyRequest, reply: FastifyReply) {
-    req.session.nonce = undefined;
-    req.session.currentChallenge = undefined;
-    req.session.address = undefined;
+    req.session.siwe = null;
+    req.session.nonce = null;
 
     req.session.destroy();
 
-    reply.send({ success: true });
+    reply.send(true);
   });
 }
