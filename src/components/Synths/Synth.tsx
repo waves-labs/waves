@@ -8,6 +8,7 @@ export interface SynthProps extends Synth {
   view: SynthsView;
   flipped?: boolean;
   setFlipped?: React.Dispatch<React.SetStateAction<boolean>>;
+  onClick?: () => void;
 }
 
 // TODO: Polish styles to match designs
@@ -17,7 +18,10 @@ export const Synth: React.FC<SynthProps> = ({
   view,
   flipped,
   setFlipped,
-  // ...synth
+  eventName,
+  address,
+  image,
+  onClick,
 }) => {
   const { transform, opacity } = useSpring({
     opacity: flipped ? 1 : 0,
@@ -32,7 +36,7 @@ export const Synth: React.FC<SynthProps> = ({
   return (
     <div
       className={`relative aspect-square w-full bg-transparent`}
-      onClick={handleSynthClick}
+      onClick={onClick ?? handleSynthClick}
     >
       <a.div
         className="border-[0.75rem] sm:border-[1rem] lg:border-[1.5rem] border-black bg-black absolute w-full h-full grid place-items-center"
@@ -40,7 +44,13 @@ export const Synth: React.FC<SynthProps> = ({
         css={css`
           box-shadow: 20px 20px 100px 0px rgba(0, 0, 0, 0.35);
         `}
-      ></a.div>
+      >
+        <img
+          src={image}
+          alt={eventName}
+          className="w-full h-full object-cover"
+        />
+      </a.div>
       <a.div
         className="border-[0.75rem] sm:border-[1rem] md:border-[1.5rem] border-black bg-black absolute w-full h-full"
         style={{

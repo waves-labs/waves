@@ -1,8 +1,7 @@
 import { createMachine, assign } from "xstate";
 
 export interface ScannerEvent {
-  eventName: string | null;
-  artist: string | null;
+  synth: string | null;
   tokenAddress: string | null;
   tokenId: number | null;
 }
@@ -82,8 +81,6 @@ export const scannerMachine = createMachine(
             break;
         }
         console.log("Error!", context, event);
-
-        // toast.error(context.error || "Error with creature generator.");
 
         return context;
       }),

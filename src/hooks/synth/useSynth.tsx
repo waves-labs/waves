@@ -1,15 +1,19 @@
 import { assign } from "xstate";
 import { useMachine } from "@xstate/react";
+import { useAccount } from "wagmi";
 import { createContext, useContext, useEffect, useState } from "react";
 
 import { SynthContext as SynthMachineContext, synthMachine } from "./machine";
+import { mockSynths } from "../../mockData";
+import { useSynthGeneratorGenerateSynth } from "../../generated";
 
 export interface SynthDataProps extends SynthMachineContext {
   isIdle: boolean;
   isMinting: boolean;
-  isGenerating: boolean;
+  isGeneratingArt: boolean;
+  address?: `0x${string}`;
   synths: Synth[];
-  mintSynth: (address: string) => void;
+  mintSynth: (eventName: EventName) => void;
   generateArt: (synthAddrs: string) => void;
 }
 
@@ -19,14 +23,15 @@ type Props = {
   children: React.ReactNode;
 };
 
-const SYNTH_REGISTRY = import.meta.env.VITE_VERCEL_SYNTH_REGISTRY as string;
-
 export const SynthProvider = ({ children }: Props) => {
   const currentValue = useContext(SynthContext);
 
   if (currentValue) throw new Error("SynthProvider can only be used once");
 
-  const [synths, setSynths] = useState<Synth[]>([]);
+  const { address } = useAccount();
+  const {} = useSynthGeneratorGenerateSynth({});
+
+  const [synths, setSynths] = useState<Synth[]>(mockSynths);
 
   function getSynths() {}
 
@@ -37,16 +42,48 @@ export const SynthProvider = ({ children }: Props) => {
 
         return context;
       }),
-      generated: assign((context, event) => {
+      generatedArt: assign((context, event) => {
         // TODO: Update synth state to generated
 
         return context;
       }),
     },
+    services: {
+      mintService: async (
+        context,
+        event: { generatorAddrs?: string },
+        _meta,
+      ) => {
+        try {
+          return {
+            tokenAddress: "",
+            tokenId: 0,
+            address: "",
+            waves: [],
+            eventName: "",
+            image: "",
+          };
+        } catch (error) {
+          console.log("Synth minting failed!", error);
+          throw error;
+        }
+      },
+      genArtService: async (context, event: { element?: any }) => {
+        try {
+          return {
+            tokenAddress: "",
+            tokenId: 0,
+          };
+        } catch (error) {
+          console.log("Art generation failed!", error);
+          throw error;
+        }
+      },
+    },
   });
 
-  function mintSynth(generatorAddrs: string) {
-    send({ type: "MINT", generatorAddrs });
+  function mintSynth(eventName: EventName) {
+    send({ type: "MINT", eventName });
   }
 
   function generateArt(synthAddrs: string) {
@@ -62,9 +99,10 @@ export const SynthProvider = ({ children }: Props) => {
       value={{
         isIdle: state.matches("idle"),
         isMinting: state.matches("minting"),
-        isGenerating: state.matches("generating"),
+        isGeneratingArt: state.matches("generatingArt"),
         mintSynth,
         generateArt,
+        address,
         synths,
         ...state.context,
       }}

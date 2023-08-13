@@ -3,15 +3,15 @@ import { createPortal } from "react-dom";
 
 // TODO: Polish styles to match designs
 
-export interface SynthsDialogData {
+export interface WaveDialogData {
   image: string;
   name: string;
   description?: string;
 }
 
-interface SynthsDialogProps extends SynthsDialogData {}
+interface WaveDialogProps extends WaveDialogData {}
 
-export const SynthsDialog: React.FC<SynthsDialogProps> = ({
+export const WaveDialog: React.FC<WaveDialogProps> = ({
   name,
   description,
   image,
@@ -30,8 +30,8 @@ export const SynthsDialog: React.FC<SynthsDialogProps> = ({
 
   return createPortal(
     <>
-      <input type="checkbox" id="deck-viewer-dialog" className="modal-toggle" />
-      <label htmlFor="deck-viewer-dialog" className="modal cursor-pointer">
+      <input type="checkbox" id="synths-dialog" className="modal-toggle" />
+      <label htmlFor="synths-dialog" className="modal cursor-pointer">
         <label
           className="modal-box relative flex w-full max-w-sm flex-col gap-4"
           htmlFor=""

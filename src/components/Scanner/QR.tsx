@@ -9,7 +9,7 @@ interface QRScannerProps {
   isScanning: boolean;
   detected?: boolean;
   error: string | null;
-  onQRDetection: (code: string) => void;
+  onQRDetection: (synth: string, eventName: string, artist: string) => void;
 }
 
 export const QRScanner: React.FC<QRScannerProps> = ({
@@ -21,9 +21,11 @@ export const QRScanner: React.FC<QRScannerProps> = ({
   return (
     <>
       <QrReader
+        scanDelay={2000}
         onResult={(result, error) => {
           if (!!result) {
-            // setData(result?.text);
+            console.log("QR Scan", result?.getText());
+
             handleQRDetection();
           }
 
@@ -31,8 +33,10 @@ export const QRScanner: React.FC<QRScannerProps> = ({
             console.info(error);
           }
         }}
-        constraints={{}}
-        // style={{ width: "100%" }}
+        constraints={{
+          facingMode: "environment",
+        }}
+        className="qr-scanner"
       />
       {isScanning && <Loader />}
     </>

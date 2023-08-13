@@ -28,14 +28,14 @@ export interface Typegen0 {
     mintService: "done.invoke.mintService";
   };
   missingImplementations: {
-    actions: "generated" | "minted";
+    actions: "generatedArt" | "minted";
     delays: never;
     guards: never;
-    services: never;
+    services: "genArtService" | "mintService";
   };
   eventsCausingActions: {
     error: "error.platform.genArtService" | "error.platform.mintService";
-    generated: "done.invoke.genArtService";
+    generatedArt: "done.invoke.genArtService";
     minted: "done.invoke.mintService";
   };
   eventsCausingDelays: {};
@@ -47,6 +47,6 @@ export interface Typegen0 {
     genArtService: "GENERATE_ART";
     mintService: "MINT";
   };
-  matchesStates: "generating" | "idle" | "minting";
+  matchesStates: "generatingArt" | "idle" | "minting";
   tags: never;
 }

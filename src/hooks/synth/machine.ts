@@ -1,8 +1,6 @@
 // import { toast } from "react-toastify";
 import { createMachine, assign } from "xstate";
 
-import { apiClient } from "../../modules/axios";
-
 export interface SynthContext {
   address?: `0x${string}`;
   image: string | null;
@@ -24,11 +22,7 @@ export const synthMachine = createMachine(
     schema: {
       services: {} as {
         mintService: {
-          data: {
-            synthAddress: string; // Address of synth
-            tokenAddress: string; // Address of NFT contract
-            tokenId: number; // Token ID of NFT
-          };
+          data: Synth;
         };
         genArtService: {
           data: {
@@ -53,7 +47,7 @@ export const synthMachine = createMachine(
             cond: "isMintValid",
           },
           GENERATE_ART: {
-            target: "generating",
+            target: "generatingArt",
             cond: "isGenArtValid",
           },
         },
@@ -72,13 +66,13 @@ export const synthMachine = createMachine(
           },
         },
       },
-      generating: {
+      generatingArt: {
         invoke: {
           id: "genArtService",
           src: "genArtService",
           onDone: {
             target: "idle",
-            actions: "generated",
+            actions: "generatedArt",
           },
           onError: {
             target: "idle",
@@ -120,48 +114,6 @@ export const synthMachine = createMachine(
 
         return context;
       }),
-    },
-    services: {
-      mintService: async (
-        context,
-        event: { generatorAddrs?: string },
-        _meta,
-      ) => {
-        try {
-          const { data } = await apiClient.post<{ plant: any }>(
-            "/plants/detect",
-            {},
-          );
-
-          return {
-            synthAddress: "",
-            tokenAddress: "",
-            tokenId: 0,
-          };
-        } catch (error) {
-          console.log("Synth minting failed!", error);
-          throw error;
-        }
-      },
-      genArtService: async (context, event: { element?: any }) => {
-        try {
-          const { data } = await apiClient.post<{ img: string }>(
-            "/creatures/synth",
-            {
-              plant: context,
-              element: event.element,
-            },
-          );
-
-          return {
-            tokenAddress: "",
-            tokenId: 0,
-          };
-        } catch (error) {
-          console.log("Art generation failed!", error);
-          throw error;
-        }
-      },
     },
   },
 );

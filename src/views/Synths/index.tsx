@@ -1,77 +1,41 @@
-import React, { useState } from "react";
-import { a } from "@react-spring/web";
+import React from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 
 import { SynthsDataProps } from "../../hooks/views/useSynths";
 
-import { SynthsDialog } from "../../components/Synths/Dialog";
-import { SynthsViewer } from "../../components/Synths/Viewer";
+import { RC as AddIcon } from "../../assets/icons/add.svg";
+
 import { SynthsGallery } from "../../components/Synths/Gallery";
+import { SynthsMintDialog } from "../../components/Synths/MintDialog";
 
 interface SynthsProps extends SynthsDataProps {}
 
-const Synths: React.FC<SynthsProps> = ({
-  view,
-  changeView,
-  synths,
-  activeSynth,
-  statsSpring,
-  viewsSpring,
-}) => {
-  const [dialogData, setDialogData] = useState<{
-    image: string;
-    name: string;
-    description?: string;
-  }>({
-    image: "",
-    name: "",
-    description: "",
-  });
+const Synths: React.FC<SynthsProps> = ({ synths, address }) => {
+  const navigate = useNavigate();
 
   function handleItemClick(item: Synth | Wave) {
     if ("eventName" in item) {
-      changeView("synth", item);
-    } else {
-      setDialogData({
-        image: "",
-        name: item.name,
-        description: item.description,
-      });
+      navigate(`/synths/${item.address}`);
     }
-  }
-
-  function handleBackClick() {
-    changeView("synths");
   }
 
   return (
     <section
-      className={`overflow-hidden bg-primary deck-view flex-col justify-center`}
+      className={`flex flex-col relative w-full items-center gap-3 px-6 pt-12`}
     >
-      <a.div
-        className="deck-stats sm:px-6 px-3 w-full"
-        style={statsSpring}
-      ></a.div>
-      <a.div
-        style={viewsSpring}
-        className="deck-views relative flex flex-col rounded-t-3xl w-full px-6 bg-base-100 shadow-xl"
+      <label
+        htmlFor="synths-mint-dialog"
+        className={`absolute right-6 top-12 grid place-items-center w-10 h-10 unselectable`}
       >
-        {view === "synths" && (
-          <SynthsGallery
-            view={view}
-            items={synths}
-            onItemClick={handleItemClick}
-          />
-        )}
-        {view === "synth" && activeSynth && (
-          <SynthsViewer
-            view={view}
-            onItemClick={handleItemClick}
-            onBackClick={handleBackClick}
-            {...activeSynth}
-          />
-        )}
-      </a.div>
-      <SynthsDialog {...dialogData} />
+        <AddIcon />
+      </label>
+      <SynthsGallery
+        items={address ? synths : []}
+        view="synths"
+        onItemClick={handleItemClick}
+      />
+      <Outlet />
+      <SynthsMintDialog />
     </section>
   );
 };

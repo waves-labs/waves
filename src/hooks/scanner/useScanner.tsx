@@ -1,4 +1,5 @@
 import { useMachine } from "@xstate/react";
+import { useNavigate } from "react-router-dom";
 import React, { createContext, useContext } from "react";
 
 import {
@@ -14,7 +15,7 @@ export interface ScannerState {
 }
 
 export interface ScannerDataProps extends ScannerMachineContext, ScannerState {
-  scan: () => void;
+  scan: (synth: string, eventName: string, artist: string) => void;
 }
 
 const ScannerContext = createContext<ScannerDataProps | null>(null);
@@ -28,18 +29,24 @@ export const ScannerProvider = ({ children }: Props) => {
 
   if (currentValue) throw new Error("ScannerProvider can only be used once");
 
+  const navigate = useNavigate();
+
   const [state, send] = useMachine(scannerMachine, {
     actions: {
-      revealWave: () => {
-        // Navigate to the synths tab and show the synth with the new wave
+      revealWave: (_context, event) => {
+        navigate(`/synths/${event.data.synth}?wave=${event.data.tokenId}`);
       },
     },
     services: {
-      scanService: async () => {
+      scanService: async (
+        _context,
+        event: { synth: string; eventName: string; artist: string },
+      ) => {
         try {
           const { data } = await apiClient.post<ScannerEvent>("/waves/claim", {
-            synth: "0x0",
-            wave: "0x0",
+            synth: event.synth,
+            eventName: event.eventName,
+            artist: event.artist,
           });
 
           if (!data) {
@@ -47,8 +54,7 @@ export const ScannerProvider = ({ children }: Props) => {
           }
 
           return {
-            artist: data.artist,
-            eventName: data.eventName,
+            synth: data.synth,
             tokenAddress: data.tokenAddress,
             tokenId: data.tokenId,
           };
@@ -59,8 +65,8 @@ export const ScannerProvider = ({ children }: Props) => {
     },
   });
 
-  function scan() {
-    if (state.matches("idle")) send("SCAN");
+  function scan(synth: string, eventName: string, artist: string) {
+    if (state.matches("idle")) send("SCAN", { synth, eventName, artist });
   }
 
   return (

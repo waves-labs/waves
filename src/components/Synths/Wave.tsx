@@ -5,8 +5,21 @@ interface WaveProps extends Wave {
 }
 
 // TODO: Polish styles to match designs
-export const Wave: React.FC<WaveProps> = ({}) => {
+export const Wave: React.FC<WaveProps> = ({ data }) => {
   return (
-    <div className="flex items-center py-2 rounded-xl w-full h-full"></div>
+    <label
+      htmlFor="synths-dialog"
+      className={`w-full max-w-full unselectable shadow-xl cursor-pointer flex justify-between items-center rounded-xl`}
+    >
+      {data.includes("https://") ? (
+        <img
+          src={data}
+          alt="Wave"
+          className="w-full aspect-square object-cover rounded-xl"
+        />
+      ) : (
+        <div></div>
+      )}
+    </label>
   );
 };

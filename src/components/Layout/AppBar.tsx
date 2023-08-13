@@ -2,10 +2,8 @@ import { a, config, useSpring } from "@react-spring/web";
 import { Link, useLocation } from "react-router-dom";
 
 import { RC as WavesIcon } from "../../assets/icons/waves.svg";
-import { RC as WorldIcon } from "../../assets/icons/world.svg";
+import { RC as QRIcon } from "../../assets/icons/qr.svg";
 import { RC as ProfileIcon } from "../../assets/icons/profile.svg";
-
-// TODO: Polish styles to match designs
 
 const tabs: {
   path: string;
@@ -24,7 +22,7 @@ const tabs: {
   {
     path: "/explore",
     title: "Explore",
-    Icon: WorldIcon,
+    Icon: QRIcon,
   },
   {
     path: "/profile",
@@ -54,7 +52,9 @@ export const Appbar = () => {
 
   return (
     <a.nav
-      className={"btm-nav z-20 bg-base-100 py-4 fixed bottom-0"}
+      className={
+        "btm-nav z-20 bg-base-100 py-6 fixed bottom-0 rounded-t-2xl w-full"
+      }
       style={spring}
     >
       {tabs.map(({ path, Icon, title }) => (
@@ -67,17 +67,17 @@ export const Appbar = () => {
             <Icon
               width={32}
               height={32}
-              className={`${
-                pathname === path ? "fill-primary" : "fill-neutral"
-              }`}
+              // className={`${
+              //   pathname === path ? "fill-primary" : "fill-neutral"
+              // }`}
             />
-            <p
+            {/* <p
               className={`text-sm tracking-wide ${
                 pathname === path ? "text-primary" : "text-neutral"
               }`}
             >
               {title}
-            </p>
+            </p> */}
           </button>
         </Link>
       ))}

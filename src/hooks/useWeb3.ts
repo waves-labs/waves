@@ -11,6 +11,27 @@ import { useConnectModal } from "@rainbow-me/rainbowkit";
 
 import { apiClient } from "../modules/axios";
 
+const domain = window.location.host;
+const origin = window.location.origin;
+
+async function createSiweMessage(
+  address: `0x${string}`,
+  statement: string,
+  nonce: string,
+  chainId: number,
+) {
+  const message = new SiweMessage({
+    domain,
+    address,
+    statement,
+    uri: origin,
+    version: "1",
+    chainId,
+    nonce,
+  });
+  return message.prepareMessage();
+}
+
 export const useWeb3 = () => {
   const chainId = useChainId();
   const { address } = useAccount();
@@ -48,22 +69,26 @@ export const useWeb3 = () => {
 
       if (!address) {
         await handleConnect();
+
+        return;
       }
 
-      const nonceRes = await apiClient.get(`/identity/nonce`, {});
+      const nonceRes = await apiClient.get(`/identity/nonce`);
 
       const nonce = await nonceRes.data;
 
-      const message = new SiweMessage({
+      console.log("NONCE", nonce);
+      console.log("ADDRESS", address);
+      console.log("CHAIN ID", chainId);
+
+      const message = await createSiweMessage(
         address,
-        chainId,
+        "Login WAVES by Synesthesia",
         nonce,
-        domain: window.location.host,
-        statement: "Authenticate with WEFA to access AI powered services.",
-        uri: window.location.origin,
-        version: "0.0.0",
-      });
-      const signature = signMessage(message.prepareMessage());
+        chainId,
+      );
+
+      const signature = await signMessage(message);
 
       await apiClient.post(`/identity/login`, {
         body: {
@@ -92,7 +117,7 @@ export const useWeb3 = () => {
     if (address && !connectModalOpen) {
       login();
     }
-  }, [address]);
+  }, [address, connectModalOpen]);
 
   useEffect(() => {
     if (connectError) {
@@ -103,6 +128,7 @@ export const useWeb3 = () => {
   return {
     error,
     address,
+    handleConnect,
     login,
     logout,
   };
