@@ -54,7 +54,7 @@ export default defineConfig({
         "assets/logo-64.png",
         "assets/logo-310.png",
         "assets/waves.png",
-        "assets/world.png",
+        "assets/qr.png",
         "assets/profile.png",
       ],
       injectRegister: "auto",
@@ -108,7 +108,7 @@ export default defineConfig({
             url: "/world",
             icons: [
               {
-                src: "assets/world.png",
+                src: "assets/qr.png",
                 sizes: "64x64",
                 type: "image/png",
               },
