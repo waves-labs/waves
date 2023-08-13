@@ -4,3 +4,6 @@
 [submodule "lib/forge-std"]
 	branch = v1.2.0
 	
+[submodule "contracts/lib/tokenbound"]
+	path = contracts/lib/tokenbound
+	url = https://github.com/tokenbound/contracts
