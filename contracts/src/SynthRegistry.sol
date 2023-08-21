@@ -1,74 +1,51 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.17;
 
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/security/Pausable.sol";
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
 
-import "./Waves.sol";
-import "./Types.sol";
-import "./Ticket.sol";
-import "./SynthGenerator.sol";
+import {Ticket} from "./Ticket.sol";
+import {SynthGenerator} from "./SynthGenerator.sol";
 
-contract SynthRegistry is Pausable, Ownable, Initializable {
-    address public easRegistry;
-    address[] synthGenerators;
-    mapping(address => bool) synthGeneratorRegistered;
-    mapping(address => address) synthGeneratorToTicket;
+contract SynthRegistry is Initializable, PausableUpgradeable, OwnableUpgradeable {
+    event SynthGeneratorRegistered(address indexed synthGenerator, address indexed ticket, address indexed owner);
 
-    // constructor(address _easRegistry) {
-    //     easRegistry = _easRegistry;
-    // }
+    mapping(address => bool) public synthGeneratorRegistered;
+    mapping(address => address) public synthGeneratorToTicket;
 
-    function initialize(address _easRegistry) public initializer {
-        easRegistry = _easRegistry;
+    /// @custom:oz-upgrades-unsafe-allow constructor
+    constructor() {
+        _disableInitializers();
     }
 
-    // Used by Event Organizer to register a Synth Generator for attendees to mint Synths
-    function registerEvent(uint256 _claimTime, address _ticketAddrs, string calldata _baseUri, Wave[] calldata _waves)
-        public
-        whenNotPaused
-        returns (address, address)
-    {
+    function initialize() external initializer {
+        __Pausable_init();
+        __Ownable_init();
+    }
+
+    function registerEvent(address _ticketAddrs) external whenNotPaused returns (address) {
         Ticket ticket = Ticket(_ticketAddrs);
-        require(ticket.owner() == msg.sender, "SynthRegistry: must be ticket owner");
-        require(!synthGeneratorRegistered[_ticketAddrs], "SynthRegistry: already registered");
+        require(ticket.owner() == msg.sender, "must be ticket owner");
+        require(!synthGeneratorRegistered[_ticketAddrs], "already registered");
 
-        Waves waves = new Waves(_ticketAddrs, msg.sender, _waves, _baseUri);
-        SynthGenerator synthGenerator = new SynthGenerator(_ticketAddrs, address(waves), msg.sender, ticket.name());
+        SynthGenerator synthGenerator = new SynthGenerator(_ticketAddrs, msg.sender, ticket.name());
+        address synthGenAddrs = address(synthGenerator);
 
-        synthGenerators.push(address(synthGenerator));
         synthGeneratorRegistered[_ticketAddrs] = true;
-        synthGeneratorToTicket[address(synthGenerator)] = _ticketAddrs;
+        synthGeneratorToTicket[synthGenAddrs] = _ticketAddrs;
 
-        return (address(waves), address(synthGenerator));
+        emit SynthGeneratorRegistered(synthGenAddrs, _ticketAddrs, msg.sender);
+
+        return (synthGenAddrs);
     }
 
-    // Used by WAVES app to get Synth Generators
-    function getSynthGenerators() public view returns (Generator[] memory) {
-        Generator[] memory generators = new Generator[](synthGenerators.length);
-
-        for (uint256 i = 0; i < synthGenerators.length; i++) {
-            Ticket ticket = Ticket(synthGeneratorToTicket[synthGenerators[i]]);
-
-            generators[i] = Generator(
-                ticket.startTime(),
-                ticket.endTime(),
-                synthGeneratorToTicket[synthGenerators[i]],
-                synthGenerators[i],
-                ticket.name()
-            );
-        }
-
-        return generators;
-    }
-
-    function pause() public onlyOwner {
+    // Used by WAVES app to get Synth Generators - TODO add events and use The Graph
+    function pause() external onlyOwner {
         _pause();
     }
 
-    function unpause() public onlyOwner {
+    function unpause() external onlyOwner {
         _unpause();
     }
 }

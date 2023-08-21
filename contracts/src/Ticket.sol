@@ -7,9 +7,11 @@ import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
 contract Ticket is ERC721, Pausable, Ownable {
+    event TicketMinted(address indexed to, uint256 indexed tokenId, address indexed ticket);
+
     uint256 public startTime;
     uint256 public endTime;
-    uint256 maxSupply;
+    uint256 private maxSupply;
 
     using Counters for Counters.Counter;
 
@@ -32,6 +34,8 @@ contract Ticket is ERC721, Pausable, Ownable {
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
         _safeMint(to, tokenId);
+
+        emit TicketMinted(to, tokenId, address(this));
     }
 
     // Used by Attendee to purchase tickets
@@ -44,6 +48,8 @@ contract Ticket is ERC721, Pausable, Ownable {
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
         _safeMint(msg.sender, tokenId);
+
+        emit TicketMinted(msg.sender, tokenId, address(this));
     }
 
     function pause() public onlyOwner {
