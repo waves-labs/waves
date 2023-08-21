@@ -4,21 +4,22 @@ test = 'contracts/test'
 out = 'contracts/out'
 libs = ['contracts/lib']
 solc = '0.8.17'
-
-[profile.base]
-eth_rpc_url = "https://mainnet.base.org"
+eth_rpc_url = "http//localhost:8545"
 
 [profile.op]
 eth_rpc_url = "https://mainnet.optimism.io"
 
+[profile.base]
+eth_rpc_url = "https://mainnet.base.org"
+
 [profile.zora]
 eth_rpc_url = "https://rpc.zora.energy"
 
-[profile.base-goerli]
-eth_rpc_url = "https://goerli.base.org"
-
 [profile.op-goerli]
 eth_rpc_url = "https://goerli.optimism.io"
+
+[profile.base-goerli]
+eth_rpc_url = "https://goerli.base.org"
 
 [profile.zora-goerli]
 eth_rpc_url = "https://testnet.rpc.zora.energy"
