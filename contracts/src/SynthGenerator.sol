@@ -9,12 +9,12 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import {Ticket} from "./Ticket.sol";
 import {Waves} from "./Waves.sol";
 import {IERC6551Registry} from "./interfaces/IERC6551Registry.sol";
-import {ERC6551_REGISTRY_ADDRESS, ERC6551_IMPLEMENTATION_ADDRESS} from "./Constants.sol";
+import {ERC6551_REGISTRY_ADDRESS, SYNTH_ERC6551_IMPLEMENTATION_ADDRESS} from "./Constants.sol";
 
 contract SynthGenerator is ERC721, Pausable, Ownable {
     event SynthMinted(address indexed synth, address indexed owner, address indexed generator, uint256 synthId);
 
-    address private ticket;
+    address private ticketAddrs;
     address private wavesAddrs;
     mapping(address => bool) private attendeeClaimedSynth;
 
@@ -23,7 +23,7 @@ contract SynthGenerator is ERC721, Pausable, Ownable {
     Counters.Counter private _synthIdCounter;
 
     constructor(address _ticket, address _owner, string memory _eventName) ERC721(_eventName, "SYNTH") {
-        ticket = _ticket;
+        ticketAddrs = _ticket;
         transferOwnership(_owner);
     }
 
@@ -32,7 +32,7 @@ contract SynthGenerator is ERC721, Pausable, Ownable {
 
         Waves waves = Waves(_wavesAddrs);
 
-        require(waves.ticket() == ticket, "SynthGen: ticket mismatch");
+        require(waves.ticket() == ticketAddrs, "SynthGen: ticket mismatch");
         require(waves.hasRole(waves.DEFAULT_ADMIN_ROLE(), msg.sender), "SynthGen: owner mismatch");
 
         wavesAddrs = _wavesAddrs;
@@ -40,7 +40,7 @@ contract SynthGenerator is ERC721, Pausable, Ownable {
 
     function generateSynth() external whenNotPaused returns (address) {
         require(wavesAddrs != address(0), "SynthGen: waves not connected");
-        Ticket ticketContract = Ticket(ticket);
+        Ticket ticketContract = Ticket(ticketAddrs);
 
         require(ticketContract.balanceOf(msg.sender) > 0, "SynthGen: must own ticket");
         require(!attendeeClaimedSynth[msg.sender], "SynthGen: already claimed");
@@ -48,13 +48,14 @@ contract SynthGenerator is ERC721, Pausable, Ownable {
         attendeeClaimedSynth[msg.sender] = true;
         uint256 synthId = _synthIdCounter.current();
         IERC6551Registry erc6551Registry = IERC6551Registry(ERC6551_REGISTRY_ADDRESS);
+        bytes memory initCallData =
+            abi.encodeWithSignature("initialize(address ticketAddrs, address wavesAddrs)", ticketAddrs, wavesAddrs);
 
         _synthIdCounter.increment();
         _safeMint(msg.sender, synthId);
-        address synth = erc6551Registry.createAccount(ERC6551_IMPLEMENTATION_ADDRESS, 0, address(this), synthId, 0, "");
-
-        // bytes memory initCallData =
-        //     abi.encodeWithSignature("initialize(address ticketAddrs, address wavesAddrs)", ticket, waves);
+        address synth = erc6551Registry.createAccount(
+            SYNTH_ERC6551_IMPLEMENTATION_ADDRESS, 0, address(this), synthId, 0, initCallData
+        );
 
         emit SynthMinted(synth, msg.sender, address(this), synthId);
 

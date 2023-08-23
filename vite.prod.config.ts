@@ -86,7 +86,8 @@ export default defineConfig({
           },
         ],
         start_url: "/",
-        display: "fullscreen",
+        scope: "/",
+        display: "standalone",
         theme_color: "#38bdf8",
         background_color: "#f0fdfa",
         shortcuts: [
@@ -125,6 +126,12 @@ export default defineConfig({
                 type: "image/png",
               },
             ],
+          },
+        ],
+        related_applications: [
+          {
+            platform: "webapp",
+            url: "https://waves.syn.art/manifest.json",
           },
         ],
       },

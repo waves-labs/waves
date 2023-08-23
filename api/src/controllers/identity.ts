@@ -17,7 +17,7 @@ export default async function userController(fastify: FastifyInstance) {
         return reply.status(400).send({ error: "Missing message, signature, or nonce" });
       }
 
-      let SIWEObject = new SiweMessage(body.message);
+      const SIWEObject = new SiweMessage(body.message);
       const { data: message } = await SIWEObject.verify({ signature: body.signature, nonce: req.session.nonce });
 
       req.session.siwe = message;

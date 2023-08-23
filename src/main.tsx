@@ -8,8 +8,8 @@ import { WagmiConfig } from "wagmi";
 import { BrowserRouter } from "react-router-dom";
 import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
 
+import { AppProvider } from "./hooks/useApp";
 import { chains, config } from "./modules/wagmi";
-
 import { App } from "./App";
 
 const root = ReactDOM.createRoot(document.getElementById("root")!);
@@ -19,7 +19,9 @@ root.render(
     <WagmiConfig config={config}>
       <RainbowKitProvider chains={chains}>
         <BrowserRouter>
-          <App />
+          <AppProvider>
+            <App />
+          </AppProvider>
         </BrowserRouter>
       </RainbowKitProvider>
     </WagmiConfig>

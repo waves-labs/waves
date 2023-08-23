@@ -1,5 +1,5 @@
 {
-  "name": "api",
+  "name": "waves-api",
   "license": "MIT",
   "version": "0.0.0",
   "private": true,
@@ -33,7 +33,7 @@
     "@fastify/session": "10.1.1",
     "bob-tsm": "^1.1.2",
     "dotenv": "^16.0.3",
-    "ethers": "5.6.8",
+    "ethers": "6.7.1",
     "fastify": "4.14.1",
     "node-fetch": "^3.3.1",
     "siwe": "2.1.4",

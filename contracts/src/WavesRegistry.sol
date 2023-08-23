@@ -28,7 +28,7 @@ contract WavesRegistry is Initializable, PausableUpgradeable, OwnableUpgradeable
         require(ticket.owner() == msg.sender, "must be ticket owner");
         require(!wavesRegistered[_ticketAddrs], "already registered");
 
-        Waves waves = new Waves(_ticketAddrs, _baseUri);
+        Waves waves = new Waves(_ticketAddrs, msg.sender, _baseUri);
         address wavesAddrs = address(waves);
 
         wavesRegistered[_ticketAddrs] = true;

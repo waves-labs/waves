@@ -8,19 +8,19 @@ import {Wave} from "./Types.sol";
 import {Ticket} from "./Ticket.sol";
 
 contract Waves is ERC1155, AccessControl {
-    event WaveRewarded(address indexed to, uint256 indexed tokenId, address indexed waves);
+    event WaveRewarded(address indexed to, address indexed waves, uint256 indexed tokenId);
 
     bytes32 public constant WAVE_REWARDER_ROLE = keccak256("WAVE_REWARDER_ROLE");
     address public ticket;
     mapping(uint256 => Wave) private waves;
 
-    constructor(address _ticket, string memory _baseUri) ERC1155(_baseUri) {
+    constructor(address _ticket, address _owner, string memory _baseUri) ERC1155(_baseUri) {
         ticket = _ticket;
 
-        _grantRole(WAVE_REWARDER_ROLE, 0x6Bd018B28CE7016b65384e15faC102dbC4190E03);
-        // _grantRole(WAVE_REWARDER_ROLE, SYN_WAVES_RESOLVER_ADDRESS);
-        _grantRole(WAVE_REWARDER_ROLE, msg.sender);
-        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        _grantRole(WAVE_REWARDER_ROLE, 0x6Bd018B28CE7016b65384e15faC102dbC4190E03); // Syn Multisig
+        _grantRole(WAVE_REWARDER_ROLE, 0x4A486C866050dD2e40410B693609D69096d5661B); // EAS Resolver
+        _grantRole(WAVE_REWARDER_ROLE, _owner);
+        _grantRole(DEFAULT_ADMIN_ROLE, _owner);
     }
 
     function updateEventJSON(string memory newuri) external onlyRole(DEFAULT_ADMIN_ROLE) {
@@ -50,7 +50,7 @@ contract Waves is ERC1155, AccessControl {
 
         _mint(to, id, 1, "");
 
-        emit WaveRewarded(to, id, address(this));
+        emit WaveRewarded(to, address(this), id);
     }
 
     function supportsInterface(bytes4 interfaceId) public view override(ERC1155, AccessControl) returns (bool) {

@@ -3,12 +3,13 @@
   "version": "0.0.4",
   "private": true,
   "workspaces": [
-    "api"
+    "api",
+    "graph"
   ],
   "scripts": {
     "anvil": "source .env && anvil --fork-url $ANVIL_FORK_URL --chain-id $ANVIL_CHAIN_ID",
     "dev": "yarn run wagmi &&  concurrently 'vite --host' 'yarn run dev:api'",
-    "dev:api": "yarn workspace api dev",
+    "dev:api": "yarn workspace waves-api dev",
     "dev:foundry": "yarn run dev & wagmi generate --watch & npm run anvil",
     "lint": "prettier --write \"**/*.{ts,tsx}\"",
     "typecheck": "tsc --noEmit",
@@ -18,6 +19,7 @@
     "deploy:anvil": "source .env && forge create contracts/src/Counter.sol:Counter --rpc-url http://127.0.0.1:8545 --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 --legacy",
     "deploy:synth": "npx hardhat run contracts/scripts/synth.js",
     "deploy:synth-registry": "npx hardhat run contracts/scripts/synth-registry.js",
+    "deploy:waves-registry": "npx hardhat run contracts/scripts/waves-registry.js",
     "deploy:waves-resolver": "npx hardhat run contracts/scripts/waves-resolver.js",
     "deploy:op-goerli": "source .env && FOUNDRY_PROFILE=op-goerli forge script contracts/script/OPGoerli.s.sol:OpScript --private-key $FORGE_PRIVATE_KEY --etherscan-api-key $ETHERSCAN_API_KEY --broadcast",
     "deploy:base-goerli": "source .env && FOUNDRY_PROFILE=base-goerli forge script contracts/script/BaseGoerli.s.sol:BaseScript --private-key $FORGE_PRIVATE_KEY --etherscan-api-key $ETHERSCAN_API_KEY --broadcast",

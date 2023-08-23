@@ -34,7 +34,7 @@ const Synths: React.FC<SynthsProps> = ({ synths, address }) => {
             items={address ? synths : []}
             view="synths"
             onItemClick={handleItemClick}
-          />{" "}
+          />
         </div>
       )}
       <Outlet />

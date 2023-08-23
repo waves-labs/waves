@@ -5,24 +5,32 @@
       "path": ".."
     },
     {
+      "name": "api",
+      "path": "../api"
+    },
+    {
       "name": "contracts",
       "path": "../contracts"
     },
     {
-      "name": "api",
-      "path": "../api"
+      "name": "graph",
+      "path": "../graph"
     },
     {
       "name": "src",
       "path": "../src"
     },
     {
-      "name": "client",
-      "path": "../../art/packages/client"
+      "name": "components",
+      "path": "../src/components"
     },
     {
-      "name": "openar",
-      "path": "../../../../wefa/openar"
+      "name": "hooks",
+      "path": "../src/hooks"
+    },
+    {
+      "name": "views",
+      "path": "../src/views"
     }
   ],
   "settings": {

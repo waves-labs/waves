@@ -1,8 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.17;
 
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import {IEAS, Attestation} from "@ethereum-attestation-service/eas-contracts/contracts/IEAS.sol";
-import {SchemaResolver} from "@ethereum-attestation-service/eas-contracts/contracts/resolver/SchemaResolver.sol";
+import {ISchemaResolver} from "@ethereum-attestation-service/eas-contracts/contracts/resolver/ISchemaResolver.sol";
 
 import "./Synth.sol";
 import "./Waves.sol";
@@ -10,7 +12,10 @@ import "./Ticket.sol";
 
 /// @title WavesResolver
 /// @notice A schema resolver for the Waves event schema
-contract WavesResolver is SchemaResolver {
+contract WavesResolver is ISchemaResolver, Initializable, OwnableUpgradeable {
+    error InvalidEAS();
+    error AccessDenied();
+
     struct EventSchema {
         string eventName;
         address ticketAddress;
@@ -18,13 +23,33 @@ contract WavesResolver is SchemaResolver {
         uint256 waveId;
     }
 
-    address private immutable _targetAttester;
+    IEAS internal _eas;
 
-    constructor(IEAS eas, address targetAttester) SchemaResolver(eas) {
-        _targetAttester = targetAttester;
+    /// @custom:oz-upgrades-unsafe-allow constructor
+    constructor() {
+        _disableInitializers();
     }
 
-    function onAttest(Attestation calldata attestation, uint256 /*value*/ ) internal override returns (bool) {
+    modifier onlyEAS() {
+        _onlyEAS();
+
+        _;
+    }
+
+    function initialize(IEAS eas) external initializer {
+        if (address(eas) == address(0)) {
+            revert InvalidEAS();
+        }
+
+        __Ownable_init();
+        _eas = eas;
+    }
+
+    function isPayable() external pure override returns (bool) {
+        return true;
+    }
+
+    function attest(Attestation calldata attestation) external payable override onlyEAS returns (bool) {
         address recipient = attestation.recipient;
         EventSchema memory schema = abi.decode(attestation.data, (EventSchema));
 
@@ -35,10 +60,36 @@ contract WavesResolver is SchemaResolver {
         return true;
     }
 
-    function onRevoke(Attestation calldata, /*attestation*/ uint256 /*value*/ ) internal pure override returns (bool) {
+    function multiAttest(Attestation[] calldata attestations, uint256[] calldata values)
+        external
+        payable
+        override
+        onlyEAS
+        returns (bool)
+    {
+        return false;
+    }
+
+    function revoke(Attestation calldata attestation) external payable override onlyEAS returns (bool) {
         // TODO: Burn token if minted for attestation
         // TODO: Call burnWave on Waves (ERC-1155)
 
         return true;
+    }
+
+    function multiRevoke(Attestation[] calldata attestations, uint256[] calldata values)
+        external
+        payable
+        override
+        onlyEAS
+        returns (bool)
+    {
+        return false;
+    }
+
+    function _onlyEAS() private view {
+        if (msg.sender != address(_eas)) {
+            revert AccessDenied();
+        }
     }
 }

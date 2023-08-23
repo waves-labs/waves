@@ -23,13 +23,13 @@ contract Synth is IERC165, IERC1271, IERC6551Account, IERC6551Executable, Initia
 
     receive() external payable {}
 
-    // function generateArt(uint256 tokenId, address to, bytes calldata data) external {
-    //     require(_isValidSigner(msg.sender), "Invalid signer");
-    //     // TODO: Mint Art NFT
-    //     // TODO: Burn Synth NFT
+    function generateArt(uint256 tokenId, address to, bytes calldata data) external {
+        require(_isValidSigner(msg.sender), "Invalid signer");
+        // TODO: Mint Art NFT
+        // TODO: Burn Synth NFT
 
-    //     IERC721(msg.sender).safeTransferFrom(address(this), to, tokenId, data);
-    // }
+        // IERC721(msg.sender).safeTransferFrom(address(this), to, tokenId, data);
+    }
 
     function execute(address to, uint256 value, bytes calldata data, uint256 operation)
         external
