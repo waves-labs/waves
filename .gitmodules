@@ -7,3 +7,6 @@
 [submodule "contracts/lib/tokenbound"]
 	path = contracts/lib/tokenbound
 	url = https://github.com/tokenbound/contracts
+[submodule "contracts/lib/hl-evm-contracts"]
+	path = contracts/lib/hl-evm-contracts
+	url = https://github.com/highlightxyz/hl-evm-contracts
