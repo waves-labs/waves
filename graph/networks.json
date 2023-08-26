@@ -1,0 +1,12 @@
+{
+  "base-testnet": {
+    "SynthRegistry": {
+      "address": "0x449204121fC13DB52bA7B82ADCbca4Cd6CbE47FC",
+      "startBlock": 8728789
+    },
+    "WavesRegistry": {
+      "address": "0x71596076242B75dc7A1b28d576a444d69192a640",
+      "startBlock": 8728789
+    }
+  }
+}

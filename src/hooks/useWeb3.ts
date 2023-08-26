@@ -11,8 +11,11 @@ import { useConnectModal } from "@rainbow-me/rainbowkit";
 
 import { apiClient } from "../modules/axios";
 
-const domain = window.location.host;
-const origin = window.location.origin;
+const domain = document.location.host;
+const origin = document.location.origin;
+
+console.log("DOMAIN", domain);
+console.log("ORIGIN", origin);
 
 async function createSiweMessage(
   address: `0x${string}`,
@@ -75,7 +78,7 @@ export const useWeb3 = () => {
 
       const nonceRes = await apiClient.get(`/identity/nonce`);
 
-      const nonce = await nonceRes.data;
+      const nonce = await nonceRes.data.nonce;
 
       console.log("NONCE", nonce);
       console.log("ADDRESS", address);
@@ -83,18 +86,18 @@ export const useWeb3 = () => {
 
       const message = await createSiweMessage(
         address,
-        "Login WAVES by Synesthesia",
+        "Enter WAVES",
         nonce,
         chainId,
       );
 
-      const signature = await signMessage(message);
+      const signature = await signMessageAsync({ message });
+
+      console.log("MESSAGE", signature);
 
       await apiClient.post(`/identity/login`, {
-        body: {
-          message,
-          signature,
-        },
+        message,
+        signature,
       });
     } catch (err: any) {
       err && err.message && setError(err.message);

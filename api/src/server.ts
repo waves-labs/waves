@@ -1,9 +1,10 @@
-import fs from "fs";
-import path from "path";
-import fastify from "fastify";
+// import fs from "fs";
+// import path from "path";
+// import https from "https";
+import express from "express";
 import { SiweMessage } from "siwe";
 
-declare module "fastify" {
+declare module "express-session" {
   export interface Session {
     nonce: string | null;
     siwe: SiweMessage | null;
@@ -11,22 +12,14 @@ declare module "fastify" {
   }
 }
 
-const useHttps = process.env.NODE_ENV === "development";
+export const server = express();
 
-const httpsOptions = {
-  http2: useHttps,
-  https: useHttps
-    ? {
-        allowHTTP1: true,
-        key: fs.readFileSync(path.join(__dirname, "../cert/fastify.key")),
-        cert: fs.readFileSync(path.join(__dirname, "../cert/fastify.cert")),
-      }
-    : undefined,
-};
-
-export const server = fastify({
-  trustProxy: true,
-  bodyLimit: 1048576 * 7,
-  logger: !!(process.env.NODE_ENV !== "development"),
-  ...httpsOptions,
-});
+// https
+//   .createServer(
+//     {
+//       key: fs.readFileSync(path.join(__dirname, "../cert/fastify.key")),
+//       cert: fs.readFileSync(path.join(__dirname, "../cert/fastify.cert")),
+//     },
+//     server
+//   )
+//   .listen(3000);

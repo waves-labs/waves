@@ -4,7 +4,7 @@ pragma solidity ^0.8.17;
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import {IEAS, Attestation} from "@ethereum-attestation-service/eas-contracts/contracts/IEAS.sol";
-import {ISchemaResolver} from "@ethereum-attestation-service/eas-contracts/contracts/resolver/ISchemaResolver.sol";
+import {SchemaResolver} from "@ethereum-attestation-service/eas-contracts/contracts/resolver/SchemaResolver.sol";
 
 import "./Synth.sol";
 import "./Waves.sol";
@@ -12,10 +12,7 @@ import "./Ticket.sol";
 
 /// @title WavesResolver
 /// @notice A schema resolver for the Waves event schema
-contract WavesResolver is ISchemaResolver, Initializable, OwnableUpgradeable {
-    error InvalidEAS();
-    error AccessDenied();
-
+contract WavesResolver is SchemaResolver, Initializable, OwnableUpgradeable {
     struct EventSchema {
         string eventName;
         address ticketAddress;
@@ -23,33 +20,20 @@ contract WavesResolver is ISchemaResolver, Initializable, OwnableUpgradeable {
         uint256 waveId;
     }
 
-    IEAS internal _eas;
-
     /// @custom:oz-upgrades-unsafe-allow constructor
-    constructor() {
+    constructor(IEAS eas) SchemaResolver(eas) {
         _disableInitializers();
     }
 
-    modifier onlyEAS() {
-        _onlyEAS();
-
-        _;
-    }
-
     function initialize(IEAS eas) external initializer {
-        if (address(eas) == address(0)) {
-            revert InvalidEAS();
-        }
-
         __Ownable_init();
-        _eas = eas;
     }
 
-    function isPayable() external pure override returns (bool) {
+    function isPayable() public pure override returns (bool) {
         return true;
     }
 
-    function attest(Attestation calldata attestation) external payable override onlyEAS returns (bool) {
+    function onAttest(Attestation calldata attestation, uint256 /*value*/ ) internal override returns (bool) {
         address recipient = attestation.recipient;
         EventSchema memory schema = abi.decode(attestation.data, (EventSchema));
 
@@ -60,36 +44,10 @@ contract WavesResolver is ISchemaResolver, Initializable, OwnableUpgradeable {
         return true;
     }
 
-    function multiAttest(Attestation[] calldata attestations, uint256[] calldata values)
-        external
-        payable
-        override
-        onlyEAS
-        returns (bool)
-    {
-        return false;
-    }
-
-    function revoke(Attestation calldata attestation) external payable override onlyEAS returns (bool) {
+    function onRevoke(Attestation calldata attestation, uint256 /*value*/ ) internal override returns (bool) {
         // TODO: Burn token if minted for attestation
         // TODO: Call burnWave on Waves (ERC-1155)
 
         return true;
-    }
-
-    function multiRevoke(Attestation[] calldata attestations, uint256[] calldata values)
-        external
-        payable
-        override
-        onlyEAS
-        returns (bool)
-    {
-        return false;
-    }
-
-    function _onlyEAS() private view {
-        if (msg.sender != address(_eas)) {
-            revert AccessDenied();
-        }
     }
 }

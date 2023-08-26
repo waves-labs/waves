@@ -29,9 +29,9 @@ contract BaseScript is Script {
         vm.startBroadcast(deployerPrivateKey);
 
         // Deploy & Mint Tickets
-        Ticket coachellaTicket = new Ticket("Coachella 2024", "COACH", block.timestamp, block.timestamp + 1 days, 100);
+        Ticket coachellaTicket = new Ticket("Coachella 2025", "COACH", block.timestamp, block.timestamp + 1 days, 100);
         Ticket lollapaloozaTicket =
-            new Ticket("Lollapalooza 2024 Chicago 2024", "LOLLA", block.timestamp, block.timestamp + 1 days, 100);
+            new Ticket("Lollapalooza 2024 Chicago 2025", "LOLLA", block.timestamp, block.timestamp + 1 days, 100);
 
         coachellaTicket.purchaseTicket();
         lollapaloozaTicket.purchaseTicket();
