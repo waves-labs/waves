@@ -6,7 +6,6 @@ import { useAccount } from "wagmi";
 
 interface ExploreProps extends ExploreDataProps {}
 
-// TODO: Add Explore Canvas from Petra
 const Explore: React.FC<ExploreProps> = ({
   isIdle,
   isScanning,

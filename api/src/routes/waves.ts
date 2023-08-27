@@ -79,10 +79,10 @@ wavesRouter.post("/claim", async function (req: Request, res: Response) {
   // Initialize SchemaEncoder with the schema string
   const schemaEncoder = new SchemaEncoder("string eventName, address ticketAddrs, address wavesAddrs, uint256 waveId");
   const encodedData = schemaEncoder.encodeData([
-    { name: body.eventName, value: 1, type: "string" },
+    { name: body.eventName, value: 1, type: "address" },
     { name: "ticketAddrs", value: 1, type: "address" },
     { name: "wavesAddrs", value: 1, type: "address" },
-    { name: waveID.toString(), value: 1, type: "uint256" },
+    { name: "true", value: 1, type: "bool" },
   ]);
 
   // Make on-chain attestaion

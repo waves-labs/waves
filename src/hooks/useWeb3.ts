@@ -76,24 +76,17 @@ export const useWeb3 = () => {
         return;
       }
 
-      const nonceRes = await apiClient.get(`/identity/nonce`);
-
-      const nonce = await nonceRes.data.nonce;
-
-      console.log("NONCE", nonce);
-      console.log("ADDRESS", address);
-      console.log("CHAIN ID", chainId);
+      const nonceRes = await apiClient.get<{ nonce: string }>(
+        `/identity/nonce`,
+      );
 
       const message = await createSiweMessage(
         address,
         "Enter WAVES",
-        nonce,
+        nonceRes.data.nonce,
         chainId,
       );
-
-      const signature = await signMessageAsync({ message });
-
-      console.log("MESSAGE", signature);
+      const signature = await signMessage(message);
 
       await apiClient.post(`/identity/login`, {
         message,
@@ -132,6 +125,7 @@ export const useWeb3 = () => {
     error,
     address,
     handleConnect,
+    signMessage,
     login,
     logout,
   };

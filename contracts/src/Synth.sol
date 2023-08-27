@@ -1,100 +1,94 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.17;
 
-import "@openzeppelin/contracts/interfaces/IERC1271.sol";
-import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
-import "@openzeppelin/contracts/utils/introspection/IERC165.sol";
-import "@openzeppelin/contracts/utils/cryptography/SignatureChecker.sol";
-import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import "@opengsn/contracts/ERC2771Recipient.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/security/Pausable.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/access/AccessControl.sol";
 
-import "./interfaces/IERC6551Account.sol";
-import "./interfaces/IERC6551Executable.sol";
+import {SynthAccount} from "./SynthAccount.sol";
 
-contract Synth is IERC165, IERC1271, IERC6551Account, IERC6551Executable, Initializable {
-    uint256 public state;
-    address public ticket;
-    address public waves;
+contract Synth is ERC721, Pausable, AccessControl {
+    event SynthMinted(address indexed owner, address indexed synth, address indexed synthAccount, uint256 synthId);
 
-    // External functions
-    function initialize(address ticketAddrs, address wavesAddrs) external initializer {
-        ticket = ticketAddrs;
-        waves = wavesAddrs;
-    }
+    bool private nftOwnershipToMint;
+    address private artist;
+    address private organizer;
+    mapping(address => bool) public nftWhitelist;
+    mapping(address => bool) public waveExists;
 
-    receive() external payable {}
+    using Counters for Counters.Counter;
 
-    function generateArt(uint256 tokenId, address to, bytes calldata data) external {
-        require(_isValidSigner(msg.sender), "Invalid signer");
-        // TODO: Mint Art NFT
-        // TODO: Burn Synth NFT
+    Counters.Counter private _synthIdCounter;
 
-        // IERC721(msg.sender).safeTransferFrom(address(this), to, tokenId, data);
-    }
+    constructor(
+        bool _nftOwnershipToMint,
+        address _artist,
+        address _organizer,
+        string memory _name,
+        address[] memory _nftWhitelist
+    ) ERC721(_name, "SYNTH") {
+        nftOwnershipToMint = _nftOwnershipToMint;
+        artist = _artist;
+        organizer = _organizer;
 
-    function execute(address to, uint256 value, bytes calldata data, uint256 operation)
-        external
-        payable
-        returns (bytes memory result)
-    {
-        require(_isValidSigner(msg.sender), "Invalid signer");
-        require(operation == 0, "Only call operations are supported");
-
-        ++state;
-
-        bool success;
-        (success, result) = to.call{value: value}(data);
-
-        if (!success) {
-            assembly {
-                revert(add(result, 32), mload(result))
-            }
-        }
-    }
-
-    // View functions
-    function isValidSigner(address signer, bytes calldata) external view returns (bytes4) {
-        if (_isValidSigner(signer)) {
-            return IERC6551Account.isValidSigner.selector;
+        for (uint256 i = 0; i < _nftWhitelist.length; i++) {
+            nftWhitelist[_nftWhitelist[i]] = true;
         }
 
-        return bytes4(0);
+        _setupRole(DEFAULT_ADMIN_ROLE, _organizer);
     }
 
-    function isValidSignature(bytes32 hash, bytes memory signature) external view returns (bytes4 magicValue) {
-        bool isValid = SignatureChecker.isValidSignatureNow(owner(), hash, signature);
+    function mint(address _nft) external returns (address) {
+        // require(waves[id].id == id, "Waves: wave doesn't exist");
+        // require(waves[id].claimedAmount > waves[id].maxAmount, "Waves: waves claimed");
+        // require(balanceOf(to, id) == 0, "Waves: user already claimed");
 
-        if (isValid) {
-            return IERC1271.isValidSignature.selector;
-        }
+        //     ownerClaimedSynth[msg.sender] = true;
+        //     uint256 synthId = _synthIdCounter.current();
+        //     IERC6551Registry erc6551Registry = IERC6551Registry(ERC6551_REGISTRY_ADDRESS);
+        //     bytes memory initCallData =
+        //         abi.encodeWithSignature("initialize(address ticketAddrs, address wavesAddrs)", ticketAddrs, wavesAddrs);
 
-        return "";
+        //     _synthIdCounter.increment();
+        //     _safeMint(msg.sender, synthId);
+        //     address synth = erc6551Registry.createAccount(
+        //         SYNTH_ERC6551_IMPLEMENTATION_ADDRESS, 0, address(this), synthId, 0, initCallData
+        //     );
+
+        // _mint(to, id, 1, "");
+
+        // emit SynthMinted(to, address(this), id);
+
+        return msg.sender;
     }
 
-    function supportsInterface(bytes4 interfaceId) external pure returns (bool) {
-        return (
-            interfaceId == type(IERC165).interfaceId || interfaceId == type(IERC6551Account).interfaceId
-                || interfaceId == type(IERC6551Executable).interfaceId
-        );
+    function addToNFTWhitelist(address _nft) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        nftWhitelist[_nft] = true;
     }
 
-    function token() public view returns (uint256, address, uint256) {
-        bytes memory footer = new bytes(0x60);
-
-        assembly {
-            extcodecopy(address(), add(footer, 0x20), 0x4d, 0x60)
-        }
-
-        return abi.decode(footer, (uint256, address, uint256));
+    function removeFromNFTWhitelist(address nft) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        delete nftWhitelist[nft];
     }
 
-    function owner() public view returns (address) {
-        (uint256 chainId, address tokenContract, uint256 tokenId) = token();
-        if (chainId != block.chainid) return address(0);
-
-        return IERC721(tokenContract).ownerOf(tokenId);
+    function addWave(address _wave) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        waveExists[_wave] = true;
     }
 
-    function _isValidSigner(address signer) internal view returns (bool) {
-        return signer == owner();
+    function removeWave(address wave) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        delete waveExists[wave];
+    }
+
+    function pause() public onlyRole(DEFAULT_ADMIN_ROLE) {
+        _pause();
+    }
+
+    function unpause() public onlyRole(DEFAULT_ADMIN_ROLE) {
+        _unpause();
+    }
+
+    function _beforeTokenTransfer(address from, address to, uint256 tokenId) internal override whenNotPaused {
+        super._beforeTokenTransfer(from, to, tokenId);
     }
 }

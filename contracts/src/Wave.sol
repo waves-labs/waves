@@ -1,63 +1,63 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.17;
 
+// import "highlight/erc721/ERC721SingleEdition.sol";
+import "@opengsn/contracts/ERC2771Recipient.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
-contract Wave is ERC721, Pausable, Ownable {
-    event WaveMinted(address indexed to, uint256 indexed tokenId, address indexed ticket);
+import {WAVE_RESOLVER_ADDRESS} from "./Constants.sol";
 
-    uint256 public startTime;
-    uint256 public endTime;
-    uint256 private maxSupply;
+contract Wave is ERC721, Pausable, AccessControl {
+    event WaveMinted(address indexed owner, address indexed wave, uint256 indexed waveId);
+
+    uint16 maxAmount; // max amount of waves to be minted
+    uint256 startTime; // time to start minting
+    uint256 setLengthTime; // length of set in minutes
+    address private artist;
+    address private creative;
+    bytes public data;
+    bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 
     using Counters for Counters.Counter;
 
-    Counters.Counter private _tokenIdCounter;
+    Counters.Counter private _waveIdCounter;
 
-    constructor(
-        string memory _eventName,
-        string memory _symbol,
-        uint256 _startTime,
-        uint256 _endTime,
-        uint256 _maxSupply
-    ) ERC721(_eventName, _symbol) {
-        startTime = _startTime;
-        endTime = _endTime;
-        maxSupply = _maxSupply;
+    constructor(address _artist, address _creative, address _admin, string memory _name, bytes memory _data)
+        ERC721(_name, "WAVE")
+    {
+        artist = _artist;
+        creative = _creative;
+
+
+        _setupRole(DEFAULT_ADMIN_ROLE, _admin);
+        _setupRole(MINTER_ROLE, _admin);
+        _setupRole(MINTER_ROLE, WAVE_RESOLVER_ADDRESS);
     }
 
-    // Used by Event Organizer to reserve tickets for VIPs
-    function reserveTicket(address to) public onlyOwner {
-        uint256 tokenId = _tokenIdCounter.current();
-        _tokenIdCounter.increment();
-        _safeMint(to, tokenId);
+    function mint(address to) external onlyRole(MINTER_ROLE) {
+        // require(block.timestamp > startTime && block.timestamp < endTime, "Waves: event not active");
 
-        emit TicketMinted(to, tokenId, address(this));
+        uint256 waveId = _waveIdCounter.current();
+
+        _waveIdCounter.increment();
+        _mint(to, waveId);
+
+        emit WaveMinted(to, address(this), waveId);
     }
 
-    // Used by Attendee to purchase tickets
-    function purchaseTicket() public payable whenNotPaused {
-        // require(msg.value == 0.0001 ether, "Ticket: must send 1 ether");
-        require(block.timestamp < endTime, "Ticket: event has ended");
-        require(_tokenIdCounter.current() <= maxSupply, "Ticket: sold out");
-        require(balanceOf(msg.sender) == 0, "Ticket: already claimed");
-
-        uint256 tokenId = _tokenIdCounter.current();
-        _tokenIdCounter.increment();
-        _safeMint(msg.sender, tokenId);
-
-        emit TicketMinted(msg.sender, tokenId, address(this));
-    }
-
-    function pause() public onlyOwner {
+    function pause() public onlyRole(DEFAULT_ADMIN_ROLE) {
         _pause();
     }
 
-    function unpause() public onlyOwner {
+    function unpause() public onlyRole(DEFAULT_ADMIN_ROLE) {
         _unpause();
+    }
+
+    function supportsInterface(bytes4 interfaceId) public view override(ERC721, AccessControl) returns (bool) {
+        return super.supportsInterface(interfaceId);
     }
 
     function _beforeTokenTransfer(address from, address to, uint256 tokenId) internal override whenNotPaused {

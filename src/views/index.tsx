@@ -1,4 +1,3 @@
-import { css } from "@emotion/react";
 import { a, useTransition } from "@react-spring/web";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 
@@ -32,14 +31,6 @@ export default function Views() {
     <a.main
       className={`flex h-[calc(100dvh-4rem)] overflow-hidden max-h-[calc(100dvh-4rem)] overflow-y-contain`}
       style={{ ...style }}
-      css={css`
-        background: linear-gradient(
-          151deg,
-          #e9e3dd 10.39%,
-          #b2a79e 56.43%,
-          #d6d0cb 100%
-        );
-      `}
     >
       <Routes location={location}>
         <Route path="synths" element={<Synths {...synths} />}>

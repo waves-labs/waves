@@ -4,15 +4,21 @@ pragma solidity ^0.8.17;
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 
-import {Ticket} from "./Ticket.sol";
-import {SynthGenerator} from "./SynthGenerator.sol";
+import {Synth} from "./Synth.sol";
 
-contract SynthRegistry is Initializable, PausableUpgradeable, OwnableUpgradeable {
-    event SynthGeneratorRegistered(address indexed synthGenerator, address indexed ticket, address indexed owner);
+contract SynthRegistry is Initializable, PausableUpgradeable, OwnableUpgradeable, UUPSUpgradeable {
+    event SynthCreated(
+        bool nftOwnershipNeeded,
+        address indexed synth,
+        address indexed artist,
+        address indexed organizer,
+        string name,
+        address[] waves
+    );
 
-    mapping(address => bool) public synthGeneratorRegistered;
-    mapping(address => address) public synthGeneratorToTicket;
+    mapping(address => bool) public synthExists;
 
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
@@ -20,27 +26,29 @@ contract SynthRegistry is Initializable, PausableUpgradeable, OwnableUpgradeable
     }
 
     function initialize() external initializer {
-        __Pausable_init();
         __Ownable_init();
+        __Pausable_init();
+        __UUPSUpgradeable_init();
     }
 
-    function registerEvent(address _ticketAddrs) external whenNotPaused returns (address) {
-        Ticket ticket = Ticket(_ticketAddrs);
-        require(ticket.owner() == msg.sender, "must be ticket owner");
-        require(!synthGeneratorRegistered[_ticketAddrs], "already registered");
+    function createSynth(
+        bool _nftOwnershipToMint,
+        address _artist,
+        bytes memory _data,
+        string memory _name,
+        address[] memory _nftWhitelist,
+        address[] memory _waves
+    ) external whenNotPaused returns (address) {
+        Synth synth = new Synth(_nftOwnershipToMint, _artist, msg.sender, _name, _nftWhitelist, _waves);
 
-        SynthGenerator synthGenerator = new SynthGenerator(_ticketAddrs, msg.sender, ticket.name());
-        address synthGenAddrs = address(synthGenerator);
+        synthAddrs = address(synth);
+        synthExists[synthAddrs] = true;
 
-        synthGeneratorRegistered[_ticketAddrs] = true;
-        synthGeneratorToTicket[synthGenAddrs] = _ticketAddrs;
+        emit SynthCreated(_nftOwnershipToMint, synthAddrs, _artist, msg.sender, _name, _waves);
 
-        emit SynthGeneratorRegistered(synthGenAddrs, _ticketAddrs, msg.sender);
-
-        return (synthGenAddrs);
+        return synthAddrs;
     }
 
-    // Used by WAVES app to get Synth Generators - TODO add events and use The Graph
     function pause() external onlyOwner {
         _pause();
     }
@@ -48,4 +56,6 @@ contract SynthRegistry is Initializable, PausableUpgradeable, OwnableUpgradeable
     function unpause() external onlyOwner {
         _unpause();
     }
+
+    function _authorizeUpgrade(address newImplementation) internal override onlyOwner {}
 }

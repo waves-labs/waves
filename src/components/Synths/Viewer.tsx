@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
@@ -39,10 +40,8 @@ export const SynthsViewer: React.FC<SynthsViewerProps> = ({}) => {
     }
   }
 
-  console.log("Synth", synth);
-
   return (
-    <div className="relative px-6 pt-12 w-full h-full">
+    <div className="relative px-6 pt-12 w-full h-full" css={css``}>
       <Link
         className="absolute left-6 top-2 grid place-items-center w-12 h-12 unselectable"
         to="/synths"

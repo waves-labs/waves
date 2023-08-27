@@ -19,22 +19,6 @@ const {
   PROFILE: isProfiling,
 } = process.env;
 
-const setDeployer = (address, chain) => ({
-  [chain]: address,
-});
-
-const NamedAccounts = {
-  deployer: {
-    ...setDeployer(deployer, "optimism"),
-    ...setDeployer(deployer, "base"),
-    ...setDeployer(deployer, "zora"),
-    ...setDeployer(deployer, "optimism-goerli"),
-    ...setDeployer(deployer, "base-goerli"),
-    ...setDeployer(deployer, "zora-goerli"),
-    ...setDeployer(deployer, "mode-sepolia"),
-  },
-};
-
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: "0.8.19",
@@ -43,19 +27,19 @@ module.exports = {
       enabled: true,
       runs: 200,
     },
-    // metadata: {
-    //   bytecodeHash: "none",
-    // },
+    metadata: {
+      bytecodeHash: "none",
+    },
     contractSizer: {
       alphaSort: true,
       runOnCompile: true,
       disambiguatePaths: false,
     },
     allowUnlimitedContractSize: true,
-    // gasReporter: {
-    //   currency: "USD",
-    //   enabled: isProfiling,
-    // },
+    gasReporter: {
+      currency: "USD",
+      enabled: isProfiling,
+    },
   },
   networks: {
     hardhat: {
@@ -72,31 +56,35 @@ module.exports = {
       url: ETHEREUM_OPTIMISM_PROVIDER_URL,
       saveDeployments: true,
       live: true,
+      accounts: [deployer],
     },
     base: {
       chainId: 8453,
       url: ETHEREUM_BASE_PROVIDER_URL,
       saveDeployments: true,
       live: true,
+      accounts: [deployer],
     },
     zora: {
       chainId: 7777777,
       url: ETHEREUM_ZORA_PROVIDER_URL,
       saveDeployments: true,
       live: true,
+      accounts: [deployer],
     },
     "optimism-goerli": {
       chainId: 420,
       url: ETHEREUM_OPTIMISM_GOERLI_PROVIDER_URL,
       saveDeployments: true,
       live: true,
+      accounts: [deployer],
     },
     "base-goerli": {
       chainId: 84531,
       url: ETHEREUM_BASE_GOERLI_PROVIDER_URL,
       saveDeployments: true,
       live: true,
-      gasPrice: 1000000000,
+      // gasPrice: 1000000000,
       accounts: [deployer],
     },
     "zora-goerli": {
@@ -104,18 +92,16 @@ module.exports = {
       url: ETHEREUM_ZORA_GOERLI_PROVIDER_URL,
       saveDeployments: true,
       live: true,
+      accounts: [deployer],
     },
     "mode-sepolia": {
       chainId: 919,
       url: ETHEREUM_MODE_SEPOLIA_PROVIDER_URL,
       saveDeployments: true,
       live: true,
+      accounts: [deployer],
     },
   },
-  // paths: {
-  //   deploy: ["contracts/scripts"],
-  // },
-  // namedAccounts: NamedAccounts,
   verify: {
     etherscan: {
       apiKey: ETHERSCAN_API_KEY,

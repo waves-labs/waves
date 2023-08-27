@@ -1,5 +1,5 @@
-import { css } from "@emotion/react";
 import React from "react";
+import { css } from "@emotion/react";
 import { a, useSpring } from "@react-spring/web";
 
 import { SynthsView } from "../../hooks/views/useSynths";
@@ -32,8 +32,6 @@ export const Synth: React.FC<SynthProps> = ({
   function handleSynthClick() {
     view === "synth" && setFlipped && setFlipped((state) => !state);
   }
-
-  console.log("Synth Image", image);
 
   return (
     <div

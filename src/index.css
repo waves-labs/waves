@@ -91,7 +91,12 @@ body {
   -ms-overflow-style: none; /* IE and Edge */
   overflow: hidden;
   font-family: "Inter", sans-serif;
-  /* background-color: var(--background-color); */
+  background: linear-gradient(
+    151deg,
+    #e9e3dd 10.39%,
+    #b2a79e 56.43%,
+    #d6d0cb 100%
+  );
 }
 
 #root {
