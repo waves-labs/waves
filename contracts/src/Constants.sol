@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.17;
+pragma solidity ^0.8.10;
 
 address constant WAVE_RESOLVER_ADDRESS = 0x826f725Ce5c76f30ca62bfABe1f7e6F97207aB34;
 

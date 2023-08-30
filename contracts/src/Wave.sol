@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.17;
+pragma solidity ^0.8.10;
 
 // import "highlight/erc721/ERC721SingleEdition.sol";
 import "@opengsn/contracts/ERC2771Recipient.sol";
@@ -15,7 +15,7 @@ contract Wave is ERC721, Pausable, AccessControl {
 
     uint16 maxAmount; // max amount of waves to be minted
     uint256 startTime; // time to start minting
-    uint256 setLengthTime; // length of set in minutes
+    uint256 duration; // length of set in minutes
     address private artist;
     address private creative;
     bytes public data;
@@ -30,7 +30,7 @@ contract Wave is ERC721, Pausable, AccessControl {
     {
         artist = _artist;
         creative = _creative;
-
+        data = _data;
 
         _setupRole(DEFAULT_ADMIN_ROLE, _admin);
         _setupRole(MINTER_ROLE, _admin);

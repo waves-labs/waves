@@ -1,4 +1,3 @@
-tokenbound/=contracts/lib/tokenbound/src
 forge-std/=contracts/lib/forge-std/src
 highlight/=contracts/lib/hl-evm-contracts/contracts
 @opengsn/contracts/=node_modules/@opengsn/contracts/src

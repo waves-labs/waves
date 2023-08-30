@@ -3,7 +3,7 @@ src = 'contracts/src'
 test = 'contracts/test'
 out = 'contracts/out'
 libs = ['contracts/lib']
-solc = '0.8.17'
+solc = '0.8.10'
 eth_rpc_url = "http://localhost:8545"
 
 [profile.op]

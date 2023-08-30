@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.17;
+pragma solidity ^0.8.10;
 
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
@@ -14,8 +14,7 @@ contract SynthRegistry is Initializable, PausableUpgradeable, OwnableUpgradeable
         address indexed synth,
         address indexed artist,
         address indexed organizer,
-        string name,
-        address[] waves
+        string name
     );
 
     mapping(address => bool) public synthExists;
@@ -36,15 +35,14 @@ contract SynthRegistry is Initializable, PausableUpgradeable, OwnableUpgradeable
         address _artist,
         bytes memory _data,
         string memory _name,
-        address[] memory _nftWhitelist,
-        address[] memory _waves
+        address[] memory _nftWhitelist
     ) external whenNotPaused returns (address) {
-        Synth synth = new Synth(_nftOwnershipToMint, _artist, msg.sender, _name, _nftWhitelist, _waves);
+        Synth synth = new Synth(_nftOwnershipToMint, _artist, msg.sender, _name, _nftWhitelist);
 
-        synthAddrs = address(synth);
+        address synthAddrs = address(synth);
         synthExists[synthAddrs] = true;
 
-        emit SynthCreated(_nftOwnershipToMint, synthAddrs, _artist, msg.sender, _name, _waves);
+        emit SynthCreated(_nftOwnershipToMint, synthAddrs, _artist, msg.sender, _name);
 
         return synthAddrs;
     }
