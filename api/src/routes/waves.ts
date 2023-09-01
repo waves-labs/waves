@@ -42,7 +42,7 @@ const eventToArtistToWaveIDMap: Record<EventName, Record<Artist, number | null>>
 
 export const wavesRouter = Router();
 
-wavesRouter.post("/claim", async function (req: Request, res: Response) {
+wavesRouter.post("/mint", async function (req: Request, res: Response) {
   const body = req.body as { eventName: EventName; synth: string; artist: Artist };
 
   if (!body.eventName || !body.synth || !body.artist) {

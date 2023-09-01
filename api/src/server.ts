@@ -1,8 +1,13 @@
-// import fs from "fs";
-// import path from "path";
-// import https from "https";
+import cors from "cors";
+import helmet from "helmet";
 import express from "express";
 import { SiweMessage } from "siwe";
+import { createClient } from "redis";
+import session from "express-session";
+import RedisStore from "connect-redis";
+
+import { wavesRouter } from "./routes/waves";
+import { identityRouter } from "./routes/identity";
 
 declare module "express-session" {
   export interface Session {
@@ -12,14 +17,47 @@ declare module "express-session" {
   }
 }
 
-export const server = express();
+const server = express();
 
-// https
-//   .createServer(
-//     {
-//       key: fs.readFileSync(path.join(__dirname, "../cert/fastify.key")),
-//       cert: fs.readFileSync(path.join(__dirname, "../cert/fastify.cert")),
-//     },
-//     server
-//   )
-//   .listen(3000);
+// Redis
+const redisClient = createClient();
+redisClient.connect().catch(console.error);
+redisClient.on("error", function (err) {
+  console.log("Could not establish a connection with redis. " + err);
+});
+redisClient.on("connect", function (err) {
+  console.log("Connected to redis successfully");
+});
+
+const redisStore = new RedisStore({
+  client: redisClient,
+  prefix: "waves:",
+});
+
+// Middleware
+server.use(require("express").json());
+server.use(cors({})); // Adjust the "origin" option as needed
+server.use(helmet({}));
+server.use(
+  session({
+    name: "waves_cookie",
+    secret: `${process.env.SESSION_SECRET ?? "issa a secret with minimum length of 32 characters"}}`,
+    resave: false,
+    saveUninitialized: true,
+    store: redisStore,
+    // cookie: {
+    //   secure: true,
+    //   sameSite: true,
+    // },
+  })
+);
+
+// Router
+server.use("/waves", wavesRouter);
+server.use("/identity", identityRouter);
+
+server.get("/status", async function (_req, reply) {
+  reply.send({ status: "ok" });
+});
+
+export { server };

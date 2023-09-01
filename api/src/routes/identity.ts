@@ -6,7 +6,6 @@ export const identityRouter = Router();
 // Returns the current user by checking the session returning 200 if the user is logged in and 401 if not
 identityRouter.get("/nonce", async function (req: Request, res: Response) {
   req.session.nonce = generateNonce();
-  await req.session.save();
   res.status(200).send({ nonce: req.session.nonce });
 });
 
@@ -14,15 +13,17 @@ identityRouter.get("/nonce", async function (req: Request, res: Response) {
 identityRouter.post("/login", async function (req: Request, res: Response) {
   const body = req.body as { message: string; signature: string };
 
-  // console.log("BODY", req.session.get("nonce"));
-
   try {
-    if (!body.message || !body.signature || !req.session.nonce) {
+    if (!body.message || !body.signature) {
       return res.status(400).send({ error: "Missing message, signature, or nonce" });
     }
 
     const SIWEObject = new SiweMessage(body.message);
-    const { data: message } = await SIWEObject.verify({ signature: body.signature, nonce: req.session.nonce });
+    const { data: message } = await SIWEObject.verify({
+      signature: body.signature,
+      // @ts-ignore
+      nonce: req.session.nonce,
+    });
 
     req.session.siwe = message;
     if (message.expirationTime) {

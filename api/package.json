@@ -16,17 +16,19 @@
   "main": "dist/index.js",
   "scripts": {
     "docker:build": "docker build -t api .",
+    "docker:compose": "docker-compose up -d --build",
     "docker:run": "docker run -p 8080:8080 api",
     "format": "yarn prettier && yarn lint",
     "prettier": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint . --ext .ts,.tsx --quiet --fix",
-    "dev": "bob-tsm --node-env=dev --cjs --watch=src src/index.ts",
+    "dev": "yarn docker:compose && bob-tsm --node-env=dev --cjs --watch=src src/index.ts",
     "test": "cross-env jest",
     "start": "bob-tsm --node-env=prod --cjs src/index.ts"
   },
   "dependencies": {
     "@ethereum-attestation-service/eas-sdk": "^1.0.0-beta.0",
     "bob-tsm": "^1.1.2",
+    "connect-redis": "7.1.0",
     "cookie-parser": "1.4.6",
     "cors": "2.8.5",
     "dotenv": "^16.0.3",
@@ -36,6 +38,7 @@
     "express-session": "1.17.3",
     "morgan": "1.10.0",
     "node-fetch": "^3.3.1",
+    "redis": "4.6.8",
     "siwe": "2.1.4",
     "tap": "^16.3.4"
   },
