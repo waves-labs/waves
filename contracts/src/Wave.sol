@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.10;
 
-// import "highlight/erc721/ERC721SingleEdition.sol";
 import "@opengsn/contracts/ERC2771Recipient.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
@@ -10,7 +9,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
 import {WAVE_RESOLVER_ADDRESS} from "./Constants.sol";
 
-contract Wave is ERC721, Pausable, AccessControl {
+contract Wave is ERC721, Pausable, AccessControl, ERC2771Recipient {
     event WaveMinted(address indexed owner, address indexed wave, uint256 indexed waveId);
 
     uint16 maxAmount; // max amount of waves to be minted
@@ -58,6 +57,14 @@ contract Wave is ERC721, Pausable, AccessControl {
 
     function supportsInterface(bytes4 interfaceId) public view override(ERC721, AccessControl) returns (bool) {
         return super.supportsInterface(interfaceId);
+    }
+
+    function _msgSender() internal view override(Context, ERC2771Recipient) returns (address sender) {
+        return super._msgSender();
+    }
+
+    function _msgData() internal view override(Context, ERC2771Recipient) returns (bytes calldata) {
+        return super._msgData();
     }
 
     function _beforeTokenTransfer(address from, address to, uint256 tokenId) internal override whenNotPaused {

@@ -33,7 +33,6 @@ contract SynthRegistry is Initializable, PausableUpgradeable, OwnableUpgradeable
     function createSynth(
         bool _nftOwnershipToMint,
         address _artist,
-        bytes memory _data,
         string memory _name,
         address[] memory _nftWhitelist
     ) external whenNotPaused returns (address) {

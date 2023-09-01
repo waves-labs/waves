@@ -2,7 +2,6 @@
 pragma solidity ^0.8.10;
 
 import "highlight/erc721/ERC721Generative.sol";
-import "@opengsn/contracts/ERC2771Recipient.sol";
 import "@openzeppelin/contracts/interfaces/IERC1271.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/utils/introspection/IERC165.sol";
@@ -52,7 +51,7 @@ contract SynthAccount is IERC165, IERC1271, IERC6551Account, IERC6551Executable,
         ++_state;
     }
 
-    // View functions
+    // View Functions
     function isValidSigner(address signer, bytes calldata) external view returns (bytes4) {
         if (_isValidSigner(signer)) {
             return IERC6551Account.isValidSigner.selector;
@@ -99,8 +98,7 @@ contract SynthAccount is IERC165, IERC1271, IERC6551Account, IERC6551Executable,
         return IERC721(tokenContract).ownerOf(tokenId);
     }
 
-    // virtual
-
+    // Virtual Functions
     function _token() internal view returns (uint256, address, uint256) {
         bytes memory footer = new bytes(0x60);
 

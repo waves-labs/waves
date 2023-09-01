@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
+import "@opengsn/contracts/ERC2771Recipient.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
@@ -12,7 +13,7 @@ import "./Wave.sol";
 
 /// @title WavesResolver
 /// @notice A schema resolver for the Waves event schema
-contract WaveResolver is SchemaResolver, Initializable, OwnableUpgradeable, UUPSUpgradeable {
+contract WaveResolver is SchemaResolver, Initializable, OwnableUpgradeable, UUPSUpgradeable, ERC2771Recipient {
     struct WaveSchema {
         address synthAddrs;
         address synthAccountAddrs;
@@ -53,6 +54,14 @@ contract WaveResolver is SchemaResolver, Initializable, OwnableUpgradeable, UUPS
         // TODO: Call burnWave on Wave (ERC-721)
 
         return true;
+    }
+
+    function _msgSender() internal view override(ContextUpgradeable, ERC2771Recipient) returns (address sender) {
+        return super._msgSender();
+    }
+
+    function _msgData() internal view override(ContextUpgradeable, ERC2771Recipient) returns (bytes calldata) {
+        return super._msgData();
     }
 
     function _authorizeUpgrade(address newImplementation) internal override onlyOwner {}

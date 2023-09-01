@@ -9,7 +9,7 @@ import "@openzeppelin/contracts/access/AccessControl.sol";
 
 import {SynthAccount} from "./SynthAccount.sol";
 
-contract Synth is ERC721, Pausable, AccessControl {
+contract Synth is ERC721, Pausable, AccessControl, ERC2771Recipient {
     event SynthMinted(address indexed owner, address indexed synth, address indexed synthAccount, uint256 synthId);
 
     bool private nftOwnershipToMint;
@@ -40,7 +40,7 @@ contract Synth is ERC721, Pausable, AccessControl {
         _setupRole(DEFAULT_ADMIN_ROLE, _organizer);
     }
 
-    function mint(address _nft) external returns (address) {
+    function mint(address _nftOwned) external returns (address) {
         // require(waves[id].id == id, "Waves: wave doesn't exist");
         // require(waves[id].claimedAmount > waves[id].maxAmount, "Waves: waves claimed");
         // require(balanceOf(to, id) == 0, "Waves: user already claimed");
@@ -90,6 +90,14 @@ contract Synth is ERC721, Pausable, AccessControl {
 
     function supportsInterface(bytes4 interfaceId) public view override(ERC721, AccessControl) returns (bool) {
         return super.supportsInterface(interfaceId);
+    }
+
+    function _msgSender() internal view override(Context, ERC2771Recipient) returns (address sender) {
+        return super._msgSender();
+    }
+
+    function _msgData() internal view override(Context, ERC2771Recipient) returns (bytes calldata) {
+        return super._msgData();
     }
 
     function _beforeTokenTransfer(address from, address to, uint256 tokenId) internal override whenNotPaused {
