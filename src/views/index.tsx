@@ -16,6 +16,7 @@ export default function Views() {
     from: { opacity: 0 },
     enter: { opacity: 1 },
     leave: { opacity: 0 },
+    exitBeforeEnter: true,
     config: {
       tension: 300,
       friction: 20,
@@ -30,7 +31,7 @@ export default function Views() {
   return transitions((style, location) => (
     <a.main
       className={`flex h-[calc(100dvh-4rem)] overflow-hidden max-h-[calc(100dvh-4rem)] overflow-y-contain`}
-      style={{ ...style }}
+      style={style}
     >
       <Routes location={location}>
         <Route path="synths" element={<Synths {...synths} />}>

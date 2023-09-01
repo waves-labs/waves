@@ -6,16 +6,22 @@ import {
   useSignMessage,
 } from "wagmi";
 import { SiweMessage } from "siwe";
-import { useEffect, useState } from "react";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
+import { createContext, useContext, useEffect, useState } from "react";
 
 import { apiClient } from "../modules/axios";
 
 const domain = document.location.host;
 const origin = document.location.origin;
 
-console.log("DOMAIN", domain);
-console.log("ORIGIN", origin);
+export interface Web3Props {
+  error: null | string;
+  address?: `0x${string}`;
+  handleConnect: () => Promise<void>;
+  signMessage: (message: string) => Promise<string | void>;
+  login: () => Promise<void>;
+  logout: () => Promise<void>;
+}
 
 async function createSiweMessage(
   address: `0x${string}`,
@@ -35,7 +41,22 @@ async function createSiweMessage(
   return message.prepareMessage();
 }
 
-export const useWeb3 = () => {
+const Web3Context = createContext<Web3Props | null>(null);
+
+type Props = {
+  children: React.ReactNode;
+};
+
+export const Web3Provider = ({ children }: Props) => {
+  const currentValue = useContext(Web3Context);
+
+  if (currentValue) throw new Error("AppProvider can only be used once");
+
+  const [authenticated, setAuthenticated] = useState(
+    localStorage.getItem("authenticated") === "true",
+  );
+  const [authenticating, setAuthenticating] = useState(false);
+
   const chainId = useChainId();
   const { address } = useAccount();
   const { disconnectAsync } = useDisconnect();
@@ -68,10 +89,17 @@ export const useWeb3 = () => {
 
   async function login() {
     try {
+      if (authenticated || authenticating) {
+        return;
+      }
+
+      setAuthenticating(true);
       setError(null);
 
       if (!address) {
         await handleConnect();
+
+        setAuthenticating(false);
 
         return;
       }
@@ -88,11 +116,21 @@ export const useWeb3 = () => {
       );
       const signature = await signMessage(message);
 
-      await apiClient.post(`/identity/login`, {
-        message,
-        signature,
-      });
+      await apiClient.post(
+        `/identity/login`,
+        {
+          message,
+          signature,
+        },
+        // {},
+      );
+
+      setAuthenticated(true);
+      setAuthenticating(false);
+
+      localStorage.setItem("authenticated", "true");
     } catch (err: any) {
+      setAuthenticating(false);
       err && err.message && setError(err.message);
       console.error("ERROR AUTHENTICATING", err);
     }
@@ -102,18 +140,18 @@ export const useWeb3 = () => {
     try {
       setError(null);
       await disconnectAsync();
-      await apiClient.post(`/identity/logout`);
+      await apiClient.post(`/identity/logout`, {
+        withCredentials: true,
+      });
+
+      localStorage.setItem("authenticated", "false");
     } catch (err: any) {
       err && err.message && setError(err.message);
       console.error("ERROR DICONNECTING WALLET", err);
     }
-  }
 
-  useEffect(() => {
-    if (address && !connectModalOpen) {
-      login();
-    }
-  }, [address, connectModalOpen]);
+    setAuthenticated(false);
+  }
 
   useEffect(() => {
     if (connectError) {
@@ -121,12 +159,30 @@ export const useWeb3 = () => {
     }
   }, [connectError]);
 
-  return {
-    error,
-    address,
-    handleConnect,
-    signMessage,
-    login,
-    logout,
-  };
+  useEffect(() => {
+    if (address && !authenticated && !connectModalOpen) {
+      login();
+    }
+  }, [address, connectModalOpen]);
+
+  return (
+    <Web3Context.Provider
+      value={{
+        error,
+        address,
+        handleConnect,
+        signMessage,
+        login,
+        logout,
+      }}
+    >
+      {children}
+    </Web3Context.Provider>
+  );
+};
+
+export const useWeb3 = (): Web3Props => {
+  const value = useContext(Web3Context);
+  if (!value) throw new Error("Must be used within a AppProvider");
+  return value;
 };

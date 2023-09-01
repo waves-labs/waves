@@ -23,9 +23,9 @@ export const SynthsMintDialog: React.FC<SynthsMintDialogProps> = ({}) => {
   return createPortal(
     <>
       <input type="checkbox" id="synths-mint-dialog" className="modal-toggle" />
-      <label htmlFor="synths-mint-dialog" className="modal cursor-pointer">
+      <label htmlFor="synths-mint-dialog" className="modal cursor-pointer px-6">
         <label
-          className="modal-box relative flex w-full max-w-sm flex-col gap-4"
+          className="modal-box relative flex w-full max-w-xs flex-col gap-4 bg-[var(--surface)]"
           htmlFor=""
         >
           <select

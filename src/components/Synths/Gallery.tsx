@@ -1,11 +1,9 @@
-import { Wave } from "./Wave";
-import { Synth } from "./Synth";
-
-import { SynthsView } from "../../hooks/views/useSynths";
 import { useNavigate } from "react-router-dom";
 
-// TODO: Polish styles to match designs
-// TODO: Update Grid to be a 2 columns on mobile
+import { SynthsView } from "../../hooks/views/useSynths";
+
+import { Wave } from "./Wave";
+import { Synth } from "./Synth";
 
 interface SynthsGalleryProps {
   view: SynthsView;
@@ -24,38 +22,40 @@ export const SynthsGallery: React.FC<SynthsGalleryProps> = ({
     view === "synths" && navigate(`/synths/${synth.address}`);
   }
 
+  if (!items.length) {
+    return (
+      <div className="h-full w-full grid place-items-center">
+        {view === "synths" ? (
+          <h4>No Synths Found, Mint One!</h4>
+        ) : (
+          <h4>No Waves Found Go Catch Some!</h4>
+        )}
+      </div>
+    );
+  }
+
   return (
     <ul
-      className={"flex flex-col overflow-scroll h-full w-full gap-3 pb-20"}
-      // className={`grid grid-cols-[repeat(auto-fit,_minmax(320px,_1fr))] px-6 sm:px-12 overflow-scroll h-full`}
+      className={
+        "grid grid-cols-2 auto-rows-auto	 overflow-scroll h-full w-full gap-3 pt-16 pb-20"
+      }
     >
-      {items.length ? (
-        items.map((item, index) => {
-          if (!item) return null;
-          if ("eventName" in item) {
-            return (
+      {items.map((item, index) => {
+        if (!item) return null;
+        if ("eventName" in item) {
+          return (
+            <li key={index}>
               <Synth
-                key={index}
                 {...item}
                 view={view}
                 onClick={() => handleSynthClick(item)}
               />
-            );
-          } else {
-            return <Wave key={index} {...item} onItemClick={onItemClick} />;
-          }
-        })
-      ) : (
-        <div className="h-full grid place-items-center">
-          {view === "synths" ? (
-            <div>
-              <p>No synths found, mint one!</p>
-            </div>
-          ) : (
-            <p>No waves found go catch some!</p>
-          )}
-        </div>
-      )}
+            </li>
+          );
+        } else {
+          return <Wave key={index} {...item} onItemClick={onItemClick} />;
+        }
+      })}
     </ul>
   );
 };

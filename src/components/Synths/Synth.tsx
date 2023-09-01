@@ -35,9 +35,7 @@ export const Synth: React.FC<SynthProps> = ({
 
   return (
     <div
-      className={`${
-        view === "synths" ? "w-1/2" : "w-full"
-      } relative aspect-square bg-transparent aspect-square`}
+      className={`relative aspect-square bg-transparent aspect-square`}
       onClick={onClick ?? handleSynthClick}
     >
       <a.div

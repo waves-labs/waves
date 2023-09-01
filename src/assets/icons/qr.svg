@@ -1,4 +1,4 @@
-<svg width="24" height="24" fill="none">
+<svg width="24" height="24">
   <path d="M11 11H0V0h11v11ZM2 9h7V2H2v7ZM24 11H13V0h11v11Zm-9-2h7V2h-7v7ZM11 24H0V13h11v11Zm-9-2h7v-7H2v7ZM24 20h-2v-5h-2v3h-6v-5h2v3h2v-3h6v7ZM24 24H14v-4h2v2h8v2Z" fill="#0A0F15"/>
   <path d="M7 4H4v3h3V4ZM20 4h-3v3h3V4ZM7 17H4v3h3v-3Z" fill="#0A0F15"/>
 </svg>

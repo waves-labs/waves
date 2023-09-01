@@ -23,11 +23,11 @@ type Props = {
 };
 
 export const AppProvider = ({ children }: Props) => {
-  const device: DeviceType = isHandheld ? "handheld" : "desktop";
-
   const currentValue = useContext(AppContext);
 
   if (currentValue) throw new Error("AppProvider can only be used once");
+
+  const device: DeviceType = isHandheld ? "handheld" : "desktop";
 
   const [theme, setTheme] = useState<Theme>(
     (localStorage.getItem("theme") as Theme) ?? "light",

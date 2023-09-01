@@ -13,24 +13,25 @@ const Explore: React.FC<ExploreProps> = ({
   scan,
 }) => {
   const { address } = useAccount();
+
   return (
-    <section className="flex flex-col w-full items-center gap-3 px-6 pt-12">
+    <section className="flex flex-col w-full h-full items-center gap-3 px-6 text-center">
       {address ? (
-        <>
-          <h2 className="font-medium text-xl">
-            {error ? error : isScanning ? "Catching wave" : "Catch a wave"}
-          </h2>
+        <div className="h-full w-full flex flex-col justify-center items-center">
+          <h3>
+            {error ? error : isScanning ? "Catching Wave" : "Catch a Wave"}
+          </h3>
           <QRScanner
             isIdle={isIdle}
             isScanning={isScanning}
             onQRDetection={scan}
             error={error}
           />
-        </>
+        </div>
       ) : (
-        <h2 className="font-medium text-xl h-full text-center w-2/3 grid place-items-center">
-          Connect Wallet To Catch Wave
-        </h2>
+        <h4 className="w-full h-full grid place-items-center">
+          Connect Wallet To Catch Waves
+        </h4>
       )}
     </section>
   );

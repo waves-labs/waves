@@ -21,9 +21,11 @@ const Synths: React.FC<SynthsProps> = ({ synths, address }) => {
   }
 
   return (
-    <section className={`flex flex-col relative w-full items-center gap-3`}>
+    <section
+      className={`relative flex flex-col w-full h-full items-center gap-3 px-6`}
+    >
       {location.pathname === "/synths" && (
-        <div className="px-6 pt-12 w-full h-full">
+        <>
           <label
             htmlFor="synths-mint-dialog"
             className={`absolute right-6 top-2 grid place-items-center w-12 h-12 unselectable`}
@@ -35,7 +37,7 @@ const Synths: React.FC<SynthsProps> = ({ synths, address }) => {
             view="synths"
             onItemClick={handleItemClick}
           />
-        </div>
+        </>
       )}
       <Outlet />
       <SynthsMintDialog />

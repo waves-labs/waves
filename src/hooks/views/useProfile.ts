@@ -1,5 +1,6 @@
 import { SpringValue, useSpring } from "@react-spring/web";
 import { useAccount, useEnsAvatar, useEnsName } from "wagmi";
+import { Web3Props, useWeb3 } from "../useWeb3";
 
 type Status =
   | "disconnected"
@@ -11,8 +12,7 @@ type Status =
   | "loading"
   | "success";
 
-export interface ProfileDataProps {
-  address?: string;
+export interface ProfileDataProps extends Web3Props {
   accountStatus?: Status;
   name?: string | null;
   nameStatus?: Status;
@@ -25,7 +25,9 @@ export interface ProfileDataProps {
 }
 
 export const useProfile = (): ProfileDataProps => {
-  const { address, status: accountStatus } = useAccount();
+  const web3 = useWeb3();
+
+  const { status: accountStatus } = useAccount();
   const { data: name, status: nameStatus } = useEnsName();
   const { data: avatar, status: avatarStatus } = useEnsAvatar();
 
@@ -35,12 +37,12 @@ export const useProfile = (): ProfileDataProps => {
   });
 
   return {
-    address,
     accountStatus,
     name,
     nameStatus,
     avatar,
     avatarStatus,
     avatarSpring,
+    ...web3,
   };
 };

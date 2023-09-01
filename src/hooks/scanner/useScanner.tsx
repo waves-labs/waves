@@ -43,11 +43,17 @@ export const ScannerProvider = ({ children }: Props) => {
         event: { synth: string; eventName: string; artist: string },
       ) => {
         try {
-          const { data } = await apiClient.post<ScannerEvent>("/waves/claim", {
-            synth: event.synth,
-            eventName: event.eventName,
-            artist: event.artist,
-          });
+          const { data } = await apiClient.post<ScannerEvent>(
+            "/waves/claim",
+            {
+              synth: event.synth,
+              eventName: event.eventName,
+              artist: event.artist,
+            },
+            {
+              withCredentials: true,
+            },
+          );
 
           if (!data) {
             throw new Error("Error catching wave, try again.");

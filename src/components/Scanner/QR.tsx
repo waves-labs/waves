@@ -18,10 +18,10 @@ export const QRScanner: React.FC<QRScannerProps> = ({
   onQRDetection,
 }) => {
   const { synths } = useSynth();
+
   return (
     <>
       <QrReader
-        // scanDelay={2000}
         onResult={(result, error) => {
           if (!!result) {
             const url = new URL(result?.getText() as string);

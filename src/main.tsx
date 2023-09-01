@@ -9,6 +9,7 @@ import { BrowserRouter } from "react-router-dom";
 import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
 
 import { AppProvider } from "./hooks/useApp";
+import { Web3Provider } from "./hooks/useWeb3";
 import { chains, config } from "./modules/wagmi";
 import { App } from "./App";
 
@@ -20,7 +21,9 @@ root.render(
       <RainbowKitProvider chains={chains}>
         <BrowserRouter>
           <AppProvider>
-            <App />
+            <Web3Provider>
+              <App />
+            </Web3Provider>
           </AppProvider>
         </BrowserRouter>
       </RainbowKitProvider>

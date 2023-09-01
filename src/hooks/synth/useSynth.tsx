@@ -4,8 +4,9 @@ import { useAccount } from "wagmi";
 import { createContext, useContext, useEffect, useState } from "react";
 
 import { SynthContext as SynthMachineContext, synthMachine } from "./machine";
+import { mockSynths } from "../../mockData";
 // import { mockSynths } from "../../mockData";
-import { useSynthGeneratorGenerateSynth } from "../../generated";
+// import { useSynthGeneratorGenerateSynth } from "../../generated";
 
 export interface SynthDataProps extends SynthMachineContext {
   isIdle: boolean;
@@ -29,9 +30,8 @@ export const SynthProvider = ({ children }: Props) => {
   if (currentValue) throw new Error("SynthProvider can only be used once");
 
   const { address } = useAccount();
-  const {} = useSynthGeneratorGenerateSynth({});
 
-  const [synths, setSynths] = useState<Synth[]>([]);
+  const [synths, setSynths] = useState<Synth[]>(mockSynths);
 
   const [state, send] = useMachine(synthMachine, {
     actions: {

@@ -4,22 +4,39 @@ import { ProfileDataProps } from "../../hooks/views/useProfile";
 
 import { ProfileInfo } from "../../components/Profile/Info";
 import { ProfileActions } from "../../components/Profile/Actions";
+import { Web3Props } from "../../hooks/useWeb3";
 
-interface ProfileProps extends ProfileDataProps {}
+interface ProfileProps extends ProfileDataProps, Web3Props {}
 
 export const Profile: React.FC<ProfileProps> = ({
   avatarSpring,
   address,
   name,
+  handleConnect,
+  signMessage,
+  login,
+  logout,
+  error,
 }) => {
+  const web3Props = {
+    address,
+    handleConnect,
+    signMessage,
+    login,
+    logout,
+    error,
+  };
+
   return (
-    <section className={`flex flex-col w-full items-center gap-3 pt-24 px-4`}>
-      <ProfileInfo
-        avatar={"/assets/avatar.png"}
-        username={name || address}
-        avatarSpring={avatarSpring}
-      />
-      <ProfileActions />
+    <section className={`grid place-items-center h-full w-full gap-3 px-6`}>
+      <div className={`relative w-full`}>
+        <ProfileInfo
+          avatar={"/assets/avatar.png"}
+          username={name || address}
+          avatarSpring={avatarSpring}
+        />
+        <ProfileActions {...web3Props} />
+      </div>
     </section>
   );
 };
