@@ -5,32 +5,7 @@
       "path": ".."
     },
     {
-      "name": "api",
-      "path": "../api"
-    },
-    {
-      "name": "contracts",
-      "path": "../contracts"
-    },
-    {
-      "name": "graph",
-      "path": "../graph"
-    },
-    {
-      "name": "src",
-      "path": "../src"
-    },
-    {
-      "name": "components",
-      "path": "../src/components"
-    },
-    {
-      "name": "hooks",
-      "path": "../src/hooks"
-    },
-    {
-      "name": "views",
-      "path": "../src/views"
+      "path": "../../../wefa/openar"
     }
   ],
   "settings": {
@@ -54,12 +29,13 @@
     "solidity.formatter": "forge",
     "solidity.compileUsingRemoteVersion": "v0.8.10",
     "solidity.remappings": [
-      "forge-std/=contracts/lib/forge-std/src/",
-      "tokenbound/=contracts/lib/tokenbound/src",
-      "highlight/=contracts/lib/hl-evm-contracts/contracts",
-      "@ethereum-attestation-service/eas-contracts/=node_modules/@ethereum-attestation-service/eas-contracts/",
-      "@openzeppelin/contracts/=node_modules/@openzeppelin/contracts/",
-      "@openzeppelin/contracts-upgradeable/=node_modules/@openzeppelin/contracts-upgradeable/"
+      // "forge-std/=lib/forge-std/src/",
+      // "tokenbound/=lib/tokenbound/src",
+      // "highlight/=lib/hl-evm-contracts/contracts",
+      // "@opengsn/contracts/=node_modules/@opengsn/contracts/",
+      // "@ethereum-attestation-service/eas-contracts/=node_modules/@ethereum-attestation-service/eas-contracts/",
+      // "@openzeppelin/contracts/=node_modules/@openzeppelin/contracts/",
+      // "@openzeppelin/contracts-upgradeable/=node_modules/@openzeppelin/contracts-upgradeable/"
     ],
     "testing.automaticallyOpenPeekView": "never"
   }

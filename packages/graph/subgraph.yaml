@@ -1,0 +1,126 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - name: SynthRegistry
+    kind: ethereum
+    network: base-testnet
+    source:
+      address: "0xDBcd0b796aA86544FfaD2f27B13453918A78A51d"
+      abi: SynthRegistry
+      startBlock: 9223545
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - AdminChanged
+        - BeaconUpgraded
+        - OwnershipTransferred
+        - Paused
+        - SynthCreated
+        - Unpaused
+        - Upgraded
+      abis:
+        - name: SynthRegistry
+          file: ../contracts/artificats/contracts/src/SynthRegistry.sol/SynthRegistry.json
+      eventHandlers:
+        - event: AdminChanged(address,address)
+          handler: handleAdminChanged
+        - event: BeaconUpgraded(indexed address)
+          handler: handleBeaconUpgraded
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Paused(address)
+          handler: handlePaused
+        - event: SynthCreated(bool,indexed address,indexed address,indexed address,string)
+          handler: handleSynthCreated
+        - event: Unpaused(address)
+          handler: handleUnpaused
+        - event: Upgraded(indexed address)
+          handler: handleUpgraded
+      file: ./src/synth-registry.ts
+  - name: WaveRegistry
+    kind: ethereum
+    network: base-testnet
+    source:
+      address: "0x9D641140e6c1F1B3CE7a75092893952d22692f40"
+      abi: WaveRegistry
+      startBlock: 9225556
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - WaveRegistryAdminChanged
+        - WaveRegistryBeaconUpgraded
+        - WaveRegistryInitialized
+        - WaveRegistryOwnershipTransferred
+        - WaveRegistryPaused
+        - WaveRegistryUnpaused
+        - WaveRegistryUpgraded
+        - WaveCreated
+      abis:
+        - name: WaveRegistry
+          file: ../contracts/artificats/contracts/src/WaveRegistry.sol/WaveRegistry.json
+      eventHandlers:
+        - event: AdminChanged(address,address)
+          handler: handleAdminChanged
+        - event: BeaconUpgraded(indexed address)
+          handler: handleBeaconUpgraded
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Paused(address)
+          handler: handlePaused
+        - event: Unpaused(address)
+          handler: handleUnpaused
+        - event: Upgraded(indexed address)
+          handler: handleUpgraded
+        - event: WaveCreated(indexed address,indexed address,indexed address,string,bytes)
+          handler: handleWaveCreated
+      file: ./src/wave-registry.ts
+templates:
+  - name: Synth
+    kind: ethereum/contract
+    network: base-testnet
+    source:
+      abi: Synth
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: ./src/synth.ts
+      entities:
+        - SynthMinted
+        - WaveAdded
+        - WaveRemoved
+      abis:
+        - name: Synth
+          file: ../contracts/artificats/contracts/src/Synth.sol/Synth.json
+      eventHandlers:
+        - event: SynthMinted(indexed address,indexed address,indexed address,uint256)
+          handler: handleSynthMinted
+        - event: WaveAdded(indexed address)
+          handler: handleWaveAdded
+        - event: WaveRemoved(indexed address)
+          handler: handleWaveRemoved
+  - name: Wave
+    kind: ethereum/contract
+    network: base-testnet
+    source:
+      abi: Wave
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: ./src/wave.ts
+      entities:
+        - WaveMinted
+      abis:
+        - name: Wave
+          file: ../contracts/artificats/contracts/src/Wave.sol/Wave.json
+      eventHandlers:
+        - event: WaveMinted(indexed address,indexed address,indexed uint256)
+          handler: handleWaveMinted

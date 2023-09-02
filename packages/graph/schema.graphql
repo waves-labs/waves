@@ -1,0 +1,104 @@
+type SynthNFT @entity(immutable: true) {
+  id: Bytes!
+  nftOwnershipNeeded: Boolean! # bool
+  synth: Bytes! # address
+  artist: Bytes! # address
+  organizer: Bytes! # address
+  name: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+
+  waveNFTs: [WaveNFT!]!
+}
+
+type WaveNFT @entity(immutable: true) {
+  id: Bytes!
+  wave: Bytes! # address
+  artist: Bytes! # address
+  creative: Bytes! # address
+  name: String! # string
+  data: Bytes! # bytes
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Synth @entity(immutable: true) {
+  id: Bytes!
+  owner: Bytes! # address
+  account: Bytes! # address
+  contract: Bytes! # address
+  tokenId: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+
+  waves: [Wave!]!
+}
+
+type Wave @entity(immutable: true) {
+  id: Bytes!
+  owner: Bytes! # address
+  wave: Bytes! # address
+  waveId: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type AdminChanged @entity(immutable: true) {
+  id: Bytes!
+  contract: Bytes! # address
+  previousAdmin: Bytes! # address
+  newAdmin: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type OwnershipTransferred @entity(immutable: true) {
+  id: Bytes!
+  contract: Bytes! # address
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Upgraded @entity(immutable: true) {
+  id: Bytes!
+  contract: Bytes! # address
+  implementation: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type BeaconUpgraded @entity(immutable: true) {
+  id: Bytes!
+  contract: Bytes! # address
+  beacon: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Paused @entity(immutable: true) {
+  id: Bytes!
+  contract: Bytes! # address
+  account: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Unpaused @entity(immutable: true) {
+  id: Bytes!
+  contract: Bytes! # address
+  account: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}

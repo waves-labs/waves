@@ -2,8 +2,9 @@
 
 # dependencies
 
-lib
 node_modules
+dist
+dev-dist
 .DS_Store
 DS_Store
 
@@ -11,17 +12,19 @@ node_modules
 /.pnp
 .pnp.js
 
+
 # production
 
 build
-
-# misc
-
-.DS_Store
-\*.pem
-*.local
 
 # local env files
 
 .env\*.local
 .env
+
+# forge
+
+out
+cache
+cache_hardhat
+artifacts
