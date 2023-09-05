@@ -25,10 +25,31 @@ export default defineConfig({
      * @see https://wagmi.sh/cli/plugins/foundry
      */
     foundry({
+      exclude: [
+        "Common.sol/**",
+        "Components.sol/**",
+        "Script.sol/**",
+        "StdAssertions.sol/**",
+        "StdError.sol/**",
+        "StdCheats.sol/**",
+        "StdMath.sol/**",
+        "StdJson.sol/**",
+        "StdStorage.sol/**",
+        "StdUtils.sol/**",
+        "Vm.sol/**",
+        "console.sol/**",
+        "console2.sol/**",
+        "test.sol/**",
+        "**.s.sol/*.json",
+        "**.t.sol/*.json",
+      ],
       deployments: {
-        // SynthRegistry: {
-        //   919: "0x000000",
-        // },
+        SynthRegistry: {
+          85431: "0xDBcd0b796aA86544FfaD2f27B13453918A78A51d",
+        },
+        WaveRegistry: {
+          85431: "0x9D641140e6c1F1B3CE7a75092893952d22692f40",
+        },
       },
     }),
     /**

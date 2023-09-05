@@ -4,10 +4,8 @@
   "private": true,
   "workspaces": {
     "packages": [
-      "packages/api",
-      "packages/graph",
-      "packages/contracts",
-      "packages/clients/app"
+      "packages/*",
+      "packages/clients/*"
     ],
     "nohoist": [
       "**/@ethereum-attestation-service/eas-contracts",
@@ -22,24 +20,31 @@
   },
   "scripts": {
     "lint": "yarn workspace app lint && yarn workspace api lint && yarn workspace contracts lint",
-    "dev": "concurrently -n \"APP,API,GRAPH,CONTRACT\" -c \"bgBlue.bold,bgMagenta.bold,bgCyan.bold,bgGreen.bold\" \"yarn dev:app\" \"yarn dev:api\" \"yarn dev:graph\" \"yarn dev:contracts\"",
+    "docker:compose": "docker-compose up -d --build",
+    "dev": "concurrently -n \"APP,API,CONTRACT\" -c \"bgBlue.bold,bgMagenta.bold,bgGreen.bold\" \"yarn dev:app\" \"yarn dev:api\" \"yarn dev:contracts\"",
     "dev:app": "yarn workspace app dev",
     "dev:api": "yarn workspace api dev",
-    "dev:graph": "yarn workspace graph dev",
-    "dev:contract": "yarn workspace contracts dev",
+    "dev:graph": "yarn workspace graph deploy-local",
+    "dev:contracts": "yarn workspace contracts dev",
+    "deploy:op": "",
+    "deploy:base": "",
+    "deploy:zora": "",
     "deploy:op-goerli": "",
     "deploy:base-goerli": "",
     "deploy:zora-goerli": "",
     "deploy:mode-sepolia": ""
   },
   "dependencies": {
-    "ethers": "^6.7.1",
     "dotenv": "16.3.1",
+    "ethers": "^6.7.1",
     "viem": "^1.4.2"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.5.0",
+    "@typescript-eslint/parser": "^6.5.0",
     "concurrently": "8.2.0",
+    "eslint": "^8.48.0",
     "prettier": "^2.8.4",
-    "typescript": "^5.1.6"
+    "typescript": "^5.2.2"
   }
 }

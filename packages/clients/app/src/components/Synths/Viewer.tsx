@@ -1,33 +1,31 @@
 import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
-import { Synth } from "./Synth";
-import { SynthsGallery } from "./Gallery";
-import { WaveDialog } from "./WaveDialog";
-import { useSynth } from "../../hooks/synth/useSynth";
-
 import { RC as ArrowLeft } from "../../assets/icons/arrow-left.svg";
 
-export interface SynthsViewerProps {}
+import { WavesDataProps } from "../../hooks/providers/waves";
+
+import { WaveDialog, WaveDialogData } from "./WaveDialog";
+// import { SynthsGallery } from "./Gallery";
+import { Synth } from "./Synth";
+
+export interface SynthsViewerProps extends WavesDataProps {}
 
 // TODO: Polish styles to match designs
 
-export const SynthsViewer: React.FC<SynthsViewerProps> = ({}) => {
+export const SynthsViewer: React.FC<SynthsViewerProps> = ({ synths }) => {
   const { address } = useParams();
   const [flipped, setFlipped] = useState(false);
-  const [dialogData, setDialogData] = useState<{
-    image: string;
-    name: string;
-    description?: string;
-  }>({
-    image: "",
+  const [dialogData, setDialogData] = useState<WaveDialogData>({
+    data: "",
     name: "",
-    description: "",
+    artist: "",
+    creative: "",
   });
 
-  const { synths } = useSynth();
+  // const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
 
-  const synth = synths.find((synth) => synth.address === address);
+  const synth = synths.find((synth) => synth.id === address);
 
   // const backgroundSpring = useSpring({
   //   from: {
@@ -58,12 +56,13 @@ export const SynthsViewer: React.FC<SynthsViewerProps> = ({}) => {
   //   },
   // });
 
-  function handleItemClick(item: Synth | Wave) {
-    if ("wavesAddress" in item) {
+  function handleItemClick(item: SynthUI | WaveUI) {
+    if ("creative" in item) {
       setDialogData({
-        image: item.data,
-        name: item.artist,
-        description: item.description,
+        data: item.data,
+        name: item.name,
+        artist: item.artist,
+        creative: item.creative,
       });
     }
   }
@@ -71,7 +70,7 @@ export const SynthsViewer: React.FC<SynthsViewerProps> = ({}) => {
   return (
     <div className="flex flex-col gap-3 pt-16 w-full h-full">
       <Link
-        className="absolute left-6 top-2 grid place-items-center w-12 h-12 unselectable"
+        className="absolute dark:fill-white fill-black left-6 top-2 grid place-items-center w-12 h-12 unselectable"
         to="/synths"
       >
         <ArrowLeft />
@@ -84,14 +83,16 @@ export const SynthsViewer: React.FC<SynthsViewerProps> = ({}) => {
             setFlipped={setFlipped}
             {...synth}
           />
-          <SynthsGallery
+          {/* <SynthsGallery
             view={"synth"}
             items={synth.waves}
             onItemClick={handleItemClick}
-          />
+          /> */}
         </>
       ) : (
-        <h4>Synth Not Found</h4>
+        <h4 className="w-full h-full grid place-items-center text-center">
+          Synth Not Found
+        </h4>
       )}
       <WaveDialog {...dialogData} />
     </div>

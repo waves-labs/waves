@@ -1,4 +1,5 @@
 type EventName = "coachella-2024" | "lollapalooza-chicago-2024";
+
 type Artist =
   | "burna-boy"
   | "bad-bunny"
@@ -7,28 +8,6 @@ type Artist =
   | "wizkid"
   | "kendrick-lamar"
   | "sza";
-
-declare interface Synth {
-  address: string; // Synth Account Address
-  tokenAddress: string; // Synth ERC-721 Address
-  tokenId: number; // Synth Token ID
-  eventName: string; // From on chain - ex. Coachella 2024
-  image?: string; // From JSON metadata
-  waves: Wave[];
-  createdAt?: string;
-  updatedAt?: string;
-}
-
-declare interface Wave {
-  id: number; // Wave Token ID
-  wavesAddress: string; // Waves ERC-1155 Address
-  data: string; // From on chain either image url or color
-  artist: Artist; // From JSON metadata
-  // name: string; // From JSON metadata
-  description?: string; // From JSON metadata
-  createdAt?: string;
-  updatedAt?: string;
-}
 
 declare type GenreID =
   | "80f7ea15-2881-4cf2-bc2f-4eb5f585b45f"
@@ -102,3 +81,56 @@ declare interface GenreData {
   id: GenreID;
   name: GenreName;
 }
+
+declare interface BlockData {
+  blockNumber?: number;
+  blockTimestamp?: number;
+  transactionHash?: string;
+}
+
+declare interface UIData {
+  image?: string;
+  description?: string;
+}
+
+declare interface SynthNFT extends BlockData {
+  id: string; // Synth ERC-721 Address
+  name: string;
+  nftOwnershipRequired: boolean;
+  artist: string; // Generative Artist
+  organizer: string; // Live Event Organizer
+
+  waveNfts?: WaveNFT[];
+}
+
+declare interface WaveNFT extends BlockData {
+  id: string; // Wave ERC-721 Address
+  data: string; // Either url string or color hex code
+  name: string;
+  artist: string; // Generative Artist
+  creative: string; // Musicians, Performers, Artists, etc.
+}
+
+declare interface Synth extends BlockData {
+  id: string; // ERC-6551 Account Address
+  owner?: string; // EOA Address
+  // contract?: string; // Synth ERC-721 Address
+  tokenId?: number; // Synth Token ID
+
+  waves?: Wave[];
+}
+
+declare interface Wave extends BlockData {
+  id: string;
+  owner?: string; // Synth Account (ERC-6551) Address
+  contract?: string; // Wave ERC-721 Address
+  tokenId?: number; // Wave Token ID
+}
+
+declare interface SynthUI extends SynthNFT, Synth, UIData {
+  account?: string; // Synth Account (ERC-6551) Address
+
+  waves?: WaveUI[];
+}
+
+declare interface WaveUI extends WaveNFT, Wave, UIData {}

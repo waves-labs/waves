@@ -1,7 +1,7 @@
 import React from "react";
 
-interface WaveProps extends Wave {
-  onItemClick?: (item: Synth | Wave) => void;
+interface WaveProps extends WaveUI {
+  onItemClick?: (item: SynthUI | WaveUI) => void;
 }
 
 // TODO: Polish styles to match designs

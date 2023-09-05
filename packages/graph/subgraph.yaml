@@ -23,7 +23,7 @@ dataSources:
         - Upgraded
       abis:
         - name: SynthRegistry
-          file: ../contracts/artificats/contracts/src/SynthRegistry.sol/SynthRegistry.json
+          file: ../contracts/artifacts/contracts/src/SynthRegistry.sol/SynthRegistry.json
       eventHandlers:
         - event: AdminChanged(address,address)
           handler: handleAdminChanged
@@ -52,24 +52,21 @@ dataSources:
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - WaveRegistryAdminChanged
-        - WaveRegistryBeaconUpgraded
-        - WaveRegistryInitialized
-        - WaveRegistryOwnershipTransferred
-        - WaveRegistryPaused
-        - WaveRegistryUnpaused
-        - WaveRegistryUpgraded
+        - AdminChanged
+        - BeaconUpgraded
+        - OwnershipTransferred
+        - Paused
+        - Unpaused
+        - Upgraded
         - WaveCreated
       abis:
         - name: WaveRegistry
-          file: ../contracts/artificats/contracts/src/WaveRegistry.sol/WaveRegistry.json
+          file: ../contracts/artifacts/contracts/src/WaveRegistry.sol/WaveRegistry.json
       eventHandlers:
         - event: AdminChanged(address,address)
           handler: handleAdminChanged
         - event: BeaconUpgraded(indexed address)
           handler: handleBeaconUpgraded
-        - event: Initialized(uint8)
-          handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
         - event: Paused(address)
@@ -98,7 +95,7 @@ templates:
         - WaveRemoved
       abis:
         - name: Synth
-          file: ../contracts/artificats/contracts/src/Synth.sol/Synth.json
+          file: ../contracts/artifacts/contracts/src/Synth.sol/Synth.json
       eventHandlers:
         - event: SynthMinted(indexed address,indexed address,indexed address,uint256)
           handler: handleSynthMinted
@@ -120,7 +117,7 @@ templates:
         - WaveMinted
       abis:
         - name: Wave
-          file: ../contracts/artificats/contracts/src/Wave.sol/Wave.json
+          file: ../contracts/artifacts/contracts/src/Wave.sol/Wave.json
       eventHandlers:
         - event: WaveMinted(indexed address,indexed address,indexed uint256)
           handler: handleWaveMinted

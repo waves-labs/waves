@@ -1,7 +1,9 @@
 import React from "react";
 import { createPortal } from "react-dom";
+
+import { InstallState } from "../../hooks/providers/pwa";
+
 import { Button } from "../Button";
-import { InstallState } from "../../hooks/usePWA";
 
 // TODO: Polish styles to match designs
 

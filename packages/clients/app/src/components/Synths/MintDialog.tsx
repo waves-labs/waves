@@ -1,23 +1,24 @@
 import React from "react";
 import { createPortal } from "react-dom";
-import { useSynth } from "../../hooks/synth/useSynth";
+
+import { SynthDataProps } from "../../hooks/synth/useSynth";
+
 import { Button } from "../Button";
 
-// TODO: Polish styles to match designs
-
-interface SynthsMintDialogProps {}
+interface SynthsMintDialogProps extends SynthDataProps {}
 
 const events: { id: EventName; name: string }[] = [
   { id: "coachella-2024", name: "Coachella 2024" },
   { id: "lollapalooza-chicago-2024", name: "Lollapalooza Chicago 2024" },
 ];
 
-export const SynthsMintDialog: React.FC<SynthsMintDialogProps> = ({}) => {
-  const { mintSynth } = useSynth();
-  const [eventName, setEventName] = React.useState<EventName | "">("");
+export const SynthsMintDialog: React.FC<SynthsMintDialogProps> = ({
+  mintSynth,
+}) => {
+  const [synth, setSynth] = React.useState<EventName | "">("");
 
   function handleSetEvent(event: React.ChangeEvent<HTMLSelectElement>) {
-    setEventName(event.target.value as EventName);
+    setSynth(event.target.value as EventName);
   }
 
   return createPortal(
@@ -25,12 +26,12 @@ export const SynthsMintDialog: React.FC<SynthsMintDialogProps> = ({}) => {
       <input type="checkbox" id="synths-mint-dialog" className="modal-toggle" />
       <label htmlFor="synths-mint-dialog" className="modal cursor-pointer px-6">
         <label
-          className="modal-box relative flex w-full max-w-xs flex-col gap-4 bg-[var(--surface)]"
+          className="modal-box relative flex w-full max-w-xs flex-col gap-4"
           htmlFor=""
         >
           <select
-            className="select select-primary w-full"
-            value={eventName}
+            className="select w-full"
+            value={synth}
             onChange={handleSetEvent}
           >
             {events.map((event) => (
@@ -41,8 +42,8 @@ export const SynthsMintDialog: React.FC<SynthsMintDialogProps> = ({}) => {
           </select>
           <Button
             title="Mint"
-            onClick={() => eventName && mintSynth(eventName)}
-            disabled={!eventName}
+            onClick={() => synth && mintSynth(synth)}
+            disabled={!synth}
           />
         </label>
       </label>

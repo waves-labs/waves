@@ -1,7 +1,7 @@
 import React from "react";
 import { QrReader } from "react-qr-reader";
+
 import { Loader } from "../Loader";
-import { useSynth } from "../../hooks/synth/useSynth";
 
 // TODO: Polish styles to match designs
 
@@ -11,34 +11,46 @@ interface QRScannerProps {
   detected?: boolean;
   error: string | null;
   onQRDetection: (synth: string, eventName: string, artist: string) => void;
+  synths: SynthUI[];
 }
 
 export const QRScanner: React.FC<QRScannerProps> = ({
   isScanning,
   onQRDetection,
+  synths,
 }) => {
-  const { synths } = useSynth();
-
   return (
     <>
       <QrReader
+        className="qr-scanner"
         onResult={(result, error) => {
           if (!!result) {
-            const url = new URL(result?.getText() as string);
+            const address = result.getText();
 
-            const artist = url.searchParams.get("artist");
-            const eventName = url.searchParams.get("event");
+            // TODO: Add validation for address
 
-            if (!artist || !eventName) {
-              console.info("Invalid QR Code");
+            const synthWaves = synths.filter(
+              (synth) =>
+                synth.waves?.find((wave) => wave.id === address) &&
+                !!synth.account,
+            );
+
+            if (!synthWaves.length) {
               return;
             }
 
-            const synth: string = synths.find(
-              (synth) => eventName === synth.eventName,
-            )?.address as string;
+            if (synthWaves.length > 1) {
+              // TODO: Add prompt to slect synth
+              return;
+            }
 
-            onQRDetection(synth, eventName, artist);
+            const synth = synthWaves[0];
+
+            if (!synth.account) {
+              return;
+            }
+
+            onQRDetection(synth.id, synth.account, address);
           }
 
           if (!!error) {
@@ -48,7 +60,6 @@ export const QRScanner: React.FC<QRScannerProps> = ({
         constraints={{
           facingMode: "environment",
         }}
-        className="qr-scanner"
       />
       {isScanning && <Loader />}
     </>

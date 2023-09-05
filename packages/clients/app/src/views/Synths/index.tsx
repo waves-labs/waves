@@ -10,13 +10,18 @@ import { SynthsMintDialog } from "../../components/Synths/MintDialog";
 
 interface SynthsProps extends SynthsDataProps {}
 
-const Synths: React.FC<SynthsProps> = ({ synths, address }) => {
+const Synths: React.FC<SynthsProps> = ({
+  synths,
+  waves,
+  address,
+  ...synthProps
+}) => {
   const navigate = useNavigate();
   const location = useLocation();
 
   function handleItemClick(item: Synth | Wave) {
-    if ("eventName" in item) {
-      navigate(`/synths/${item.address}`);
+    if ("organizer" in item) {
+      navigate(`/synths/${item.id}`);
     }
   }
 
@@ -24,23 +29,29 @@ const Synths: React.FC<SynthsProps> = ({ synths, address }) => {
     <section
       className={`relative flex flex-col w-full h-full items-center gap-3 px-6`}
     >
-      {location.pathname === "/synths" && (
-        <>
-          <label
-            htmlFor="synths-mint-dialog"
-            className={`absolute right-6 top-2 grid place-items-center w-12 h-12 unselectable`}
-          >
-            <AddIcon />
-          </label>
-          <SynthsGallery
-            items={address ? synths : []}
-            view="synths"
-            onItemClick={handleItemClick}
-          />
-        </>
-      )}
+      {location.pathname === "/synths" ? (
+        address ? (
+          <>
+            <label
+              htmlFor="synths-mint-dialog"
+              className={`dark:fill-white fill-black absolute right-6 top-2 grid place-items-center w-12 h-12 unselectable`}
+            >
+              <AddIcon />
+            </label>
+            <SynthsGallery
+              items={synths}
+              view="synths"
+              onItemClick={handleItemClick}
+            />
+          </>
+        ) : (
+          <h4 className="w-full h-full grid place-items-center text-center">
+            Connect Wallet To Mint Synths
+          </h4>
+        )
+      ) : null}
       <Outlet />
-      <SynthsMintDialog />
+      <SynthsMintDialog address={address} {...synthProps} />
     </section>
   );
 };

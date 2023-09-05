@@ -1,14 +1,14 @@
 import { useNavigate } from "react-router-dom";
 
-import { SynthsView } from "../../hooks/views/useSynths";
-
-import { Wave } from "./Wave";
 import { Synth } from "./Synth";
+import { Wave } from "./Wave";
+
+export type SynthsView = "synths" | "synth";
 
 interface SynthsGalleryProps {
   view: SynthsView;
-  items: (Synth | Wave)[];
-  onItemClick: (item: Synth | Wave) => void;
+  items: (SynthUI | WaveUI)[];
+  onItemClick: (item: SynthUI | WaveUI) => void;
 }
 
 export const SynthsGallery: React.FC<SynthsGalleryProps> = ({
@@ -19,7 +19,7 @@ export const SynthsGallery: React.FC<SynthsGalleryProps> = ({
   const navigate = useNavigate();
 
   function handleSynthClick(synth: Synth) {
-    view === "synths" && navigate(`/synths/${synth.address}`);
+    view === "synths" && navigate(`/synths/${synth.id}`);
   }
 
   if (!items.length) {
@@ -42,7 +42,7 @@ export const SynthsGallery: React.FC<SynthsGalleryProps> = ({
     >
       {items.map((item, index) => {
         if (!item) return null;
-        if ("eventName" in item) {
+        if ("organizer" in item) {
           return (
             <li key={index}>
               <Synth

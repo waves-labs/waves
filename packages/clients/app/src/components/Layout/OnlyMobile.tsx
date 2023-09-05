@@ -49,7 +49,7 @@ export const OnlyMobile: React.FC = () => {
   return (
     <a.div
       // style={backgroundSpring}
-      className="grid place-items-center w-screen h-screen text-center"
+      className="grid place-items-center w-screen h-screen text-center z-10"
     >
       <a.div style={contentSpring} className="flex flex-col gap-12">
         <div className="justify-self-start flex flex-col gap-2">

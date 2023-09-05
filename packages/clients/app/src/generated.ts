@@ -4588,6 +4588,9 @@ export const synthAccountABI = [
 // SynthRegistry
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+/**
+ *
+ */
 export const synthRegistryABI = [
   { stateMutability: 'nonpayable', type: 'constructor', inputs: [] },
   {
@@ -4815,6 +4818,21 @@ export const synthRegistryABI = [
     outputs: [],
   },
 ]
+
+/**
+ *
+ */
+export const synthRegistryAddress = {
+  85431: '0xDBcd0b796aA86544FfaD2f27B13453918A78A51d',
+}
+
+/**
+ *
+ */
+export const synthRegistryConfig = {
+  address: synthRegistryAddress,
+  abi: synthRegistryABI,
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // UUPSUpgradeable
@@ -5316,6 +5334,9 @@ export const waveABI = [
 // WaveRegistry
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+/**
+ *
+ */
 export const waveRegistryABI = [
   { stateMutability: 'nonpayable', type: 'constructor', inputs: [] },
   {
@@ -5533,6 +5554,21 @@ export const waveRegistryABI = [
     outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
   },
 ]
+
+/**
+ *
+ */
+export const waveRegistryAddress = {
+  85431: '0x9D641140e6c1F1B3CE7a75092893952d22692f40',
+}
+
+/**
+ *
+ */
+export const waveRegistryConfig = {
+  address: waveRegistryAddress,
+  abi: waveRegistryABI,
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // WaveResolver
@@ -11331,17 +11367,26 @@ export function usePrepareSynthAccountGenerateArt(config = {}) {
 
 /**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link synthRegistryABI}__.
+ *
+ *
  */
 export function useSynthRegistryRead(config = {}) {
-  return useContractRead({ abi: synthRegistryABI, ...config })
+  return useContractRead({
+    abi: synthRegistryABI,
+    address: synthRegistryAddress[85431],
+    ...config,
+  })
 }
 
 /**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link synthRegistryABI}__ and `functionName` set to `"owner"`.
+ *
+ *
  */
 export function useSynthRegistryOwner(config = {}) {
   return useContractRead({
     abi: synthRegistryABI,
+    address: synthRegistryAddress[85431],
     functionName: 'owner',
     ...config,
   })
@@ -11349,10 +11394,13 @@ export function useSynthRegistryOwner(config = {}) {
 
 /**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link synthRegistryABI}__ and `functionName` set to `"paused"`.
+ *
+ *
  */
 export function useSynthRegistryPaused(config = {}) {
   return useContractRead({
     abi: synthRegistryABI,
+    address: synthRegistryAddress[85431],
     functionName: 'paused',
     ...config,
   })
@@ -11360,10 +11408,13 @@ export function useSynthRegistryPaused(config = {}) {
 
 /**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link synthRegistryABI}__ and `functionName` set to `"proxiableUUID"`.
+ *
+ *
  */
 export function useSynthRegistryProxiableUuid(config = {}) {
   return useContractRead({
     abi: synthRegistryABI,
+    address: synthRegistryAddress[85431],
     functionName: 'proxiableUUID',
     ...config,
   })
@@ -11371,10 +11422,13 @@ export function useSynthRegistryProxiableUuid(config = {}) {
 
 /**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link synthRegistryABI}__ and `functionName` set to `"synthExists"`.
+ *
+ *
  */
 export function useSynthRegistrySynthExists(config = {}) {
   return useContractRead({
     abi: synthRegistryABI,
+    address: synthRegistryAddress[85431],
     functionName: 'synthExists',
     ...config,
   })
@@ -11382,17 +11436,26 @@ export function useSynthRegistrySynthExists(config = {}) {
 
 /**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link synthRegistryABI}__.
+ *
+ *
  */
 export function useSynthRegistryWrite(config = {}) {
-  return useContractWrite({ abi: synthRegistryABI, ...config })
+  return useContractWrite({
+    abi: synthRegistryABI,
+    address: synthRegistryAddress[85431],
+    ...config,
+  })
 }
 
 /**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link synthRegistryABI}__ and `functionName` set to `"createSynth"`.
+ *
+ *
  */
 export function useSynthRegistryCreateSynth(config = {}) {
   return useContractWrite({
     abi: synthRegistryABI,
+    address: synthRegistryAddress[85431],
     functionName: 'createSynth',
     ...config,
   })
@@ -11400,10 +11463,13 @@ export function useSynthRegistryCreateSynth(config = {}) {
 
 /**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link synthRegistryABI}__ and `functionName` set to `"initialize"`.
+ *
+ *
  */
 export function useSynthRegistryInitialize(config = {}) {
   return useContractWrite({
     abi: synthRegistryABI,
+    address: synthRegistryAddress[85431],
     functionName: 'initialize',
     ...config,
   })
@@ -11411,10 +11477,13 @@ export function useSynthRegistryInitialize(config = {}) {
 
 /**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link synthRegistryABI}__ and `functionName` set to `"pause"`.
+ *
+ *
  */
 export function useSynthRegistryPause(config = {}) {
   return useContractWrite({
     abi: synthRegistryABI,
+    address: synthRegistryAddress[85431],
     functionName: 'pause',
     ...config,
   })
@@ -11422,10 +11491,13 @@ export function useSynthRegistryPause(config = {}) {
 
 /**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link synthRegistryABI}__ and `functionName` set to `"renounceOwnership"`.
+ *
+ *
  */
 export function useSynthRegistryRenounceOwnership(config = {}) {
   return useContractWrite({
     abi: synthRegistryABI,
+    address: synthRegistryAddress[85431],
     functionName: 'renounceOwnership',
     ...config,
   })
@@ -11433,10 +11505,13 @@ export function useSynthRegistryRenounceOwnership(config = {}) {
 
 /**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link synthRegistryABI}__ and `functionName` set to `"transferOwnership"`.
+ *
+ *
  */
 export function useSynthRegistryTransferOwnership(config = {}) {
   return useContractWrite({
     abi: synthRegistryABI,
+    address: synthRegistryAddress[85431],
     functionName: 'transferOwnership',
     ...config,
   })
@@ -11444,10 +11519,13 @@ export function useSynthRegistryTransferOwnership(config = {}) {
 
 /**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link synthRegistryABI}__ and `functionName` set to `"unpause"`.
+ *
+ *
  */
 export function useSynthRegistryUnpause(config = {}) {
   return useContractWrite({
     abi: synthRegistryABI,
+    address: synthRegistryAddress[85431],
     functionName: 'unpause',
     ...config,
   })
@@ -11455,10 +11533,13 @@ export function useSynthRegistryUnpause(config = {}) {
 
 /**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link synthRegistryABI}__ and `functionName` set to `"upgradeTo"`.
+ *
+ *
  */
 export function useSynthRegistryUpgradeTo(config = {}) {
   return useContractWrite({
     abi: synthRegistryABI,
+    address: synthRegistryAddress[85431],
     functionName: 'upgradeTo',
     ...config,
   })
@@ -11466,10 +11547,13 @@ export function useSynthRegistryUpgradeTo(config = {}) {
 
 /**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link synthRegistryABI}__ and `functionName` set to `"upgradeToAndCall"`.
+ *
+ *
  */
 export function useSynthRegistryUpgradeToAndCall(config = {}) {
   return useContractWrite({
     abi: synthRegistryABI,
+    address: synthRegistryAddress[85431],
     functionName: 'upgradeToAndCall',
     ...config,
   })
@@ -11477,17 +11561,26 @@ export function useSynthRegistryUpgradeToAndCall(config = {}) {
 
 /**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link synthRegistryABI}__.
+ *
+ *
  */
 export function usePrepareSynthRegistryWrite(config = {}) {
-  return usePrepareContractWrite({ abi: synthRegistryABI, ...config })
+  return usePrepareContractWrite({
+    abi: synthRegistryABI,
+    address: synthRegistryAddress[85431],
+    ...config,
+  })
 }
 
 /**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link synthRegistryABI}__ and `functionName` set to `"createSynth"`.
+ *
+ *
  */
 export function usePrepareSynthRegistryCreateSynth(config = {}) {
   return usePrepareContractWrite({
     abi: synthRegistryABI,
+    address: synthRegistryAddress[85431],
     functionName: 'createSynth',
     ...config,
   })
@@ -11495,10 +11588,13 @@ export function usePrepareSynthRegistryCreateSynth(config = {}) {
 
 /**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link synthRegistryABI}__ and `functionName` set to `"initialize"`.
+ *
+ *
  */
 export function usePrepareSynthRegistryInitialize(config = {}) {
   return usePrepareContractWrite({
     abi: synthRegistryABI,
+    address: synthRegistryAddress[85431],
     functionName: 'initialize',
     ...config,
   })
@@ -11506,10 +11602,13 @@ export function usePrepareSynthRegistryInitialize(config = {}) {
 
 /**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link synthRegistryABI}__ and `functionName` set to `"pause"`.
+ *
+ *
  */
 export function usePrepareSynthRegistryPause(config = {}) {
   return usePrepareContractWrite({
     abi: synthRegistryABI,
+    address: synthRegistryAddress[85431],
     functionName: 'pause',
     ...config,
   })
@@ -11517,10 +11616,13 @@ export function usePrepareSynthRegistryPause(config = {}) {
 
 /**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link synthRegistryABI}__ and `functionName` set to `"renounceOwnership"`.
+ *
+ *
  */
 export function usePrepareSynthRegistryRenounceOwnership(config = {}) {
   return usePrepareContractWrite({
     abi: synthRegistryABI,
+    address: synthRegistryAddress[85431],
     functionName: 'renounceOwnership',
     ...config,
   })
@@ -11528,10 +11630,13 @@ export function usePrepareSynthRegistryRenounceOwnership(config = {}) {
 
 /**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link synthRegistryABI}__ and `functionName` set to `"transferOwnership"`.
+ *
+ *
  */
 export function usePrepareSynthRegistryTransferOwnership(config = {}) {
   return usePrepareContractWrite({
     abi: synthRegistryABI,
+    address: synthRegistryAddress[85431],
     functionName: 'transferOwnership',
     ...config,
   })
@@ -11539,10 +11644,13 @@ export function usePrepareSynthRegistryTransferOwnership(config = {}) {
 
 /**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link synthRegistryABI}__ and `functionName` set to `"unpause"`.
+ *
+ *
  */
 export function usePrepareSynthRegistryUnpause(config = {}) {
   return usePrepareContractWrite({
     abi: synthRegistryABI,
+    address: synthRegistryAddress[85431],
     functionName: 'unpause',
     ...config,
   })
@@ -11550,10 +11658,13 @@ export function usePrepareSynthRegistryUnpause(config = {}) {
 
 /**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link synthRegistryABI}__ and `functionName` set to `"upgradeTo"`.
+ *
+ *
  */
 export function usePrepareSynthRegistryUpgradeTo(config = {}) {
   return usePrepareContractWrite({
     abi: synthRegistryABI,
+    address: synthRegistryAddress[85431],
     functionName: 'upgradeTo',
     ...config,
   })
@@ -11561,10 +11672,13 @@ export function usePrepareSynthRegistryUpgradeTo(config = {}) {
 
 /**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link synthRegistryABI}__ and `functionName` set to `"upgradeToAndCall"`.
+ *
+ *
  */
 export function usePrepareSynthRegistryUpgradeToAndCall(config = {}) {
   return usePrepareContractWrite({
     abi: synthRegistryABI,
+    address: synthRegistryAddress[85431],
     functionName: 'upgradeToAndCall',
     ...config,
   })
@@ -11572,17 +11686,26 @@ export function usePrepareSynthRegistryUpgradeToAndCall(config = {}) {
 
 /**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link synthRegistryABI}__.
+ *
+ *
  */
 export function useSynthRegistryEvent(config = {}) {
-  return useContractEvent({ abi: synthRegistryABI, ...config })
+  return useContractEvent({
+    abi: synthRegistryABI,
+    address: synthRegistryAddress[85431],
+    ...config,
+  })
 }
 
 /**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link synthRegistryABI}__ and `eventName` set to `"AdminChanged"`.
+ *
+ *
  */
 export function useSynthRegistryAdminChangedEvent(config = {}) {
   return useContractEvent({
     abi: synthRegistryABI,
+    address: synthRegistryAddress[85431],
     eventName: 'AdminChanged',
     ...config,
   })
@@ -11590,10 +11713,13 @@ export function useSynthRegistryAdminChangedEvent(config = {}) {
 
 /**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link synthRegistryABI}__ and `eventName` set to `"BeaconUpgraded"`.
+ *
+ *
  */
 export function useSynthRegistryBeaconUpgradedEvent(config = {}) {
   return useContractEvent({
     abi: synthRegistryABI,
+    address: synthRegistryAddress[85431],
     eventName: 'BeaconUpgraded',
     ...config,
   })
@@ -11601,10 +11727,13 @@ export function useSynthRegistryBeaconUpgradedEvent(config = {}) {
 
 /**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link synthRegistryABI}__ and `eventName` set to `"Initialized"`.
+ *
+ *
  */
 export function useSynthRegistryInitializedEvent(config = {}) {
   return useContractEvent({
     abi: synthRegistryABI,
+    address: synthRegistryAddress[85431],
     eventName: 'Initialized',
     ...config,
   })
@@ -11612,10 +11741,13 @@ export function useSynthRegistryInitializedEvent(config = {}) {
 
 /**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link synthRegistryABI}__ and `eventName` set to `"OwnershipTransferred"`.
+ *
+ *
  */
 export function useSynthRegistryOwnershipTransferredEvent(config = {}) {
   return useContractEvent({
     abi: synthRegistryABI,
+    address: synthRegistryAddress[85431],
     eventName: 'OwnershipTransferred',
     ...config,
   })
@@ -11623,10 +11755,13 @@ export function useSynthRegistryOwnershipTransferredEvent(config = {}) {
 
 /**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link synthRegistryABI}__ and `eventName` set to `"Paused"`.
+ *
+ *
  */
 export function useSynthRegistryPausedEvent(config = {}) {
   return useContractEvent({
     abi: synthRegistryABI,
+    address: synthRegistryAddress[85431],
     eventName: 'Paused',
     ...config,
   })
@@ -11634,10 +11769,13 @@ export function useSynthRegistryPausedEvent(config = {}) {
 
 /**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link synthRegistryABI}__ and `eventName` set to `"SynthCreated"`.
+ *
+ *
  */
 export function useSynthRegistrySynthCreatedEvent(config = {}) {
   return useContractEvent({
     abi: synthRegistryABI,
+    address: synthRegistryAddress[85431],
     eventName: 'SynthCreated',
     ...config,
   })
@@ -11645,10 +11783,13 @@ export function useSynthRegistrySynthCreatedEvent(config = {}) {
 
 /**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link synthRegistryABI}__ and `eventName` set to `"Unpaused"`.
+ *
+ *
  */
 export function useSynthRegistryUnpausedEvent(config = {}) {
   return useContractEvent({
     abi: synthRegistryABI,
+    address: synthRegistryAddress[85431],
     eventName: 'Unpaused',
     ...config,
   })
@@ -11656,10 +11797,13 @@ export function useSynthRegistryUnpausedEvent(config = {}) {
 
 /**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link synthRegistryABI}__ and `eventName` set to `"Upgraded"`.
+ *
+ *
  */
 export function useSynthRegistryUpgradedEvent(config = {}) {
   return useContractEvent({
     abi: synthRegistryABI,
+    address: synthRegistryAddress[85431],
     eventName: 'Upgraded',
     ...config,
   })
@@ -12241,17 +12385,26 @@ export function useWaveWaveMintedEvent(config = {}) {
 
 /**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link waveRegistryABI}__.
+ *
+ *
  */
 export function useWaveRegistryRead(config = {}) {
-  return useContractRead({ abi: waveRegistryABI, ...config })
+  return useContractRead({
+    abi: waveRegistryABI,
+    address: waveRegistryAddress[85431],
+    ...config,
+  })
 }
 
 /**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link waveRegistryABI}__ and `functionName` set to `"owner"`.
+ *
+ *
  */
 export function useWaveRegistryOwner(config = {}) {
   return useContractRead({
     abi: waveRegistryABI,
+    address: waveRegistryAddress[85431],
     functionName: 'owner',
     ...config,
   })
@@ -12259,10 +12412,13 @@ export function useWaveRegistryOwner(config = {}) {
 
 /**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link waveRegistryABI}__ and `functionName` set to `"paused"`.
+ *
+ *
  */
 export function useWaveRegistryPaused(config = {}) {
   return useContractRead({
     abi: waveRegistryABI,
+    address: waveRegistryAddress[85431],
     functionName: 'paused',
     ...config,
   })
@@ -12270,10 +12426,13 @@ export function useWaveRegistryPaused(config = {}) {
 
 /**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link waveRegistryABI}__ and `functionName` set to `"proxiableUUID"`.
+ *
+ *
  */
 export function useWaveRegistryProxiableUuid(config = {}) {
   return useContractRead({
     abi: waveRegistryABI,
+    address: waveRegistryAddress[85431],
     functionName: 'proxiableUUID',
     ...config,
   })
@@ -12281,10 +12440,13 @@ export function useWaveRegistryProxiableUuid(config = {}) {
 
 /**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link waveRegistryABI}__ and `functionName` set to `"waveExists"`.
+ *
+ *
  */
 export function useWaveRegistryWaveExists(config = {}) {
   return useContractRead({
     abi: waveRegistryABI,
+    address: waveRegistryAddress[85431],
     functionName: 'waveExists',
     ...config,
   })
@@ -12292,17 +12454,26 @@ export function useWaveRegistryWaveExists(config = {}) {
 
 /**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link waveRegistryABI}__.
+ *
+ *
  */
 export function useWaveRegistryWrite(config = {}) {
-  return useContractWrite({ abi: waveRegistryABI, ...config })
+  return useContractWrite({
+    abi: waveRegistryABI,
+    address: waveRegistryAddress[85431],
+    ...config,
+  })
 }
 
 /**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link waveRegistryABI}__ and `functionName` set to `"createWave"`.
+ *
+ *
  */
 export function useWaveRegistryCreateWave(config = {}) {
   return useContractWrite({
     abi: waveRegistryABI,
+    address: waveRegistryAddress[85431],
     functionName: 'createWave',
     ...config,
   })
@@ -12310,10 +12481,13 @@ export function useWaveRegistryCreateWave(config = {}) {
 
 /**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link waveRegistryABI}__ and `functionName` set to `"initialize"`.
+ *
+ *
  */
 export function useWaveRegistryInitialize(config = {}) {
   return useContractWrite({
     abi: waveRegistryABI,
+    address: waveRegistryAddress[85431],
     functionName: 'initialize',
     ...config,
   })
@@ -12321,10 +12495,13 @@ export function useWaveRegistryInitialize(config = {}) {
 
 /**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link waveRegistryABI}__ and `functionName` set to `"pause"`.
+ *
+ *
  */
 export function useWaveRegistryPause(config = {}) {
   return useContractWrite({
     abi: waveRegistryABI,
+    address: waveRegistryAddress[85431],
     functionName: 'pause',
     ...config,
   })
@@ -12332,10 +12509,13 @@ export function useWaveRegistryPause(config = {}) {
 
 /**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link waveRegistryABI}__ and `functionName` set to `"renounceOwnership"`.
+ *
+ *
  */
 export function useWaveRegistryRenounceOwnership(config = {}) {
   return useContractWrite({
     abi: waveRegistryABI,
+    address: waveRegistryAddress[85431],
     functionName: 'renounceOwnership',
     ...config,
   })
@@ -12343,10 +12523,13 @@ export function useWaveRegistryRenounceOwnership(config = {}) {
 
 /**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link waveRegistryABI}__ and `functionName` set to `"transferOwnership"`.
+ *
+ *
  */
 export function useWaveRegistryTransferOwnership(config = {}) {
   return useContractWrite({
     abi: waveRegistryABI,
+    address: waveRegistryAddress[85431],
     functionName: 'transferOwnership',
     ...config,
   })
@@ -12354,10 +12537,13 @@ export function useWaveRegistryTransferOwnership(config = {}) {
 
 /**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link waveRegistryABI}__ and `functionName` set to `"unpause"`.
+ *
+ *
  */
 export function useWaveRegistryUnpause(config = {}) {
   return useContractWrite({
     abi: waveRegistryABI,
+    address: waveRegistryAddress[85431],
     functionName: 'unpause',
     ...config,
   })
@@ -12365,10 +12551,13 @@ export function useWaveRegistryUnpause(config = {}) {
 
 /**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link waveRegistryABI}__ and `functionName` set to `"upgradeTo"`.
+ *
+ *
  */
 export function useWaveRegistryUpgradeTo(config = {}) {
   return useContractWrite({
     abi: waveRegistryABI,
+    address: waveRegistryAddress[85431],
     functionName: 'upgradeTo',
     ...config,
   })
@@ -12376,10 +12565,13 @@ export function useWaveRegistryUpgradeTo(config = {}) {
 
 /**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link waveRegistryABI}__ and `functionName` set to `"upgradeToAndCall"`.
+ *
+ *
  */
 export function useWaveRegistryUpgradeToAndCall(config = {}) {
   return useContractWrite({
     abi: waveRegistryABI,
+    address: waveRegistryAddress[85431],
     functionName: 'upgradeToAndCall',
     ...config,
   })
@@ -12387,17 +12579,26 @@ export function useWaveRegistryUpgradeToAndCall(config = {}) {
 
 /**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link waveRegistryABI}__.
+ *
+ *
  */
 export function usePrepareWaveRegistryWrite(config = {}) {
-  return usePrepareContractWrite({ abi: waveRegistryABI, ...config })
+  return usePrepareContractWrite({
+    abi: waveRegistryABI,
+    address: waveRegistryAddress[85431],
+    ...config,
+  })
 }
 
 /**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link waveRegistryABI}__ and `functionName` set to `"createWave"`.
+ *
+ *
  */
 export function usePrepareWaveRegistryCreateWave(config = {}) {
   return usePrepareContractWrite({
     abi: waveRegistryABI,
+    address: waveRegistryAddress[85431],
     functionName: 'createWave',
     ...config,
   })
@@ -12405,10 +12606,13 @@ export function usePrepareWaveRegistryCreateWave(config = {}) {
 
 /**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link waveRegistryABI}__ and `functionName` set to `"initialize"`.
+ *
+ *
  */
 export function usePrepareWaveRegistryInitialize(config = {}) {
   return usePrepareContractWrite({
     abi: waveRegistryABI,
+    address: waveRegistryAddress[85431],
     functionName: 'initialize',
     ...config,
   })
@@ -12416,10 +12620,13 @@ export function usePrepareWaveRegistryInitialize(config = {}) {
 
 /**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link waveRegistryABI}__ and `functionName` set to `"pause"`.
+ *
+ *
  */
 export function usePrepareWaveRegistryPause(config = {}) {
   return usePrepareContractWrite({
     abi: waveRegistryABI,
+    address: waveRegistryAddress[85431],
     functionName: 'pause',
     ...config,
   })
@@ -12427,10 +12634,13 @@ export function usePrepareWaveRegistryPause(config = {}) {
 
 /**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link waveRegistryABI}__ and `functionName` set to `"renounceOwnership"`.
+ *
+ *
  */
 export function usePrepareWaveRegistryRenounceOwnership(config = {}) {
   return usePrepareContractWrite({
     abi: waveRegistryABI,
+    address: waveRegistryAddress[85431],
     functionName: 'renounceOwnership',
     ...config,
   })
@@ -12438,10 +12648,13 @@ export function usePrepareWaveRegistryRenounceOwnership(config = {}) {
 
 /**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link waveRegistryABI}__ and `functionName` set to `"transferOwnership"`.
+ *
+ *
  */
 export function usePrepareWaveRegistryTransferOwnership(config = {}) {
   return usePrepareContractWrite({
     abi: waveRegistryABI,
+    address: waveRegistryAddress[85431],
     functionName: 'transferOwnership',
     ...config,
   })
@@ -12449,10 +12662,13 @@ export function usePrepareWaveRegistryTransferOwnership(config = {}) {
 
 /**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link waveRegistryABI}__ and `functionName` set to `"unpause"`.
+ *
+ *
  */
 export function usePrepareWaveRegistryUnpause(config = {}) {
   return usePrepareContractWrite({
     abi: waveRegistryABI,
+    address: waveRegistryAddress[85431],
     functionName: 'unpause',
     ...config,
   })
@@ -12460,10 +12676,13 @@ export function usePrepareWaveRegistryUnpause(config = {}) {
 
 /**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link waveRegistryABI}__ and `functionName` set to `"upgradeTo"`.
+ *
+ *
  */
 export function usePrepareWaveRegistryUpgradeTo(config = {}) {
   return usePrepareContractWrite({
     abi: waveRegistryABI,
+    address: waveRegistryAddress[85431],
     functionName: 'upgradeTo',
     ...config,
   })
@@ -12471,10 +12690,13 @@ export function usePrepareWaveRegistryUpgradeTo(config = {}) {
 
 /**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link waveRegistryABI}__ and `functionName` set to `"upgradeToAndCall"`.
+ *
+ *
  */
 export function usePrepareWaveRegistryUpgradeToAndCall(config = {}) {
   return usePrepareContractWrite({
     abi: waveRegistryABI,
+    address: waveRegistryAddress[85431],
     functionName: 'upgradeToAndCall',
     ...config,
   })
@@ -12482,17 +12704,26 @@ export function usePrepareWaveRegistryUpgradeToAndCall(config = {}) {
 
 /**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link waveRegistryABI}__.
+ *
+ *
  */
 export function useWaveRegistryEvent(config = {}) {
-  return useContractEvent({ abi: waveRegistryABI, ...config })
+  return useContractEvent({
+    abi: waveRegistryABI,
+    address: waveRegistryAddress[85431],
+    ...config,
+  })
 }
 
 /**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link waveRegistryABI}__ and `eventName` set to `"AdminChanged"`.
+ *
+ *
  */
 export function useWaveRegistryAdminChangedEvent(config = {}) {
   return useContractEvent({
     abi: waveRegistryABI,
+    address: waveRegistryAddress[85431],
     eventName: 'AdminChanged',
     ...config,
   })
@@ -12500,10 +12731,13 @@ export function useWaveRegistryAdminChangedEvent(config = {}) {
 
 /**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link waveRegistryABI}__ and `eventName` set to `"BeaconUpgraded"`.
+ *
+ *
  */
 export function useWaveRegistryBeaconUpgradedEvent(config = {}) {
   return useContractEvent({
     abi: waveRegistryABI,
+    address: waveRegistryAddress[85431],
     eventName: 'BeaconUpgraded',
     ...config,
   })
@@ -12511,10 +12745,13 @@ export function useWaveRegistryBeaconUpgradedEvent(config = {}) {
 
 /**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link waveRegistryABI}__ and `eventName` set to `"Initialized"`.
+ *
+ *
  */
 export function useWaveRegistryInitializedEvent(config = {}) {
   return useContractEvent({
     abi: waveRegistryABI,
+    address: waveRegistryAddress[85431],
     eventName: 'Initialized',
     ...config,
   })
@@ -12522,10 +12759,13 @@ export function useWaveRegistryInitializedEvent(config = {}) {
 
 /**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link waveRegistryABI}__ and `eventName` set to `"OwnershipTransferred"`.
+ *
+ *
  */
 export function useWaveRegistryOwnershipTransferredEvent(config = {}) {
   return useContractEvent({
     abi: waveRegistryABI,
+    address: waveRegistryAddress[85431],
     eventName: 'OwnershipTransferred',
     ...config,
   })
@@ -12533,10 +12773,13 @@ export function useWaveRegistryOwnershipTransferredEvent(config = {}) {
 
 /**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link waveRegistryABI}__ and `eventName` set to `"Paused"`.
+ *
+ *
  */
 export function useWaveRegistryPausedEvent(config = {}) {
   return useContractEvent({
     abi: waveRegistryABI,
+    address: waveRegistryAddress[85431],
     eventName: 'Paused',
     ...config,
   })
@@ -12544,10 +12787,13 @@ export function useWaveRegistryPausedEvent(config = {}) {
 
 /**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link waveRegistryABI}__ and `eventName` set to `"Unpaused"`.
+ *
+ *
  */
 export function useWaveRegistryUnpausedEvent(config = {}) {
   return useContractEvent({
     abi: waveRegistryABI,
+    address: waveRegistryAddress[85431],
     eventName: 'Unpaused',
     ...config,
   })
@@ -12555,10 +12801,13 @@ export function useWaveRegistryUnpausedEvent(config = {}) {
 
 /**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link waveRegistryABI}__ and `eventName` set to `"Upgraded"`.
+ *
+ *
  */
 export function useWaveRegistryUpgradedEvent(config = {}) {
   return useContractEvent({
     abi: waveRegistryABI,
+    address: waveRegistryAddress[85431],
     eventName: 'Upgraded',
     ...config,
   })
@@ -12566,10 +12815,13 @@ export function useWaveRegistryUpgradedEvent(config = {}) {
 
 /**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link waveRegistryABI}__ and `eventName` set to `"WaveCreated"`.
+ *
+ *
  */
 export function useWaveRegistryWaveCreatedEvent(config = {}) {
   return useContractEvent({
     abi: waveRegistryABI,
+    address: waveRegistryAddress[85431],
     eventName: 'WaveCreated',
     ...config,
   })

@@ -1,18 +1,18 @@
 import {
   foundry,
-  optimismGoerli,
+  // optimismGoerli,
   baseGoerli,
-  zoraTestnet,
-  optimism,
-  base,
-  zora,
+  // zoraTestnet,
+  // optimism,
+  // base,
+  // zora,
 } from "wagmi/chains";
 import { Chain, configureChains, createConfig } from "wagmi";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { getDefaultWallets } from "@rainbow-me/rainbowkit";
 
-const modeTestnet = {
+export const modeTestnet = {
   id: 919,
   name: "Mode Testnet",
   network: "mode-testnet",
@@ -36,13 +36,13 @@ const modeTestnet = {
 
 const { chains, publicClient } = configureChains(
   [
-    base,
+    // base,
     baseGoerli,
-    optimism,
-    optimismGoerli,
-    zora,
-    zoraTestnet,
-    modeTestnet,
+    // optimism,
+    // optimismGoerli,
+    // zora,
+    // zoraTestnet,
+    // modeTestnet,
     foundry,
   ],
   [
@@ -61,7 +61,7 @@ const { chains, publicClient } = configureChains(
 export { chains };
 
 const { connectors } = getDefaultWallets({
-  appName: "WAVES",
+  appName: "waves",
   chains,
   projectId: import.meta.env.VITE_WALLETCONNECT_PROJECT_ID,
 });

@@ -52,8 +52,8 @@ export default defineConfig({
         globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
       },
       manifest: {
-        name: "WAVES by Syn",
-        short_name: "WAVES",
+        name: "Waves",
+        short_name: "Waves",
         icons: [
           {
             src: "assets/logo-64.png",
@@ -72,7 +72,7 @@ export default defineConfig({
           },
         ],
         start_url: "/",
-        display: "fullscreen",
+        display: "standalone",
         theme_color: "#38bdf8",
         background_color: "#f0fdfa",
         shortcuts: [

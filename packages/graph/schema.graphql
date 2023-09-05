@@ -1,20 +1,16 @@
-type SynthNFT @entity(immutable: true) {
-  id: Bytes!
-  nftOwnershipNeeded: Boolean! # bool
-  synth: Bytes! # address
-  artist: Bytes! # address
-  organizer: Bytes! # address
-  name: String! # string
+# WAVES TYPES
+type SynthWaveNFT @entity {
+  id: Bytes! # Set to `waveNft.id.concat(synthNft.id)`
+  synthNft: SynthNFT! # SynthNFT id
+  waveNft: WaveNFT! # WaveNFT id
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
-
-  waveNFTs: [WaveNFT!]!
 }
 
 type WaveNFT @entity(immutable: true) {
-  id: Bytes!
-  wave: Bytes! # address
+  id: Bytes! # address
+  # contract: Bytes!
   artist: Bytes! # address
   creative: Bytes! # address
   name: String! # string
@@ -22,31 +18,59 @@ type WaveNFT @entity(immutable: true) {
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
+
+  synthNfts: [SynthWaveNFT!]! @derivedFrom(field: "waveNft")
+}
+
+type SynthNFT @entity(immutable: true) {
+  id: Bytes! # address
+  nftOwnershipRequired: Boolean! # bool
+  # contract: Bytes!
+  artist: Bytes! # address
+  organizer: Bytes! # address
+  name: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+
+  waveNFTs: [SynthWaveNFT!]! @derivedFrom(field: "synthNft")
+}
+
+type SynthWave @entity {
+  id: Bytes! # Set to `wave.id.concat(synth.id)`
+  synth: Synth! # Synth
+  wave: Wave! # Wave
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
 }
 
 type Synth @entity(immutable: true) {
-  id: Bytes!
+  id: Bytes! # address
   owner: Bytes! # address
-  account: Bytes! # address
+  # account: Bytes!
   contract: Bytes! # address
   tokenId: BigInt!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 
-  waves: [Wave!]!
+  waves: [SynthWave!]! @derivedFrom(field: "synth")
 }
 
 type Wave @entity(immutable: true) {
   id: Bytes!
   owner: Bytes! # address
-  wave: Bytes! # address
-  waveId: BigInt!
+  contract: Bytes! # address
+  tokenId: BigInt!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
+
+  synths: [SynthWave!]! @derivedFrom(field: "wave")
 }
 
+# REGISTRY TYPES
 type AdminChanged @entity(immutable: true) {
   id: Bytes!
   contract: Bytes! # address

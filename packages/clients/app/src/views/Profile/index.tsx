@@ -4,7 +4,7 @@ import { ProfileDataProps } from "../../hooks/views/useProfile";
 
 import { ProfileInfo } from "../../components/Profile/Info";
 import { ProfileActions } from "../../components/Profile/Actions";
-import { Web3Props } from "../../hooks/useWeb3";
+import { Web3Props } from "../../hooks/providers/web3";
 
 interface ProfileProps extends ProfileDataProps, Web3Props {}
 

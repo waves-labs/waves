@@ -11,6 +11,7 @@ const Explore: React.FC<ExploreProps> = ({
   isScanning,
   error,
   scan,
+  synths,
 }) => {
   const { address } = useAccount();
 
@@ -26,6 +27,7 @@ const Explore: React.FC<ExploreProps> = ({
             isScanning={isScanning}
             onQRDetection={scan}
             error={error}
+            synths={synths}
           />
         </div>
       ) : (

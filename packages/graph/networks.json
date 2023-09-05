@@ -3,10 +3,6 @@
     "SynthRegistry": {
       "address": "0xDBcd0b796aA86544FfaD2f27B13453918A78A51d"
     },
-    "WavesRegistry": {
-      "address": "0x71596076242B75dc7A1b28d576a444d69192a640",
-      "startBlock": 8728789
-    },
     "WaveRegistry": {
       "address": "0x9D641140e6c1F1B3CE7a75092893952d22692f40"
     }

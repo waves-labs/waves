@@ -50,10 +50,10 @@ wavesRouter.post("/mint", async function (req: Request, res: Response) {
     return;
   }
 
-  // if (!req.session.address || !req.session.chainId) {
-  //   reply.code(400).send({ error: "Missing address or chainId" });
-  //   return;
-  // }
+  if (!req.session.siwe?.address || !req.session.siwe.chainId) {
+    res.status(400).send({ error: "Missing address or chainId" });
+    return;
+  }
 
   const wallet = new ethers.Wallet(
     process.env.PRIVATE_KEY as string,
@@ -67,14 +67,6 @@ wavesRouter.post("/mint", async function (req: Request, res: Response) {
   const eas = new EAS(chainIdToEASMap[req.session.chainId ?? 85431]);
   // @ts-ignore
   eas.connect(wallet);
-
-  const waveID = eventToArtistToWaveIDMap[body.eventName][body.artist];
-
-  if (!waveID) {
-    res.status(400).send({ error: "Invalid waveID" });
-
-    return;
-  }
 
   // Initialize SchemaEncoder with the schema string
   const schemaEncoder = new SchemaEncoder("string eventName, address ticketAddrs, address wavesAddrs, uint256 waveId");

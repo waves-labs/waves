@@ -1,11 +1,14 @@
-import { ScannerDataProps, useScanner } from "../scanner/useScanner";
+import { WavesDataProps, useWaves } from "../providers/waves";
+import { WaveDataProps, useWave } from "../wave/useWave";
 
-export interface ExploreDataProps extends ScannerDataProps {}
+export interface ExploreDataProps extends WavesDataProps, WaveDataProps {}
 
 export const useExplore = (): ExploreDataProps => {
-  const scanner = useScanner();
+  const waves = useWaves();
+  const wave = useWave();
 
   return {
-    ...scanner,
+    ...waves,
+    ...wave,
   };
 };

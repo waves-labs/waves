@@ -35,7 +35,12 @@ export default function Views() {
     >
       <Routes location={location}>
         <Route path="synths" element={<Synths {...synths} />}>
-          <Route path=":address" element={<SynthsViewer />} />
+          <Route
+            path=":address"
+            element={
+              <SynthsViewer synths={synths.synths} waves={synths.waves} />
+            }
+          />
         </Route>
         <Route path="explore" element={<Explore {...explore} />} />
         <Route path="profile" element={<Profile {...profile} />} />

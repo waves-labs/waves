@@ -1,4 +1,4 @@
-import { Web3Props } from "../../hooks/useWeb3";
+import { Web3Props } from "../../hooks/providers/web3";
 
 import { Button } from "../Button";
 

@@ -1,21 +1,17 @@
 import { assign } from "xstate";
-import { useMachine } from "@xstate/react";
 import { useAccount } from "wagmi";
-import { createContext, useContext, useEffect, useState } from "react";
+import { useMachine } from "@xstate/react";
+import { createContext, useContext } from "react";
 
 import { SynthContext as SynthMachineContext, synthMachine } from "./machine";
-import { mockSynths } from "../../mockData";
-// import { mockSynths } from "../../mockData";
-// import { useSynthGeneratorGenerateSynth } from "../../generated";
 
 export interface SynthDataProps extends SynthMachineContext {
   isIdle: boolean;
   isMinting: boolean;
   isGeneratingArt: boolean;
   address?: `0x${string}`;
-  synths: Synth[];
-  mintSynth: (eventName: EventName) => void;
-  generateArt: (synthAddrs: string) => void;
+  mintSynth: (address: string) => void;
+  generateArt: (synthAddrs: string, artAddrs: string) => void;
 }
 
 const SynthContext = createContext<SynthDataProps | null>(null);
@@ -31,16 +27,14 @@ export const SynthProvider = ({ children }: Props) => {
 
   const { address } = useAccount();
 
-  const [synths, setSynths] = useState<Synth[]>(mockSynths);
-
   const [state, send] = useMachine(synthMachine, {
     actions: {
-      minted: assign((context, event) => {
+      minted: assign((context, _event) => {
         // TODO: Add the minted synth to the user's collection
 
         return context;
       }),
-      generatedArt: assign((context, event) => {
+      generatedArt: assign((context, _event) => {
         // TODO: Update synth state to generated
 
         return context;
@@ -48,25 +42,25 @@ export const SynthProvider = ({ children }: Props) => {
     },
     services: {
       mintService: async (
-        context,
-        event: { generatorAddrs?: string },
+        _context,
+        _event: { generatorAddrs?: string },
         _meta,
       ) => {
         try {
           return {
-            tokenAddress: "",
+            id: "",
+            owner: "",
+            account: "",
+            contract: "",
             tokenId: 0,
-            address: "",
             waves: [],
-            eventName: "",
-            image: "",
           };
         } catch (error) {
           console.log("Synth minting failed!", error);
           throw error;
         }
       },
-      genArtService: async (context, event: { element?: any }) => {
+      genArtService: async (_context, _event: { element?: any }) => {
         try {
           return {
             tokenAddress: "",
@@ -80,17 +74,13 @@ export const SynthProvider = ({ children }: Props) => {
     },
   });
 
-  function mintSynth(eventName: EventName) {
-    send({ type: "MINT", eventName });
+  function mintSynth(address: string) {
+    send({ type: "MINT", address });
   }
 
-  function generateArt(synthAddrs: string) {
-    send({ type: "GENERATE_ART", synthAddrs });
+  function generateArt(synthAddrs: string, artAddrs: string) {
+    send({ type: "GENERATE_ART", synthAddrs, artAddrs });
   }
-
-  useEffect(() => {
-    // If connected query blockchain for synths
-  }, []);
 
   return (
     <SynthContext.Provider
@@ -101,7 +91,6 @@ export const SynthProvider = ({ children }: Props) => {
         mintSynth,
         generateArt,
         address,
-        synths,
         ...state.context,
       }}
     >

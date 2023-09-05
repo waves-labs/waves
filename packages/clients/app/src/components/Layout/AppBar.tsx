@@ -64,13 +64,7 @@ export const Appbar = () => {
               pathname === path ? "active tab-active" : ""
             }`}
           >
-            <Icon
-              width={32}
-              height={32}
-              // className={`${
-              //   pathname === path ? "fill-primary" : "fill-neutral"
-              // }`}
-            />
+            <Icon width={32} height={32} className={`fill-white`} />
             {/* <p
               className={`text-sm tracking-wide ${
                 pathname === path ? "text-primary" : "text-neutral"

@@ -2,24 +2,22 @@ import React from "react";
 import { css } from "@emotion/react";
 import { a, useSpring } from "@react-spring/web";
 
-import { SynthsView } from "../../hooks/views/useSynths";
+import { SynthsView } from "./Gallery";
 
-export interface SynthProps extends Synth {
+export interface SynthProps extends SynthUI {
   view: SynthsView;
   flipped?: boolean;
   setFlipped?: React.Dispatch<React.SetStateAction<boolean>>;
   onClick?: () => void;
 }
 
-// TODO: Polish styles to match designs
 // TODO: Add details to back of synth such as event, date, gen artist, etc
 
 export const Synth: React.FC<SynthProps> = ({
   view,
   flipped,
   setFlipped,
-  eventName,
-  // address,
+  name,
   image,
   onClick,
 }) => {
@@ -35,11 +33,11 @@ export const Synth: React.FC<SynthProps> = ({
 
   return (
     <div
-      className={`relative aspect-square bg-transparent aspect-square`}
+      className={`relative aspect-square bg-transparent`}
       onClick={onClick ?? handleSynthClick}
     >
       <a.div
-        className="border-[0.75rem] sm:border-[1rem] lg:border-[1.5rem] border-black bg-black absolute w-full h-full grid place-items-center"
+        className="border-[0.75rem] sm:border-[1rem] lg:border-[1.5rem] dark:border-white border-black bg-black absolute w-full h-full grid place-items-center"
         style={{ opacity: opacity.to((o) => 1 - o), transform }}
         css={css`
           box-shadow: 20px 20px 100px 0px rgba(0, 0, 0, 0.35);
@@ -47,12 +45,12 @@ export const Synth: React.FC<SynthProps> = ({
       >
         <img
           src={image}
-          alt={eventName}
-          className="w-full h-full object-cover"
+          alt={name}
+          className="w-full h-full object-cover overflow-hidden"
         />
       </a.div>
       <a.div
-        className="border-[0.75rem] sm:border-[1rem] md:border-[1.5rem] border-black bg-black absolute w-full h-full"
+        className="border-[0.75rem] sm:border-[1rem] md:border-[1.5rem] dark:border-white border-black bg-black absolute w-full h-full grid place-items-center"
         style={{
           opacity,
           transform,
@@ -62,20 +60,7 @@ export const Synth: React.FC<SynthProps> = ({
           box-shadow: 20px 20px 100px 0px rgba(0, 0, 0, 0.35);
         `}
       >
-        <div className="synth-details flex items-center w-full mt-3 border-stone-800 border-2 rounded-sm divide-x divide-stone-800">
-          <div className="basis-1/4 px-4 py-2 sm:py-4 sm:px-8 flex flex-col gap-1 h-full">
-            <h4 className="font-light text-xs text-stone-400 tracking-wide uppercase">
-              Experiences
-            </h4>
-            <p className="font-medium text-white text-xs xs:text-base"></p>
-          </div>
-          <div className="basis-3/4 px-4 py-2 sm:py-4 sm:px-8 flex flex-col gap-1 h-full">
-            <h4 className="font-light text-xs text-stone-400 tracking-wide uppercase">
-              Favorite Artists
-            </h4>
-            <ul className="flex line-clamp-1 gap-1 flex-nowrap"></ul>
-          </div>
-        </div>
+        <div className="flex items-center w-full mt-3 border-stone-800 border-2"></div>
       </a.div>
     </div>
   );

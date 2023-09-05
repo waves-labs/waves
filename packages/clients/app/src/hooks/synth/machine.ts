@@ -3,8 +3,6 @@ import { createMachine, assign } from "xstate";
 
 export interface SynthContext {
   address?: `0x${string}`;
-  image: string | null;
-  imageVerified: boolean;
   error: string | null;
 }
 
@@ -85,17 +83,17 @@ export const synthMachine = createMachine(
   {
     guards: {
       isMintValid: (_context, event: { image: string | ArrayBuffer }) => {
-        return !!event.image;
+        return false;
       },
-      isGenArtValid: (context, event: { element: any }) => {
-        return !!context.image && !!event.element;
+      isGenArtValid: (_context, event: { element: any }) => {
+        return false;
       },
     },
     actions: {
       error: assign((context, event) => {
         switch (event.type) {
           case "error.platform.mintService":
-            context.imageVerified = false;
+            // context.imageVerified = false;
             // context.image = null;
 
             // @ts-ignore

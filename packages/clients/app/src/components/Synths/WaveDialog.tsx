@@ -1,32 +1,33 @@
 import React from "react";
 import { createPortal } from "react-dom";
 
-// TODO: Polish styles to match designs
-
 export interface WaveDialogData {
-  image: string;
+  data: string;
   name: string;
-  description?: string;
+  artist: string; // Generative Artist
+  creative?: string; // Musician, Performer, etc.
+  contract?: string; // Contract Address
+  isCatched?: boolean;
+  isAvailable?: boolean;
 }
 
 interface WaveDialogProps extends WaveDialogData {}
 
 export const WaveDialog: React.FC<WaveDialogProps> = ({
+  data,
   name,
-  description,
-  image,
+  artist,
+  creative,
+  contract,
+  isCatched,
+  isAvailable,
 }) => {
-  const Content = () => (
-    <div className="px-4 flex flex-col gap-3 pb-12 w-full bg-base-100">
-      <img
-        src={image}
-        alt={name}
-        className="w-full aspect-square object-cover rounded-xl"
-      />
-      <h2 className="font-bold text-2xl capitalize">{name}</h2>
-      {description && <p className="font-light">{description}</p>}
-    </div>
-  );
+  const isImage =
+    data.startsWith("data:image") ||
+    data.endsWith(".png") ||
+    data.endsWith(".jpg") ||
+    data.endsWith(".jpeg") ||
+    data.endsWith(".gif");
 
   return createPortal(
     <>
@@ -36,7 +37,32 @@ export const WaveDialog: React.FC<WaveDialogProps> = ({
           className="modal-box relative flex w-full max-w-sm flex-col gap-4"
           htmlFor=""
         >
-          <Content />
+          {isImage ? (
+            <img
+              src={data}
+              alt={`${name} Wave by ${artist} and ${creative}`}
+              className="w-full aspect-square object-cover rounded-xl"
+            />
+          ) : (
+            <div className={`bg-[${data}]`} />
+          )}
+          <div className="flex gap-3">
+            {isCatched && (
+              <span className={`badge badge-lg bg-blue`}>Catched</span>
+            )}
+            <span
+              className={`badge badge-lg ${
+                isAvailable ? "bg-green" : "bg-red"
+              }`}
+            >
+              {isAvailable ? "Available" : "Unavailable"}
+            </span>
+          </div>
+          <h2 className="font-bold text-2xl capitalize">{name}</h2>
+          <p>{`by ${artist} ${
+            artist === creative ? undefined : `and ${creative}`
+          }`}</p>
+          {contract && <p className="font-light w-3/4">{contract}</p>}
         </label>
       </label>
     </>,

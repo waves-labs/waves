@@ -1,17 +1,14 @@
-import { useSynth } from "../synth/useSynth";
+import { WavesDataProps, useWaves } from "../providers/waves";
+import { SynthDataProps, useSynth } from "../synth/useSynth";
 
-export interface SynthsDataProps {
-  address?: string;
-  synths: Synth[];
-}
-
-export type SynthsView = "synths" | "synth";
+export interface SynthsDataProps extends WavesDataProps, SynthDataProps {}
 
 export const useSynths = (): SynthsDataProps => {
-  const { address, synths } = useSynth();
+  const waves = useWaves();
+  const synth = useSynth();
 
   return {
-    address,
-    synths,
+    ...waves,
+    ...synth,
   };
 };

@@ -5,7 +5,32 @@
       "path": ".."
     },
     {
-      "path": "../../../wefa/openar"
+      "name": "clients",
+      "path": "../packages/clients"
+    },
+    {
+      "name": "app",
+      "path": "../packages/clients/app"
+    },
+    {
+      "name": "web",
+      "path": "../packages/clients/web"
+    },
+    {
+      "name": "api",
+      "path": "../packages/api"
+    },
+    {
+      "name": "graph",
+      "path": "../packages/graph"
+    },
+    {
+      "name": "contracts",
+      "path": "../packages/contracts"
+    },
+    {
+      "name": "art",
+      "path": "../../syn/art"
     }
   ],
   "settings": {

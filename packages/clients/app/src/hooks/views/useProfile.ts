@@ -1,6 +1,6 @@
 import { SpringValue, useSpring } from "@react-spring/web";
 import { useAccount, useEnsAvatar, useEnsName } from "wagmi";
-import { Web3Props, useWeb3 } from "../useWeb3";
+import { Web3Props, useWeb3 } from "../providers/web3";
 
 type Status =
   | "disconnected"
