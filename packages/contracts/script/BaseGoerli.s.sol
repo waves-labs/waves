@@ -13,7 +13,7 @@ import {MockTicket} from "../src/mocks/MockTicket.sol";
  * @notice Script for deploying Wave Collector Contracts.
  * @dev https://book.getfoundry.sh/reference/forge/forge-script
  *
- * @dev This script is used to deploy Ticket, SynthGenerator, and SynthRegistry with forge script
+ * @dev This script s used to deploy Ticket, SynthGenerator, and SynthRegistry with forge script
  * example start anvil with `anvil` command and then run
  * forge script contracts/script/Ticket.s.sol:Deploy --rpc-url http://localhost:8545 --broadcast -vvv
  * @dev Scripts can be used for development and testing, but they are not required for production.
