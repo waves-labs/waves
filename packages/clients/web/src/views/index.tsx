@@ -1,15 +1,15 @@
 import { css } from "@emotion/react";
 import { a, useSpring, config } from "@react-spring/web";
 
-import { genreColorMap } from "../../clients/web/src/constants";
+import { genreColorMap } from "../constants";
 
-import { useSynthesize } from "../../clients/web/src/hooks/synthesize/useSynthesize";
+import { useSynthesize } from "../hooks/synthesize/useSynthesize";
 
-import { Synth } from "../../clients/web/src/components/Synth";
-import { Actions } from "../../clients/web/src/components/Actions";
-import { Header } from "../../clients/web/src/components/Layout/Header";
-import { Footer } from "../../clients/web/src/components/Layout/Footer";
-import { BackgroundBurst } from "../../clients/web/src/components/Layout/BackgroundBurst";
+import { Synth } from "../components/Synth";
+import { Actions } from "../components/Actions";
+import { Header } from "../components/Layout/Header";
+import { Footer } from "../components/Layout/Footer";
+import { BackgroundBurst } from "../components/Layout/BackgroundBurst";
 
 const Views = () => {
   const {
