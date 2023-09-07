@@ -27,8 +27,7 @@ interface SynthesizeHookData extends SynthesizeContext, SynthesizeState {
 
 export const useSynthesize = (): SynthesizeHookData => {
   const [artFlipped, setFlippedArt] = useState(false);
-  const { address, getStats, writeAsync, openConnectModal, disconnectAsync } =
-    useMint();
+  const { address, getStats, openConnectModal, disconnectAsync } = useMint();
   const [state, send] = useMachine(synthesizeMachine, {
     actions: {
       revealStats: () => {
