@@ -8,7 +8,7 @@ import { apolloClient } from "./modules/apollo";
 
 import { About } from "./components/Layout/About";
 
-import Views from "./views";
+import Views from "../../../contracts/views";
 
 function App() {
   return (

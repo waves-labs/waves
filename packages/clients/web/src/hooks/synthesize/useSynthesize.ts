@@ -88,7 +88,7 @@ export const useSynthesize = (): SynthesizeHookData => {
       },
       synthesizeService: async () => {
         try {
-          const data = await writeAsync?.();
+          // const data = await writeAsync?.();
 
           function wait(ms: number) {
             return new Promise((resolve) => setTimeout(resolve, ms));
@@ -100,7 +100,7 @@ export const useSynthesize = (): SynthesizeHookData => {
           //   throw new Error("No data returned from writeAsync.");
           // }
 
-          return { hash: data?.hash ?? `0x` };
+          return { hash: `0x` };
         } catch (error) {
           throw error;
         }
