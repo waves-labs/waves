@@ -1,6 +1,5 @@
 require("dotenv/config");
 require("hardhat-deploy");
-require("hardhat-deploy-ethers");
 require("hardhat-contract-sizer");
 require("@nomicfoundation/hardhat-foundry");
 require("@nomicfoundation/hardhat-toolbox");
@@ -21,6 +20,46 @@ const {
   PROFILE: isProfiling,
 } = process.env;
 
+const base = (address) => ({
+  8453: address,
+});
+
+const optimism = (address) => ({
+  10: address,
+});
+
+const zora = (address) => ({
+  7777777: address,
+});
+
+const baseGoerli = (address) => ({
+  84531: address,
+});
+
+const optimismGoerli = (address) => ({
+  420: address,
+});
+
+const zoraGoerli = (address) => ({
+  999: address,
+});
+
+const modeSepolia = (address) => ({
+  919: address,
+});
+
+const NamedAccounts = {
+  deployer: {
+    ...base(deployer),
+    ...optimism(deployer),
+    ...zora(deployer),
+    ...baseGoerli(deployer),
+    ...optimismGoerli(deployer),
+    ...zoraGoerli(deployer),
+    ...modeSepolia(deployer),
+  },
+};
+
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: {
@@ -35,13 +74,13 @@ module.exports = {
       },
     },
   },
-  // paths: {
-  //   deploy: ["contracts/scripts"],
-  // },
-  // typechain: {
-  //   target: 'ethers-v6'
-  // },
-  // namedAccounts: NamedAccounts,
+  paths: {
+    deploy: ["deploy"],
+  },
+  typechain: {
+    target: "ethers-v6",
+  },
+  namedAccounts: NamedAccounts,
   networks: {
     hardhat: {
       accounts: {

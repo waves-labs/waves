@@ -19,13 +19,15 @@ import {
 import { Wave } from "../generated/templates";
 
 export function handleWaveCreated(event: WaveCreatedEvent): void {
-  let entity = new WaveNFT(event.address);
+  let entity = new WaveNFT(event.params.wave);
 
   // entity.contract = event.params.wave;
   entity.artist = event.params.artist;
   entity.creative = event.params.creative;
   entity.name = event.params.name;
   entity.data = event.params.data;
+  entity.startTime = event.params.startTime;
+  entity.duration = event.params.duration;
 
   entity.blockNumber = event.block.number;
   entity.blockTimestamp = event.block.timestamp;

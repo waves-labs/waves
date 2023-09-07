@@ -62,6 +62,24 @@ export class ApprovalForAll__Params {
   }
 }
 
+export class DurationUpdated extends ethereum.Event {
+  get params(): DurationUpdated__Params {
+    return new DurationUpdated__Params(this);
+  }
+}
+
+export class DurationUpdated__Params {
+  _event: DurationUpdated;
+
+  constructor(event: DurationUpdated) {
+    this._event = event;
+  }
+
+  get duration(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+}
+
 export class Paused extends ethereum.Event {
   get params(): Paused__Params {
     return new Paused__Params(this);
@@ -155,6 +173,24 @@ export class RoleRevoked__Params {
 
   get sender(): Address {
     return this._event.parameters[2].value.toAddress();
+  }
+}
+
+export class StartTimeUpdated extends ethereum.Event {
+  get params(): StartTimeUpdated__Params {
+    return new StartTimeUpdated__Params(this);
+  }
+}
+
+export class StartTimeUpdated__Params {
+  _event: StartTimeUpdated;
+
+  constructor(event: StartTimeUpdated) {
+    this._event = event;
+  }
+
+  get startTime(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
   }
 }
 
@@ -564,24 +600,40 @@ export class ConstructorCall__Inputs {
     this._call = call;
   }
 
+  get _maxAmount(): i32 {
+    return this._call.inputValues[0].value.toI32();
+  }
+
+  get _startTime(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+
+  get _duration(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+
   get _artist(): Address {
-    return this._call.inputValues[0].value.toAddress();
+    return this._call.inputValues[3].value.toAddress();
   }
 
   get _creative(): Address {
-    return this._call.inputValues[1].value.toAddress();
+    return this._call.inputValues[4].value.toAddress();
   }
 
   get _admin(): Address {
-    return this._call.inputValues[2].value.toAddress();
+    return this._call.inputValues[5].value.toAddress();
+  }
+
+  get _resolver(): Address {
+    return this._call.inputValues[6].value.toAddress();
   }
 
   get _name(): string {
-    return this._call.inputValues[3].value.toString();
+    return this._call.inputValues[7].value.toString();
   }
 
   get _data(): Bytes {
-    return this._call.inputValues[4].value.toBytes();
+    return this._call.inputValues[8].value.toBytes();
   }
 }
 
@@ -899,6 +951,66 @@ export class SetApprovalForAllCall__Outputs {
   _call: SetApprovalForAllCall;
 
   constructor(call: SetApprovalForAllCall) {
+    this._call = call;
+  }
+}
+
+export class SetDurationCall extends ethereum.Call {
+  get inputs(): SetDurationCall__Inputs {
+    return new SetDurationCall__Inputs(this);
+  }
+
+  get outputs(): SetDurationCall__Outputs {
+    return new SetDurationCall__Outputs(this);
+  }
+}
+
+export class SetDurationCall__Inputs {
+  _call: SetDurationCall;
+
+  constructor(call: SetDurationCall) {
+    this._call = call;
+  }
+
+  get _duration(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+}
+
+export class SetDurationCall__Outputs {
+  _call: SetDurationCall;
+
+  constructor(call: SetDurationCall) {
+    this._call = call;
+  }
+}
+
+export class SetStartTimeCall extends ethereum.Call {
+  get inputs(): SetStartTimeCall__Inputs {
+    return new SetStartTimeCall__Inputs(this);
+  }
+
+  get outputs(): SetStartTimeCall__Outputs {
+    return new SetStartTimeCall__Outputs(this);
+  }
+}
+
+export class SetStartTimeCall__Inputs {
+  _call: SetStartTimeCall;
+
+  constructor(call: SetStartTimeCall) {
+    this._call = call;
+  }
+
+  get _startTime(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+}
+
+export class SetStartTimeCall__Outputs {
+  _call: SetStartTimeCall;
+
+  constructor(call: SetStartTimeCall) {
     this._call = call;
   }
 }

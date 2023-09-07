@@ -7,77 +7,36 @@ import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
-import {SynthAccount} from "./SynthAccount.sol";
-
-contract Wave is ERC721, Pausable, AccessControl, ERC2771Recipient {
-    event WaveMinted(address indexed owner, address indexed wave, uint256 indexed waveId);
-    event StartTimeUpdated(uint256 indexed startTime);
-    event DurationUpdated(uint256 indexed duration);
-
-    uint16 maxAmount; // max amount of waves to be minted
+contract MockTicket is ERC721, Pausable, AccessControl, ERC2771Recipient {
     uint256 startTime; // time to start minting
     uint256 duration; // length of set in minutes
-    address private artist;
-    address private creative;
-    bytes public data;
-    bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
+    address private organizer;
 
     using Counters for Counters.Counter;
 
     Counters.Counter private _waveIdCounter;
 
-    constructor(
-        uint16 _maxAmount,
-        uint256 _startTime,
-        uint256 _duration,
-        address _artist,
-        address _creative,
-        address _admin,
-        address _resolver,
-        string memory _name,
-        bytes memory _data
-    ) ERC721(_name, "WAVE") {
-        maxAmount = _maxAmount;
-        startTime = _startTime;
-        duration = _duration;
-        artist = _artist;
-        creative = _creative;
-        data = _data;
-
-        _setupRole(DEFAULT_ADMIN_ROLE, _admin);
-        _setupRole(MINTER_ROLE, _admin);
-        _setupRole(MINTER_ROLE, _resolver);
+    constructor() ERC721("Mock Ticket", "MTK") {
+        _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
     }
 
-    function mint(address _attendee, address _synthAccount) external onlyRole(MINTER_ROLE) {
-        require(block.timestamp >= startTime, "Wave: minting hasn't started yet");
-        require(block.timestamp <= startTime + duration, "Wave: minting has ended");
-        require(_waveIdCounter.current() < maxAmount, "Wave: max amount minted");
-        require(balanceOf(_synthAccount) == 0, "Wave: already claimed");
-        require(SynthAccount(payable(_synthAccount)).owner() == _attendee, "Wave: attendee doesn't own synth account");
-
+    function mint() external {
         uint256 waveId = _waveIdCounter.current();
 
         _waveIdCounter.increment();
-        _mint(_synthAccount, waveId);
-
-        emit WaveMinted(_synthAccount, address(this), waveId);
+        _mint(msg.sender, waveId);
     }
 
     function setStartTime(uint256 _startTime) external onlyRole(DEFAULT_ADMIN_ROLE) {
         require(_startTime > block.timestamp, "Wave: start time must be in the future");
 
         startTime = _startTime;
-
-        emit StartTimeUpdated(_startTime);
     }
 
     function setDuration(uint256 _duration) external onlyRole(DEFAULT_ADMIN_ROLE) {
         require(_duration < 1 days, "Wave: duration must be less than 1 day");
 
         duration = _duration;
-
-        emit DurationUpdated(_duration);
     }
 
     function pause() public onlyRole(DEFAULT_ADMIN_ROLE) {

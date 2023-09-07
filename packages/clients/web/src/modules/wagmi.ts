@@ -15,9 +15,9 @@ const { chains, publicClient } = configureChains(
 );
 
 const { connectors } = getDefaultWallets({
-  appName: "SynArt",
+  appName: "waves house",
   chains,
-  projectId: "synart",
+  projectId: import.meta.env.VITE_WALLETCONNECT_PROJECT_ID,
 });
 
 const config = createConfig({

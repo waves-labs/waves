@@ -157,24 +157,32 @@ export class WaveCreated__Params {
     this._event = event;
   }
 
+  get startTime(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+
+  get duration(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
+  }
+
   get wave(): Address {
-    return this._event.parameters[0].value.toAddress();
-  }
-
-  get artist(): Address {
-    return this._event.parameters[1].value.toAddress();
-  }
-
-  get creative(): Address {
     return this._event.parameters[2].value.toAddress();
   }
 
+  get artist(): Address {
+    return this._event.parameters[3].value.toAddress();
+  }
+
+  get creative(): Address {
+    return this._event.parameters[4].value.toAddress();
+  }
+
   get name(): string {
-    return this._event.parameters[3].value.toString();
+    return this._event.parameters[5].value.toString();
   }
 
   get data(): Bytes {
-    return this._event.parameters[4].value.toBytes();
+    return this._event.parameters[6].value.toBytes();
   }
 }
 
@@ -184,6 +192,9 @@ export class WaveRegistry extends ethereum.SmartContract {
   }
 
   createWave(
+    _maxAmount: i32,
+    _startTime: BigInt,
+    _duration: BigInt,
     _artist: Address,
     _creative: Address,
     _name: string,
@@ -191,8 +202,11 @@ export class WaveRegistry extends ethereum.SmartContract {
   ): Address {
     let result = super.call(
       "createWave",
-      "createWave(address,address,string,bytes):(address)",
+      "createWave(uint16,uint256,uint256,address,address,string,bytes):(address)",
       [
+        ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(_maxAmount)),
+        ethereum.Value.fromUnsignedBigInt(_startTime),
+        ethereum.Value.fromUnsignedBigInt(_duration),
         ethereum.Value.fromAddress(_artist),
         ethereum.Value.fromAddress(_creative),
         ethereum.Value.fromString(_name),
@@ -204,6 +218,9 @@ export class WaveRegistry extends ethereum.SmartContract {
   }
 
   try_createWave(
+    _maxAmount: i32,
+    _startTime: BigInt,
+    _duration: BigInt,
     _artist: Address,
     _creative: Address,
     _name: string,
@@ -211,8 +228,11 @@ export class WaveRegistry extends ethereum.SmartContract {
   ): ethereum.CallResult<Address> {
     let result = super.tryCall(
       "createWave",
-      "createWave(address,address,string,bytes):(address)",
+      "createWave(uint16,uint256,uint256,address,address,string,bytes):(address)",
       [
+        ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(_maxAmount)),
+        ethereum.Value.fromUnsignedBigInt(_startTime),
+        ethereum.Value.fromUnsignedBigInt(_duration),
         ethereum.Value.fromAddress(_artist),
         ethereum.Value.fromAddress(_creative),
         ethereum.Value.fromString(_name),
@@ -293,6 +313,21 @@ export class WaveRegistry extends ethereum.SmartContract {
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
+
+  waveResolver(): Address {
+    let result = super.call("waveResolver", "waveResolver():(address)", []);
+
+    return result[0].toAddress();
+  }
+
+  try_waveResolver(): ethereum.CallResult<Address> {
+    let result = super.tryCall("waveResolver", "waveResolver():(address)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
 }
 
 export class ConstructorCall extends ethereum.Call {
@@ -338,20 +373,32 @@ export class CreateWaveCall__Inputs {
     this._call = call;
   }
 
+  get _maxAmount(): i32 {
+    return this._call.inputValues[0].value.toI32();
+  }
+
+  get _startTime(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+
+  get _duration(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+
   get _artist(): Address {
-    return this._call.inputValues[0].value.toAddress();
+    return this._call.inputValues[3].value.toAddress();
   }
 
   get _creative(): Address {
-    return this._call.inputValues[1].value.toAddress();
+    return this._call.inputValues[4].value.toAddress();
   }
 
   get _name(): string {
-    return this._call.inputValues[2].value.toString();
+    return this._call.inputValues[5].value.toString();
   }
 
   get _data(): Bytes {
-    return this._call.inputValues[3].value.toBytes();
+    return this._call.inputValues[6].value.toBytes();
   }
 }
 
@@ -382,6 +429,10 @@ export class InitializeCall__Inputs {
 
   constructor(call: InitializeCall) {
     this._call = call;
+  }
+
+  get _resolverAddress(): Address {
+    return this._call.inputValues[0].value.toAddress();
   }
 }
 

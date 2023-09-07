@@ -62,6 +62,60 @@ export class ApprovalForAll__Params {
   }
 }
 
+export class NFTOwnershipToMintSet extends ethereum.Event {
+  get params(): NFTOwnershipToMintSet__Params {
+    return new NFTOwnershipToMintSet__Params(this);
+  }
+}
+
+export class NFTOwnershipToMintSet__Params {
+  _event: NFTOwnershipToMintSet;
+
+  constructor(event: NFTOwnershipToMintSet) {
+    this._event = event;
+  }
+
+  get nftOwnershipToMint(): boolean {
+    return this._event.parameters[0].value.toBoolean();
+  }
+}
+
+export class NFTWhitelistAdded extends ethereum.Event {
+  get params(): NFTWhitelistAdded__Params {
+    return new NFTWhitelistAdded__Params(this);
+  }
+}
+
+export class NFTWhitelistAdded__Params {
+  _event: NFTWhitelistAdded;
+
+  constructor(event: NFTWhitelistAdded) {
+    this._event = event;
+  }
+
+  get nft(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+}
+
+export class NFTWhitelistRemoved extends ethereum.Event {
+  get params(): NFTWhitelistRemoved__Params {
+    return new NFTWhitelistRemoved__Params(this);
+  }
+}
+
+export class NFTWhitelistRemoved__Params {
+  _event: NFTWhitelistRemoved;
+
+  constructor(event: NFTWhitelistRemoved) {
+    this._event = event;
+  }
+
+  get nft(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+}
+
 export class Paused extends ethereum.Event {
   get params(): Paused__Params {
     return new Paused__Params(this);
@@ -616,20 +670,24 @@ export class ConstructorCall__Inputs {
     return this._call.inputValues[0].value.toBoolean();
   }
 
-  get _artist(): Address {
+  get _synthAccountImplementation(): Address {
     return this._call.inputValues[1].value.toAddress();
   }
 
-  get _organizer(): Address {
+  get _artist(): Address {
     return this._call.inputValues[2].value.toAddress();
   }
 
+  get _organizer(): Address {
+    return this._call.inputValues[3].value.toAddress();
+  }
+
   get _name(): string {
-    return this._call.inputValues[3].value.toString();
+    return this._call.inputValues[4].value.toString();
   }
 
   get _nftWhitelist(): Array<Address> {
-    return this._call.inputValues[4].value.toAddressArray();
+    return this._call.inputValues[5].value.toAddressArray();
   }
 }
 

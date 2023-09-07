@@ -2,7 +2,7 @@ import { a, config, useSpring } from "@react-spring/web";
 import { Link, useLocation } from "react-router-dom";
 
 import { RC as WavesIcon } from "../../assets/icons/waves.svg";
-import { RC as QRIcon } from "../../assets/icons/qr.svg";
+import { RC as WorldIcon } from "../../assets/icons/world.svg";
 import { RC as ProfileIcon } from "../../assets/icons/profile.svg";
 
 const tabs: {
@@ -22,7 +22,7 @@ const tabs: {
   {
     path: "/explore",
     title: "Explore",
-    Icon: QRIcon,
+    Icon: WorldIcon,
   },
   {
     path: "/profile",
@@ -64,7 +64,7 @@ export const Appbar = () => {
               pathname === path ? "active tab-active" : ""
             }`}
           >
-            <Icon width={32} height={32} className={`fill-white`} />
+            <Icon width={32} height={32} />
             {/* <p
               className={`text-sm tracking-wide ${
                 pathname === path ? "text-primary" : "text-neutral"

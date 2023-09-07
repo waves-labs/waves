@@ -17,16 +17,58 @@ const SynthNFTsQuery = gql`
   query {
     synthNfts {
       id
-      title
+      nftOwnershipRequired
+      artist
+      organizer
+      name
+      blockNumber
+      blockTimestamp
+      transactionHash
+
+      nftWhitelist
+      waveNFTs {
+        waveNft {
+          id
+          startTime
+          duration
+          artiist
+          creative
+          name
+          data
+          blockNumber
+          blockTimestamp
+          transactionHash
+        }
+      }
     }
   }
 `;
 
+// query ($address: String!) {
+//   synths(address: $address) {
+
 const SynthsQuery = gql`
-  query ($address: String!) {
-    synths(address: $address) {
+  query {
+    synths {
       id
-      title
+      owner
+      contract
+      tokenId
+      blockNumber
+      blockTimestamp
+      transactionHash
+
+      waves {
+        wave {
+          id
+          owner
+          contract
+          tokenId
+          blockNumber
+          blockTimestamp
+          transactionHash
+        }
+      }
     }
   }
 `;
@@ -47,8 +89,20 @@ export const WavesProvider = ({ children }: Props) => {
     // variables: { from, limit },
   });
 
-  let synths: SynthUI[] = [];
   let waves: WaveUI[] = [];
+  const synths: SynthUI[] = nfts.data?.reduce((acc, nft) => {
+    // const synth = {
+    //   ...nft,
+    //   waves: nft.waveNFTs.map((wave) => ({
+    //     ...wave.waveNft,
+    //     synth: nft,
+    //   })),
+    // };
+
+    waves = [...waves];
+
+    return [...acc];
+  }, []);
 
   return (
     <WavesContext.Provider

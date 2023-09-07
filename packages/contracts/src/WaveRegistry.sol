@@ -9,8 +9,17 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 import {Wave} from "./Wave.sol";
 
 contract WaveRegistry is Initializable, PausableUpgradeable, OwnableUpgradeable, UUPSUpgradeable {
-    event WaveCreated(address indexed wave, address indexed artist, address indexed creative, string name, bytes data);
+    event WaveCreated(
+        uint256 startTime,
+        uint256 duration,
+        address indexed wave,
+        address indexed artist,
+        address indexed creative,
+        string name,
+        bytes data
+    );
 
+    address public waveResolver;
     mapping(address => bool) public waveExists;
 
     /// @custom:oz-upgrades-unsafe-allow constructor
@@ -18,21 +27,29 @@ contract WaveRegistry is Initializable, PausableUpgradeable, OwnableUpgradeable,
         _disableInitializers();
     }
 
-    function initialize() external initializer {
+    function initialize(address _resolverAddress) external initializer {
         __Pausable_init();
         __Ownable_init();
         __UUPSUpgradeable_init();
+
+        waveResolver = _resolverAddress;
     }
 
-    function createWave(address _artist, address _creative, string calldata _name, bytes calldata _data)
-        external
-        returns (address)
-    {
-        Wave wave = new Wave(_artist, _creative, msg.sender, _name, _data);
+    function createWave(
+        uint16 _maxAmount,
+        uint256 _startTime,
+        uint256 _duration,
+        address _artist,
+        address _creative,
+        string calldata _name,
+        bytes calldata _data
+    ) external returns (address) {
+        Wave wave =
+            new Wave(_maxAmount, _startTime, _duration, _artist, _creative, msg.sender, waveResolver, _name, _data);
         address waveAddrs = address(wave);
         waveExists[waveAddrs] = true;
 
-        emit WaveCreated(waveAddrs, _artist, _creative, _name, _data);
+        emit WaveCreated(_startTime, _duration, waveAddrs, _artist, _creative, _name, _data);
 
         return waveAddrs;
     }

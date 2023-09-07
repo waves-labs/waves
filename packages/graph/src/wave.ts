@@ -1,5 +1,10 @@
-import { WaveMinted as WaveMintedEvent } from "../generated/templates/Wave/Wave";
-import { Wave, SynthWave } from "../generated/schema";
+import {
+  WaveMinted as WaveMintedEvent,
+  DurationUpdated as DurationUpdatedEvent,
+  StartTimeUpdated as StartTimeUpdatedEvent,
+} from "../generated/templates/Wave/Wave";
+import { WaveNFT, Wave, SynthWave } from "../generated/schema";
+import { store } from "@graphprotocol/graph-ts";
 
 export function handleWaveMinted(event: WaveMintedEvent): void {
   let entity = new Wave(
@@ -15,9 +20,7 @@ export function handleWaveMinted(event: WaveMintedEvent): void {
 
   entity.save();
 
-  let synthWave = new SynthWave(
-    event.params.owner.concatI32(entity.id.toI32())
-  );
+  let synthWave = new SynthWave(event.params.owner.concat(entity.id));
 
   synthWave.synth = event.params.owner;
   synthWave.wave = entity.id;
@@ -27,4 +30,34 @@ export function handleWaveMinted(event: WaveMintedEvent): void {
   synthWave.transactionHash = event.transaction.hash;
 
   synthWave.save();
+}
+
+export function handleStartTimeUpdated(event: StartTimeUpdatedEvent): void {
+  const entity = store.get(
+    "WaveNFT",
+    event.address.toHexString()
+  ) as WaveNFT | null;
+
+  if (!entity) {
+    return;
+  }
+
+  entity.startTime = event.params.startTime; // synth account address
+
+  store.set("WaveNFT", event.address.toHexString(), entity);
+}
+
+export function handleDurationUpdated(event: DurationUpdatedEvent): void {
+  const entity = store.get(
+    "WaveNFT",
+    event.address.toHexString()
+  ) as WaveNFT | null;
+
+  if (!entity) {
+    return;
+  }
+
+  entity.duration = event.params.duration; // synth account address
+
+  store.set("WaveNFT", event.address.toHexString(), entity);
 }

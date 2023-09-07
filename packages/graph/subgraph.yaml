@@ -6,7 +6,7 @@ dataSources:
     kind: ethereum
     network: base-testnet
     source:
-      address: "0xDBcd0b796aA86544FfaD2f27B13453918A78A51d"
+      address: "0xCd571Fd48ea82bc8F4CFeF7bc1EB325464B4abA6"
       abi: SynthRegistry
       startBlock: 9223545
     mapping:
@@ -23,7 +23,7 @@ dataSources:
         - Upgraded
       abis:
         - name: SynthRegistry
-          file: ../contracts/artifacts/contracts/src/SynthRegistry.sol/SynthRegistry.json
+          file: ../contracts/out/SynthRegistry.sol/SynthRegistry.json
       eventHandlers:
         - event: AdminChanged(address,address)
           handler: handleAdminChanged
@@ -44,7 +44,7 @@ dataSources:
     kind: ethereum
     network: base-testnet
     source:
-      address: "0x9D641140e6c1F1B3CE7a75092893952d22692f40"
+      address: "0x61d4F4D4a1fab9f1ba3e5e193bfDa9C89B8c3D0E"
       abi: WaveRegistry
       startBlock: 9225556
     mapping:
@@ -61,7 +61,7 @@ dataSources:
         - WaveCreated
       abis:
         - name: WaveRegistry
-          file: ../contracts/artifacts/contracts/src/WaveRegistry.sol/WaveRegistry.json
+          file: ../contracts/out/WaveRegistry.sol/WaveRegistry.json
       eventHandlers:
         - event: AdminChanged(address,address)
           handler: handleAdminChanged
@@ -75,7 +75,7 @@ dataSources:
           handler: handleUnpaused
         - event: Upgraded(indexed address)
           handler: handleUpgraded
-        - event: WaveCreated(indexed address,indexed address,indexed address,string,bytes)
+        - event: WaveCreated(uint256,uint256,indexed address,indexed address,indexed address,string,bytes)
           handler: handleWaveCreated
       file: ./src/wave-registry.ts
 templates:
@@ -95,7 +95,7 @@ templates:
         - WaveRemoved
       abis:
         - name: Synth
-          file: ../contracts/artifacts/contracts/src/Synth.sol/Synth.json
+          file: ../contracts/out/Synth.sol/Synth.json
       eventHandlers:
         - event: SynthMinted(indexed address,indexed address,indexed address,uint256)
           handler: handleSynthMinted
@@ -103,6 +103,12 @@ templates:
           handler: handleWaveAdded
         - event: WaveRemoved(indexed address)
           handler: handleWaveRemoved
+        - event: NFTWhitelistAdded(indexed address)
+          handler: handleWhitelistNftAdded
+        - event: NFTWhitelistRemoved(indexed address)
+          handler: handleWhitelistNftRemoved
+        - event: NFTOwnershipToMintSet(indexed bool)
+          handler: handleNftOwnershipToMintUpdated
   - name: Wave
     kind: ethereum/contract
     network: base-testnet
@@ -117,7 +123,11 @@ templates:
         - WaveMinted
       abis:
         - name: Wave
-          file: ../contracts/artifacts/contracts/src/Wave.sol/Wave.json
+          file: ../contracts/out/Wave.sol/Wave.json
       eventHandlers:
         - event: WaveMinted(indexed address,indexed address,indexed uint256)
           handler: handleWaveMinted
+        - event: StartTimeUpdated(indexed uint256)
+          handler: handleStartTimeUpdated
+        - event: DurationUpdated(indexed uint256)
+          handler: handleDurationUpdated

@@ -275,6 +275,29 @@ export class SynthRegistry extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBytes());
   }
 
+  synthAccountImplementation(): Address {
+    let result = super.call(
+      "synthAccountImplementation",
+      "synthAccountImplementation():(address)",
+      []
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_synthAccountImplementation(): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "synthAccountImplementation",
+      "synthAccountImplementation():(address)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
   synthExists(param0: Address): boolean {
     let result = super.call("synthExists", "synthExists(address):(bool)", [
       ethereum.Value.fromAddress(param0)
@@ -382,6 +405,10 @@ export class InitializeCall__Inputs {
 
   constructor(call: InitializeCall) {
     this._call = call;
+  }
+
+  get _synthAccountImplementationt(): Address {
+    return this._call.inputValues[0].value.toAddress();
   }
 }
 

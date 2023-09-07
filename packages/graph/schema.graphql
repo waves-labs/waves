@@ -11,6 +11,8 @@ type SynthWaveNFT @entity {
 type WaveNFT @entity(immutable: true) {
   id: Bytes! # address
   # contract: Bytes!
+  startTime: BigInt! # uint256
+  duration: BigInt! # uint256
   artist: Bytes! # address
   creative: Bytes! # address
   name: String! # string
@@ -33,6 +35,7 @@ type SynthNFT @entity(immutable: true) {
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 
+  nftWhitelist: [Bytes!] # addresses
   waveNFTs: [SynthWaveNFT!]! @derivedFrom(field: "synthNft")
 }
 

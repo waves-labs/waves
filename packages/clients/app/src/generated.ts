@@ -134,6 +134,18 @@ export const accessControlABI = [
 ]
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Address
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const addressABI = []
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// AddressUpgradeable
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const addressUpgradeableABI = []
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // BasePaymaster
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -406,6 +418,24 @@ export const basePaymasterABI = [
 ]
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// CommonBase
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const commonBaseABI = []
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Constants
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const constantsABI = []
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Context
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const contextABI = []
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ContextUpgradeable
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -464,6 +494,18 @@ export const counterABI = [
 ]
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Counters
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const countersABI = []
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ECDSA
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const ecdsaABI = []
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ERC165
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -476,6 +518,12 @@ export const erc165ABI = [
     outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
   },
 ]
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ERC165Checker
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const erc165CheckerABI = []
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ERC1967UpgradeUpgradeable
@@ -808,6 +856,18 @@ export const gsnEip712LibraryABI = [
     outputs: [{ name: '', internalType: 'bytes32', type: 'bytes32' }],
   },
 ]
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// GsnTypes
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const gsnTypesABI = []
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// GsnUtils
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const gsnUtilsABI = []
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // IAccessControl
@@ -3699,6 +3759,389 @@ export const initializableABI = [
 ]
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// MinLibBytes
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const minLibBytesABI = []
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// MockTicket
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const mockTicketABI = [
+  { stateMutability: 'nonpayable', type: 'constructor', inputs: [] },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'owner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'approved',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'tokenId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: true,
+      },
+    ],
+    name: 'Approval',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'owner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'operator',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      { name: 'approved', internalType: 'bool', type: 'bool', indexed: false },
+    ],
+    name: 'ApprovalForAll',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'account',
+        internalType: 'address',
+        type: 'address',
+        indexed: false,
+      },
+    ],
+    name: 'Paused',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'role', internalType: 'bytes32', type: 'bytes32', indexed: true },
+      {
+        name: 'previousAdminRole',
+        internalType: 'bytes32',
+        type: 'bytes32',
+        indexed: true,
+      },
+      {
+        name: 'newAdminRole',
+        internalType: 'bytes32',
+        type: 'bytes32',
+        indexed: true,
+      },
+    ],
+    name: 'RoleAdminChanged',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'role', internalType: 'bytes32', type: 'bytes32', indexed: true },
+      {
+        name: 'account',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'sender',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+    ],
+    name: 'RoleGranted',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'role', internalType: 'bytes32', type: 'bytes32', indexed: true },
+      {
+        name: 'account',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'sender',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+    ],
+    name: 'RoleRevoked',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address', indexed: true },
+      { name: 'to', internalType: 'address', type: 'address', indexed: true },
+      {
+        name: 'tokenId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: true,
+      },
+    ],
+    name: 'Transfer',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'account',
+        internalType: 'address',
+        type: 'address',
+        indexed: false,
+      },
+    ],
+    name: 'Unpaused',
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'DEFAULT_ADMIN_ROLE',
+    outputs: [{ name: '', internalType: 'bytes32', type: 'bytes32' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'approve',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'owner', internalType: 'address', type: 'address' }],
+    name: 'balanceOf',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
+    name: 'getApproved',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'role', internalType: 'bytes32', type: 'bytes32' }],
+    name: 'getRoleAdmin',
+    outputs: [{ name: '', internalType: 'bytes32', type: 'bytes32' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'getTrustedForwarder',
+    outputs: [{ name: 'forwarder', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'role', internalType: 'bytes32', type: 'bytes32' },
+      { name: 'account', internalType: 'address', type: 'address' },
+    ],
+    name: 'grantRole',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [
+      { name: 'role', internalType: 'bytes32', type: 'bytes32' },
+      { name: 'account', internalType: 'address', type: 'address' },
+    ],
+    name: 'hasRole',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [
+      { name: 'owner', internalType: 'address', type: 'address' },
+      { name: 'operator', internalType: 'address', type: 'address' },
+    ],
+    name: 'isApprovedForAll',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'forwarder', internalType: 'address', type: 'address' }],
+    name: 'isTrustedForwarder',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [],
+    name: 'mint',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'name',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
+    name: 'ownerOf',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [],
+    name: 'pause',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'paused',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'role', internalType: 'bytes32', type: 'bytes32' },
+      { name: 'account', internalType: 'address', type: 'address' },
+    ],
+    name: 'renounceRole',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'role', internalType: 'bytes32', type: 'bytes32' },
+      { name: 'account', internalType: 'address', type: 'address' },
+    ],
+    name: 'revokeRole',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'safeTransferFrom',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+      { name: 'data', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: 'safeTransferFrom',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'operator', internalType: 'address', type: 'address' },
+      { name: 'approved', internalType: 'bool', type: 'bool' },
+    ],
+    name: 'setApprovalForAll',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: '_duration', internalType: 'uint256', type: 'uint256' }],
+    name: 'setDuration',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: '_startTime', internalType: 'uint256', type: 'uint256' }],
+    name: 'setStartTime',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'interfaceId', internalType: 'bytes4', type: 'bytes4' }],
+    name: 'supportsInterface',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'symbol',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
+    name: 'tokenURI',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'transferFrom',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [],
+    name: 'unpause',
+    outputs: [],
+  },
+]
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Ownable
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -4017,6 +4460,12 @@ export const schemaResolverABI = [
 ]
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ScriptBase
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const scriptBaseABI = []
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Semver
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -4040,6 +4489,30 @@ export const semverABI = [
 ]
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// SignatureChecker
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const signatureCheckerABI = []
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// StdChains
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const stdChainsABI = []
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// StorageSlotUpgradeable
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const storageSlotUpgradeableABI = []
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Strings
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const stringsABI = []
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Synth
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -4049,6 +4522,11 @@ export const synthABI = [
     type: 'constructor',
     inputs: [
       { name: '_nftOwnershipToMint', internalType: 'bool', type: 'bool' },
+      {
+        name: '_synthAccountImplementation',
+        internalType: 'address',
+        type: 'address',
+      },
       { name: '_artist', internalType: 'address', type: 'address' },
       { name: '_organizer', internalType: 'address', type: 'address' },
       { name: '_name', internalType: 'string', type: 'string' },
@@ -4099,6 +4577,35 @@ export const synthABI = [
       { name: 'approved', internalType: 'bool', type: 'bool', indexed: false },
     ],
     name: 'ApprovalForAll',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'nftOwnershipToMint',
+        internalType: 'bool',
+        type: 'bool',
+        indexed: true,
+      },
+    ],
+    name: 'NFTOwnershipToMintSet',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'nft', internalType: 'address', type: 'address', indexed: true },
+    ],
+    name: 'NFTWhitelistAdded',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'nft', internalType: 'address', type: 'address', indexed: true },
+    ],
+    name: 'NFTWhitelistRemoved',
   },
   {
     type: 'event',
@@ -4738,7 +5245,13 @@ export const synthRegistryABI = [
   {
     stateMutability: 'nonpayable',
     type: 'function',
-    inputs: [],
+    inputs: [
+      {
+        name: '_synthAccountImplementationt',
+        internalType: 'address',
+        type: 'address',
+      },
+    ],
     name: 'initialize',
     outputs: [],
   },
@@ -4776,6 +5289,13 @@ export const synthRegistryABI = [
     inputs: [],
     name: 'renounceOwnership',
     outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'synthAccountImplementation',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
   },
   {
     stateMutability: 'view',
@@ -4833,6 +5353,12 @@ export const synthRegistryConfig = {
   address: synthRegistryAddress,
   abi: synthRegistryABI,
 }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// TestBase
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const testBaseABI = []
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // UUPSUpgradeable
@@ -4929,9 +5455,13 @@ export const waveABI = [
     stateMutability: 'nonpayable',
     type: 'constructor',
     inputs: [
+      { name: '_maxAmount', internalType: 'uint16', type: 'uint16' },
+      { name: '_startTime', internalType: 'uint256', type: 'uint256' },
+      { name: '_duration', internalType: 'uint256', type: 'uint256' },
       { name: '_artist', internalType: 'address', type: 'address' },
       { name: '_creative', internalType: 'address', type: 'address' },
       { name: '_admin', internalType: 'address', type: 'address' },
+      { name: '_resolver', internalType: 'address', type: 'address' },
       { name: '_name', internalType: 'string', type: 'string' },
       { name: '_data', internalType: 'bytes', type: 'bytes' },
     ],
@@ -4980,6 +5510,19 @@ export const waveABI = [
       { name: 'approved', internalType: 'bool', type: 'bool', indexed: false },
     ],
     name: 'ApprovalForAll',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'duration',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: true,
+      },
+    ],
+    name: 'DurationUpdated',
   },
   {
     type: 'event',
@@ -5053,6 +5596,19 @@ export const waveABI = [
       },
     ],
     name: 'RoleRevoked',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'startTime',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: true,
+      },
+    ],
+    name: 'StartTimeUpdated',
   },
   {
     type: 'event',
@@ -5290,6 +5846,20 @@ export const waveABI = [
     outputs: [],
   },
   {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: '_duration', internalType: 'uint256', type: 'uint256' }],
+    name: 'setDuration',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: '_startTime', internalType: 'uint256', type: 'uint256' }],
+    name: 'setStartTime',
+    outputs: [],
+  },
+  {
     stateMutability: 'view',
     type: 'function',
     inputs: [{ name: 'interfaceId', internalType: 'bytes4', type: 'bytes4' }],
@@ -5441,6 +6011,18 @@ export const waveRegistryABI = [
     type: 'event',
     anonymous: false,
     inputs: [
+      {
+        name: 'startTime',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'duration',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
       { name: 'wave', internalType: 'address', type: 'address', indexed: true },
       {
         name: 'artist',
@@ -5463,6 +6045,9 @@ export const waveRegistryABI = [
     stateMutability: 'nonpayable',
     type: 'function',
     inputs: [
+      { name: '_maxAmount', internalType: 'uint16', type: 'uint16' },
+      { name: '_startTime', internalType: 'uint256', type: 'uint256' },
+      { name: '_duration', internalType: 'uint256', type: 'uint256' },
       { name: '_artist', internalType: 'address', type: 'address' },
       { name: '_creative', internalType: 'address', type: 'address' },
       { name: '_name', internalType: 'string', type: 'string' },
@@ -5474,7 +6059,9 @@ export const waveRegistryABI = [
   {
     stateMutability: 'nonpayable',
     type: 'function',
-    inputs: [],
+    inputs: [
+      { name: '_resolverAddress', internalType: 'address', type: 'address' },
+    ],
     name: 'initialize',
     outputs: [],
   },
@@ -5552,6 +6139,13 @@ export const waveRegistryABI = [
     inputs: [{ name: '', internalType: 'address', type: 'address' }],
     name: 'waveExists',
     outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'waveResolver',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
   },
 ]
 
@@ -10214,6 +10808,540 @@ export function useInitializableInitializedEvent(config = {}) {
 }
 
 /**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link mockTicketABI}__.
+ */
+export function useMockTicketRead(config = {}) {
+  return useContractRead({ abi: mockTicketABI, ...config })
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"DEFAULT_ADMIN_ROLE"`.
+ */
+export function useMockTicketDefaultAdminRole(config = {}) {
+  return useContractRead({
+    abi: mockTicketABI,
+    functionName: 'DEFAULT_ADMIN_ROLE',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"balanceOf"`.
+ */
+export function useMockTicketBalanceOf(config = {}) {
+  return useContractRead({
+    abi: mockTicketABI,
+    functionName: 'balanceOf',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"getApproved"`.
+ */
+export function useMockTicketGetApproved(config = {}) {
+  return useContractRead({
+    abi: mockTicketABI,
+    functionName: 'getApproved',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"getRoleAdmin"`.
+ */
+export function useMockTicketGetRoleAdmin(config = {}) {
+  return useContractRead({
+    abi: mockTicketABI,
+    functionName: 'getRoleAdmin',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"getTrustedForwarder"`.
+ */
+export function useMockTicketGetTrustedForwarder(config = {}) {
+  return useContractRead({
+    abi: mockTicketABI,
+    functionName: 'getTrustedForwarder',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"hasRole"`.
+ */
+export function useMockTicketHasRole(config = {}) {
+  return useContractRead({
+    abi: mockTicketABI,
+    functionName: 'hasRole',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"isApprovedForAll"`.
+ */
+export function useMockTicketIsApprovedForAll(config = {}) {
+  return useContractRead({
+    abi: mockTicketABI,
+    functionName: 'isApprovedForAll',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"isTrustedForwarder"`.
+ */
+export function useMockTicketIsTrustedForwarder(config = {}) {
+  return useContractRead({
+    abi: mockTicketABI,
+    functionName: 'isTrustedForwarder',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"name"`.
+ */
+export function useMockTicketName(config = {}) {
+  return useContractRead({
+    abi: mockTicketABI,
+    functionName: 'name',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"ownerOf"`.
+ */
+export function useMockTicketOwnerOf(config = {}) {
+  return useContractRead({
+    abi: mockTicketABI,
+    functionName: 'ownerOf',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"paused"`.
+ */
+export function useMockTicketPaused(config = {}) {
+  return useContractRead({
+    abi: mockTicketABI,
+    functionName: 'paused',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"supportsInterface"`.
+ */
+export function useMockTicketSupportsInterface(config = {}) {
+  return useContractRead({
+    abi: mockTicketABI,
+    functionName: 'supportsInterface',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"symbol"`.
+ */
+export function useMockTicketSymbol(config = {}) {
+  return useContractRead({
+    abi: mockTicketABI,
+    functionName: 'symbol',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"tokenURI"`.
+ */
+export function useMockTicketTokenUri(config = {}) {
+  return useContractRead({
+    abi: mockTicketABI,
+    functionName: 'tokenURI',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link mockTicketABI}__.
+ */
+export function useMockTicketWrite(config = {}) {
+  return useContractWrite({ abi: mockTicketABI, ...config })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"approve"`.
+ */
+export function useMockTicketApprove(config = {}) {
+  return useContractWrite({
+    abi: mockTicketABI,
+    functionName: 'approve',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"grantRole"`.
+ */
+export function useMockTicketGrantRole(config = {}) {
+  return useContractWrite({
+    abi: mockTicketABI,
+    functionName: 'grantRole',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"mint"`.
+ */
+export function useMockTicketMint(config = {}) {
+  return useContractWrite({
+    abi: mockTicketABI,
+    functionName: 'mint',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"pause"`.
+ */
+export function useMockTicketPause(config = {}) {
+  return useContractWrite({
+    abi: mockTicketABI,
+    functionName: 'pause',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"renounceRole"`.
+ */
+export function useMockTicketRenounceRole(config = {}) {
+  return useContractWrite({
+    abi: mockTicketABI,
+    functionName: 'renounceRole',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"revokeRole"`.
+ */
+export function useMockTicketRevokeRole(config = {}) {
+  return useContractWrite({
+    abi: mockTicketABI,
+    functionName: 'revokeRole',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"safeTransferFrom"`.
+ */
+export function useMockTicketSafeTransferFrom(config = {}) {
+  return useContractWrite({
+    abi: mockTicketABI,
+    functionName: 'safeTransferFrom',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"setApprovalForAll"`.
+ */
+export function useMockTicketSetApprovalForAll(config = {}) {
+  return useContractWrite({
+    abi: mockTicketABI,
+    functionName: 'setApprovalForAll',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"setDuration"`.
+ */
+export function useMockTicketSetDuration(config = {}) {
+  return useContractWrite({
+    abi: mockTicketABI,
+    functionName: 'setDuration',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"setStartTime"`.
+ */
+export function useMockTicketSetStartTime(config = {}) {
+  return useContractWrite({
+    abi: mockTicketABI,
+    functionName: 'setStartTime',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"transferFrom"`.
+ */
+export function useMockTicketTransferFrom(config = {}) {
+  return useContractWrite({
+    abi: mockTicketABI,
+    functionName: 'transferFrom',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"unpause"`.
+ */
+export function useMockTicketUnpause(config = {}) {
+  return useContractWrite({
+    abi: mockTicketABI,
+    functionName: 'unpause',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link mockTicketABI}__.
+ */
+export function usePrepareMockTicketWrite(config = {}) {
+  return usePrepareContractWrite({ abi: mockTicketABI, ...config })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"approve"`.
+ */
+export function usePrepareMockTicketApprove(config = {}) {
+  return usePrepareContractWrite({
+    abi: mockTicketABI,
+    functionName: 'approve',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"grantRole"`.
+ */
+export function usePrepareMockTicketGrantRole(config = {}) {
+  return usePrepareContractWrite({
+    abi: mockTicketABI,
+    functionName: 'grantRole',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"mint"`.
+ */
+export function usePrepareMockTicketMint(config = {}) {
+  return usePrepareContractWrite({
+    abi: mockTicketABI,
+    functionName: 'mint',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"pause"`.
+ */
+export function usePrepareMockTicketPause(config = {}) {
+  return usePrepareContractWrite({
+    abi: mockTicketABI,
+    functionName: 'pause',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"renounceRole"`.
+ */
+export function usePrepareMockTicketRenounceRole(config = {}) {
+  return usePrepareContractWrite({
+    abi: mockTicketABI,
+    functionName: 'renounceRole',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"revokeRole"`.
+ */
+export function usePrepareMockTicketRevokeRole(config = {}) {
+  return usePrepareContractWrite({
+    abi: mockTicketABI,
+    functionName: 'revokeRole',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"safeTransferFrom"`.
+ */
+export function usePrepareMockTicketSafeTransferFrom(config = {}) {
+  return usePrepareContractWrite({
+    abi: mockTicketABI,
+    functionName: 'safeTransferFrom',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"setApprovalForAll"`.
+ */
+export function usePrepareMockTicketSetApprovalForAll(config = {}) {
+  return usePrepareContractWrite({
+    abi: mockTicketABI,
+    functionName: 'setApprovalForAll',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"setDuration"`.
+ */
+export function usePrepareMockTicketSetDuration(config = {}) {
+  return usePrepareContractWrite({
+    abi: mockTicketABI,
+    functionName: 'setDuration',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"setStartTime"`.
+ */
+export function usePrepareMockTicketSetStartTime(config = {}) {
+  return usePrepareContractWrite({
+    abi: mockTicketABI,
+    functionName: 'setStartTime',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"transferFrom"`.
+ */
+export function usePrepareMockTicketTransferFrom(config = {}) {
+  return usePrepareContractWrite({
+    abi: mockTicketABI,
+    functionName: 'transferFrom',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"unpause"`.
+ */
+export function usePrepareMockTicketUnpause(config = {}) {
+  return usePrepareContractWrite({
+    abi: mockTicketABI,
+    functionName: 'unpause',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link mockTicketABI}__.
+ */
+export function useMockTicketEvent(config = {}) {
+  return useContractEvent({ abi: mockTicketABI, ...config })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link mockTicketABI}__ and `eventName` set to `"Approval"`.
+ */
+export function useMockTicketApprovalEvent(config = {}) {
+  return useContractEvent({
+    abi: mockTicketABI,
+    eventName: 'Approval',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link mockTicketABI}__ and `eventName` set to `"ApprovalForAll"`.
+ */
+export function useMockTicketApprovalForAllEvent(config = {}) {
+  return useContractEvent({
+    abi: mockTicketABI,
+    eventName: 'ApprovalForAll',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link mockTicketABI}__ and `eventName` set to `"Paused"`.
+ */
+export function useMockTicketPausedEvent(config = {}) {
+  return useContractEvent({
+    abi: mockTicketABI,
+    eventName: 'Paused',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link mockTicketABI}__ and `eventName` set to `"RoleAdminChanged"`.
+ */
+export function useMockTicketRoleAdminChangedEvent(config = {}) {
+  return useContractEvent({
+    abi: mockTicketABI,
+    eventName: 'RoleAdminChanged',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link mockTicketABI}__ and `eventName` set to `"RoleGranted"`.
+ */
+export function useMockTicketRoleGrantedEvent(config = {}) {
+  return useContractEvent({
+    abi: mockTicketABI,
+    eventName: 'RoleGranted',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link mockTicketABI}__ and `eventName` set to `"RoleRevoked"`.
+ */
+export function useMockTicketRoleRevokedEvent(config = {}) {
+  return useContractEvent({
+    abi: mockTicketABI,
+    eventName: 'RoleRevoked',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link mockTicketABI}__ and `eventName` set to `"Transfer"`.
+ */
+export function useMockTicketTransferEvent(config = {}) {
+  return useContractEvent({
+    abi: mockTicketABI,
+    eventName: 'Transfer',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link mockTicketABI}__ and `eventName` set to `"Unpaused"`.
+ */
+export function useMockTicketUnpausedEvent(config = {}) {
+  return useContractEvent({
+    abi: mockTicketABI,
+    eventName: 'Unpaused',
+    ...config,
+  })
+}
+
+/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link ownableABI}__.
  */
 export function useOwnableRead(config = {}) {
@@ -11152,6 +12280,39 @@ export function useSynthApprovalForAllEvent(config = {}) {
 }
 
 /**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link synthABI}__ and `eventName` set to `"NFTOwnershipToMintSet"`.
+ */
+export function useSynthNftOwnershipToMintSetEvent(config = {}) {
+  return useContractEvent({
+    abi: synthABI,
+    eventName: 'NFTOwnershipToMintSet',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link synthABI}__ and `eventName` set to `"NFTWhitelistAdded"`.
+ */
+export function useSynthNftWhitelistAddedEvent(config = {}) {
+  return useContractEvent({
+    abi: synthABI,
+    eventName: 'NFTWhitelistAdded',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link synthABI}__ and `eventName` set to `"NFTWhitelistRemoved"`.
+ */
+export function useSynthNftWhitelistRemovedEvent(config = {}) {
+  return useContractEvent({
+    abi: synthABI,
+    eventName: 'NFTWhitelistRemoved',
+    ...config,
+  })
+}
+
+/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link synthABI}__ and `eventName` set to `"Paused"`.
  */
 export function useSynthPausedEvent(config = {}) {
@@ -11416,6 +12577,20 @@ export function useSynthRegistryProxiableUuid(config = {}) {
     abi: synthRegistryABI,
     address: synthRegistryAddress[85431],
     functionName: 'proxiableUUID',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link synthRegistryABI}__ and `functionName` set to `"synthAccountImplementation"`.
+ *
+ *
+ */
+export function useSynthRegistrySynthAccountImplementation(config = {}) {
+  return useContractRead({
+    abi: synthRegistryABI,
+    address: synthRegistryAddress[85431],
+    functionName: 'synthAccountImplementation',
     ...config,
   })
 }
@@ -12171,6 +13346,28 @@ export function useWaveSetApprovalForAll(config = {}) {
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link waveABI}__ and `functionName` set to `"setDuration"`.
+ */
+export function useWaveSetDuration(config = {}) {
+  return useContractWrite({
+    abi: waveABI,
+    functionName: 'setDuration',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link waveABI}__ and `functionName` set to `"setStartTime"`.
+ */
+export function useWaveSetStartTime(config = {}) {
+  return useContractWrite({
+    abi: waveABI,
+    functionName: 'setStartTime',
+    ...config,
+  })
+}
+
+/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link waveABI}__ and `functionName` set to `"transferFrom"`.
  */
 export function useWaveTransferFrom(config = {}) {
@@ -12284,6 +13481,28 @@ export function usePrepareWaveSetApprovalForAll(config = {}) {
 }
 
 /**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link waveABI}__ and `functionName` set to `"setDuration"`.
+ */
+export function usePrepareWaveSetDuration(config = {}) {
+  return usePrepareContractWrite({
+    abi: waveABI,
+    functionName: 'setDuration',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link waveABI}__ and `functionName` set to `"setStartTime"`.
+ */
+export function usePrepareWaveSetStartTime(config = {}) {
+  return usePrepareContractWrite({
+    abi: waveABI,
+    functionName: 'setStartTime',
+    ...config,
+  })
+}
+
+/**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link waveABI}__ and `functionName` set to `"transferFrom"`.
  */
 export function usePrepareWaveTransferFrom(config = {}) {
@@ -12331,6 +13550,17 @@ export function useWaveApprovalForAllEvent(config = {}) {
 }
 
 /**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link waveABI}__ and `eventName` set to `"DurationUpdated"`.
+ */
+export function useWaveDurationUpdatedEvent(config = {}) {
+  return useContractEvent({
+    abi: waveABI,
+    eventName: 'DurationUpdated',
+    ...config,
+  })
+}
+
+/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link waveABI}__ and `eventName` set to `"Paused"`.
  */
 export function useWavePausedEvent(config = {}) {
@@ -12360,6 +13590,17 @@ export function useWaveRoleGrantedEvent(config = {}) {
  */
 export function useWaveRoleRevokedEvent(config = {}) {
   return useContractEvent({ abi: waveABI, eventName: 'RoleRevoked', ...config })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link waveABI}__ and `eventName` set to `"StartTimeUpdated"`.
+ */
+export function useWaveStartTimeUpdatedEvent(config = {}) {
+  return useContractEvent({
+    abi: waveABI,
+    eventName: 'StartTimeUpdated',
+    ...config,
+  })
 }
 
 /**
@@ -12448,6 +13689,20 @@ export function useWaveRegistryWaveExists(config = {}) {
     abi: waveRegistryABI,
     address: waveRegistryAddress[85431],
     functionName: 'waveExists',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link waveRegistryABI}__ and `functionName` set to `"waveResolver"`.
+ *
+ *
+ */
+export function useWaveRegistryWaveResolver(config = {}) {
+  return useContractRead({
+    abi: waveRegistryABI,
+    address: waveRegistryAddress[85431],
+    functionName: 'waveResolver',
     ...config,
   })
 }

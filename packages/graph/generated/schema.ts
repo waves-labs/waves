@@ -161,6 +161,32 @@ export class WaveNFT extends Entity {
     this.set("id", Value.fromBytes(value));
   }
 
+  get startTime(): BigInt {
+    let value = this.get("startTime");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set startTime(value: BigInt) {
+    this.set("startTime", Value.fromBigInt(value));
+  }
+
+  get duration(): BigInt {
+    let value = this.get("duration");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set duration(value: BigInt) {
+    this.set("duration", Value.fromBigInt(value));
+  }
+
   get artist(): Bytes {
     let value = this.get("artist");
     if (!value || value.kind == ValueKind.NULL) {
@@ -393,6 +419,19 @@ export class SynthNFT extends Entity {
 
   set transactionHash(value: Bytes) {
     this.set("transactionHash", Value.fromBytes(value));
+  }
+
+  get nftWhitelist(): Array<Bytes> {
+    let value = this.get("nftWhitelist");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytesArray();
+    }
+  }
+
+  set nftWhitelist(value: Array<Bytes>) {
+    this.set("nftWhitelist", Value.fromBytesArray(value));
   }
 
   get waveNFTs(): SynthWaveNFTLoader {

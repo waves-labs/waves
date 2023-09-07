@@ -11,6 +11,8 @@ import {Wave} from "./Wave.sol";
 import {Synth} from "./Synth.sol";
 import {SynthAccount} from "./SynthAccount.sol";
 
+import {TEST_DEPLOYER_ADDRESS} from "./Constants.sol";
+
 /// @title WavesResolver
 /// @notice A schema resolver for the Waves event schema
 contract WaveResolver is SchemaResolver, Initializable, OwnableUpgradeable, UUPSUpgradeable {
@@ -25,7 +27,7 @@ contract WaveResolver is SchemaResolver, Initializable, OwnableUpgradeable, UUPS
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor(address easAddrs) SchemaResolver(IEAS(easAddrs)) {
         _disableInitializers();
-        attesters[0x6Bd018B28CE7016b65384e15faC102dbC4190E03] = true;
+        attesters[TEST_DEPLOYER_ADDRESS] = true;
     }
 
     function initialize() external initializer {
@@ -50,9 +52,9 @@ contract WaveResolver is SchemaResolver, Initializable, OwnableUpgradeable, UUPS
 
         WaveSchema memory schema = abi.decode(attestation.data, (WaveSchema));
 
-        Wave wave = Wave(schema.wave);
         Synth synth = Synth(schema.synth);
         SynthAccount synthAccount = SynthAccount(payable(schema.synthAccount));
+        Wave wave = Wave(schema.wave);
 
         require(synth.balanceOf(attestation.recipient) > 0, "WaveResolver: attendee doesn't own synth");
         require(synthAccount.owner() == attestation.recipient, "WaveResolver: attendee doesn't own synth account");

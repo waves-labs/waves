@@ -10,16 +10,19 @@ import "@openzeppelin/contracts/access/AccessControl.sol";
 import {Wave} from "./Wave.sol";
 import {SynthAccount} from "./SynthAccount.sol";
 import {IERC6551Registry} from "./interfaces/IERC6551Registry.sol";
-import {SYNTH_ERC6551_IMPLEMENTATION_ADDRESS} from "./Constants.sol";
 
 contract Synth is ERC721, Pausable, AccessControl, ERC2771Recipient {
     event SynthMinted(address indexed owner, address indexed synth, address indexed synthAccount, uint256 synthId);
     event WaveAdded(address indexed wave);
     event WaveRemoved(address indexed wave);
+    event NFTWhitelistAdded(address indexed nft);
+    event NFTWhitelistRemoved(address indexed nft);
+    event NFTOwnershipToMintSet(bool indexed nftOwnershipToMint);
 
     bool private nftOwnershipToMint;
     address private artist;
     address private organizer;
+    address private synthAccountImplementation;
     mapping(address => bool) private nftWhitelist;
     mapping(address => bool) public waveExists;
 
@@ -29,12 +32,14 @@ contract Synth is ERC721, Pausable, AccessControl, ERC2771Recipient {
 
     constructor(
         bool _nftOwnershipToMint,
+        address _synthAccountImplementation,
         address _artist,
         address _organizer,
         string memory _name,
         address[] memory _nftWhitelist
     ) ERC721(_name, "SYNTH") {
         nftOwnershipToMint = _nftOwnershipToMint;
+        synthAccountImplementation = _synthAccountImplementation;
         artist = _artist;
         organizer = _organizer;
 
@@ -59,8 +64,8 @@ contract Synth is ERC721, Pausable, AccessControl, ERC2771Recipient {
 
         _synthIdCounter.increment();
         _safeMint(_msgSender(), synthId);
-        address synthAccount = IERC6551Registry(SYNTH_ERC6551_IMPLEMENTATION_ADDRESS).createAccount(
-            SYNTH_ERC6551_IMPLEMENTATION_ADDRESS, 0, address(this), synthId, 0, ""
+        address synthAccount = IERC6551Registry(synthAccountImplementation).createAccount(
+            synthAccountImplementation, 0, address(this), synthId, 0, ""
         );
 
         emit SynthMinted(_msgSender(), address(this), synthAccount, synthId);
@@ -70,14 +75,20 @@ contract Synth is ERC721, Pausable, AccessControl, ERC2771Recipient {
 
     function addToNFTWhitelist(address _nft) external onlyRole(DEFAULT_ADMIN_ROLE) {
         nftWhitelist[_nft] = true;
+
+        emit NFTWhitelistAdded(_nft);
     }
 
     function removeFromNFTWhitelist(address nft) external onlyRole(DEFAULT_ADMIN_ROLE) {
         delete nftWhitelist[nft];
+
+        emit NFTWhitelistRemoved(nft);
     }
 
     function setNftOwnershipToMint(bool _bool) external onlyRole(DEFAULT_ADMIN_ROLE) {
         nftOwnershipToMint = _bool;
+
+        emit NFTOwnershipToMintSet(_bool);
     }
 
     function addWave(address _wave) external onlyRole(DEFAULT_ADMIN_ROLE) {

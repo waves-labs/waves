@@ -13,6 +13,7 @@ contract SynthRegistry is Initializable, PausableUpgradeable, OwnableUpgradeable
         bool nftOwnershipNeeded, address indexed synth, address indexed artist, address indexed organizer, string name
     );
 
+    address public synthAccountImplementation;
     mapping(address => bool) public synthExists;
 
     /// @custom:oz-upgrades-unsafe-allow constructor
@@ -20,10 +21,12 @@ contract SynthRegistry is Initializable, PausableUpgradeable, OwnableUpgradeable
         _disableInitializers();
     }
 
-    function initialize() external initializer {
+    function initialize(address _synthAccountImplementationt) external initializer {
         __Ownable_init();
         __Pausable_init();
         __UUPSUpgradeable_init();
+
+        synthAccountImplementation = _synthAccountImplementationt;
     }
 
     function createSynth(bool _nftOwnershipToMint, address _artist, string memory _name, address[] memory _nftWhitelist)
@@ -31,7 +34,8 @@ contract SynthRegistry is Initializable, PausableUpgradeable, OwnableUpgradeable
         whenNotPaused
         returns (address)
     {
-        Synth synth = new Synth(_nftOwnershipToMint, _artist, msg.sender, _name, _nftWhitelist);
+        Synth synth =
+            new Synth(_nftOwnershipToMint, synthAccountImplementation, _artist, msg.sender, _name, _nftWhitelist);
 
         address synthAddrs = address(synth);
         synthExists[synthAddrs] = true;

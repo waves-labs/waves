@@ -19,7 +19,7 @@ import {
 import { Synth } from "../generated/templates";
 
 export function handleSynthCreated(event: SynthCreatedEvent): void {
-  let entity = new SynthNFT(event.address);
+  let entity = new SynthNFT(event.params.synth);
 
   // entity.contract = event.params.synth;
   entity.nftOwnershipRequired = event.params.nftOwnershipNeeded;
