@@ -69,6 +69,10 @@ export function handleWhitelistNftAdded(event: NFTWhitelistAddedEvent): void {
     return;
   }
 
+  if (!entity.nftWhitelist) {
+    entity.nftWhitelist = [];
+  }
+
   entity.nftWhitelist = entity.nftWhitelist.concat([event.params.nft]);
 
   store.set("SynthNFT", event.address.toHexString(), entity);
@@ -88,9 +92,7 @@ export function handleWhitelistNftRemoved(
 
   // const nft = event.params.nft;
 
-  // const newWhitelist = entity.nftWhitelist.filter((data) => data !== nft);
-
-  // entity.nftWhitelist = newWhitelist;
+  // entity.nftWhitelist = entity.nftWhitelist.filter((data) => data !== nft);
 
   store.set("SynthNFT", event.address.toHexString(), entity);
 }
