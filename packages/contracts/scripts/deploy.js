@@ -46,7 +46,11 @@ async function main() {
 
   // 3. Synth Account (ERC-6551)
   const SynthAccount = await ethers.getContractFactory("SynthAccount");
-  const synthAccount = await upgrades.deployProxy(SynthAccount, []);
+  const synthAccount = await upgrades.deployProxy(SynthAccount, [
+    5,
+    waveRegistryAddress,
+    [],
+  ]);
   const synthAccountAddress = await synthAccount.getAddress();
 
   const synthImplAddress = await upgrades.erc1967.getImplementationAddress(

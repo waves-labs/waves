@@ -61,7 +61,7 @@ const { chains, publicClient } = configureChains(
 export { chains };
 
 const { connectors } = getDefaultWallets({
-  appName: "waves app",
+  appName: "waves-app",
   chains,
   projectId: import.meta.env.VITE_WALLETCONNECT_PROJECT_ID,
 });

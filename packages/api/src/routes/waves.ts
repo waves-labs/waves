@@ -1,6 +1,8 @@
-import { ethers } from "ethers";
+import { ethers, Contract } from "ethers";
 import { Request, Response, Router } from "express";
 import { EAS, SchemaEncoder } from "@ethereum-attestation-service/eas-sdk";
+
+import { synthABI, synthAccountABI, waveABI } from "../../../clients/app/src/generated";
 
 const chainIdMap = {
   420: "optimism-goerli",
@@ -31,14 +33,14 @@ wavesRouter.post("/mint", async function (req: Request, res: Response) {
     return;
   }
 
-  const wallet = new ethers.Wallet(
-    process.env.PRIVATE_KEY as string,
-    ethers.getDefaultProvider(chainIdMap[req.session.chainId ?? 85431])
-  );
+  const provider = ethers.getDefaultProvider(chainIdMap[req.session.chainId ?? 85431]);
+  const wallet = new ethers.Wallet(process.env.PRIVATE_KEY as string, provider);
 
-  // TODO: Verify that user owns synthAccount
-  // TODO: Verify that wave is not claimed
-  // TODO: Verify that wave can be claimed
+  // TODO: Verify that user owns synth
+  // TODO: Verify that wave is not already minted
+  const synth = new Contract(body.synth, synthABI, provider);
+  const synthAccount = new Contract(body.synthAccount, synthAccountABI, provider);
+  const wave = new Contract(body.wave, waveABI, provider);
 
   const eas = new EAS(chainIdToEASMap[req.session.chainId ?? 85431]);
   eas.connect(wallet);
@@ -68,5 +70,5 @@ wavesRouter.post("/mint", async function (req: Request, res: Response) {
 
   console.log("New attestation UID:", newAttestationUID);
 
-  res.send({ success: true });
+  res.status(200).send({ id: newAttestationUID });
 });

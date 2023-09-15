@@ -3,113 +3,77 @@ pragma solidity ^0.8.10;
 
 import {Script} from "forge-std/Script.sol";
 
-import "../src/Constants.sol";
+import {Synth} from "../src/Synth.sol";
+import {SynthRegistry} from "../src/SynthRegistry.sol";
+import {WaveRegistry} from "../src/WaveRegistry.sol";
+import {MockTicket} from "../src/mocks/MockTicket.sol";
 
 /**
  * @title ZoraScript
  * @notice Script for deploying Wave Collector Contracts.
  * @dev https://book.getfoundry.sh/reference/forge/forge-script
  *
- * @dev This script is used to deploy Ticket, SynthGenerator, and SynthRegistry with forge script
+ * @dev This script s used to create Waves and Synths from their repsective registry with forge script
  * example start anvil with `anvil` command and then run
- * forge script contracts/script/Ticket.s.sol:Deploy --rpc-url http://localhost:8545 --broadcast -vvv
  * @dev Scripts can be used for development and testing, but they are not required for production.
  */
 contract ZoraScript is Script {
     function setUp() public {}
 
     function run() public {
-        // read FORGE_PRIVATE_KEY from environment variables
         uint256 deployerPrivateKey = vm.envUint("FORGE_PRIVATE_KEY");
 
-        // start broadcast any transaction after this point will be submitted to chain
+        // Start Broadcasting Transactions
         vm.startBroadcast(deployerPrivateKey);
 
-        // deploy Tickets
-        // Ticket coachellaTicket = new Ticket("Coachella 2024", "COACH", block.timestamp, block.timestamp + 1 days, 100);
-        // Ticket lollapaloozaTicket =
-        //     new Ticket("Lollapalooza 2024 Chicago 2024", "LOLLA", block.timestamp, block.timestamp + 1 days, 100);
+        // Deploy Waves with Wave Registry
+        WaveRegistry waveRegistry = WaveRegistry(0x61d4F4D4a1fab9f1ba3e5e193bfDa9C89B8c3D0E);
 
-        // coachellaTicket.purchaseTicket();
-        // lollapaloozaTicket.purchaseTicket();
+        address burnaBoyWave =
+            waveRegistry.createWave(1000, block.timestamp, 6000 minutes, address(0), address(1), "burna boy", "#7C9D96");
+        address drakeWave =
+            waveRegistry.createWave(1000, block.timestamp, 6000 minutes, address(0), address(1), "drake", "#FF9EAA");
+        address taylorSwiftWave = waveRegistry.createWave(
+            2000, block.timestamp, 9000 minutes, address(0), address(1), "taylor swift", "#FFD0D0"
+        );
+        address badBunnyWave =
+            waveRegistry.createWave(2000, block.timestamp, 9000 minutes, address(0), address(1), "bad bunny", "#3AA6B9");
+        address toroYMoiWave = waveRegistry.createWave(
+            1000, block.timestamp, 6000 minutes, address(0), address(1), "toro y moi", "#E9B384"
+        );
+        address jungleWave =
+            waveRegistry.createWave(1000, block.timestamp, 6000 minutes, address(0), address(1), "jungle", "#F4F2DE");
+        address remaWave =
+            waveRegistry.createWave(1000, block.timestamp, 6000 minutes, address(0), address(1), "rema", "#A1CCD1");
 
-        // // console.log("Coachella Ticket deployed at address: %s", address(coachellaTicket));
-        // // console.log("Lollapalooza Ticket deployed at address: %s", address(lollapaloozaTicket));
+        // Deploy a Mock ERC721 Ticket
+        MockTicket ticket = new MockTicket();
 
-        // // deploy SynthRegistry
-        // SynthRegistry synthRegistry = new SynthRegistry();
+        ticket.mint();
 
-        // synthRegistry.initialize(ZORA_GOERLI_EAS_ADDRESS);
+        // Deploy Synths with Synth Registry
+        SynthRegistry synthRegistry = SynthRegistry(0xCd571Fd48ea82bc8F4CFeF7bc1EB325464B4abA6);
 
-        // // console.log("SynthRegistry deployed at address: %s", address(synthRegistry));
+        address[] memory nftWhitelist = new address[](1);
+        address[] memory emptyWhitelist = new address[](0);
 
-        // Wave[] memory coachWaves = new Wave[](4);
+        nftWhitelist[0] = address(ticket);
 
-        // coachWaves[0] = Wave(
-        //     0,
-        //     100,
-        //     0,
-        //     block.timestamp,
-        //     block.timestamp + 1 days,
-        //     bytes("https://waves.syn.art/assets/mocks/burna-boy-wave.png")
-        // );
-        // coachWaves[1] = Wave(
-        //     1,
-        //     100,
-        //     0,
-        //     block.timestamp,
-        //     block.timestamp + 1 days,
-        //     bytes("https://waves.syn.art/assets/mocks/bad-bunny-wave.png")
-        // );
-        // coachWaves[2] = Wave(
-        //     2,
-        //     100,
-        //     0,
-        //     block.timestamp,
-        //     block.timestamp + 1 days,
-        //     bytes("https://waves.syn.art/assets/mocks/taylor-swift-wave.png")
-        // );
-        // coachWaves[3] = Wave(
-        //     3,
-        //     100,
-        //     0,
-        //     block.timestamp,
-        //     block.timestamp + 1 days,
-        //     bytes("https://waves.syn.art/assets/mocks/drake-wave.png")
-        // );
+        address coachAddrs = synthRegistry.createSynth(true, address(0), "Coachella", "", nftWhitelist);
+        address lollaAddrs = synthRegistry.createSynth(false, address(0), "Lollapalooza", "", emptyWhitelist);
 
-        // Wave[] memory lollaWaves = new Wave[](4);
+        // Add Waves To Synths
+        Synth(coachAddrs).addWave(drakeWave);
+        Synth(coachAddrs).addWave(taylorSwiftWave);
+        Synth(coachAddrs).addWave(badBunnyWave);
+        Synth(coachAddrs).addWave(jungleWave);
 
-        // lollaWaves[0] = Wave(0, 100, 0, block.timestamp, block.timestamp + 1 days, bytes("#E871DF"));
-        // lollaWaves[1] = Wave(1, 100, 0, block.timestamp, block.timestamp + 1 days, bytes("#E77476"));
-        // lollaWaves[2] = Wave(2, 100, 0, block.timestamp, block.timestamp + 1 days, bytes("#7671DE"));
-        // lollaWaves[3] = Wave(3, 100, 0, block.timestamp, block.timestamp + 1 days, bytes("#6AE2E1"));
+        Synth(lollaAddrs).addWave(burnaBoyWave);
+        Synth(lollaAddrs).addWave(remaWave);
+        Synth(lollaAddrs).addWave(toroYMoiWave);
+        Synth(lollaAddrs).addWave(jungleWave);
 
-        // // deploy SynthGenerators
-        // (address coachWavesAddrs, address coachGenerator) = synthRegistry.registerEvent(
-        //     1 days, address(coachellaTicket), "https://waves.syn.art/events/coachella-2024-waves.json", coachWaves
-        // );
-        // (address lollaWavesAddrs, address lollaGenerator) = synthRegistry.registerEvent(
-        //     1 days,
-        //     address(lollapaloozaTicket),
-        //     "https://waves.syn.art/events/lollapalooza-chicago-2024-waves.json",
-        //     lollaWaves
-        // );
-
-        // // console.log("Coachella SynthGenerator deployed at address: %s", coachGenerator);
-        // // console.log("Coachella Waves deployed at address: %s", address(coachWaves));
-
-        // // console.log("Lollapalooza SynthGenerator deployed at address: %s", lollaGenerator);
-        // // console.log("Lollapalooza Waves deployed at address: %s", address(lollaWaves));
-
-        // // mint Synth
-        // SynthGenerator coachSynthGenerator = SynthGenerator(coachGenerator);
-
-        // address synth = coachSynthGenerator.generateSynth();
-
-        // console.log("Synth minted at address: %s", address(synth));
-
-        // stop broadcasting transactions
+        // Stop Broadcasting Transactions
         vm.stopBroadcast();
     }
 }

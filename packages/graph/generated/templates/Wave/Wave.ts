@@ -307,6 +307,21 @@ export class Wave extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBytes());
   }
 
+  artist(): Address {
+    let result = super.call("artist", "artist():(address)", []);
+
+    return result[0].toAddress();
+  }
+
+  try_artist(): ethereum.CallResult<Address> {
+    let result = super.tryCall("artist", "artist():(address)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
   balanceOf(owner: Address): BigInt {
     let result = super.call("balanceOf", "balanceOf(address):(uint256)", [
       ethereum.Value.fromAddress(owner)
@@ -326,6 +341,21 @@ export class Wave extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
+  creative(): Address {
+    let result = super.call("creative", "creative():(address)", []);
+
+    return result[0].toAddress();
+  }
+
+  try_creative(): ethereum.CallResult<Address> {
+    let result = super.tryCall("creative", "creative():(address)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
   data(): Bytes {
     let result = super.call("data", "data():(bytes)", []);
 
@@ -339,6 +369,21 @@ export class Wave extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBytes());
+  }
+
+  duration(): BigInt {
+    let result = super.call("duration", "duration():(uint256)", []);
+
+    return result[0].toBigInt();
+  }
+
+  try_duration(): ethereum.CallResult<BigInt> {
+    let result = super.tryCall("duration", "duration():(uint256)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
   getApproved(tokenId: BigInt): Address {
@@ -523,6 +568,21 @@ export class Wave extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
+  startTime(): BigInt {
+    let result = super.call("startTime", "startTime():(uint256)", []);
+
+    return result[0].toBigInt();
+  }
+
+  try_startTime(): ethereum.CallResult<BigInt> {
+    let result = super.tryCall("startTime", "startTime():(uint256)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
   supportsInterface(interfaceId: Bytes): boolean {

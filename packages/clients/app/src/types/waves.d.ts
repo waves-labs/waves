@@ -83,8 +83,8 @@ declare interface GenreData {
 }
 
 declare interface BlockData {
-  blockNumber?: number;
-  blockTimestamp?: number;
+  blockNumber?: BigInt;
+  blockTimestamp?: BigInt;
   transactionHash?: string;
 }
 
@@ -99,6 +99,7 @@ declare interface SynthNFT extends BlockData {
   nftOwnershipRequired: boolean;
   artist: string; // Generative Artist
   organizer: string; // Live Event Organizer
+  metadata: string; // JSON Metadata
 
   waveNfts?: WaveNFT[];
 }
@@ -114,7 +115,7 @@ declare interface WaveNFT extends BlockData {
 declare interface Synth extends BlockData {
   id: string; // ERC-6551 Account Address
   owner?: string; // EOA Address
-  // contract?: string; // Synth ERC-721 Address
+  contract?: string; // Synth ERC-721 Address
   tokenId?: number; // Synth Token ID
 
   waves?: Wave[];

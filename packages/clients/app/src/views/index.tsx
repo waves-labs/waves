@@ -38,7 +38,16 @@ export default function Views() {
           <Route
             path=":address"
             element={
-              <SynthsViewer synths={synths.synths} waves={synths.waves} />
+              <SynthsViewer
+                synths={synths.synths}
+                synthNfts={synths.synthNfts}
+                waveNftMap={synths.waveNftMap}
+                waveSynthMap={synths.waveSynthMap}
+                waveTokenMap={synths.waveTokenMap}
+                fetchSynths={synths.fetchSynths}
+                fetchSynthNfts={synths.fetchSynthNfts}
+                fetchWaveNfts={synths.fetchWaveNfts}
+              />
             }
           />
         </Route>

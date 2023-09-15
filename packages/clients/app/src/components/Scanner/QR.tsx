@@ -28,6 +28,9 @@ export const QRScanner: React.FC<QRScannerProps> = ({
             const address = result.getText();
 
             // TODO: Add validation for address
+            if (!address.includes("0x")) {
+              return;
+            }
 
             const synthWaves = synths.filter(
               (synth) =>

@@ -6,19 +6,22 @@ interface WaveProps extends WaveUI {
 
 // TODO: Polish styles to match designs
 export const Wave: React.FC<WaveProps> = ({ data }) => {
+  const isImage =
+    data.startsWith("data:image") ||
+    data.endsWith(".png") ||
+    data.endsWith(".jpg") ||
+    data.endsWith(".jpeg") ||
+    data.endsWith(".gif");
+
   return (
     <label
       htmlFor="synths-dialog"
-      className={`w-1/2 unselectable shadow-xl cursor-pointer flex justify-between items-center`}
+      className={`aspect-square unselectable shadow-xl cursor-pointer grid place-items-center rounded-xl border-1 dark:border-white`}
     >
-      {data.includes("https://" || "assets") ? (
-        <img
-          src={data}
-          alt="Wave"
-          className="w-full aspect-square object-cover rounded-xl"
-        />
+      {isImage ? (
+        <img src={data} alt="Wave" className="w-full object-cover" />
       ) : (
-        <div></div>
+        <div className={` bg-[${data}]`}></div>
       )}
     </label>
   );

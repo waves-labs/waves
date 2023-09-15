@@ -9,11 +9,11 @@ import { WagmiConfig } from "wagmi";
 import { BrowserRouter } from "react-router-dom";
 import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
 
+import { graphClient } from "./modules/urql";
+import { chains, config } from "./modules/wagmi";
+
 import { AppProvider } from "./hooks/providers/app";
 import { Web3Provider } from "./hooks/providers/web3";
-
-import { chains, config } from "./modules/wagmi";
-import { graphClient } from "./modules/urql";
 
 import { App } from "./App";
 

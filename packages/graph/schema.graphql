@@ -8,6 +8,22 @@ type SynthWaveNFT @entity {
   transactionHash: Bytes!
 }
 
+type SynthNFT @entity(immutable: true) {
+  id: Bytes! # address
+  nftOwnershipRequired: Boolean! # bool
+  # contract: Bytes!
+  artist: Bytes! # address
+  organizer: Bytes! # address
+  name: String! # string
+  metadata: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+
+  nftWhitelist: [Bytes!]! # addresses
+  waveNFTs: [SynthWaveNFT!]! @derivedFrom(field: "synthNft")
+}
+
 type WaveNFT @entity(immutable: true) {
   id: Bytes! # address
   # contract: Bytes!
@@ -22,21 +38,6 @@ type WaveNFT @entity(immutable: true) {
   transactionHash: Bytes!
 
   synthNfts: [SynthWaveNFT!]! @derivedFrom(field: "waveNft")
-}
-
-type SynthNFT @entity(immutable: true) {
-  id: Bytes! # address
-  nftOwnershipRequired: Boolean! # bool
-  # contract: Bytes!
-  artist: Bytes! # address
-  organizer: Bytes! # address
-  name: String! # string
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-
-  nftWhitelist: [Bytes!] # addresses
-  waveNFTs: [SynthWaveNFT!]! @derivedFrom(field: "synthNft")
 }
 
 type SynthWave @entity {

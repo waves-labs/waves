@@ -5,45 +5,54 @@ import { SynthDataProps } from "../../hooks/synth/useSynth";
 
 import { Button } from "../Button";
 
-interface SynthsMintDialogProps extends SynthDataProps {}
-
-const events: { id: EventName; name: string }[] = [
-  { id: "coachella-2024", name: "Coachella 2024" },
-  { id: "lollapalooza-chicago-2024", name: "Lollapalooza Chicago 2024" },
-];
+interface SynthsMintDialogProps extends SynthDataProps {
+  synthNfts?: SynthNFT[];
+}
 
 export const SynthsMintDialog: React.FC<SynthsMintDialogProps> = ({
+  // isIdle,
+  isMinting,
   mintSynth,
+  synthNfts,
+  synthAddrs,
+  setSynthAddrs,
 }) => {
-  const [synth, setSynth] = React.useState<EventName | "">("");
-
-  function handleSetEvent(event: React.ChangeEvent<HTMLSelectElement>) {
-    setSynth(event.target.value as EventName);
+  function handleSetAddress(event: React.ChangeEvent<HTMLSelectElement>) {
+    setSynthAddrs(event.target.value);
   }
+
+  console.log("synthNfts", synthNfts);
 
   return createPortal(
     <>
       <input type="checkbox" id="synths-mint-dialog" className="modal-toggle" />
       <label htmlFor="synths-mint-dialog" className="modal cursor-pointer px-6">
         <label
-          className="modal-box relative flex w-full max-w-xs flex-col gap-4"
+          className="modal-box relative flex w-full max-w-xs flex-col gap-4 text-black"
           htmlFor=""
         >
           <select
             className="select w-full"
-            value={synth}
-            onChange={handleSetEvent}
+            value={synthAddrs}
+            onChange={handleSetAddress}
           >
-            {events.map((event) => (
-              <option key={event.id} value={event.id} className="capitalize">
-                {event.name}
-              </option>
-            ))}
+            {synthNfts && synthNfts.length
+              ? synthNfts?.map((synth) => (
+                  <option
+                    key={synth.id}
+                    value={synth.id}
+                    className="capitalize"
+                  >
+                    {synth.name}
+                  </option>
+                ))
+              : null}
           </select>
           <Button
-            title="Mint"
-            onClick={() => synth && mintSynth(synth)}
-            disabled={!synth}
+            title={isMinting ? "Minting..." : "Mint"}
+            onClick={() => mintSynth(synthAddrs)}
+            disabled={!synthAddrs}
+            active={isMinting}
           />
         </label>
       </label>

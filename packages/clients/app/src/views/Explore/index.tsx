@@ -1,8 +1,9 @@
 import React from "react";
+import { useAccount } from "wagmi";
 
 import { ExploreDataProps } from "../../hooks/views/useExplore";
+
 import { QRScanner } from "../../components/Scanner/QR";
-import { useAccount } from "wagmi";
 
 interface ExploreProps extends ExploreDataProps {}
 

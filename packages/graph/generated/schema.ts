@@ -120,6 +120,175 @@ export class SynthWaveNFT extends Entity {
   }
 }
 
+export class SynthNFT extends Entity {
+  constructor(id: Bytes) {
+    super();
+    this.set("id", Value.fromBytes(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save SynthNFT entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.BYTES,
+        `Entities of type SynthNFT must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`
+      );
+      store.set("SynthNFT", id.toBytes().toHexString(), this);
+    }
+  }
+
+  static loadInBlock(id: Bytes): SynthNFT | null {
+    return changetype<SynthNFT | null>(
+      store.get_in_block("SynthNFT", id.toHexString())
+    );
+  }
+
+  static load(id: Bytes): SynthNFT | null {
+    return changetype<SynthNFT | null>(store.get("SynthNFT", id.toHexString()));
+  }
+
+  get id(): Bytes {
+    let value = this.get("id");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set id(value: Bytes) {
+    this.set("id", Value.fromBytes(value));
+  }
+
+  get nftOwnershipRequired(): boolean {
+    let value = this.get("nftOwnershipRequired");
+    if (!value || value.kind == ValueKind.NULL) {
+      return false;
+    } else {
+      return value.toBoolean();
+    }
+  }
+
+  set nftOwnershipRequired(value: boolean) {
+    this.set("nftOwnershipRequired", Value.fromBoolean(value));
+  }
+
+  get artist(): Bytes {
+    let value = this.get("artist");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set artist(value: Bytes) {
+    this.set("artist", Value.fromBytes(value));
+  }
+
+  get organizer(): Bytes {
+    let value = this.get("organizer");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set organizer(value: Bytes) {
+    this.set("organizer", Value.fromBytes(value));
+  }
+
+  get name(): string {
+    let value = this.get("name");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set name(value: string) {
+    this.set("name", Value.fromString(value));
+  }
+
+  get metadata(): string {
+    let value = this.get("metadata");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set metadata(value: string) {
+    this.set("metadata", Value.fromString(value));
+  }
+
+  get blockNumber(): BigInt {
+    let value = this.get("blockNumber");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set blockNumber(value: BigInt) {
+    this.set("blockNumber", Value.fromBigInt(value));
+  }
+
+  get blockTimestamp(): BigInt {
+    let value = this.get("blockTimestamp");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set blockTimestamp(value: BigInt) {
+    this.set("blockTimestamp", Value.fromBigInt(value));
+  }
+
+  get transactionHash(): Bytes {
+    let value = this.get("transactionHash");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set transactionHash(value: Bytes) {
+    this.set("transactionHash", Value.fromBytes(value));
+  }
+
+  get nftWhitelist(): Array<Bytes> {
+    let value = this.get("nftWhitelist");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytesArray();
+    }
+  }
+
+  set nftWhitelist(value: Array<Bytes>) {
+    this.set("nftWhitelist", Value.fromBytesArray(value));
+  }
+
+  get waveNFTs(): SynthWaveNFTLoader {
+    return new SynthWaveNFTLoader(
+      "SynthNFT",
+      this.get("id")!
+        .toBytes()
+        .toHexString(),
+      "waveNFTs"
+    );
+  }
+}
+
 export class WaveNFT extends Entity {
   constructor(id: Bytes) {
     super();
@@ -285,162 +454,6 @@ export class WaveNFT extends Entity {
         .toBytes()
         .toHexString(),
       "synthNfts"
-    );
-  }
-}
-
-export class SynthNFT extends Entity {
-  constructor(id: Bytes) {
-    super();
-    this.set("id", Value.fromBytes(id));
-  }
-
-  save(): void {
-    let id = this.get("id");
-    assert(id != null, "Cannot save SynthNFT entity without an ID");
-    if (id) {
-      assert(
-        id.kind == ValueKind.BYTES,
-        `Entities of type SynthNFT must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`
-      );
-      store.set("SynthNFT", id.toBytes().toHexString(), this);
-    }
-  }
-
-  static loadInBlock(id: Bytes): SynthNFT | null {
-    return changetype<SynthNFT | null>(
-      store.get_in_block("SynthNFT", id.toHexString())
-    );
-  }
-
-  static load(id: Bytes): SynthNFT | null {
-    return changetype<SynthNFT | null>(store.get("SynthNFT", id.toHexString()));
-  }
-
-  get id(): Bytes {
-    let value = this.get("id");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toBytes();
-    }
-  }
-
-  set id(value: Bytes) {
-    this.set("id", Value.fromBytes(value));
-  }
-
-  get nftOwnershipRequired(): boolean {
-    let value = this.get("nftOwnershipRequired");
-    if (!value || value.kind == ValueKind.NULL) {
-      return false;
-    } else {
-      return value.toBoolean();
-    }
-  }
-
-  set nftOwnershipRequired(value: boolean) {
-    this.set("nftOwnershipRequired", Value.fromBoolean(value));
-  }
-
-  get artist(): Bytes {
-    let value = this.get("artist");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toBytes();
-    }
-  }
-
-  set artist(value: Bytes) {
-    this.set("artist", Value.fromBytes(value));
-  }
-
-  get organizer(): Bytes {
-    let value = this.get("organizer");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toBytes();
-    }
-  }
-
-  set organizer(value: Bytes) {
-    this.set("organizer", Value.fromBytes(value));
-  }
-
-  get name(): string {
-    let value = this.get("name");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toString();
-    }
-  }
-
-  set name(value: string) {
-    this.set("name", Value.fromString(value));
-  }
-
-  get blockNumber(): BigInt {
-    let value = this.get("blockNumber");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toBigInt();
-    }
-  }
-
-  set blockNumber(value: BigInt) {
-    this.set("blockNumber", Value.fromBigInt(value));
-  }
-
-  get blockTimestamp(): BigInt {
-    let value = this.get("blockTimestamp");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toBigInt();
-    }
-  }
-
-  set blockTimestamp(value: BigInt) {
-    this.set("blockTimestamp", Value.fromBigInt(value));
-  }
-
-  get transactionHash(): Bytes {
-    let value = this.get("transactionHash");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toBytes();
-    }
-  }
-
-  set transactionHash(value: Bytes) {
-    this.set("transactionHash", Value.fromBytes(value));
-  }
-
-  get nftWhitelist(): Array<Bytes> {
-    let value = this.get("nftWhitelist");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toBytesArray();
-    }
-  }
-
-  set nftWhitelist(value: Array<Bytes>) {
-    this.set("nftWhitelist", Value.fromBytesArray(value));
-  }
-
-  get waveNFTs(): SynthWaveNFTLoader {
-    return new SynthWaveNFTLoader(
-      "SynthNFT",
-      this.get("id")!
-        .toBytes()
-        .toHexString(),
-      "waveNFTs"
     );
   }
 }

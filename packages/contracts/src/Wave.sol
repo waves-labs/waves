@@ -14,11 +14,11 @@ contract Wave is ERC721, Pausable, AccessControl, ERC2771Recipient {
     event StartTimeUpdated(uint256 indexed startTime);
     event DurationUpdated(uint256 indexed duration);
 
-    uint16 maxAmount; // max amount of waves to be minted
-    uint256 startTime; // time to start minting
-    uint256 duration; // length of set in minutes
-    address private artist;
-    address private creative;
+    uint16 private maxAmount; // max amount of waves to be minted
+    uint256 public startTime; // time to start minting
+    uint256 public duration; // length of set in minutes
+    address public artist;
+    address public creative;
     bytes public data;
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 

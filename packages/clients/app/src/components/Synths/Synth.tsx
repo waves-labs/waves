@@ -2,6 +2,7 @@ import React from "react";
 import { css } from "@emotion/react";
 import { a, useSpring } from "@react-spring/web";
 
+import { Sketch } from "../Sketch";
 import { SynthsView } from "./Gallery";
 
 export interface SynthProps extends SynthUI {
@@ -11,15 +12,17 @@ export interface SynthProps extends SynthUI {
   onClick?: () => void;
 }
 
-// TODO: Add details to back of synth such as event, date, gen artist, etc
-
 export const Synth: React.FC<SynthProps> = ({
   view,
   flipped,
   setFlipped,
-  name,
-  image,
   onClick,
+  id,
+  artist,
+  name,
+  organizer,
+  blockTimestamp,
+  waveNfts,
 }) => {
   const { transform, opacity } = useSpring({
     opacity: flipped ? 1 : 0,
@@ -30,6 +33,9 @@ export const Synth: React.FC<SynthProps> = ({
   function handleSynthClick() {
     view === "synth" && setFlipped && setFlipped((state) => !state);
   }
+
+  const colors = waveNfts?.map((wave) => wave.data);
+  const date = new Date(Number(blockTimestamp)).toDateString();
 
   return (
     <div
@@ -43,14 +49,10 @@ export const Synth: React.FC<SynthProps> = ({
           box-shadow: 20px 20px 100px 0px rgba(0, 0, 0, 0.35);
         `}
       >
-        <img
-          src={image}
-          alt={name}
-          className="w-full h-full object-cover overflow-hidden"
-        />
+        <Sketch background={waveNfts && waveNfts[0].data} colors={colors} />
       </a.div>
       <a.div
-        className="border-[0.75rem] sm:border-[1rem] md:border-[1.5rem] dark:border-white border-black bg-black absolute w-full h-full grid place-items-center"
+        className="border-[0.75rem] sm:border-[1rem] md:border-[1.5rem] dark:border-white border-black bg-black absolute w-full h-full flex flex-col"
         style={{
           opacity,
           transform,
@@ -60,7 +62,11 @@ export const Synth: React.FC<SynthProps> = ({
           box-shadow: 20px 20px 100px 0px rgba(0, 0, 0, 0.35);
         `}
       >
-        <div className="flex items-center w-full mt-3 border-stone-800 border-2"></div>
+        <h3>{name}</h3>
+        <p>Created At: {date}</p>
+        <p>Address: {id}</p>
+        <p>Artist: {artist}</p>
+        <p>Organizer: {organizer}</p>
       </a.div>
     </div>
   );

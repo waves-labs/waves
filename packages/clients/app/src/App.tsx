@@ -1,7 +1,7 @@
-import { usePWA, InstallState } from "./hooks/providers/pwa";
-import { WavesProvider } from "./hooks/providers/waves";
-import { SynthProvider } from "./hooks/synth/useSynth";
 import { WaveProvider } from "./hooks/wave/useWave";
+import { SynthProvider } from "./hooks/synth/useSynth";
+import { WavesProvider } from "./hooks/providers/waves";
+import { usePWA, InstallState } from "./hooks/providers/pwa";
 
 import { Appbar } from "./components/Layout/AppBar";
 import { PWADialog } from "./components/Layout/PWADialog";

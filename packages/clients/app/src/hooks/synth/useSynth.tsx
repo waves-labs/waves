@@ -1,7 +1,16 @@
 import { assign } from "xstate";
 import { useAccount } from "wagmi";
 import { useMachine } from "@xstate/react";
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
+
+import {
+  useSynthAccountGenerateArt,
+  useSynthMint,
+  useSynthSynthMintedEvent,
+  synthABI,
+} from "../../generated";
+
+import { useWaves } from "../providers/waves";
 
 import { SynthContext as SynthMachineContext, synthMachine } from "./machine";
 
@@ -10,6 +19,8 @@ export interface SynthDataProps extends SynthMachineContext {
   isMinting: boolean;
   isGeneratingArt: boolean;
   address?: `0x${string}`;
+  synthAddrs: string;
+  setSynthAddrs: React.Dispatch<React.SetStateAction<string>>;
   mintSynth: (address: string) => void;
   generateArt: (synthAddrs: string, artAddrs: string) => void;
 }
@@ -26,11 +37,31 @@ export const SynthProvider = ({ children }: Props) => {
   if (currentValue) throw new Error("SynthProvider can only be used once");
 
   const { address } = useAccount();
+  const { fetchSynths, synthNfts } = useWaves();
+
+  const [synthAddrs, setSynthAddrs] = useState(
+    synthNfts ? synthNfts[0]?.id : "",
+  );
+  const [synthAccountAddrs, setSynthAccountAddrs] = useState("");
+
+  const {
+    // data: synthMintData,
+    writeAsync: synthMint,
+    // error: synthMintError,
+  } = useSynthMint({ address: synthAddrs });
+
+  const {
+    // data: synthAccountGenerateArtData,
+    // variables: synthAccountGenerateArtVariables,
+    writeAsync: synthAccountGenerateArt,
+    // error: synthAccountGenerateArtError,
+  } = useSynthAccountGenerateArt(synthAccountAddrs);
 
   const [state, send] = useMachine(synthMachine, {
     actions: {
       minted: assign((context, _event) => {
         // TODO: Add the minted synth to the user's collection
+        // TODO: Set Mint Dialog to closed
 
         return context;
       }),
@@ -41,29 +72,41 @@ export const SynthProvider = ({ children }: Props) => {
       }),
     },
     services: {
-      mintService: async (
-        _context,
-        _event: { generatorAddrs?: string },
-        _meta,
-      ) => {
+      mintService: async (_context, event: { address?: string }, _meta) => {
         try {
+          console.log("Synth start mint!", synthAddrs);
+
+          const req = await synthMint({
+            args: ["0x6Bd018B28CE7016b65384e15faC102dbC4190E03"],
+            // maxFeePerGas: BigInt(10000000000000000n),
+            // maxPriorityFeePerGas
+          });
+
+          console.log("Synth minted!", req);
+
+          fetchSynths({});
+
           return {
-            id: "",
-            owner: "",
-            account: "",
-            contract: "",
-            tokenId: 0,
-            waves: [],
+            hash: req.hash,
           };
         } catch (error) {
           console.log("Synth minting failed!", error);
           throw error;
         }
       },
-      genArtService: async (_context, _event: { element?: any }) => {
+      genArtService: async (
+        _context,
+        event: { synthAccount: string; artAddrs: string },
+      ) => {
         try {
+          const req = await synthAccountGenerateArt({
+            args: [event.artAddrs],
+          });
+
+          console.log("Art generated!", req);
+
           return {
-            tokenAddress: "",
+            tokenAddress: event.artAddrs,
             tokenId: 0,
           };
         } catch (error) {
@@ -74,11 +117,12 @@ export const SynthProvider = ({ children }: Props) => {
     },
   });
 
-  function mintSynth(address: string) {
+  function mintSynth(address?: string) {
     send({ type: "MINT", address });
   }
 
   function generateArt(synthAddrs: string, artAddrs: string) {
+    setSynthAccountAddrs(synthAddrs);
     send({ type: "GENERATE_ART", synthAddrs, artAddrs });
   }
 
@@ -88,6 +132,8 @@ export const SynthProvider = ({ children }: Props) => {
         isIdle: state.matches("idle"),
         isMinting: state.matches("minting"),
         isGeneratingArt: state.matches("generatingArt"),
+        synthAddrs,
+        setSynthAddrs,
         mintSynth,
         generateArt,
         address,

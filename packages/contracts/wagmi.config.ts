@@ -56,6 +56,10 @@ export default defineConfig({
      * Generates react hooks from your abis
      * @see https://wagmi.sh/cli/plugins/react
      */
-    react(),
+    react({
+      useContractEvent: false,
+      useContractFunctionRead: false,
+      useContractRead: false,
+    }),
   ],
 });

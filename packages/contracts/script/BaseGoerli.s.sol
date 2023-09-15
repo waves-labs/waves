@@ -3,9 +3,11 @@ pragma solidity ^0.8.10;
 
 import {Script} from "forge-std/Script.sol";
 
+import {Wave} from "../src/Wave.sol";
 import {Synth} from "../src/Synth.sol";
-import {SynthRegistry} from "../src/SynthRegistry.sol";
+import {SynthAccount} from "../src/SynthAccount.sol";
 import {WaveRegistry} from "../src/WaveRegistry.sol";
+import {SynthRegistry} from "../src/SynthRegistry.sol";
 import {MockTicket} from "../src/mocks/MockTicket.sol";
 
 /**
@@ -13,9 +15,8 @@ import {MockTicket} from "../src/mocks/MockTicket.sol";
  * @notice Script for deploying Wave Collector Contracts.
  * @dev https://book.getfoundry.sh/reference/forge/forge-script
  *
- * @dev This script s used to deploy Ticket, SynthGenerator, and SynthRegistry with forge script
+ * @dev This script s used to create Waves and Synths from their repsective registry with forge script
  * example start anvil with `anvil` command and then run
- * forge script contracts/script/Ticket.s.sol:Deploy --rpc-url http://localhost:8545 --broadcast -vvv
  * @dev Scripts can be used for development and testing, but they are not required for production.
  */
 contract BaseScript is Script {
@@ -28,7 +29,8 @@ contract BaseScript is Script {
         vm.startBroadcast(deployerPrivateKey);
 
         // Deploy Waves with Wave Registry
-        WaveRegistry waveRegistry = WaveRegistry(0x61d4F4D4a1fab9f1ba3e5e193bfDa9C89B8c3D0E);
+        WaveRegistry waveRegistry = WaveRegistry(0xf2F63b48498e72CA39EB168B096F39C5affA5922);
+        // WaveRegistry waveRegistry = new WaveRegistry();
 
         address burnaBoyWave =
             waveRegistry.createWave(1000, block.timestamp, 6000 minutes, address(0), address(1), "burna boy", "#7C9D96");
@@ -53,15 +55,24 @@ contract BaseScript is Script {
         ticket.mint();
 
         // Deploy Synths with Synth Registry
-        SynthRegistry synthRegistry = SynthRegistry(0xCd571Fd48ea82bc8F4CFeF7bc1EB325464B4abA6);
+        // SynthRegistry synthRegistry = new SynthRegistry();
+        SynthRegistry synthRegistry = SynthRegistry(0xD1d4e8D1Ce270e7076Fe9476CB0Bdc05b092190B);
 
         address[] memory nftWhitelist = new address[](1);
         address[] memory emptyWhitelist = new address[](0);
 
         nftWhitelist[0] = address(ticket);
 
-        address coachAddrs = synthRegistry.createSynth(true, address(0), "Coachella", nftWhitelist);
-        address lollaAddrs = synthRegistry.createSynth(false, address(0), "Lollapalooza", emptyWhitelist);
+        address coachAddrs = synthRegistry.createSynth(
+            true, address(0), "Coachella 2024", "https://app.waves.house/events/coachella.json", nftWhitelist
+        );
+        address lollaAddrs = synthRegistry.createSynth(
+            false,
+            address(0),
+            "Lollapalooza Chicago 2024",
+            "https://app.waves.house/events/lollapalooza.json",
+            emptyWhitelist
+        );
 
         // Add Waves To Synths
         Synth(coachAddrs).addWave(drakeWave);
@@ -73,6 +84,12 @@ contract BaseScript is Script {
         Synth(lollaAddrs).addWave(remaWave);
         Synth(lollaAddrs).addWave(toroYMoiWave);
         Synth(lollaAddrs).addWave(jungleWave);
+
+        address coachSynthAccount = Synth(coachAddrs).mint(address(ticket));
+        // Synth(lollaAddrs).mint(address(0));
+
+        Wave(badBunnyWave).mint(msg.sender, coachSynthAccount);
+        Wave(taylorSwiftWave).mint(msg.sender, coachSynthAccount);
 
         // Stop Broadcasting Transactions
         vm.stopBroadcast();

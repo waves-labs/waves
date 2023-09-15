@@ -6,7 +6,7 @@ dataSources:
     kind: ethereum
     network: base-testnet
     source:
-      address: "0xCd571Fd48ea82bc8F4CFeF7bc1EB325464B4abA6"
+      address: "0xD1d4e8D1Ce270e7076Fe9476CB0Bdc05b092190B"
       abi: SynthRegistry
       startBlock: 9223545
     mapping:
@@ -33,7 +33,7 @@ dataSources:
           handler: handleOwnershipTransferred
         - event: Paused(address)
           handler: handlePaused
-        - event: SynthCreated(bool,indexed address,indexed address,indexed address,string)
+        - event: SynthCreated(bool,indexed address,indexed address,indexed address,string,string)
           handler: handleSynthCreated
         - event: Unpaused(address)
           handler: handleUnpaused
@@ -44,7 +44,7 @@ dataSources:
     kind: ethereum
     network: base-testnet
     source:
-      address: "0x61d4F4D4a1fab9f1ba3e5e193bfDa9C89B8c3D0E"
+      address: "0xf2F63b48498e72CA39EB168B096F39C5affA5922"
       abi: WaveRegistry
       startBlock: 9225556
     mapping:

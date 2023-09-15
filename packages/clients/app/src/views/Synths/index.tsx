@@ -10,12 +10,7 @@ import { SynthsMintDialog } from "../../components/Synths/MintDialog";
 
 interface SynthsProps extends SynthsDataProps {}
 
-const Synths: React.FC<SynthsProps> = ({
-  synths,
-  waves,
-  address,
-  ...synthProps
-}) => {
+const Synths: React.FC<SynthsProps> = ({ synths, address, ...synthProps }) => {
   const navigate = useNavigate();
   const location = useLocation();
 

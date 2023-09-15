@@ -23,21 +23,19 @@ export const SynthsGallery: React.FC<SynthsGalleryProps> = ({
   }
 
   if (!items.length) {
-    return (
-      <div className="h-full w-full grid place-items-center">
-        {view === "synths" ? (
-          <h4>No Synths Found, Mint One!</h4>
-        ) : (
-          <h4>No Waves Found Go Catch Some!</h4>
-        )}
-      </div>
+    return view === "synths" ? (
+      <h4 className="h-full w-full grid place-items-center">
+        No Synths Found, Mint One!
+      </h4>
+    ) : (
+      <h4 className="h-full w-full">No Waves Found Go Catch Some!</h4>
     );
   }
 
   return (
     <ul
       className={
-        "grid grid-cols-2 auto-rows-auto	 overflow-scroll h-full w-full gap-3 pt-16 pb-20"
+        "grid grid-cols-2 auto-rows-auto overflow-scroll h-full w-full gap-3 pt-16 pb-20"
       }
     >
       {items.map((item, index) => {

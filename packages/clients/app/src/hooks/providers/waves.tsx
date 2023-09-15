@@ -1,10 +1,16 @@
 import { useAccount } from "wagmi";
-import { gql, useQuery } from "urql";
+import { UseQueryExecute, gql, useQuery } from "urql";
 import { createContext, useContext } from "react";
 
 export interface WavesDataProps {
   synths: SynthUI[];
-  waves: WaveUI[];
+  synthNfts?: SynthNFT[];
+  waveNftMap: Map<string, WaveNFT>; // wave contract => synth nft
+  waveTokenMap: Map<string, Wave>; // wave contract => wave data
+  waveSynthMap: Map<string, string[]>; // synth contract => wave contracts
+  fetchSynths: UseQueryExecute;
+  fetchSynthNfts: UseQueryExecute;
+  fetchWaveNfts: UseQueryExecute;
 }
 
 type Props = {
@@ -15,7 +21,7 @@ const WavesContext = createContext<WavesDataProps | null>(null);
 
 const SynthNFTsQuery = gql`
   query {
-    synthNfts {
+    synthNFTs {
       id
       nftOwnershipRequired
       artist
@@ -25,13 +31,13 @@ const SynthNFTsQuery = gql`
       blockTimestamp
       transactionHash
 
-      nftWhitelist
+      # nftWhitelist
       waveNFTs {
         waveNft {
           id
           startTime
           duration
-          artiist
+          artist
           creative
           name
           data
@@ -40,6 +46,23 @@ const SynthNFTsQuery = gql`
           transactionHash
         }
       }
+    }
+  }
+`;
+
+const WaveNFTsQuery = gql`
+  query {
+    waveNFTs {
+      id
+      startTime
+      duration
+      artiist
+      creative
+      name
+      data
+      blockNumber
+      blockTimestamp
+      transactionHash
     }
   }
 `;
@@ -80,35 +103,81 @@ export const WavesProvider = ({ children }: Props) => {
 
   const { address } = useAccount();
 
-  const [nfts, fetchNfts] = useQuery<SynthNFT[]>({
+  const [nfts, fetchSynthNfts] = useQuery<{ synthNFTs: SynthNFT[] }>({
     query: SynthNFTsQuery,
-    // variables: { from, limit },
   });
-  const [tokens, fetchTokens] = useQuery<Synth[]>({
+  const [waveNfts, fetchWaveNfts] = useQuery<{ waveNFTs: WaveNFT[] }>({
+    query: WaveNFTsQuery,
+  });
+  const [tokens, fetchSynths] = useQuery<{ synths: Synth[] }>({
     query: SynthsQuery,
     // variables: { from, limit },
   });
 
-  let waves: WaveUI[] = [];
-  const synths: SynthUI[] = nfts.data?.reduce((acc, nft) => {
-    // const synth = {
-    //   ...nft,
-    //   waves: nft.waveNFTs.map((wave) => ({
-    //     ...wave.waveNft,
-    //     synth: nft,
-    //   })),
-    // };
+  const waveTokenMap: Map<string, Wave> = new Map();
+  const waveNftMap: Map<string, WaveNFT> = new Map();
+  const waveSynthMap: Map<string, string[]> = new Map();
+  const synthTokenMap: Map<string, Synth> | undefined =
+    tokens.data?.synths && tokens.data.synths.length > 0
+      ? tokens.data.synths
+          ?.filter((token) => token.owner === address)
+          .reduce((acc, token) => {
+            if (token.contract) {
+              acc.set(token.contract, token);
 
-    waves = [...waves];
+              if (token.waves) {
+                token.waves?.forEach((wave) => {
+                  wave.contract && waveTokenMap.set(wave.contract, wave);
+                });
 
-    return [...acc];
-  }, []);
+                waveSynthMap.set(token.contract, [
+                  ...token.waves.map((wave) => wave.contract ?? ""),
+                ]);
+              }
+            }
+
+            return acc;
+          }, new Map<string, Synth>())
+      : undefined;
+
+  const synths: SynthUI[] =
+    nfts.data?.synthNFTs && nfts.data?.synthNFTs.length > 0
+      ? nfts.data?.synthNFTs.reduce<SynthUI[]>((acc, nft) => {
+          const synth = synthTokenMap && synthTokenMap.get(nft.id);
+
+          const synthUI: SynthUI = {
+            ...nft,
+          };
+
+          if (synth) {
+            synthUI.owner = synth.owner;
+            synthUI.account = synth.id;
+            synthUI.tokenId = synth.tokenId;
+
+            return [...acc, synthUI];
+          }
+
+          return acc;
+        }, [])
+      : [];
+
+  waveNfts.data &&
+    waveNfts.data.waveNFTs.length > 0 &&
+    waveNfts.data.waveNFTs.forEach((nft) => {
+      waveNftMap.set(nft.id, nft);
+    });
 
   return (
     <WavesContext.Provider
       value={{
         synths,
-        waves,
+        synthNfts: nfts.data?.synthNFTs ?? [],
+        waveNftMap,
+        waveTokenMap,
+        waveSynthMap,
+        fetchSynths,
+        fetchSynthNfts,
+        fetchWaveNfts,
       }}
     >
       {children}

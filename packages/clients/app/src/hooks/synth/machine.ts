@@ -20,7 +20,7 @@ export const synthMachine = createMachine(
     schema: {
       services: {} as {
         mintService: {
-          data: Synth;
+          data: { hash: string };
         };
         genArtService: {
           data: {
@@ -83,10 +83,10 @@ export const synthMachine = createMachine(
   {
     guards: {
       isMintValid: (_context, event: { image: string | ArrayBuffer }) => {
-        return false;
+        return true;
       },
       isGenArtValid: (_context, event: { element: any }) => {
-        return false;
+        return true;
       },
     },
     actions: {

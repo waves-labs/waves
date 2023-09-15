@@ -10,7 +10,12 @@ import {Synth} from "./Synth.sol";
 
 contract SynthRegistry is Initializable, PausableUpgradeable, OwnableUpgradeable, UUPSUpgradeable {
     event SynthCreated(
-        bool nftOwnershipNeeded, address indexed synth, address indexed artist, address indexed organizer, string name
+        bool nftOwnershipNeeded,
+        address indexed synth,
+        address indexed artist,
+        address indexed organizer,
+        string name,
+        string metadata
     );
 
     address public synthAccountImplementation;
@@ -29,18 +34,20 @@ contract SynthRegistry is Initializable, PausableUpgradeable, OwnableUpgradeable
         synthAccountImplementation = _synthAccountImplementationt;
     }
 
-    function createSynth(bool _nftOwnershipToMint, address _artist, string memory _name, address[] memory _nftWhitelist)
-        external
-        whenNotPaused
-        returns (address)
-    {
+    function createSynth(
+        bool _nftOwnershipToMint,
+        address _artist,
+        string memory _name,
+        string memory _metadata,
+        address[] memory _nftWhitelist
+    ) external whenNotPaused returns (address) {
         Synth synth =
-            new Synth(_nftOwnershipToMint, synthAccountImplementation, _artist, msg.sender, _name, _nftWhitelist);
+        new Synth(_nftOwnershipToMint, synthAccountImplementation, _artist, msg.sender, _name, _metadata, _nftWhitelist);
 
         address synthAddrs = address(synth);
         synthExists[synthAddrs] = true;
 
-        emit SynthCreated(_nftOwnershipToMint, synthAddrs, _artist, msg.sender, _name);
+        emit SynthCreated(_nftOwnershipToMint, synthAddrs, _artist, msg.sender, _name, _metadata);
 
         return synthAddrs;
     }

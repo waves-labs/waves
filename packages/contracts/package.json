@@ -9,7 +9,8 @@
     "lint": "prettier --write \"**/*.{ts,tsx}\"",
     "build": "wagmi generate",
     "deploy:waves": "npx hardhat run scripts/deploy.js",
-    "deploy:base-goerli": "source .env && FOUNDRY_PROFILE=base-goerli forge script script/BaseGoerli.s.sol:BaseScript --private-key $FORGE_PRIVATE_KEY --etherscan-api-key $ETHERSCAN_API_KEY --broadcast"
+    "upgrade:waves": "npx hardhat run scripts/upgrade.js",
+    "deploy:base-goerli": "source .env && FOUNDRY_PROFILE=base-goerli forge script script/BaseGoerli.s.sol:BaseScript --private-key $FORGE_PRIVATE_KEY --etherscan-api-key $ETHERSCAN_API_KEY"
   },
   "dependencies": {
     "@ethereum-attestation-service/eas-contracts": "^1.0.0-beta.0",

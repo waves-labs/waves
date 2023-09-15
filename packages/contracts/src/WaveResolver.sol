@@ -22,7 +22,7 @@ contract WaveResolver is SchemaResolver, Initializable, OwnableUpgradeable, UUPS
         address wave;
     }
 
-    mapping(address => bool) attesters;
+    mapping(address => bool) public attesters;
 
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor(address easAddrs) SchemaResolver(IEAS(easAddrs)) {

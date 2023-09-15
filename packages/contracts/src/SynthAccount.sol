@@ -1,30 +1,106 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
-// import "highlight/erc721/ERC721Generative.sol";
+import "highlight/erc721/interfaces/IERC721GeneralMint.sol";
+import "@opengsn/contracts/src/ERC2771Recipient.sol";
 import "@openzeppelin/contracts/interfaces/IERC1271.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/utils/introspection/IERC165.sol";
 import "@openzeppelin/contracts/utils/cryptography/SignatureChecker.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
 
 import "./interfaces/IERC6551Account.sol";
 import "./interfaces/IERC6551Executable.sol";
 
-contract SynthAccount is IERC165, IERC1271, IERC6551Account, IERC6551Executable {
+contract SynthAccount is
+    IERC165,
+    IERC1271,
+    IERC6551Account,
+    IERC6551Executable,
+    Initializable,
+    AccessControlUpgradeable,
+    UUPSUpgradeable
+{
+    enum StyleEnum {
+        SHIRT,
+        HOODIE,
+        HAT,
+        DASHIKI,
+        PANTS,
+        BLANKET,
+        POSTER
+    }
+
+    enum PaletteEnum {
+        MARKER,
+        CRAYON,
+        PENCIL
+    }
+
+    bytes32 public constant UPGRADER_ROLE = keccak256("UPGRADER_ROLE");
+
     uint256 private _state;
+    uint256 public purchasesRemaining;
+    uint256 public artStylesRemaining;
+    mapping(address => bool) public artStyleWhitelist;
+    mapping(PaletteEnum => bool) public artPalettePurchased;
+
+    /// @custom:oz-upgrades-unsafe-allow constructor
+    constructor() {
+        _disableInitializers();
+    }
 
     // External functions
-    // function initialize(bytes calldata data) external initializer {
-    //     // ERC721Generative.initialize(data, _observability);
-    // }
+    function initialize(uint256 _printAmount, address _organizer, address[] memory _artWhitelist)
+        external
+        initializer
+    {
+        __AccessControl_init();
+        __UUPSUpgradeable_init();
 
-    function generateArt(uint256 tokenId, address to, bytes calldata data) external {
-        // ERC721Generative.
-        require(_isValidSigner(msg.sender), "Invalid signer");
-        // TODO: Mint Art NFT
-        // TODO: Burn Synth NFT
+        _grantRole(DEFAULT_ADMIN_ROLE, _organizer);
+        _grantRole(UPGRADER_ROLE, _organizer);
 
-        // IERC721(msg.sender).safeTransferFrom(address(this), to, tokenId, data);
+        purchasesRemaining = _printAmount;
+
+        for (uint256 i = 0; i < _artWhitelist.length; ++i) {
+            artStyleWhitelist[_artWhitelist[i]] = true;
+        }
+    }
+
+    function purchasePrint(address _art, StyleEnum _style) external returns (uint256, uint256) {
+        require(_isValidSigner(_msgSender()), "Invalid signer");
+        require(artStyleWhitelist[_art], "Art not whitelisted");
+        require(purchasesRemaining > 0, "No prints remaining");
+
+        uint256 tokenId = IERC721GeneralMint(_art).mintOneToOneRecipient(_msgSender());
+        // TODO: Send order ro Market Contract
+
+        --purchasesRemaining;
+
+        // TODO: Return the NFT and Order ID
+        return (tokenId, 0);
+    }
+
+    function purchasePalette(address _art, PaletteEnum _palette) external returns (uint256, uint256) {
+        require(_isValidSigner(_msgSender()), "Invalid signer");
+        require(!artPalettePurchased[_palette], "Palette already purchased");
+
+        uint256 tokenId = IERC721GeneralMint(_art).mintOneToOneRecipient(_msgSender());
+        // TODO: Send order ro Market Contract
+
+        --purchasesRemaining;
+        artPalettePurchased[_palette] = true;
+
+        // TODO: Return the NFT and Order ID
+        return (tokenId, 0);
+    }
+
+    function whitelistArt(address _art) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        require(_isValidSigner(_msgSender()), "Invalid signer");
+        artStyleWhitelist[_art] = true;
     }
 
     function execute(address to, uint256 value, bytes calldata data, uint256 operation)
@@ -32,7 +108,7 @@ contract SynthAccount is IERC165, IERC1271, IERC6551Account, IERC6551Executable 
         payable
         returns (bytes memory result)
     {
-        require(_isValidSigner(msg.sender), "Invalid signer");
+        require(_isValidSigner(_msgSender()), "Invalid signer");
         require(operation == 0, "Only call operations are supported");
 
         ++_state;
@@ -71,12 +147,22 @@ contract SynthAccount is IERC165, IERC1271, IERC6551Account, IERC6551Executable 
     }
 
     // override(ERC721GeneralBase, IERC165)
-    function supportsInterface(bytes4 interfaceId) public view virtual returns (bool) {
+    function supportsInterface(bytes4 interfaceId)
+        public
+        view
+        virtual
+        override(AccessControlUpgradeable, IERC165)
+        returns (bool)
+    {
         return (
             interfaceId == type(IERC165).interfaceId || interfaceId == type(IERC6551Account).interfaceId
                 || interfaceId == type(IERC6551Executable).interfaceId
+                || AccessControlUpgradeable.supportsInterface(interfaceId)
         );
-        // || ERC721AUpgradeable.supportsInterface(interfaceId)
+    }
+
+    function getImplementation() external view returns (address) {
+        return _getImplementation();
     }
 
     function token() external view returns (uint256, address, uint256) {
@@ -108,4 +194,6 @@ contract SynthAccount is IERC165, IERC1271, IERC6551Account, IERC6551Executable 
     function _isValidSigner(address signer) internal view returns (bool) {
         return signer == owner();
     }
+
+    function _authorizeUpgrade(address newImplementation) internal override onlyRole(UPGRADER_ROLE) {}
 }

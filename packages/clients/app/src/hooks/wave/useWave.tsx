@@ -2,12 +2,11 @@ import { useMachine } from "@xstate/react";
 import { useNavigate } from "react-router-dom";
 import React, { createContext, useContext } from "react";
 
-import {
-  WaveEvent,
-  WaveContext as WaveMachineContext,
-  waveMachine,
-} from "./machine";
 import { apiClient } from "../../modules/axios";
+
+import { useWaves } from "../providers/waves";
+
+import { WaveContext as WaveMachineContext, waveMachine } from "./machine";
 
 export interface WaveState {
   isIdle: boolean;
@@ -30,6 +29,7 @@ export const WaveProvider = ({ children }: Props) => {
   if (currentValue) throw new Error("WaveProvider can only be used once");
 
   const navigate = useNavigate();
+  const { fetchSynths } = useWaves();
 
   const [state, send] = useMachine(waveMachine, {
     actions: {
@@ -43,7 +43,7 @@ export const WaveProvider = ({ children }: Props) => {
         event: { synth: string; synthAccount: string; wave: string },
       ) => {
         try {
-          const { data } = await apiClient.post<WaveEvent>(
+          const { data } = await apiClient.post<{ id: string }>(
             "/waves/claim",
             {
               synth: event.synth,
@@ -59,11 +59,13 @@ export const WaveProvider = ({ children }: Props) => {
             throw new Error("Error catching wave, try again.");
           }
 
+          fetchSynths();
+
           return {
-            synth: data.synth,
-            wave: data.wave,
-            waveId: data.waveId,
-            transactionHash: data.transactionHash,
+            synth: event.synth,
+            wave: event.wave,
+            waveId: null,
+            transactionHash: data.id,
           };
         } catch (error) {
           throw error;

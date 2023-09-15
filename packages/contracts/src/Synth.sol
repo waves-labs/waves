@@ -9,6 +9,7 @@ import "@openzeppelin/contracts/access/AccessControl.sol";
 
 import {Wave} from "./Wave.sol";
 import {SynthAccount} from "./SynthAccount.sol";
+import {ERC6551_REGISTRY_ADDRESS} from "./Constants.sol";
 import {IERC6551Registry} from "./interfaces/IERC6551Registry.sol";
 
 contract Synth is ERC721, Pausable, AccessControl, ERC2771Recipient {
@@ -19,10 +20,13 @@ contract Synth is ERC721, Pausable, AccessControl, ERC2771Recipient {
     event NFTWhitelistRemoved(address indexed nft);
     event NFTOwnershipToMintSet(bool indexed nftOwnershipToMint);
 
+    // uint256 public eventDate;
+    // uint256 public postEventFreeDuration;
     bool private nftOwnershipToMint;
-    address private artist;
+    address private art;
     address private organizer;
     address private synthAccountImplementation;
+    string private metadataURI;
     mapping(address => bool) private nftWhitelist;
     mapping(address => bool) public waveExists;
 
@@ -33,15 +37,17 @@ contract Synth is ERC721, Pausable, AccessControl, ERC2771Recipient {
     constructor(
         bool _nftOwnershipToMint,
         address _synthAccountImplementation,
-        address _artist,
+        address _art,
         address _organizer,
         string memory _name,
+        string memory _metadataURI,
         address[] memory _nftWhitelist
     ) ERC721(_name, "SYNTH") {
         nftOwnershipToMint = _nftOwnershipToMint;
         synthAccountImplementation = _synthAccountImplementation;
-        artist = _artist;
+        art = _art;
         organizer = _organizer;
+        metadataURI = _metadataURI;
 
         for (uint256 i = 0; i < _nftWhitelist.length; i++) {
             nftWhitelist[_nftWhitelist[i]] = true;
@@ -53,22 +59,25 @@ contract Synth is ERC721, Pausable, AccessControl, ERC2771Recipient {
     function mint(address _nftOwned) external returns (address) {
         require(balanceOf(_msgSender()) == 0, "Synth: already claimed");
 
-        if (nftOwnershipToMint) {
+        if (nftOwnershipToMint == true) {
             require(nftWhitelist[_nftOwned], "Synth: nft not whitelisted");
             require(IERC721(_nftOwned).balanceOf(_msgSender()) > 0, "Synth: user doesn't own nft");
         }
 
         uint256 synthId = _synthIdCounter.current();
-        //     bytes memory initCallData =
-        //         abi.encodeWithSignature("initialize(address ticketAddrs, address wavesAddrs)", ticketAddrs, wavesAddrs);
+        address[] memory artWhitelist = new address[](1);
+        artWhitelist[0] = art;
 
-        _synthIdCounter.increment();
+        bytes memory initCallData =
+            abi.encodeWithSignature("initialize(uint256,address,address[])", 5, organizer, artWhitelist);
+
         _safeMint(_msgSender(), synthId);
-        address synthAccount = IERC6551Registry(synthAccountImplementation).createAccount(
-            synthAccountImplementation, 0, address(this), synthId, 0, ""
+        _synthIdCounter.increment();
+        address synthAccount = IERC6551Registry(ERC6551_REGISTRY_ADDRESS).createAccount(
+            synthAccountImplementation, block.chainid, address(this), synthId, 7, initCallData
         );
 
-        emit SynthMinted(_msgSender(), address(this), synthAccount, synthId);
+        emit SynthMinted(_msgSender(), address(this), address(0), synthId);
 
         return synthAccount;
     }
@@ -85,10 +94,14 @@ contract Synth is ERC721, Pausable, AccessControl, ERC2771Recipient {
         emit NFTWhitelistRemoved(nft);
     }
 
-    function setNftOwnershipToMint(bool _bool) external onlyRole(DEFAULT_ADMIN_ROLE) {
+    function setNFTOwnershipToMint(bool _bool) external onlyRole(DEFAULT_ADMIN_ROLE) {
         nftOwnershipToMint = _bool;
 
         emit NFTOwnershipToMintSet(_bool);
+    }
+
+    function setMetadataURI(string memory _metadataURI) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        metadataURI = _metadataURI;
     }
 
     function addWave(address _wave) external onlyRole(DEFAULT_ADMIN_ROLE) {

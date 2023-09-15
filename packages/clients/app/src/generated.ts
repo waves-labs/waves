@@ -1,5 +1,4 @@
 import {
-  useContractRead,
   useContractWrite,
   usePrepareContractWrite,
   useContractEvent,
@@ -132,18 +131,6 @@ export const accessControlABI = [
     outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
   },
 ]
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Address
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-export const addressABI = []
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// AddressUpgradeable
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-export const addressUpgradeableABI = []
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // BasePaymaster
@@ -418,22 +405,10 @@ export const basePaymasterABI = [
 ]
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// CommonBase
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-export const commonBaseABI = []
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Constants
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export const constantsABI = []
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Context
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-export const contextABI = []
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ContextUpgradeable
@@ -494,18 +469,6 @@ export const counterABI = [
 ]
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Counters
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-export const countersABI = []
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// ECDSA
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-export const ecdsaABI = []
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ERC165
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -518,12 +481,6 @@ export const erc165ABI = [
     outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
   },
 ]
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// ERC165Checker
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-export const erc165CheckerABI = []
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ERC1967UpgradeUpgradeable
@@ -856,18 +813,6 @@ export const gsnEip712LibraryABI = [
     outputs: [{ name: '', internalType: 'bytes32', type: 'bytes32' }],
   },
 ]
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// GsnTypes
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-export const gsnTypesABI = []
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// GsnUtils
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-export const gsnUtilsABI = []
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // IAccessControl
@@ -3759,12 +3704,6 @@ export const initializableABI = [
 ]
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// MinLibBytes
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-export const minLibBytesABI = []
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // MockTicket
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -4460,12 +4399,6 @@ export const schemaResolverABI = [
 ]
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// ScriptBase
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-export const scriptBaseABI = []
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Semver
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -4487,30 +4420,6 @@ export const semverABI = [
     outputs: [{ name: '', internalType: 'string', type: 'string' }],
   },
 ]
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// SignatureChecker
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-export const signatureCheckerABI = []
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// StdChains
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-export const stdChainsABI = []
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// StorageSlotUpgradeable
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-export const storageSlotUpgradeableABI = []
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Strings
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-export const stringsABI = []
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Synth
@@ -4957,7 +4866,7 @@ export const synthABI = [
     stateMutability: 'nonpayable',
     type: 'function',
     inputs: [{ name: '_bool', internalType: 'bool', type: 'bool' }],
-    name: 'setNftOwnershipToMint',
+    name: 'setNFTOwnershipToMint',
     outputs: [],
   },
   {
@@ -5353,12 +5262,6 @@ export const synthRegistryConfig = {
   address: synthRegistryAddress,
   abi: synthRegistryABI,
 }
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// TestBase
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-export const testBaseABI = []
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // UUPSUpgradeable
@@ -6813,57 +6716,6 @@ export const wavesPaymasterABI = [
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link accessControlABI}__.
- */
-export function useAccessControlRead(config = {}) {
-  return useContractRead({ abi: accessControlABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link accessControlABI}__ and `functionName` set to `"DEFAULT_ADMIN_ROLE"`.
- */
-export function useAccessControlDefaultAdminRole(config = {}) {
-  return useContractRead({
-    abi: accessControlABI,
-    functionName: 'DEFAULT_ADMIN_ROLE',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link accessControlABI}__ and `functionName` set to `"getRoleAdmin"`.
- */
-export function useAccessControlGetRoleAdmin(config = {}) {
-  return useContractRead({
-    abi: accessControlABI,
-    functionName: 'getRoleAdmin',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link accessControlABI}__ and `functionName` set to `"hasRole"`.
- */
-export function useAccessControlHasRole(config = {}) {
-  return useContractRead({
-    abi: accessControlABI,
-    functionName: 'hasRole',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link accessControlABI}__ and `functionName` set to `"supportsInterface"`.
- */
-export function useAccessControlSupportsInterface(config = {}) {
-  return useContractRead({
-    abi: accessControlABI,
-    functionName: 'supportsInterface',
-    ...config,
-  })
-}
-
-/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link accessControlABI}__.
  */
 export function useAccessControlWrite(config = {}) {
@@ -6944,13 +6796,6 @@ export function usePrepareAccessControlRevokeRole(config = {}) {
 }
 
 /**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link accessControlABI}__.
- */
-export function useAccessControlEvent(config = {}) {
-  return useContractEvent({ abi: accessControlABI, ...config })
-}
-
-/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link accessControlABI}__ and `eventName` set to `"RoleAdminChanged"`.
  */
 export function useAccessControlRoleAdminChangedEvent(config = {}) {
@@ -6979,134 +6824,6 @@ export function useAccessControlRoleRevokedEvent(config = {}) {
   return useContractEvent({
     abi: accessControlABI,
     eventName: 'RoleRevoked',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link basePaymasterABI}__.
- */
-export function useBasePaymasterRead(config = {}) {
-  return useContractRead({ abi: basePaymasterABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link basePaymasterABI}__ and `functionName` set to `"CALLDATA_SIZE_LIMIT"`.
- */
-export function useBasePaymasterCalldataSizeLimit(config = {}) {
-  return useContractRead({
-    abi: basePaymasterABI,
-    functionName: 'CALLDATA_SIZE_LIMIT',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link basePaymasterABI}__ and `functionName` set to `"FORWARDER_HUB_OVERHEAD"`.
- */
-export function useBasePaymasterForwarderHubOverhead(config = {}) {
-  return useContractRead({
-    abi: basePaymasterABI,
-    functionName: 'FORWARDER_HUB_OVERHEAD',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link basePaymasterABI}__ and `functionName` set to `"PAYMASTER_ACCEPTANCE_BUDGET"`.
- */
-export function useBasePaymasterPaymasterAcceptanceBudget(config = {}) {
-  return useContractRead({
-    abi: basePaymasterABI,
-    functionName: 'PAYMASTER_ACCEPTANCE_BUDGET',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link basePaymasterABI}__ and `functionName` set to `"POST_RELAYED_CALL_GAS_LIMIT"`.
- */
-export function useBasePaymasterPostRelayedCallGasLimit(config = {}) {
-  return useContractRead({
-    abi: basePaymasterABI,
-    functionName: 'POST_RELAYED_CALL_GAS_LIMIT',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link basePaymasterABI}__ and `functionName` set to `"PRE_RELAYED_CALL_GAS_LIMIT"`.
- */
-export function useBasePaymasterPreRelayedCallGasLimit(config = {}) {
-  return useContractRead({
-    abi: basePaymasterABI,
-    functionName: 'PRE_RELAYED_CALL_GAS_LIMIT',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link basePaymasterABI}__ and `functionName` set to `"getGasAndDataLimits"`.
- */
-export function useBasePaymasterGetGasAndDataLimits(config = {}) {
-  return useContractRead({
-    abi: basePaymasterABI,
-    functionName: 'getGasAndDataLimits',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link basePaymasterABI}__ and `functionName` set to `"getRelayHub"`.
- */
-export function useBasePaymasterGetRelayHub(config = {}) {
-  return useContractRead({
-    abi: basePaymasterABI,
-    functionName: 'getRelayHub',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link basePaymasterABI}__ and `functionName` set to `"getTrustedForwarder"`.
- */
-export function useBasePaymasterGetTrustedForwarder(config = {}) {
-  return useContractRead({
-    abi: basePaymasterABI,
-    functionName: 'getTrustedForwarder',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link basePaymasterABI}__ and `functionName` set to `"owner"`.
- */
-export function useBasePaymasterOwner(config = {}) {
-  return useContractRead({
-    abi: basePaymasterABI,
-    functionName: 'owner',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link basePaymasterABI}__ and `functionName` set to `"supportsInterface"`.
- */
-export function useBasePaymasterSupportsInterface(config = {}) {
-  return useContractRead({
-    abi: basePaymasterABI,
-    functionName: 'supportsInterface',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link basePaymasterABI}__ and `functionName` set to `"versionPaymaster"`.
- */
-export function useBasePaymasterVersionPaymaster(config = {}) {
-  return useContractRead({
-    abi: basePaymasterABI,
-    functionName: 'versionPaymaster',
     ...config,
   })
 }
@@ -7280,13 +6997,6 @@ export function usePrepareBasePaymasterWithdrawRelayHubDepositTo(config = {}) {
 }
 
 /**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link basePaymasterABI}__.
- */
-export function useBasePaymasterEvent(config = {}) {
-  return useContractEvent({ abi: basePaymasterABI, ...config })
-}
-
-/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link basePaymasterABI}__ and `eventName` set to `"OwnershipTransferred"`.
  */
 export function useBasePaymasterOwnershipTransferredEvent(config = {}) {
@@ -7298,13 +7008,6 @@ export function useBasePaymasterOwnershipTransferredEvent(config = {}) {
 }
 
 /**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link contextUpgradeableABI}__.
- */
-export function useContextUpgradeableEvent(config = {}) {
-  return useContractEvent({ abi: contextUpgradeableABI, ...config })
-}
-
-/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link contextUpgradeableABI}__ and `eventName` set to `"Initialized"`.
  */
 export function useContextUpgradeableInitializedEvent(config = {}) {
@@ -7313,20 +7016,6 @@ export function useContextUpgradeableInitializedEvent(config = {}) {
     eventName: 'Initialized',
     ...config,
   })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link counterABI}__.
- */
-export function useCounterRead(config = {}) {
-  return useContractRead({ abi: counterABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link counterABI}__ and `functionName` set to `"number"`.
- */
-export function useCounterNumber(config = {}) {
-  return useContractRead({ abi: counterABI, functionName: 'number', ...config })
 }
 
 /**
@@ -7388,42 +7077,10 @@ export function usePrepareCounterSetNumber(config = {}) {
 }
 
 /**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link counterABI}__.
- */
-export function useCounterEvent(config = {}) {
-  return useContractEvent({ abi: counterABI, ...config })
-}
-
-/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link counterABI}__ and `eventName` set to `"Transfer"`.
  */
 export function useCounterTransferEvent(config = {}) {
   return useContractEvent({ abi: counterABI, eventName: 'Transfer', ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link erc165ABI}__.
- */
-export function useErc165Read(config = {}) {
-  return useContractRead({ abi: erc165ABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link erc165ABI}__ and `functionName` set to `"supportsInterface"`.
- */
-export function useErc165SupportsInterface(config = {}) {
-  return useContractRead({
-    abi: erc165ABI,
-    functionName: 'supportsInterface',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link erc1967UpgradeUpgradeableABI}__.
- */
-export function useErc1967UpgradeUpgradeableEvent(config = {}) {
-  return useContractEvent({ abi: erc1967UpgradeUpgradeableABI, ...config })
 }
 
 /**
@@ -7466,118 +7123,6 @@ export function useErc1967UpgradeUpgradeableUpgradedEvent(config = {}) {
   return useContractEvent({
     abi: erc1967UpgradeUpgradeableABI,
     eventName: 'Upgraded',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link erc2771RecipientABI}__.
- */
-export function useErc2771RecipientRead(config = {}) {
-  return useContractRead({ abi: erc2771RecipientABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link erc2771RecipientABI}__ and `functionName` set to `"getTrustedForwarder"`.
- */
-export function useErc2771RecipientGetTrustedForwarder(config = {}) {
-  return useContractRead({
-    abi: erc2771RecipientABI,
-    functionName: 'getTrustedForwarder',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link erc2771RecipientABI}__ and `functionName` set to `"isTrustedForwarder"`.
- */
-export function useErc2771RecipientIsTrustedForwarder(config = {}) {
-  return useContractRead({
-    abi: erc2771RecipientABI,
-    functionName: 'isTrustedForwarder',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link erc721ABI}__.
- */
-export function useErc721Read(config = {}) {
-  return useContractRead({ abi: erc721ABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link erc721ABI}__ and `functionName` set to `"balanceOf"`.
- */
-export function useErc721BalanceOf(config = {}) {
-  return useContractRead({
-    abi: erc721ABI,
-    functionName: 'balanceOf',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link erc721ABI}__ and `functionName` set to `"getApproved"`.
- */
-export function useErc721GetApproved(config = {}) {
-  return useContractRead({
-    abi: erc721ABI,
-    functionName: 'getApproved',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link erc721ABI}__ and `functionName` set to `"isApprovedForAll"`.
- */
-export function useErc721IsApprovedForAll(config = {}) {
-  return useContractRead({
-    abi: erc721ABI,
-    functionName: 'isApprovedForAll',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link erc721ABI}__ and `functionName` set to `"name"`.
- */
-export function useErc721Name(config = {}) {
-  return useContractRead({ abi: erc721ABI, functionName: 'name', ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link erc721ABI}__ and `functionName` set to `"ownerOf"`.
- */
-export function useErc721OwnerOf(config = {}) {
-  return useContractRead({ abi: erc721ABI, functionName: 'ownerOf', ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link erc721ABI}__ and `functionName` set to `"supportsInterface"`.
- */
-export function useErc721SupportsInterface(config = {}) {
-  return useContractRead({
-    abi: erc721ABI,
-    functionName: 'supportsInterface',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link erc721ABI}__ and `functionName` set to `"symbol"`.
- */
-export function useErc721Symbol(config = {}) {
-  return useContractRead({ abi: erc721ABI, functionName: 'symbol', ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link erc721ABI}__ and `functionName` set to `"tokenURI"`.
- */
-export function useErc721TokenUri(config = {}) {
-  return useContractRead({
-    abi: erc721ABI,
-    functionName: 'tokenURI',
     ...config,
   })
 }
@@ -7685,13 +7230,6 @@ export function usePrepareErc721TransferFrom(config = {}) {
 }
 
 /**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link erc721ABI}__.
- */
-export function useErc721Event(config = {}) {
-  return useContractEvent({ abi: erc721ABI, ...config })
-}
-
-/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link erc721ABI}__ and `eventName` set to `"Approval"`.
  */
 export function useErc721ApprovalEvent(config = {}) {
@@ -7714,130 +7252,6 @@ export function useErc721ApprovalForAllEvent(config = {}) {
  */
 export function useErc721TransferEvent(config = {}) {
   return useContractEvent({ abi: erc721ABI, eventName: 'Transfer', ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link gsnEip712LibraryABI}__.
- */
-export function useGsnEip712LibraryRead(config = {}) {
-  return useContractRead({ abi: gsnEip712LibraryABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link gsnEip712LibraryABI}__ and `functionName` set to `"EIP712DOMAIN_TYPEHASH"`.
- */
-export function useGsnEip712LibraryEip712DomainTypehash(config = {}) {
-  return useContractRead({
-    abi: gsnEip712LibraryABI,
-    functionName: 'EIP712DOMAIN_TYPEHASH',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link gsnEip712LibraryABI}__ and `functionName` set to `"GENERIC_PARAMS"`.
- */
-export function useGsnEip712LibraryGenericParams(config = {}) {
-  return useContractRead({
-    abi: gsnEip712LibraryABI,
-    functionName: 'GENERIC_PARAMS',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link gsnEip712LibraryABI}__ and `functionName` set to `"RELAYDATA_TYPE"`.
- */
-export function useGsnEip712LibraryRelaydataType(config = {}) {
-  return useContractRead({
-    abi: gsnEip712LibraryABI,
-    functionName: 'RELAYDATA_TYPE',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link gsnEip712LibraryABI}__ and `functionName` set to `"RELAYDATA_TYPEHASH"`.
- */
-export function useGsnEip712LibraryRelaydataTypehash(config = {}) {
-  return useContractRead({
-    abi: gsnEip712LibraryABI,
-    functionName: 'RELAYDATA_TYPEHASH',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link gsnEip712LibraryABI}__ and `functionName` set to `"RELAY_REQUEST_NAME"`.
- */
-export function useGsnEip712LibraryRelayRequestName(config = {}) {
-  return useContractRead({
-    abi: gsnEip712LibraryABI,
-    functionName: 'RELAY_REQUEST_NAME',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link gsnEip712LibraryABI}__ and `functionName` set to `"RELAY_REQUEST_SUFFIX"`.
- */
-export function useGsnEip712LibraryRelayRequestSuffix(config = {}) {
-  return useContractRead({
-    abi: gsnEip712LibraryABI,
-    functionName: 'RELAY_REQUEST_SUFFIX',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link gsnEip712LibraryABI}__ and `functionName` set to `"RELAY_REQUEST_TYPE"`.
- */
-export function useGsnEip712LibraryRelayRequestType(config = {}) {
-  return useContractRead({
-    abi: gsnEip712LibraryABI,
-    functionName: 'RELAY_REQUEST_TYPE',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link gsnEip712LibraryABI}__ and `functionName` set to `"RELAY_REQUEST_TYPEHASH"`.
- */
-export function useGsnEip712LibraryRelayRequestTypehash(config = {}) {
-  return useContractRead({
-    abi: gsnEip712LibraryABI,
-    functionName: 'RELAY_REQUEST_TYPEHASH',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iAccessControlABI}__.
- */
-export function useIAccessControlRead(config = {}) {
-  return useContractRead({ abi: iAccessControlABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iAccessControlABI}__ and `functionName` set to `"getRoleAdmin"`.
- */
-export function useIAccessControlGetRoleAdmin(config = {}) {
-  return useContractRead({
-    abi: iAccessControlABI,
-    functionName: 'getRoleAdmin',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iAccessControlABI}__ and `functionName` set to `"hasRole"`.
- */
-export function useIAccessControlHasRole(config = {}) {
-  return useContractRead({
-    abi: iAccessControlABI,
-    functionName: 'hasRole',
-    ...config,
-  })
 }
 
 /**
@@ -7921,13 +7335,6 @@ export function usePrepareIAccessControlRevokeRole(config = {}) {
 }
 
 /**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link iAccessControlABI}__.
- */
-export function useIAccessControlEvent(config = {}) {
-  return useContractEvent({ abi: iAccessControlABI, ...config })
-}
-
-/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link iAccessControlABI}__ and `eventName` set to `"RoleAdminChanged"`.
  */
 export function useIAccessControlRoleAdminChangedEvent(config = {}) {
@@ -7956,86 +7363,6 @@ export function useIAccessControlRoleRevokedEvent(config = {}) {
   return useContractEvent({
     abi: iAccessControlABI,
     eventName: 'RoleRevoked',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iBeaconUpgradeableABI}__.
- */
-export function useIBeaconUpgradeableRead(config = {}) {
-  return useContractRead({ abi: iBeaconUpgradeableABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iBeaconUpgradeableABI}__ and `functionName` set to `"implementation"`.
- */
-export function useIBeaconUpgradeableImplementation(config = {}) {
-  return useContractRead({
-    abi: iBeaconUpgradeableABI,
-    functionName: 'implementation',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ieasABI}__.
- */
-export function useIeasRead(config = {}) {
-  return useContractRead({ abi: ieasABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ieasABI}__ and `functionName` set to `"getAttestation"`.
- */
-export function useIeasGetAttestation(config = {}) {
-  return useContractRead({
-    abi: ieasABI,
-    functionName: 'getAttestation',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ieasABI}__ and `functionName` set to `"getRevokeOffchain"`.
- */
-export function useIeasGetRevokeOffchain(config = {}) {
-  return useContractRead({
-    abi: ieasABI,
-    functionName: 'getRevokeOffchain',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ieasABI}__ and `functionName` set to `"getSchemaRegistry"`.
- */
-export function useIeasGetSchemaRegistry(config = {}) {
-  return useContractRead({
-    abi: ieasABI,
-    functionName: 'getSchemaRegistry',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ieasABI}__ and `functionName` set to `"getTimestamp"`.
- */
-export function useIeasGetTimestamp(config = {}) {
-  return useContractRead({
-    abi: ieasABI,
-    functionName: 'getTimestamp',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ieasABI}__ and `functionName` set to `"isAttestationValid"`.
- */
-export function useIeasIsAttestationValid(config = {}) {
-  return useContractRead({
-    abi: ieasABI,
-    functionName: 'isAttestationValid',
     ...config,
   })
 }
@@ -8311,13 +7638,6 @@ export function usePrepareIeasTimestamp(config = {}) {
 }
 
 /**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link ieasABI}__.
- */
-export function useIeasEvent(config = {}) {
-  return useContractEvent({ abi: ieasABI, ...config })
-}
-
-/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link ieasABI}__ and `eventName` set to `"Attested"`.
  */
 export function useIeasAttestedEvent(config = {}) {
@@ -8347,100 +7667,6 @@ export function useIeasRevokedOffchainEvent(config = {}) {
  */
 export function useIeasTimestampedEvent(config = {}) {
   return useContractEvent({ abi: ieasABI, eventName: 'Timestamped', ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ierc1271ABI}__.
- */
-export function useIerc1271Read(config = {}) {
-  return useContractRead({ abi: ierc1271ABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ierc1271ABI}__ and `functionName` set to `"isValidSignature"`.
- */
-export function useIerc1271IsValidSignature(config = {}) {
-  return useContractRead({
-    abi: ierc1271ABI,
-    functionName: 'isValidSignature',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ierc165ABI}__.
- */
-export function useIerc165Read(config = {}) {
-  return useContractRead({ abi: ierc165ABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ierc165ABI}__ and `functionName` set to `"supportsInterface"`.
- */
-export function useIerc165SupportsInterface(config = {}) {
-  return useContractRead({
-    abi: ierc165ABI,
-    functionName: 'supportsInterface',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ierc1822ProxiableUpgradeableABI}__.
- */
-export function useIerc1822ProxiableUpgradeableRead(config = {}) {
-  return useContractRead({ abi: ierc1822ProxiableUpgradeableABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ierc1822ProxiableUpgradeableABI}__ and `functionName` set to `"proxiableUUID"`.
- */
-export function useIerc1822ProxiableUpgradeableProxiableUuid(config = {}) {
-  return useContractRead({
-    abi: ierc1822ProxiableUpgradeableABI,
-    functionName: 'proxiableUUID',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ierc20ABI}__.
- */
-export function useIerc20Read(config = {}) {
-  return useContractRead({ abi: ierc20ABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ierc20ABI}__ and `functionName` set to `"allowance"`.
- */
-export function useIerc20Allowance(config = {}) {
-  return useContractRead({
-    abi: ierc20ABI,
-    functionName: 'allowance',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ierc20ABI}__ and `functionName` set to `"balanceOf"`.
- */
-export function useIerc20BalanceOf(config = {}) {
-  return useContractRead({
-    abi: ierc20ABI,
-    functionName: 'balanceOf',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ierc20ABI}__ and `functionName` set to `"totalSupply"`.
- */
-export function useIerc20TotalSupply(config = {}) {
-  return useContractRead({
-    abi: ierc20ABI,
-    functionName: 'totalSupply',
-    ...config,
-  })
 }
 
 /**
@@ -8524,13 +7750,6 @@ export function usePrepareIerc20TransferFrom(config = {}) {
 }
 
 /**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link ierc20ABI}__.
- */
-export function useIerc20Event(config = {}) {
-  return useContractEvent({ abi: ierc20ABI, ...config })
-}
-
-/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link ierc20ABI}__ and `eventName` set to `"Approval"`.
  */
 export function useIerc20ApprovalEvent(config = {}) {
@@ -8542,64 +7761,6 @@ export function useIerc20ApprovalEvent(config = {}) {
  */
 export function useIerc20TransferEvent(config = {}) {
   return useContractEvent({ abi: ierc20ABI, eventName: 'Transfer', ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ierc2771RecipientABI}__.
- */
-export function useIerc2771RecipientRead(config = {}) {
-  return useContractRead({ abi: ierc2771RecipientABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ierc2771RecipientABI}__ and `functionName` set to `"isTrustedForwarder"`.
- */
-export function useIerc2771RecipientIsTrustedForwarder(config = {}) {
-  return useContractRead({
-    abi: ierc2771RecipientABI,
-    functionName: 'isTrustedForwarder',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ierc6551AccountABI}__.
- */
-export function useIerc6551AccountRead(config = {}) {
-  return useContractRead({ abi: ierc6551AccountABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ierc6551AccountABI}__ and `functionName` set to `"isValidSigner"`.
- */
-export function useIerc6551AccountIsValidSigner(config = {}) {
-  return useContractRead({
-    abi: ierc6551AccountABI,
-    functionName: 'isValidSigner',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ierc6551AccountABI}__ and `functionName` set to `"state"`.
- */
-export function useIerc6551AccountState(config = {}) {
-  return useContractRead({
-    abi: ierc6551AccountABI,
-    functionName: 'state',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ierc6551AccountABI}__ and `functionName` set to `"token"`.
- */
-export function useIerc6551AccountToken(config = {}) {
-  return useContractRead({
-    abi: ierc6551AccountABI,
-    functionName: 'token',
-    ...config,
-  })
 }
 
 /**
@@ -8634,24 +7795,6 @@ export function usePrepareIerc6551ExecutableExecute(config = {}) {
   return usePrepareContractWrite({
     abi: ierc6551ExecutableABI,
     functionName: 'execute',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ierc6551RegistryABI}__.
- */
-export function useIerc6551RegistryRead(config = {}) {
-  return useContractRead({ abi: ierc6551RegistryABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ierc6551RegistryABI}__ and `functionName` set to `"account"`.
- */
-export function useIerc6551RegistryAccount(config = {}) {
-  return useContractRead({
-    abi: ierc6551RegistryABI,
-    functionName: 'account',
     ...config,
   })
 }
@@ -8693,81 +7836,12 @@ export function usePrepareIerc6551RegistryCreateAccount(config = {}) {
 }
 
 /**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link ierc6551RegistryABI}__.
- */
-export function useIerc6551RegistryEvent(config = {}) {
-  return useContractEvent({ abi: ierc6551RegistryABI, ...config })
-}
-
-/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link ierc6551RegistryABI}__ and `eventName` set to `"AccountCreated"`.
  */
 export function useIerc6551RegistryAccountCreatedEvent(config = {}) {
   return useContractEvent({
     abi: ierc6551RegistryABI,
     eventName: 'AccountCreated',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ierc721ABI}__.
- */
-export function useIerc721Read(config = {}) {
-  return useContractRead({ abi: ierc721ABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ierc721ABI}__ and `functionName` set to `"balanceOf"`.
- */
-export function useIerc721BalanceOf(config = {}) {
-  return useContractRead({
-    abi: ierc721ABI,
-    functionName: 'balanceOf',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ierc721ABI}__ and `functionName` set to `"getApproved"`.
- */
-export function useIerc721GetApproved(config = {}) {
-  return useContractRead({
-    abi: ierc721ABI,
-    functionName: 'getApproved',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ierc721ABI}__ and `functionName` set to `"isApprovedForAll"`.
- */
-export function useIerc721IsApprovedForAll(config = {}) {
-  return useContractRead({
-    abi: ierc721ABI,
-    functionName: 'isApprovedForAll',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ierc721ABI}__ and `functionName` set to `"ownerOf"`.
- */
-export function useIerc721OwnerOf(config = {}) {
-  return useContractRead({
-    abi: ierc721ABI,
-    functionName: 'ownerOf',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ierc721ABI}__ and `functionName` set to `"supportsInterface"`.
- */
-export function useIerc721SupportsInterface(config = {}) {
-  return useContractRead({
-    abi: ierc721ABI,
-    functionName: 'supportsInterface',
     ...config,
   })
 }
@@ -8875,13 +7949,6 @@ export function usePrepareIerc721TransferFrom(config = {}) {
 }
 
 /**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link ierc721ABI}__.
- */
-export function useIerc721Event(config = {}) {
-  return useContractEvent({ abi: ierc721ABI, ...config })
-}
-
-/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link ierc721ABI}__ and `eventName` set to `"Approval"`.
  */
 export function useIerc721ApprovalEvent(config = {}) {
@@ -8904,101 +7971,6 @@ export function useIerc721ApprovalForAllEvent(config = {}) {
  */
 export function useIerc721TransferEvent(config = {}) {
   return useContractEvent({ abi: ierc721ABI, eventName: 'Transfer', ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ierc721MetadataABI}__.
- */
-export function useIerc721MetadataRead(config = {}) {
-  return useContractRead({ abi: ierc721MetadataABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ierc721MetadataABI}__ and `functionName` set to `"balanceOf"`.
- */
-export function useIerc721MetadataBalanceOf(config = {}) {
-  return useContractRead({
-    abi: ierc721MetadataABI,
-    functionName: 'balanceOf',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ierc721MetadataABI}__ and `functionName` set to `"getApproved"`.
- */
-export function useIerc721MetadataGetApproved(config = {}) {
-  return useContractRead({
-    abi: ierc721MetadataABI,
-    functionName: 'getApproved',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ierc721MetadataABI}__ and `functionName` set to `"isApprovedForAll"`.
- */
-export function useIerc721MetadataIsApprovedForAll(config = {}) {
-  return useContractRead({
-    abi: ierc721MetadataABI,
-    functionName: 'isApprovedForAll',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ierc721MetadataABI}__ and `functionName` set to `"name"`.
- */
-export function useIerc721MetadataName(config = {}) {
-  return useContractRead({
-    abi: ierc721MetadataABI,
-    functionName: 'name',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ierc721MetadataABI}__ and `functionName` set to `"ownerOf"`.
- */
-export function useIerc721MetadataOwnerOf(config = {}) {
-  return useContractRead({
-    abi: ierc721MetadataABI,
-    functionName: 'ownerOf',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ierc721MetadataABI}__ and `functionName` set to `"supportsInterface"`.
- */
-export function useIerc721MetadataSupportsInterface(config = {}) {
-  return useContractRead({
-    abi: ierc721MetadataABI,
-    functionName: 'supportsInterface',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ierc721MetadataABI}__ and `functionName` set to `"symbol"`.
- */
-export function useIerc721MetadataSymbol(config = {}) {
-  return useContractRead({
-    abi: ierc721MetadataABI,
-    functionName: 'symbol',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ierc721MetadataABI}__ and `functionName` set to `"tokenURI"`.
- */
-export function useIerc721MetadataTokenUri(config = {}) {
-  return useContractRead({
-    abi: ierc721MetadataABI,
-    functionName: 'tokenURI',
-    ...config,
-  })
 }
 
 /**
@@ -9104,13 +8076,6 @@ export function usePrepareIerc721MetadataTransferFrom(config = {}) {
 }
 
 /**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link ierc721MetadataABI}__.
- */
-export function useIerc721MetadataEvent(config = {}) {
-  return useContractEvent({ abi: ierc721MetadataABI, ...config })
-}
-
-/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link ierc721MetadataABI}__ and `eventName` set to `"Approval"`.
  */
 export function useIerc721MetadataApprovalEvent(config = {}) {
@@ -9175,46 +8140,6 @@ export function usePrepareIerc721ReceiverOnErc721Received(config = {}) {
   return usePrepareContractWrite({
     abi: ierc721ReceiverABI,
     functionName: 'onERC721Received',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iForwarderABI}__.
- */
-export function useIForwarderRead(config = {}) {
-  return useContractRead({ abi: iForwarderABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iForwarderABI}__ and `functionName` set to `"getNonce"`.
- */
-export function useIForwarderGetNonce(config = {}) {
-  return useContractRead({
-    abi: iForwarderABI,
-    functionName: 'getNonce',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iForwarderABI}__ and `functionName` set to `"supportsInterface"`.
- */
-export function useIForwarderSupportsInterface(config = {}) {
-  return useContractRead({
-    abi: iForwarderABI,
-    functionName: 'supportsInterface',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iForwarderABI}__ and `functionName` set to `"verify"`.
- */
-export function useIForwarderVerify(config = {}) {
-  return useContractRead({
-    abi: iForwarderABI,
-    functionName: 'verify',
     ...config,
   })
 }
@@ -9300,13 +8225,6 @@ export function usePrepareIForwarderRegisterRequestType(config = {}) {
 }
 
 /**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link iForwarderABI}__.
- */
-export function useIForwarderEvent(config = {}) {
-  return useContractEvent({ abi: iForwarderABI, ...config })
-}
-
-/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link iForwarderABI}__ and `eventName` set to `"DomainRegistered"`.
  */
 export function useIForwarderDomainRegisteredEvent(config = {}) {
@@ -9324,68 +8242,6 @@ export function useIForwarderRequestTypeRegisteredEvent(config = {}) {
   return useContractEvent({
     abi: iForwarderABI,
     eventName: 'RequestTypeRegistered',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iPaymasterABI}__.
- */
-export function useIPaymasterRead(config = {}) {
-  return useContractRead({ abi: iPaymasterABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iPaymasterABI}__ and `functionName` set to `"getGasAndDataLimits"`.
- */
-export function useIPaymasterGetGasAndDataLimits(config = {}) {
-  return useContractRead({
-    abi: iPaymasterABI,
-    functionName: 'getGasAndDataLimits',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iPaymasterABI}__ and `functionName` set to `"getRelayHub"`.
- */
-export function useIPaymasterGetRelayHub(config = {}) {
-  return useContractRead({
-    abi: iPaymasterABI,
-    functionName: 'getRelayHub',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iPaymasterABI}__ and `functionName` set to `"getTrustedForwarder"`.
- */
-export function useIPaymasterGetTrustedForwarder(config = {}) {
-  return useContractRead({
-    abi: iPaymasterABI,
-    functionName: 'getTrustedForwarder',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iPaymasterABI}__ and `functionName` set to `"supportsInterface"`.
- */
-export function useIPaymasterSupportsInterface(config = {}) {
-  return useContractRead({
-    abi: iPaymasterABI,
-    functionName: 'supportsInterface',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iPaymasterABI}__ and `functionName` set to `"versionPaymaster"`.
- */
-export function useIPaymasterVersionPaymaster(config = {}) {
-  return useContractRead({
-    abi: iPaymasterABI,
-    functionName: 'versionPaymaster',
     ...config,
   })
 }
@@ -9444,222 +8300,6 @@ export function usePrepareIPaymasterPreRelayedCall(config = {}) {
   return usePrepareContractWrite({
     abi: iPaymasterABI,
     functionName: 'preRelayedCall',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iRelayHubABI}__.
- */
-export function useIRelayHubRead(config = {}) {
-  return useContractRead({ abi: iRelayHubABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iRelayHubABI}__ and `functionName` set to `"aggregateGasleft"`.
- */
-export function useIRelayHubAggregateGasleft(config = {}) {
-  return useContractRead({
-    abi: iRelayHubABI,
-    functionName: 'aggregateGasleft',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iRelayHubABI}__ and `functionName` set to `"balanceOf"`.
- */
-export function useIRelayHubBalanceOf(config = {}) {
-  return useContractRead({
-    abi: iRelayHubABI,
-    functionName: 'balanceOf',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iRelayHubABI}__ and `functionName` set to `"calculateCharge"`.
- */
-export function useIRelayHubCalculateCharge(config = {}) {
-  return useContractRead({
-    abi: iRelayHubABI,
-    functionName: 'calculateCharge',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iRelayHubABI}__ and `functionName` set to `"calculateDevCharge"`.
- */
-export function useIRelayHubCalculateDevCharge(config = {}) {
-  return useContractRead({
-    abi: iRelayHubABI,
-    functionName: 'calculateDevCharge',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iRelayHubABI}__ and `functionName` set to `"getBatchGateway"`.
- */
-export function useIRelayHubGetBatchGateway(config = {}) {
-  return useContractRead({
-    abi: iRelayHubABI,
-    functionName: 'getBatchGateway',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iRelayHubABI}__ and `functionName` set to `"getConfiguration"`.
- */
-export function useIRelayHubGetConfiguration(config = {}) {
-  return useContractRead({
-    abi: iRelayHubABI,
-    functionName: 'getConfiguration',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iRelayHubABI}__ and `functionName` set to `"getCreationBlock"`.
- */
-export function useIRelayHubGetCreationBlock(config = {}) {
-  return useContractRead({
-    abi: iRelayHubABI,
-    functionName: 'getCreationBlock',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iRelayHubABI}__ and `functionName` set to `"getDeprecationTime"`.
- */
-export function useIRelayHubGetDeprecationTime(config = {}) {
-  return useContractRead({
-    abi: iRelayHubABI,
-    functionName: 'getDeprecationTime',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iRelayHubABI}__ and `functionName` set to `"getMinimumStakePerToken"`.
- */
-export function useIRelayHubGetMinimumStakePerToken(config = {}) {
-  return useContractRead({
-    abi: iRelayHubABI,
-    functionName: 'getMinimumStakePerToken',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iRelayHubABI}__ and `functionName` set to `"getPenalizer"`.
- */
-export function useIRelayHubGetPenalizer(config = {}) {
-  return useContractRead({
-    abi: iRelayHubABI,
-    functionName: 'getPenalizer',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iRelayHubABI}__ and `functionName` set to `"getRelayRegistrar"`.
- */
-export function useIRelayHubGetRelayRegistrar(config = {}) {
-  return useContractRead({
-    abi: iRelayHubABI,
-    functionName: 'getRelayRegistrar',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iRelayHubABI}__ and `functionName` set to `"getStakeManager"`.
- */
-export function useIRelayHubGetStakeManager(config = {}) {
-  return useContractRead({
-    abi: iRelayHubABI,
-    functionName: 'getStakeManager',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iRelayHubABI}__ and `functionName` set to `"getWorkerCount"`.
- */
-export function useIRelayHubGetWorkerCount(config = {}) {
-  return useContractRead({
-    abi: iRelayHubABI,
-    functionName: 'getWorkerCount',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iRelayHubABI}__ and `functionName` set to `"getWorkerManager"`.
- */
-export function useIRelayHubGetWorkerManager(config = {}) {
-  return useContractRead({
-    abi: iRelayHubABI,
-    functionName: 'getWorkerManager',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iRelayHubABI}__ and `functionName` set to `"isDeprecated"`.
- */
-export function useIRelayHubIsDeprecated(config = {}) {
-  return useContractRead({
-    abi: iRelayHubABI,
-    functionName: 'isDeprecated',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iRelayHubABI}__ and `functionName` set to `"isRelayEscheatable"`.
- */
-export function useIRelayHubIsRelayEscheatable(config = {}) {
-  return useContractRead({
-    abi: iRelayHubABI,
-    functionName: 'isRelayEscheatable',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iRelayHubABI}__ and `functionName` set to `"supportsInterface"`.
- */
-export function useIRelayHubSupportsInterface(config = {}) {
-  return useContractRead({
-    abi: iRelayHubABI,
-    functionName: 'supportsInterface',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iRelayHubABI}__ and `functionName` set to `"verifyRelayManagerStaked"`.
- */
-export function useIRelayHubVerifyRelayManagerStaked(config = {}) {
-  return useContractRead({
-    abi: iRelayHubABI,
-    functionName: 'verifyRelayManagerStaked',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iRelayHubABI}__ and `functionName` set to `"versionHub"`.
- */
-export function useIRelayHubVersionHub(config = {}) {
-  return useContractRead({
-    abi: iRelayHubABI,
-    functionName: 'versionHub',
     ...config,
   })
 }
@@ -9921,13 +8561,6 @@ export function usePrepareIRelayHubWithdrawMultiple(config = {}) {
 }
 
 /**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link iRelayHubABI}__.
- */
-export function useIRelayHubEvent(config = {}) {
-  return useContractEvent({ abi: iRelayHubABI, ...config })
-}
-
-/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link iRelayHubABI}__ and `eventName` set to `"AbandonedRelayManagerBalanceEscheated"`.
  */
 export function useIRelayHubAbandonedRelayManagerBalanceEscheatedEvent(
@@ -10040,24 +8673,6 @@ export function useIRelayHubWithdrawnEvent(config = {}) {
 }
 
 /**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iSchemaRegistryABI}__.
- */
-export function useISchemaRegistryRead(config = {}) {
-  return useContractRead({ abi: iSchemaRegistryABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iSchemaRegistryABI}__ and `functionName` set to `"getSchema"`.
- */
-export function useISchemaRegistryGetSchema(config = {}) {
-  return useContractRead({
-    abi: iSchemaRegistryABI,
-    functionName: 'getSchema',
-    ...config,
-  })
-}
-
-/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link iSchemaRegistryABI}__.
  */
 export function useISchemaRegistryWrite(config = {}) {
@@ -10094,37 +8709,12 @@ export function usePrepareISchemaRegistryRegister(config = {}) {
 }
 
 /**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link iSchemaRegistryABI}__.
- */
-export function useISchemaRegistryEvent(config = {}) {
-  return useContractEvent({ abi: iSchemaRegistryABI, ...config })
-}
-
-/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link iSchemaRegistryABI}__ and `eventName` set to `"Registered"`.
  */
 export function useISchemaRegistryRegisteredEvent(config = {}) {
   return useContractEvent({
     abi: iSchemaRegistryABI,
     eventName: 'Registered',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iSchemaResolverABI}__.
- */
-export function useISchemaResolverRead(config = {}) {
-  return useContractRead({ abi: iSchemaResolverABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iSchemaResolverABI}__ and `functionName` set to `"isPayable"`.
- */
-export function useISchemaResolverIsPayable(config = {}) {
-  return useContractRead({
-    abi: iSchemaResolverABI,
-    functionName: 'isPayable',
     ...config,
   })
 }
@@ -10227,101 +8817,6 @@ export function usePrepareISchemaResolverRevoke(config = {}) {
   return usePrepareContractWrite({
     abi: iSchemaResolverABI,
     functionName: 'revoke',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iStakeManagerABI}__.
- */
-export function useIStakeManagerRead(config = {}) {
-  return useContractRead({ abi: iStakeManagerABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iStakeManagerABI}__ and `functionName` set to `"getAbandonedRelayServerConfig"`.
- */
-export function useIStakeManagerGetAbandonedRelayServerConfig(config = {}) {
-  return useContractRead({
-    abi: iStakeManagerABI,
-    functionName: 'getAbandonedRelayServerConfig',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iStakeManagerABI}__ and `functionName` set to `"getBurnAddress"`.
- */
-export function useIStakeManagerGetBurnAddress(config = {}) {
-  return useContractRead({
-    abi: iStakeManagerABI,
-    functionName: 'getBurnAddress',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iStakeManagerABI}__ and `functionName` set to `"getCreationBlock"`.
- */
-export function useIStakeManagerGetCreationBlock(config = {}) {
-  return useContractRead({
-    abi: iStakeManagerABI,
-    functionName: 'getCreationBlock',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iStakeManagerABI}__ and `functionName` set to `"getMaxUnstakeDelay"`.
- */
-export function useIStakeManagerGetMaxUnstakeDelay(config = {}) {
-  return useContractRead({
-    abi: iStakeManagerABI,
-    functionName: 'getMaxUnstakeDelay',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iStakeManagerABI}__ and `functionName` set to `"getStakeInfo"`.
- */
-export function useIStakeManagerGetStakeInfo(config = {}) {
-  return useContractRead({
-    abi: iStakeManagerABI,
-    functionName: 'getStakeInfo',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iStakeManagerABI}__ and `functionName` set to `"isRelayEscheatable"`.
- */
-export function useIStakeManagerIsRelayEscheatable(config = {}) {
-  return useContractRead({
-    abi: iStakeManagerABI,
-    functionName: 'isRelayEscheatable',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iStakeManagerABI}__ and `functionName` set to `"supportsInterface"`.
- */
-export function useIStakeManagerSupportsInterface(config = {}) {
-  return useContractRead({
-    abi: iStakeManagerABI,
-    functionName: 'supportsInterface',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link iStakeManagerABI}__ and `functionName` set to `"versionSM"`.
- */
-export function useIStakeManagerVersionSm(config = {}) {
-  return useContractRead({
-    abi: iStakeManagerABI,
-    functionName: 'versionSM',
     ...config,
   })
 }
@@ -10649,13 +9144,6 @@ export function usePrepareIStakeManagerWithdrawStake(config = {}) {
 }
 
 /**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link iStakeManagerABI}__.
- */
-export function useIStakeManagerEvent(config = {}) {
-  return useContractEvent({ abi: iStakeManagerABI, ...config })
-}
-
-/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link iStakeManagerABI}__ and `eventName` set to `"AbandonedRelayManagerStakeEscheated"`.
  */
 export function useIStakeManagerAbandonedRelayManagerStakeEscheatedEvent(
@@ -10790,180 +9278,12 @@ export function useIStakeManagerStakeWithdrawnEvent(config = {}) {
 }
 
 /**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link initializableABI}__.
- */
-export function useInitializableEvent(config = {}) {
-  return useContractEvent({ abi: initializableABI, ...config })
-}
-
-/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link initializableABI}__ and `eventName` set to `"Initialized"`.
  */
 export function useInitializableInitializedEvent(config = {}) {
   return useContractEvent({
     abi: initializableABI,
     eventName: 'Initialized',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link mockTicketABI}__.
- */
-export function useMockTicketRead(config = {}) {
-  return useContractRead({ abi: mockTicketABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"DEFAULT_ADMIN_ROLE"`.
- */
-export function useMockTicketDefaultAdminRole(config = {}) {
-  return useContractRead({
-    abi: mockTicketABI,
-    functionName: 'DEFAULT_ADMIN_ROLE',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"balanceOf"`.
- */
-export function useMockTicketBalanceOf(config = {}) {
-  return useContractRead({
-    abi: mockTicketABI,
-    functionName: 'balanceOf',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"getApproved"`.
- */
-export function useMockTicketGetApproved(config = {}) {
-  return useContractRead({
-    abi: mockTicketABI,
-    functionName: 'getApproved',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"getRoleAdmin"`.
- */
-export function useMockTicketGetRoleAdmin(config = {}) {
-  return useContractRead({
-    abi: mockTicketABI,
-    functionName: 'getRoleAdmin',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"getTrustedForwarder"`.
- */
-export function useMockTicketGetTrustedForwarder(config = {}) {
-  return useContractRead({
-    abi: mockTicketABI,
-    functionName: 'getTrustedForwarder',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"hasRole"`.
- */
-export function useMockTicketHasRole(config = {}) {
-  return useContractRead({
-    abi: mockTicketABI,
-    functionName: 'hasRole',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"isApprovedForAll"`.
- */
-export function useMockTicketIsApprovedForAll(config = {}) {
-  return useContractRead({
-    abi: mockTicketABI,
-    functionName: 'isApprovedForAll',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"isTrustedForwarder"`.
- */
-export function useMockTicketIsTrustedForwarder(config = {}) {
-  return useContractRead({
-    abi: mockTicketABI,
-    functionName: 'isTrustedForwarder',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"name"`.
- */
-export function useMockTicketName(config = {}) {
-  return useContractRead({
-    abi: mockTicketABI,
-    functionName: 'name',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"ownerOf"`.
- */
-export function useMockTicketOwnerOf(config = {}) {
-  return useContractRead({
-    abi: mockTicketABI,
-    functionName: 'ownerOf',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"paused"`.
- */
-export function useMockTicketPaused(config = {}) {
-  return useContractRead({
-    abi: mockTicketABI,
-    functionName: 'paused',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"supportsInterface"`.
- */
-export function useMockTicketSupportsInterface(config = {}) {
-  return useContractRead({
-    abi: mockTicketABI,
-    functionName: 'supportsInterface',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"symbol"`.
- */
-export function useMockTicketSymbol(config = {}) {
-  return useContractRead({
-    abi: mockTicketABI,
-    functionName: 'symbol',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link mockTicketABI}__ and `functionName` set to `"tokenURI"`.
- */
-export function useMockTicketTokenUri(config = {}) {
-  return useContractRead({
-    abi: mockTicketABI,
-    functionName: 'tokenURI',
     ...config,
   })
 }
@@ -11247,13 +9567,6 @@ export function usePrepareMockTicketUnpause(config = {}) {
 }
 
 /**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link mockTicketABI}__.
- */
-export function useMockTicketEvent(config = {}) {
-  return useContractEvent({ abi: mockTicketABI, ...config })
-}
-
-/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link mockTicketABI}__ and `eventName` set to `"Approval"`.
  */
 export function useMockTicketApprovalEvent(config = {}) {
@@ -11342,20 +9655,6 @@ export function useMockTicketUnpausedEvent(config = {}) {
 }
 
 /**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ownableABI}__.
- */
-export function useOwnableRead(config = {}) {
-  return useContractRead({ abi: ownableABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ownableABI}__ and `functionName` set to `"owner"`.
- */
-export function useOwnableOwner(config = {}) {
-  return useContractRead({ abi: ownableABI, functionName: 'owner', ...config })
-}
-
-/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link ownableABI}__.
  */
 export function useOwnableWrite(config = {}) {
@@ -11414,37 +9713,12 @@ export function usePrepareOwnableTransferOwnership(config = {}) {
 }
 
 /**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link ownableABI}__.
- */
-export function useOwnableEvent(config = {}) {
-  return useContractEvent({ abi: ownableABI, ...config })
-}
-
-/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link ownableABI}__ and `eventName` set to `"OwnershipTransferred"`.
  */
 export function useOwnableOwnershipTransferredEvent(config = {}) {
   return useContractEvent({
     abi: ownableABI,
     eventName: 'OwnershipTransferred',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ownableUpgradeableABI}__.
- */
-export function useOwnableUpgradeableRead(config = {}) {
-  return useContractRead({ abi: ownableUpgradeableABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link ownableUpgradeableABI}__ and `functionName` set to `"owner"`.
- */
-export function useOwnableUpgradeableOwner(config = {}) {
-  return useContractRead({
-    abi: ownableUpgradeableABI,
-    functionName: 'owner',
     ...config,
   })
 }
@@ -11508,13 +9782,6 @@ export function usePrepareOwnableUpgradeableTransferOwnership(config = {}) {
 }
 
 /**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link ownableUpgradeableABI}__.
- */
-export function useOwnableUpgradeableEvent(config = {}) {
-  return useContractEvent({ abi: ownableUpgradeableABI, ...config })
-}
-
-/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link ownableUpgradeableABI}__ and `eventName` set to `"Initialized"`.
  */
 export function useOwnableUpgradeableInitializedEvent(config = {}) {
@@ -11537,31 +9804,6 @@ export function useOwnableUpgradeableOwnershipTransferredEvent(config = {}) {
 }
 
 /**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link pausableABI}__.
- */
-export function usePausableRead(config = {}) {
-  return useContractRead({ abi: pausableABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link pausableABI}__ and `functionName` set to `"paused"`.
- */
-export function usePausablePaused(config = {}) {
-  return useContractRead({
-    abi: pausableABI,
-    functionName: 'paused',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link pausableABI}__.
- */
-export function usePausableEvent(config = {}) {
-  return useContractEvent({ abi: pausableABI, ...config })
-}
-
-/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link pausableABI}__ and `eventName` set to `"Paused"`.
  */
 export function usePausablePausedEvent(config = {}) {
@@ -11577,31 +9819,6 @@ export function usePausableUnpausedEvent(config = {}) {
     eventName: 'Unpaused',
     ...config,
   })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link pausableUpgradeableABI}__.
- */
-export function usePausableUpgradeableRead(config = {}) {
-  return useContractRead({ abi: pausableUpgradeableABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link pausableUpgradeableABI}__ and `functionName` set to `"paused"`.
- */
-export function usePausableUpgradeablePaused(config = {}) {
-  return useContractRead({
-    abi: pausableUpgradeableABI,
-    functionName: 'paused',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link pausableUpgradeableABI}__.
- */
-export function usePausableUpgradeableEvent(config = {}) {
-  return useContractEvent({ abi: pausableUpgradeableABI, ...config })
 }
 
 /**
@@ -11633,35 +9850,6 @@ export function usePausableUpgradeableUnpausedEvent(config = {}) {
   return useContractEvent({
     abi: pausableUpgradeableABI,
     eventName: 'Unpaused',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link schemaResolverABI}__.
- */
-export function useSchemaResolverRead(config = {}) {
-  return useContractRead({ abi: schemaResolverABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link schemaResolverABI}__ and `functionName` set to `"isPayable"`.
- */
-export function useSchemaResolverIsPayable(config = {}) {
-  return useContractRead({
-    abi: schemaResolverABI,
-    functionName: 'isPayable',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link schemaResolverABI}__ and `functionName` set to `"version"`.
- */
-export function useSchemaResolverVersion(config = {}) {
-  return useContractRead({
-    abi: schemaResolverABI,
-    functionName: 'version',
     ...config,
   })
 }
@@ -11764,168 +9952,6 @@ export function usePrepareSchemaResolverRevoke(config = {}) {
   return usePrepareContractWrite({
     abi: schemaResolverABI,
     functionName: 'revoke',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link semverABI}__.
- */
-export function useSemverRead(config = {}) {
-  return useContractRead({ abi: semverABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link semverABI}__ and `functionName` set to `"version"`.
- */
-export function useSemverVersion(config = {}) {
-  return useContractRead({ abi: semverABI, functionName: 'version', ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link synthABI}__.
- */
-export function useSynthRead(config = {}) {
-  return useContractRead({ abi: synthABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link synthABI}__ and `functionName` set to `"DEFAULT_ADMIN_ROLE"`.
- */
-export function useSynthDefaultAdminRole(config = {}) {
-  return useContractRead({
-    abi: synthABI,
-    functionName: 'DEFAULT_ADMIN_ROLE',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link synthABI}__ and `functionName` set to `"balanceOf"`.
- */
-export function useSynthBalanceOf(config = {}) {
-  return useContractRead({
-    abi: synthABI,
-    functionName: 'balanceOf',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link synthABI}__ and `functionName` set to `"getApproved"`.
- */
-export function useSynthGetApproved(config = {}) {
-  return useContractRead({
-    abi: synthABI,
-    functionName: 'getApproved',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link synthABI}__ and `functionName` set to `"getRoleAdmin"`.
- */
-export function useSynthGetRoleAdmin(config = {}) {
-  return useContractRead({
-    abi: synthABI,
-    functionName: 'getRoleAdmin',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link synthABI}__ and `functionName` set to `"getTrustedForwarder"`.
- */
-export function useSynthGetTrustedForwarder(config = {}) {
-  return useContractRead({
-    abi: synthABI,
-    functionName: 'getTrustedForwarder',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link synthABI}__ and `functionName` set to `"hasRole"`.
- */
-export function useSynthHasRole(config = {}) {
-  return useContractRead({ abi: synthABI, functionName: 'hasRole', ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link synthABI}__ and `functionName` set to `"isApprovedForAll"`.
- */
-export function useSynthIsApprovedForAll(config = {}) {
-  return useContractRead({
-    abi: synthABI,
-    functionName: 'isApprovedForAll',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link synthABI}__ and `functionName` set to `"isTrustedForwarder"`.
- */
-export function useSynthIsTrustedForwarder(config = {}) {
-  return useContractRead({
-    abi: synthABI,
-    functionName: 'isTrustedForwarder',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link synthABI}__ and `functionName` set to `"name"`.
- */
-export function useSynthName(config = {}) {
-  return useContractRead({ abi: synthABI, functionName: 'name', ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link synthABI}__ and `functionName` set to `"ownerOf"`.
- */
-export function useSynthOwnerOf(config = {}) {
-  return useContractRead({ abi: synthABI, functionName: 'ownerOf', ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link synthABI}__ and `functionName` set to `"paused"`.
- */
-export function useSynthPaused(config = {}) {
-  return useContractRead({ abi: synthABI, functionName: 'paused', ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link synthABI}__ and `functionName` set to `"supportsInterface"`.
- */
-export function useSynthSupportsInterface(config = {}) {
-  return useContractRead({
-    abi: synthABI,
-    functionName: 'supportsInterface',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link synthABI}__ and `functionName` set to `"symbol"`.
- */
-export function useSynthSymbol(config = {}) {
-  return useContractRead({ abi: synthABI, functionName: 'symbol', ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link synthABI}__ and `functionName` set to `"tokenURI"`.
- */
-export function useSynthTokenUri(config = {}) {
-  return useContractRead({ abi: synthABI, functionName: 'tokenURI', ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link synthABI}__ and `functionName` set to `"waveExists"`.
- */
-export function useSynthWaveExists(config = {}) {
-  return useContractRead({
-    abi: synthABI,
-    functionName: 'waveExists',
     ...config,
   })
 }
@@ -12054,12 +10080,12 @@ export function useSynthSetApprovalForAll(config = {}) {
 }
 
 /**
- * Wraps __{@link useContractWrite}__ with `abi` set to __{@link synthABI}__ and `functionName` set to `"setNftOwnershipToMint"`.
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link synthABI}__ and `functionName` set to `"setNFTOwnershipToMint"`.
  */
 export function useSynthSetNftOwnershipToMint(config = {}) {
   return useContractWrite({
     abi: synthABI,
-    functionName: 'setNftOwnershipToMint',
+    functionName: 'setNFTOwnershipToMint',
     ...config,
   })
 }
@@ -12222,12 +10248,12 @@ export function usePrepareSynthSetApprovalForAll(config = {}) {
 }
 
 /**
- * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link synthABI}__ and `functionName` set to `"setNftOwnershipToMint"`.
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link synthABI}__ and `functionName` set to `"setNFTOwnershipToMint"`.
  */
 export function usePrepareSynthSetNftOwnershipToMint(config = {}) {
   return usePrepareContractWrite({
     abi: synthABI,
-    functionName: 'setNftOwnershipToMint',
+    functionName: 'setNFTOwnershipToMint',
     ...config,
   })
 }
@@ -12252,13 +10278,6 @@ export function usePrepareSynthUnpause(config = {}) {
     functionName: 'unpause',
     ...config,
   })
-}
-
-/**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link synthABI}__.
- */
-export function useSynthEvent(config = {}) {
-  return useContractEvent({ abi: synthABI, ...config })
 }
 
 /**
@@ -12396,79 +10415,6 @@ export function useSynthWaveRemovedEvent(config = {}) {
 }
 
 /**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link synthAccountABI}__.
- */
-export function useSynthAccountRead(config = {}) {
-  return useContractRead({ abi: synthAccountABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link synthAccountABI}__ and `functionName` set to `"isValidSignature"`.
- */
-export function useSynthAccountIsValidSignature(config = {}) {
-  return useContractRead({
-    abi: synthAccountABI,
-    functionName: 'isValidSignature',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link synthAccountABI}__ and `functionName` set to `"isValidSigner"`.
- */
-export function useSynthAccountIsValidSigner(config = {}) {
-  return useContractRead({
-    abi: synthAccountABI,
-    functionName: 'isValidSigner',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link synthAccountABI}__ and `functionName` set to `"owner"`.
- */
-export function useSynthAccountOwner(config = {}) {
-  return useContractRead({
-    abi: synthAccountABI,
-    functionName: 'owner',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link synthAccountABI}__ and `functionName` set to `"state"`.
- */
-export function useSynthAccountState(config = {}) {
-  return useContractRead({
-    abi: synthAccountABI,
-    functionName: 'state',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link synthAccountABI}__ and `functionName` set to `"supportsInterface"`.
- */
-export function useSynthAccountSupportsInterface(config = {}) {
-  return useContractRead({
-    abi: synthAccountABI,
-    functionName: 'supportsInterface',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link synthAccountABI}__ and `functionName` set to `"token"`.
- */
-export function useSynthAccountToken(config = {}) {
-  return useContractRead({
-    abi: synthAccountABI,
-    functionName: 'token',
-    ...config,
-  })
-}
-
-/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link synthAccountABI}__.
  */
 export function useSynthAccountWrite(config = {}) {
@@ -12522,89 +10468,6 @@ export function usePrepareSynthAccountGenerateArt(config = {}) {
   return usePrepareContractWrite({
     abi: synthAccountABI,
     functionName: 'generateArt',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link synthRegistryABI}__.
- *
- *
- */
-export function useSynthRegistryRead(config = {}) {
-  return useContractRead({
-    abi: synthRegistryABI,
-    address: synthRegistryAddress[85431],
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link synthRegistryABI}__ and `functionName` set to `"owner"`.
- *
- *
- */
-export function useSynthRegistryOwner(config = {}) {
-  return useContractRead({
-    abi: synthRegistryABI,
-    address: synthRegistryAddress[85431],
-    functionName: 'owner',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link synthRegistryABI}__ and `functionName` set to `"paused"`.
- *
- *
- */
-export function useSynthRegistryPaused(config = {}) {
-  return useContractRead({
-    abi: synthRegistryABI,
-    address: synthRegistryAddress[85431],
-    functionName: 'paused',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link synthRegistryABI}__ and `functionName` set to `"proxiableUUID"`.
- *
- *
- */
-export function useSynthRegistryProxiableUuid(config = {}) {
-  return useContractRead({
-    abi: synthRegistryABI,
-    address: synthRegistryAddress[85431],
-    functionName: 'proxiableUUID',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link synthRegistryABI}__ and `functionName` set to `"synthAccountImplementation"`.
- *
- *
- */
-export function useSynthRegistrySynthAccountImplementation(config = {}) {
-  return useContractRead({
-    abi: synthRegistryABI,
-    address: synthRegistryAddress[85431],
-    functionName: 'synthAccountImplementation',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link synthRegistryABI}__ and `functionName` set to `"synthExists"`.
- *
- *
- */
-export function useSynthRegistrySynthExists(config = {}) {
-  return useContractRead({
-    abi: synthRegistryABI,
-    address: synthRegistryAddress[85431],
-    functionName: 'synthExists',
     ...config,
   })
 }
@@ -12860,19 +10723,6 @@ export function usePrepareSynthRegistryUpgradeToAndCall(config = {}) {
 }
 
 /**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link synthRegistryABI}__.
- *
- *
- */
-export function useSynthRegistryEvent(config = {}) {
-  return useContractEvent({
-    abi: synthRegistryABI,
-    address: synthRegistryAddress[85431],
-    ...config,
-  })
-}
-
-/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link synthRegistryABI}__ and `eventName` set to `"AdminChanged"`.
  *
  *
@@ -12985,24 +10835,6 @@ export function useSynthRegistryUpgradedEvent(config = {}) {
 }
 
 /**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link uupsUpgradeableABI}__.
- */
-export function useUupsUpgradeableRead(config = {}) {
-  return useContractRead({ abi: uupsUpgradeableABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link uupsUpgradeableABI}__ and `functionName` set to `"proxiableUUID"`.
- */
-export function useUupsUpgradeableProxiableUuid(config = {}) {
-  return useContractRead({
-    abi: uupsUpgradeableABI,
-    functionName: 'proxiableUUID',
-    ...config,
-  })
-}
-
-/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link uupsUpgradeableABI}__.
  */
 export function useUupsUpgradeableWrite(config = {}) {
@@ -13061,13 +10893,6 @@ export function usePrepareUupsUpgradeableUpgradeToAndCall(config = {}) {
 }
 
 /**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link uupsUpgradeableABI}__.
- */
-export function useUupsUpgradeableEvent(config = {}) {
-  return useContractEvent({ abi: uupsUpgradeableABI, ...config })
-}
-
-/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link uupsUpgradeableABI}__ and `eventName` set to `"AdminChanged"`.
  */
 export function useUupsUpgradeableAdminChangedEvent(config = {}) {
@@ -13109,157 +10934,6 @@ export function useUupsUpgradeableUpgradedEvent(config = {}) {
     eventName: 'Upgraded',
     ...config,
   })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link waveABI}__.
- */
-export function useWaveRead(config = {}) {
-  return useContractRead({ abi: waveABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link waveABI}__ and `functionName` set to `"DEFAULT_ADMIN_ROLE"`.
- */
-export function useWaveDefaultAdminRole(config = {}) {
-  return useContractRead({
-    abi: waveABI,
-    functionName: 'DEFAULT_ADMIN_ROLE',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link waveABI}__ and `functionName` set to `"MINTER_ROLE"`.
- */
-export function useWaveMinterRole(config = {}) {
-  return useContractRead({
-    abi: waveABI,
-    functionName: 'MINTER_ROLE',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link waveABI}__ and `functionName` set to `"balanceOf"`.
- */
-export function useWaveBalanceOf(config = {}) {
-  return useContractRead({ abi: waveABI, functionName: 'balanceOf', ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link waveABI}__ and `functionName` set to `"data"`.
- */
-export function useWaveData(config = {}) {
-  return useContractRead({ abi: waveABI, functionName: 'data', ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link waveABI}__ and `functionName` set to `"getApproved"`.
- */
-export function useWaveGetApproved(config = {}) {
-  return useContractRead({
-    abi: waveABI,
-    functionName: 'getApproved',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link waveABI}__ and `functionName` set to `"getRoleAdmin"`.
- */
-export function useWaveGetRoleAdmin(config = {}) {
-  return useContractRead({
-    abi: waveABI,
-    functionName: 'getRoleAdmin',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link waveABI}__ and `functionName` set to `"getTrustedForwarder"`.
- */
-export function useWaveGetTrustedForwarder(config = {}) {
-  return useContractRead({
-    abi: waveABI,
-    functionName: 'getTrustedForwarder',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link waveABI}__ and `functionName` set to `"hasRole"`.
- */
-export function useWaveHasRole(config = {}) {
-  return useContractRead({ abi: waveABI, functionName: 'hasRole', ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link waveABI}__ and `functionName` set to `"isApprovedForAll"`.
- */
-export function useWaveIsApprovedForAll(config = {}) {
-  return useContractRead({
-    abi: waveABI,
-    functionName: 'isApprovedForAll',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link waveABI}__ and `functionName` set to `"isTrustedForwarder"`.
- */
-export function useWaveIsTrustedForwarder(config = {}) {
-  return useContractRead({
-    abi: waveABI,
-    functionName: 'isTrustedForwarder',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link waveABI}__ and `functionName` set to `"name"`.
- */
-export function useWaveName(config = {}) {
-  return useContractRead({ abi: waveABI, functionName: 'name', ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link waveABI}__ and `functionName` set to `"ownerOf"`.
- */
-export function useWaveOwnerOf(config = {}) {
-  return useContractRead({ abi: waveABI, functionName: 'ownerOf', ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link waveABI}__ and `functionName` set to `"paused"`.
- */
-export function useWavePaused(config = {}) {
-  return useContractRead({ abi: waveABI, functionName: 'paused', ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link waveABI}__ and `functionName` set to `"supportsInterface"`.
- */
-export function useWaveSupportsInterface(config = {}) {
-  return useContractRead({
-    abi: waveABI,
-    functionName: 'supportsInterface',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link waveABI}__ and `functionName` set to `"symbol"`.
- */
-export function useWaveSymbol(config = {}) {
-  return useContractRead({ abi: waveABI, functionName: 'symbol', ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link waveABI}__ and `functionName` set to `"tokenURI"`.
- */
-export function useWaveTokenUri(config = {}) {
-  return useContractRead({ abi: waveABI, functionName: 'tokenURI', ...config })
 }
 
 /**
@@ -13525,13 +11199,6 @@ export function usePrepareWaveUnpause(config = {}) {
 }
 
 /**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link waveABI}__.
- */
-export function useWaveEvent(config = {}) {
-  return useContractEvent({ abi: waveABI, ...config })
-}
-
-/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link waveABI}__ and `eventName` set to `"Approval"`.
  */
 export function useWaveApprovalEvent(config = {}) {
@@ -13622,89 +11289,6 @@ export function useWaveUnpausedEvent(config = {}) {
  */
 export function useWaveWaveMintedEvent(config = {}) {
   return useContractEvent({ abi: waveABI, eventName: 'WaveMinted', ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link waveRegistryABI}__.
- *
- *
- */
-export function useWaveRegistryRead(config = {}) {
-  return useContractRead({
-    abi: waveRegistryABI,
-    address: waveRegistryAddress[85431],
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link waveRegistryABI}__ and `functionName` set to `"owner"`.
- *
- *
- */
-export function useWaveRegistryOwner(config = {}) {
-  return useContractRead({
-    abi: waveRegistryABI,
-    address: waveRegistryAddress[85431],
-    functionName: 'owner',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link waveRegistryABI}__ and `functionName` set to `"paused"`.
- *
- *
- */
-export function useWaveRegistryPaused(config = {}) {
-  return useContractRead({
-    abi: waveRegistryABI,
-    address: waveRegistryAddress[85431],
-    functionName: 'paused',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link waveRegistryABI}__ and `functionName` set to `"proxiableUUID"`.
- *
- *
- */
-export function useWaveRegistryProxiableUuid(config = {}) {
-  return useContractRead({
-    abi: waveRegistryABI,
-    address: waveRegistryAddress[85431],
-    functionName: 'proxiableUUID',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link waveRegistryABI}__ and `functionName` set to `"waveExists"`.
- *
- *
- */
-export function useWaveRegistryWaveExists(config = {}) {
-  return useContractRead({
-    abi: waveRegistryABI,
-    address: waveRegistryAddress[85431],
-    functionName: 'waveExists',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link waveRegistryABI}__ and `functionName` set to `"waveResolver"`.
- *
- *
- */
-export function useWaveRegistryWaveResolver(config = {}) {
-  return useContractRead({
-    abi: waveRegistryABI,
-    address: waveRegistryAddress[85431],
-    functionName: 'waveResolver',
-    ...config,
-  })
 }
 
 /**
@@ -13958,19 +11542,6 @@ export function usePrepareWaveRegistryUpgradeToAndCall(config = {}) {
 }
 
 /**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link waveRegistryABI}__.
- *
- *
- */
-export function useWaveRegistryEvent(config = {}) {
-  return useContractEvent({
-    abi: waveRegistryABI,
-    address: waveRegistryAddress[85431],
-    ...config,
-  })
-}
-
-/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link waveRegistryABI}__ and `eventName` set to `"AdminChanged"`.
  *
  *
@@ -14078,57 +11649,6 @@ export function useWaveRegistryWaveCreatedEvent(config = {}) {
     abi: waveRegistryABI,
     address: waveRegistryAddress[85431],
     eventName: 'WaveCreated',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link waveResolverABI}__.
- */
-export function useWaveResolverRead(config = {}) {
-  return useContractRead({ abi: waveResolverABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link waveResolverABI}__ and `functionName` set to `"isPayable"`.
- */
-export function useWaveResolverIsPayable(config = {}) {
-  return useContractRead({
-    abi: waveResolverABI,
-    functionName: 'isPayable',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link waveResolverABI}__ and `functionName` set to `"owner"`.
- */
-export function useWaveResolverOwner(config = {}) {
-  return useContractRead({
-    abi: waveResolverABI,
-    functionName: 'owner',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link waveResolverABI}__ and `functionName` set to `"proxiableUUID"`.
- */
-export function useWaveResolverProxiableUuid(config = {}) {
-  return useContractRead({
-    abi: waveResolverABI,
-    functionName: 'proxiableUUID',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link waveResolverABI}__ and `functionName` set to `"version"`.
- */
-export function useWaveResolverVersion(config = {}) {
-  return useContractRead({
-    abi: waveResolverABI,
-    functionName: 'version',
     ...config,
   })
 }
@@ -14390,13 +11910,6 @@ export function usePrepareWaveResolverUpgradeToAndCall(config = {}) {
 }
 
 /**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link waveResolverABI}__.
- */
-export function useWaveResolverEvent(config = {}) {
-  return useContractEvent({ abi: waveResolverABI, ...config })
-}
-
-/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link waveResolverABI}__ and `eventName` set to `"AdminChanged"`.
  */
 export function useWaveResolverAdminChangedEvent(config = {}) {
@@ -14447,211 +11960,6 @@ export function useWaveResolverUpgradedEvent(config = {}) {
   return useContractEvent({
     abi: waveResolverABI,
     eventName: 'Upgraded',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link wavesPaymasterABI}__.
- */
-export function useWavesPaymasterRead(config = {}) {
-  return useContractRead({ abi: wavesPaymasterABI, ...config })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link wavesPaymasterABI}__ and `functionName` set to `"CALLDATA_SIZE_LIMIT"`.
- */
-export function useWavesPaymasterCalldataSizeLimit(config = {}) {
-  return useContractRead({
-    abi: wavesPaymasterABI,
-    functionName: 'CALLDATA_SIZE_LIMIT',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link wavesPaymasterABI}__ and `functionName` set to `"FORWARDER_HUB_OVERHEAD"`.
- */
-export function useWavesPaymasterForwarderHubOverhead(config = {}) {
-  return useContractRead({
-    abi: wavesPaymasterABI,
-    functionName: 'FORWARDER_HUB_OVERHEAD',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link wavesPaymasterABI}__ and `functionName` set to `"PAYMASTER_ACCEPTANCE_BUDGET"`.
- */
-export function useWavesPaymasterPaymasterAcceptanceBudget(config = {}) {
-  return useContractRead({
-    abi: wavesPaymasterABI,
-    functionName: 'PAYMASTER_ACCEPTANCE_BUDGET',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link wavesPaymasterABI}__ and `functionName` set to `"POST_RELAYED_CALL_GAS_LIMIT"`.
- */
-export function useWavesPaymasterPostRelayedCallGasLimit(config = {}) {
-  return useContractRead({
-    abi: wavesPaymasterABI,
-    functionName: 'POST_RELAYED_CALL_GAS_LIMIT',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link wavesPaymasterABI}__ and `functionName` set to `"PRE_RELAYED_CALL_GAS_LIMIT"`.
- */
-export function useWavesPaymasterPreRelayedCallGasLimit(config = {}) {
-  return useContractRead({
-    abi: wavesPaymasterABI,
-    functionName: 'PRE_RELAYED_CALL_GAS_LIMIT',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link wavesPaymasterABI}__ and `functionName` set to `"getGasAndDataLimits"`.
- */
-export function useWavesPaymasterGetGasAndDataLimits(config = {}) {
-  return useContractRead({
-    abi: wavesPaymasterABI,
-    functionName: 'getGasAndDataLimits',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link wavesPaymasterABI}__ and `functionName` set to `"getRelayHub"`.
- */
-export function useWavesPaymasterGetRelayHub(config = {}) {
-  return useContractRead({
-    abi: wavesPaymasterABI,
-    functionName: 'getRelayHub',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link wavesPaymasterABI}__ and `functionName` set to `"getTrustedForwarder"`.
- */
-export function useWavesPaymasterGetTrustedForwarder(config = {}) {
-  return useContractRead({
-    abi: wavesPaymasterABI,
-    functionName: 'getTrustedForwarder',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link wavesPaymasterABI}__ and `functionName` set to `"methodWhitelist"`.
- */
-export function useWavesPaymasterMethodWhitelist(config = {}) {
-  return useContractRead({
-    abi: wavesPaymasterABI,
-    functionName: 'methodWhitelist',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link wavesPaymasterABI}__ and `functionName` set to `"owner"`.
- */
-export function useWavesPaymasterOwner(config = {}) {
-  return useContractRead({
-    abi: wavesPaymasterABI,
-    functionName: 'owner',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link wavesPaymasterABI}__ and `functionName` set to `"senderWhitelist"`.
- */
-export function useWavesPaymasterSenderWhitelist(config = {}) {
-  return useContractRead({
-    abi: wavesPaymasterABI,
-    functionName: 'senderWhitelist',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link wavesPaymasterABI}__ and `functionName` set to `"supportsInterface"`.
- */
-export function useWavesPaymasterSupportsInterface(config = {}) {
-  return useContractRead({
-    abi: wavesPaymasterABI,
-    functionName: 'supportsInterface',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link wavesPaymasterABI}__ and `functionName` set to `"targetWhitelist"`.
- */
-export function useWavesPaymasterTargetWhitelist(config = {}) {
-  return useContractRead({
-    abi: wavesPaymasterABI,
-    functionName: 'targetWhitelist',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link wavesPaymasterABI}__ and `functionName` set to `"useMethodWhitelist"`.
- */
-export function useWavesPaymasterUseMethodWhitelist(config = {}) {
-  return useContractRead({
-    abi: wavesPaymasterABI,
-    functionName: 'useMethodWhitelist',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link wavesPaymasterABI}__ and `functionName` set to `"useRejectOnRecipientRevert"`.
- */
-export function useWavesPaymasterUseRejectOnRecipientRevert(config = {}) {
-  return useContractRead({
-    abi: wavesPaymasterABI,
-    functionName: 'useRejectOnRecipientRevert',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link wavesPaymasterABI}__ and `functionName` set to `"useSenderWhitelist"`.
- */
-export function useWavesPaymasterUseSenderWhitelist(config = {}) {
-  return useContractRead({
-    abi: wavesPaymasterABI,
-    functionName: 'useSenderWhitelist',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link wavesPaymasterABI}__ and `functionName` set to `"useTargetWhitelist"`.
- */
-export function useWavesPaymasterUseTargetWhitelist(config = {}) {
-  return useContractRead({
-    abi: wavesPaymasterABI,
-    functionName: 'useTargetWhitelist',
-    ...config,
-  })
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link wavesPaymasterABI}__ and `functionName` set to `"versionPaymaster"`.
- */
-export function useWavesPaymasterVersionPaymaster(config = {}) {
-  return useContractRead({
-    abi: wavesPaymasterABI,
-    functionName: 'versionPaymaster',
     ...config,
   })
 }
@@ -14910,13 +12218,6 @@ export function usePrepareWavesPaymasterWithdrawRelayHubDepositTo(config = {}) {
     functionName: 'withdrawRelayHubDepositTo',
     ...config,
   })
-}
-
-/**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link wavesPaymasterABI}__.
- */
-export function useWavesPaymasterEvent(config = {}) {
-  return useContractEvent({ abi: wavesPaymasterABI, ...config })
 }
 
 /**

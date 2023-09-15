@@ -140,6 +140,10 @@ export class SynthCreated__Params {
   get name(): string {
     return this._event.parameters[4].value.toString();
   }
+
+  get metadata(): string {
+    return this._event.parameters[5].value.toString();
+  }
 }
 
 export class Unpaused extends ethereum.Event {
@@ -187,15 +191,17 @@ export class SynthRegistry extends ethereum.SmartContract {
     _nftOwnershipToMint: boolean,
     _artist: Address,
     _name: string,
+    _metadata: string,
     _nftWhitelist: Array<Address>
   ): Address {
     let result = super.call(
       "createSynth",
-      "createSynth(bool,address,string,address[]):(address)",
+      "createSynth(bool,address,string,string,address[]):(address)",
       [
         ethereum.Value.fromBoolean(_nftOwnershipToMint),
         ethereum.Value.fromAddress(_artist),
         ethereum.Value.fromString(_name),
+        ethereum.Value.fromString(_metadata),
         ethereum.Value.fromAddressArray(_nftWhitelist)
       ]
     );
@@ -207,15 +213,17 @@ export class SynthRegistry extends ethereum.SmartContract {
     _nftOwnershipToMint: boolean,
     _artist: Address,
     _name: string,
+    _metadata: string,
     _nftWhitelist: Array<Address>
   ): ethereum.CallResult<Address> {
     let result = super.tryCall(
       "createSynth",
-      "createSynth(bool,address,string,address[]):(address)",
+      "createSynth(bool,address,string,string,address[]):(address)",
       [
         ethereum.Value.fromBoolean(_nftOwnershipToMint),
         ethereum.Value.fromAddress(_artist),
         ethereum.Value.fromString(_name),
+        ethereum.Value.fromString(_metadata),
         ethereum.Value.fromAddressArray(_nftWhitelist)
       ]
     );
@@ -373,8 +381,12 @@ export class CreateSynthCall__Inputs {
     return this._call.inputValues[2].value.toString();
   }
 
+  get _metadata(): string {
+    return this._call.inputValues[3].value.toString();
+  }
+
   get _nftWhitelist(): Array<Address> {
-    return this._call.inputValues[3].value.toAddressArray();
+    return this._call.inputValues[4].value.toAddressArray();
   }
 }
 

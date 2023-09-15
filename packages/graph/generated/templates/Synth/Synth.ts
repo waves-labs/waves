@@ -674,7 +674,7 @@ export class ConstructorCall__Inputs {
     return this._call.inputValues[1].value.toAddress();
   }
 
-  get _artist(): Address {
+  get _art(): Address {
     return this._call.inputValues[2].value.toAddress();
   }
 
@@ -686,8 +686,12 @@ export class ConstructorCall__Inputs {
     return this._call.inputValues[4].value.toString();
   }
 
+  get _metadataURI(): string {
+    return this._call.inputValues[5].value.toString();
+  }
+
   get _nftWhitelist(): Array<Address> {
-    return this._call.inputValues[5].value.toAddressArray();
+    return this._call.inputValues[6].value.toAddressArray();
   }
 }
 
@@ -1129,20 +1133,50 @@ export class SetApprovalForAllCall__Outputs {
   }
 }
 
-export class SetNftOwnershipToMintCall extends ethereum.Call {
-  get inputs(): SetNftOwnershipToMintCall__Inputs {
-    return new SetNftOwnershipToMintCall__Inputs(this);
+export class SetMetadataURICall extends ethereum.Call {
+  get inputs(): SetMetadataURICall__Inputs {
+    return new SetMetadataURICall__Inputs(this);
   }
 
-  get outputs(): SetNftOwnershipToMintCall__Outputs {
-    return new SetNftOwnershipToMintCall__Outputs(this);
+  get outputs(): SetMetadataURICall__Outputs {
+    return new SetMetadataURICall__Outputs(this);
   }
 }
 
-export class SetNftOwnershipToMintCall__Inputs {
-  _call: SetNftOwnershipToMintCall;
+export class SetMetadataURICall__Inputs {
+  _call: SetMetadataURICall;
 
-  constructor(call: SetNftOwnershipToMintCall) {
+  constructor(call: SetMetadataURICall) {
+    this._call = call;
+  }
+
+  get _metadataURI(): string {
+    return this._call.inputValues[0].value.toString();
+  }
+}
+
+export class SetMetadataURICall__Outputs {
+  _call: SetMetadataURICall;
+
+  constructor(call: SetMetadataURICall) {
+    this._call = call;
+  }
+}
+
+export class SetNFTOwnershipToMintCall extends ethereum.Call {
+  get inputs(): SetNFTOwnershipToMintCall__Inputs {
+    return new SetNFTOwnershipToMintCall__Inputs(this);
+  }
+
+  get outputs(): SetNFTOwnershipToMintCall__Outputs {
+    return new SetNFTOwnershipToMintCall__Outputs(this);
+  }
+}
+
+export class SetNFTOwnershipToMintCall__Inputs {
+  _call: SetNFTOwnershipToMintCall;
+
+  constructor(call: SetNFTOwnershipToMintCall) {
     this._call = call;
   }
 
@@ -1151,10 +1185,10 @@ export class SetNftOwnershipToMintCall__Inputs {
   }
 }
 
-export class SetNftOwnershipToMintCall__Outputs {
-  _call: SetNftOwnershipToMintCall;
+export class SetNFTOwnershipToMintCall__Outputs {
+  _call: SetNFTOwnershipToMintCall;
 
-  constructor(call: SetNftOwnershipToMintCall) {
+  constructor(call: SetNFTOwnershipToMintCall) {
     this._call = call;
   }
 }

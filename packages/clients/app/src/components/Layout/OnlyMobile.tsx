@@ -6,39 +6,6 @@ import { a, useSpring } from "@react-spring/web";
 // TODO: Update copy and add social links
 
 export const OnlyMobile: React.FC = () => {
-  // const threeRandomWaves = musicColorWaves
-  //   .sort(() => 0.5 - Math.random())
-  //   .slice(0, 3);
-
-  // const backgroundSpring = useSpring({
-  //   from: {
-  //     background: `linear-gradient(
-  //     151deg,
-  //     ${"#e9e3dd"}
-  //       10.39%,
-  //     ${"#b2a79e"}
-  //       56.43%,
-  //     ${"#d6d0cb"}
-  //       100%
-  //   )`,
-  //   },
-  //   to: {
-  //     background: `linear-gradient(
-  //       151deg,
-  //       ${musicColorWavesMap[threeRandomWaves[0].id]}
-  //         10.39%,
-  //       ${musicColorWavesMap[threeRandomWaves[1].id]}
-  //         56.43%,
-  //       ${musicColorWavesMap[threeRandomWaves[2].id]}
-  //         100%
-  //     )`,
-  //   },
-  //   delay: 2000,
-  //   config: {
-  //     ...config.slow,
-  //   },
-  // });
-
   const contentSpring = useSpring({
     from: { opacity: 0 },
     to: { opacity: 1 },
@@ -52,6 +19,13 @@ export const OnlyMobile: React.FC = () => {
       className="grid place-items-center w-screen h-screen text-center z-10"
     >
       <a.div style={contentSpring} className="flex flex-col gap-12">
+        {/* <video
+              className="w-full h-full object-cover"
+              src="/videos/waves.mp4"
+              autoPlay
+              muted
+              loop
+            /> */}
         <div className="justify-self-start flex flex-col gap-2">
           <h1 className="text-9xl font-bold leading-[6rem]">WAVES</h1>
           <p className="text-4xl tracking-wider">

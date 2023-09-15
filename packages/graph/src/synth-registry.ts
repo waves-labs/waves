@@ -26,6 +26,7 @@ export function handleSynthCreated(event: SynthCreatedEvent): void {
   entity.artist = event.params.artist;
   entity.organizer = event.params.organizer;
   entity.name = event.params.name;
+  entity.metadata = event.params.metadata;
 
   entity.blockNumber = event.block.number;
   entity.blockTimestamp = event.block.timestamp;
