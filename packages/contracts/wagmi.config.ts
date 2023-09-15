@@ -57,7 +57,7 @@ export default defineConfig({
      * @see https://wagmi.sh/cli/plugins/react
      */
     react({
-      useContractEvent: false,
+      useContractEvent: true,
       useContractFunctionRead: false,
       useContractRead: false,
     }),
