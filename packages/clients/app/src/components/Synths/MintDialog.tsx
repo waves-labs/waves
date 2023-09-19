@@ -21,8 +21,6 @@ export const SynthsMintDialog: React.FC<SynthsMintDialogProps> = ({
     setSynthAddrs(event.target.value);
   }
 
-  console.log("synthNfts", synthNfts);
-
   return createPortal(
     <>
       <input type="checkbox" id="synths-mint-dialog" className="modal-toggle" />

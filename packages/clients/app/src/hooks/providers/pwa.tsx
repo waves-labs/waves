@@ -18,10 +18,14 @@ export const usePWA = () => {
   );
 
   async function handleInstallCheck(e: any) {
+    console.log("Related apps:", e);
+
     if ("getInstalledRelatedApps" in navigator) {
       // @ts-ignore
       const relatedApps: [{ id: string }] = navigator.getInstalledRelatedApps();
       const psApp = relatedApps.find((app) => app.id === "com.example.myapp");
+
+      console.log("Related apps:", relatedApps);
 
       if (psApp) {
         setInstalledState("installed");
@@ -45,6 +49,8 @@ export const usePWA = () => {
 
   function handlePromptAction(e: any) {
     setDeferredPrompt(true);
+
+    console.log("PWA was installed", e);
   }
 
   useEffect(() => {
@@ -68,6 +74,8 @@ export const usePWA = () => {
     function handleDisplayMode(e: any) {
       e.preventDefault();
     }
+
+    handleInstallCheck(null);
 
     isHandheld &&
       window.addEventListener("beforeinstallprompt", handleInstallPrompt);

@@ -51,7 +51,10 @@ export const Synth: React.FC<SynthProps> = ({
       >
         {view === "synth" ? (
           <>
-            {/* <Sketch background={waveNfts && waveNfts[0].data} colors={colors} /> */}
+            <Sketch
+              // background={waveNfts && waveNfts[0].data}
+              colors={colors}
+            />
           </>
         ) : (
           <>

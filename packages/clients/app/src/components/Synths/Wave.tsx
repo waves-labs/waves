@@ -13,8 +13,6 @@ export const Wave: React.FC<WaveProps> = ({ data }) => {
     data.endsWith(".jpeg") ||
     data.endsWith(".gif");
 
-  // console.log(String.fromCharCode(data.));
-
   return (
     <label
       htmlFor="wave-dialog"

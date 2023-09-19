@@ -30,8 +30,6 @@ export const SynthsViewer: React.FC<SynthsViewerProps> = ({ synths }) => {
   const secondWave = darkThemeMq ? "#191c1c" : "#b2a79e";
   const thirdWave = darkThemeMq ? "#101414" : "#d6d0cb";
 
-  console.log("Synth", synth);
-
   const neutralWave =
     synth?.waves && synth?.waves.length > 0 ? "#e9e3dd" : undefined;
 
@@ -82,8 +80,6 @@ export const SynthsViewer: React.FC<SynthsViewerProps> = ({ synths }) => {
     }
   }
 
-  console.log("Synth", synth);
-
   return (
     <a.div
       style={backgroundSpring}
@@ -105,13 +101,11 @@ export const SynthsViewer: React.FC<SynthsViewerProps> = ({ synths }) => {
               {...synth}
             />
           </div>
-          {/* <div className="h-auto"> */}
           <SynthsGallery
             view={"synth"}
             items={synth.waves ?? []}
             onItemClick={handleItemClick}
           />
-          {/* </div> */}
         </>
       ) : (
         <h4 className="w-full h-full grid place-items-center text-center">

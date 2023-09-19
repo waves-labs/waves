@@ -14,7 +14,12 @@ export function App() {
   const { installState } = usePWA();
 
   const Onboard: Record<InstallState, React.ReactNode> = {
-    idle: null, //<Loader />, TODO: Add loader
+    // idle: (
+    //   <div className="w-screen h-screen pb-20 bg-stone-100 dark:bg-stone-900 grid place-items-center">
+    //     <Loader />
+    //   </div>
+    // ),
+    idle: null,
     installed: null,
     prompt: <PWADialog state="prompt" />, // Ask nicely to install
     dismissed: <PWADialog state="dismissed" />, // Ask again more forcefully

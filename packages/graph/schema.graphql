@@ -1,3 +1,38 @@
+type _Schema_
+# @fulltext(
+#   name: "synthNFTs"
+#   language: en
+#   algorithm: rank
+#   include: [
+#     {
+#       entity: "SynthNFT"
+#       fields: [{ name: "id" }, { name: "artist" }, { name: "organizer" }]
+#     }
+#   ]
+# )
+# @fulltext(
+#   name: "waveNFTs"
+#   language: en
+#   algorithm: rank
+#   include: [
+#     {
+#       entity: "WaveNFT"
+#       fields: [{ name: "id" }, { name: "artist" }, { name: "creative" }]
+#     }
+#   ]
+# )
+# @fulltext(
+#   name: "synths"
+#   language: en
+#   algorithm: rank
+#   include: [
+#     {
+#       entity: "Synth"
+#       fields: [{ name: "id" }, { name: "owner" }]
+#     }
+#   ]
+# )
+
 # WAVES TYPES
 type SynthWaveNFT @entity(immutable: true) {
   id: Bytes! # Set to `waveNft.id.concat(synthNft.id)`
