@@ -356,19 +356,19 @@ export class Wave extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
-  data(): Bytes {
-    let result = super.call("data", "data():(bytes)", []);
+  data(): string {
+    let result = super.call("data", "data():(string)", []);
 
-    return result[0].toBytes();
+    return result[0].toString();
   }
 
-  try_data(): ethereum.CallResult<Bytes> {
-    let result = super.tryCall("data", "data():(bytes)", []);
+  try_data(): ethereum.CallResult<string> {
+    let result = super.tryCall("data", "data():(string)", []);
     if (result.reverted) {
       return new ethereum.CallResult();
     }
     let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBytes());
+    return ethereum.CallResult.fromValue(value[0].toString());
   }
 
   duration(): BigInt {
@@ -692,8 +692,8 @@ export class ConstructorCall__Inputs {
     return this._call.inputValues[7].value.toString();
   }
 
-  get _data(): Bytes {
-    return this._call.inputValues[8].value.toBytes();
+  get _data(): string {
+    return this._call.inputValues[8].value.toString();
   }
 }
 

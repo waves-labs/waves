@@ -181,8 +181,8 @@ export class WaveCreated__Params {
     return this._event.parameters[5].value.toString();
   }
 
-  get data(): Bytes {
-    return this._event.parameters[6].value.toBytes();
+  get data(): string {
+    return this._event.parameters[6].value.toString();
   }
 }
 
@@ -198,11 +198,11 @@ export class WaveRegistry extends ethereum.SmartContract {
     _artist: Address,
     _creative: Address,
     _name: string,
-    _data: Bytes
+    _data: string
   ): Address {
     let result = super.call(
       "createWave",
-      "createWave(uint16,uint256,uint256,address,address,string,bytes):(address)",
+      "createWave(uint16,uint256,uint256,address,address,string,string):(address)",
       [
         ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(_maxAmount)),
         ethereum.Value.fromUnsignedBigInt(_startTime),
@@ -210,7 +210,7 @@ export class WaveRegistry extends ethereum.SmartContract {
         ethereum.Value.fromAddress(_artist),
         ethereum.Value.fromAddress(_creative),
         ethereum.Value.fromString(_name),
-        ethereum.Value.fromBytes(_data)
+        ethereum.Value.fromString(_data)
       ]
     );
 
@@ -224,11 +224,11 @@ export class WaveRegistry extends ethereum.SmartContract {
     _artist: Address,
     _creative: Address,
     _name: string,
-    _data: Bytes
+    _data: string
   ): ethereum.CallResult<Address> {
     let result = super.tryCall(
       "createWave",
-      "createWave(uint16,uint256,uint256,address,address,string,bytes):(address)",
+      "createWave(uint16,uint256,uint256,address,address,string,string):(address)",
       [
         ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(_maxAmount)),
         ethereum.Value.fromUnsignedBigInt(_startTime),
@@ -236,7 +236,7 @@ export class WaveRegistry extends ethereum.SmartContract {
         ethereum.Value.fromAddress(_artist),
         ethereum.Value.fromAddress(_creative),
         ethereum.Value.fromString(_name),
-        ethereum.Value.fromBytes(_data)
+        ethereum.Value.fromString(_data)
       ]
     );
     if (result.reverted) {
@@ -397,8 +397,8 @@ export class CreateWaveCall__Inputs {
     return this._call.inputValues[5].value.toString();
   }
 
-  get _data(): Bytes {
-    return this._call.inputValues[6].value.toBytes();
+  get _data(): string {
+    return this._call.inputValues[6].value.toString();
   }
 }
 

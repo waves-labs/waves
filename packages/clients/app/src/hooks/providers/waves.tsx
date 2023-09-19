@@ -114,24 +114,26 @@ export const WavesProvider = ({ children }: Props) => {
     // variables: { from, limit },
   });
 
-  const waveTokenMap: Map<string, Wave> = new Map();
-  const waveNftMap: Map<string, WaveNFT> = new Map();
-  const waveSynthMap: Map<string, string[]> = new Map();
+  const waveTokenMap: Map<string, Wave> = new Map(); // wave contract => wave data
+  const waveNftMap: Map<string, WaveNFT> = new Map(); // wave contract => wave nft
+  const waveSynthMap: Map<string, string[]> = new Map(); // synth contract => wave contracts
   const synthTokenMap: Map<string, Synth> | undefined =
     tokens.data?.synths && tokens.data.synths.length > 0
       ? tokens.data.synths
-          ?.filter((token) => token.owner === address)
+          ?.filter(
+            (token) => token.owner?.toLowerCase() === address?.toLowerCase(),
+          )
           .reduce((acc, token) => {
             if (token.contract) {
               acc.set(token.contract, token);
 
               if (token.waves) {
-                token.waves?.forEach((wave) => {
+                token.waves?.forEach(({ wave }) => {
                   wave.contract && waveTokenMap.set(wave.contract, wave);
                 });
 
                 waveSynthMap.set(token.contract, [
-                  ...token.waves.map((wave) => wave.contract ?? ""),
+                  ...token.waves.map(({ wave }) => wave.contract ?? ""),
                 ]);
               }
             }
@@ -139,6 +141,12 @@ export const WavesProvider = ({ children }: Props) => {
             return acc;
           }, new Map<string, Synth>())
       : undefined;
+
+  waveNfts.data &&
+    waveNfts.data.waveNFTs.length > 0 &&
+    waveNfts.data.waveNFTs.forEach((nft) => {
+      waveNftMap.set(nft.id, nft);
+    });
 
   const synths: SynthUI[] =
     nfts.data?.synthNFTs && nfts.data?.synthNFTs.length > 0
@@ -150,6 +158,46 @@ export const WavesProvider = ({ children }: Props) => {
           };
 
           if (synth) {
+            const inactiveWaves: WaveUI[] =
+              synth.waves
+                ?.filter(({ wave }) =>
+                  nft.waveNFTs?.find((nft) => nft.waveNft.id === wave.contract),
+                )
+                .map(({ wave }) => {
+                  const nft = wave.contract && waveNftMap.get(wave.contract);
+                  if (nft) {
+                    return {
+                      ...nft,
+                      ...wave,
+                    };
+                  }
+
+                  return {
+                    ...wave,
+                    id: wave.contract ?? "",
+                    name: "Unknown",
+                    artist: "Unknown",
+                    creative: "Unknown",
+                    data: "",
+                  };
+                }) ?? [];
+
+            synthUI.waves =
+              nft.waveNFTs
+                ?.map(({ waveNft }) => {
+                  const wave = waveTokenMap.get(waveNft.id);
+                  if (wave) {
+                    return {
+                      ...wave,
+                      ...waveNft,
+                    };
+                  }
+
+                  return {
+                    ...waveNft,
+                  };
+                })
+                .concat(inactiveWaves) ?? [];
             synthUI.owner = synth.owner;
             synthUI.account = synth.id;
             synthUI.tokenId = synth.tokenId;
@@ -157,15 +205,11 @@ export const WavesProvider = ({ children }: Props) => {
             return [...acc, synthUI];
           }
 
+          synthUI.waves = nft.waveNFTs?.map((wave) => wave.waveNft) ?? [];
+
           return acc;
         }, [])
       : [];
-
-  waveNfts.data &&
-    waveNfts.data.waveNFTs.length > 0 &&
-    waveNfts.data.waveNFTs.forEach((nft) => {
-      waveNftMap.set(nft.id, nft);
-    });
 
   return (
     <WavesContext.Provider

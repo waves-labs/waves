@@ -1,0 +1,28 @@
+{
+  "name": "Lollapalooza Chicago 2024",
+  "date": "July 30 - August 2",
+  "description": "Lollapalooza is a 4-Day music festival happening July 30 - August 2, 2024 at Grant Park in Chicago, IL. We are excited to announce that Lollapalooza will be returning to its original 4-Day format July 30 - August 2, 2024! We can’t wait to see you in Grant Park!",
+  "location": "Grant Park, Chicago, IL",
+  "waves": [
+    {
+      "artist": "Sza",
+      "title": "Soulful Queen",
+      "description": ""
+    },
+    {
+      "artist": "Kendrick Lamar",
+      "title": "DAMN",
+      "description": ""
+    },
+    {
+      "artist": "Taylor Swift",
+      "title": "Lover",
+      "description": ""
+    },
+    {
+      "artist": "Dua Lipa",
+      "title": "Future Nostalgia",
+      "description": ""
+    }
+  ]
+}

@@ -82,10 +82,10 @@ export const synthMachine = createMachine(
   },
   {
     guards: {
-      isMintValid: (_context, event: { image: string | ArrayBuffer }) => {
+      isMintValid: (_context, _event: { image: string | ArrayBuffer }) => {
         return true;
       },
-      isGenArtValid: (_context, event: { element: any }) => {
+      isGenArtValid: (_context, _event: { element: any }) => {
         return true;
       },
     },

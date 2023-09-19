@@ -18,7 +18,7 @@ export const SynthsGallery: React.FC<SynthsGalleryProps> = ({
 }) => {
   const navigate = useNavigate();
 
-  function handleSynthClick(synth: Synth) {
+  function handleSynthClick(synth: SynthUI) {
     view === "synths" && navigate(`/synths/${synth.id}`);
   }
 
@@ -35,7 +35,7 @@ export const SynthsGallery: React.FC<SynthsGalleryProps> = ({
   return (
     <ul
       className={
-        "grid grid-cols-2 auto-rows-auto overflow-scroll h-full w-full gap-3 pt-16 pb-20"
+        "grid grid-cols-2 auto-rows-auto overflow-scroll h-full w-full gap-3 pt-4 pb-20"
       }
     >
       {items.map((item, index) => {

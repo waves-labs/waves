@@ -6,7 +6,7 @@ dataSources:
     kind: ethereum
     network: base-testnet
     source:
-      address: "0xD1d4e8D1Ce270e7076Fe9476CB0Bdc05b092190B"
+      address: "0xFAA8c12007162E0D22149aAC198814df49EDf984"
       abi: SynthRegistry
       startBlock: 9223545
     mapping:
@@ -44,7 +44,7 @@ dataSources:
     kind: ethereum
     network: base-testnet
     source:
-      address: "0xf2F63b48498e72CA39EB168B096F39C5affA5922"
+      address: "0x9a92f3654Ac144176a2F62b589e606B93E477cc3"
       abi: WaveRegistry
       startBlock: 9225556
     mapping:
@@ -75,7 +75,7 @@ dataSources:
           handler: handleUnpaused
         - event: Upgraded(indexed address)
           handler: handleUpgraded
-        - event: WaveCreated(uint256,uint256,indexed address,indexed address,indexed address,string,bytes)
+        - event: WaveCreated(uint256,uint256,indexed address,indexed address,indexed address,string,string)
           handler: handleWaveCreated
       file: ./src/wave-registry.ts
 templates:
@@ -103,12 +103,37 @@ templates:
           handler: handleWaveAdded
         - event: WaveRemoved(indexed address)
           handler: handleWaveRemoved
+        - event: ArtWhitelistAdded(indexed address)
+          handler: handleWhitelistArtAdded
+        - event: ArtWhitelistRemoved(indexed address)
+          handler: handleWhitelistArtRemoved
         - event: NFTWhitelistAdded(indexed address)
           handler: handleWhitelistNftAdded
         - event: NFTWhitelistRemoved(indexed address)
           handler: handleWhitelistNftRemoved
         - event: NFTOwnershipToMintSet(indexed bool)
           handler: handleNftOwnershipToMintUpdated
+  - name: SynthAccount
+    kind: ethereum/contract
+    network: base-testnet
+    source:
+      abi: SynthAccount
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: ./src/synth-account.ts
+      entities:
+        - PrintPurchased
+        - PalettePurchased
+      abis:
+        - name: SynthAccount
+          file: ../contracts/out/SynthAccount.sol/SynthAccount.json
+      eventHandlers:
+        - event: PrintPurchased(indexed address,address,indexed uint256,indexed uint256,uint8)
+          handler: handlePrintPurchased
+        - event: PalettePurchased(indexed address,address,indexed uint256,indexed uint256,uint8)
+          handler: handlePalettePurchased
   - name: Wave
     kind: ethereum/contract
     network: base-testnet

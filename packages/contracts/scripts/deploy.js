@@ -49,7 +49,6 @@ async function main() {
   const synthAccount = await upgrades.deployProxy(SynthAccount, [
     5,
     waveRegistryAddress,
-    [],
   ]);
   const synthAccountAddress = await synthAccount.getAddress();
 

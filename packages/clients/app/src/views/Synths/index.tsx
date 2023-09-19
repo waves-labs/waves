@@ -21,12 +21,12 @@ const Synths: React.FC<SynthsProps> = ({ synths, address, ...synthProps }) => {
   }
 
   return (
-    <section
-      className={`relative flex flex-col w-full h-full items-center gap-3 px-6`}
-    >
+    <section className={`relative w-full h-full`}>
       {location.pathname === "/synths" ? (
         address ? (
-          <>
+          <div
+            className={`flex flex-col w-full h-full items-center gap-3 px-6 pt-16 pb-20`}
+          >
             <label
               htmlFor="synths-mint-dialog"
               className={`dark:fill-white fill-black absolute right-6 top-2 grid place-items-center w-12 h-12 unselectable`}
@@ -38,7 +38,7 @@ const Synths: React.FC<SynthsProps> = ({ synths, address, ...synthProps }) => {
               view="synths"
               onItemClick={handleItemClick}
             />
-          </>
+          </div>
         ) : (
           <h4 className="w-full h-full grid place-items-center text-center">
             Connect Wallet To Mint Synths

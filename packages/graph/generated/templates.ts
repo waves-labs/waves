@@ -16,6 +16,20 @@ export class Synth extends DataSourceTemplate {
   }
 }
 
+export class SynthAccount extends DataSourceTemplate {
+  static create(address: Address): void {
+    DataSourceTemplate.create("SynthAccount", [address.toHex()]);
+  }
+
+  static createWithContext(address: Address, context: DataSourceContext): void {
+    DataSourceTemplate.createWithContext(
+      "SynthAccount",
+      [address.toHex()],
+      context
+    );
+  }
+}
+
 export class Wave extends DataSourceTemplate {
   static create(address: Address): void {
     DataSourceTemplate.create("Wave", [address.toHex()]);

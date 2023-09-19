@@ -133,6 +133,142 @@ export const accessControlABI = [
 ]
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// AccessControlUpgradeable
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const accessControlUpgradeableABI = [
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'version', internalType: 'uint8', type: 'uint8', indexed: false },
+    ],
+    name: 'Initialized',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'role', internalType: 'bytes32', type: 'bytes32', indexed: true },
+      {
+        name: 'previousAdminRole',
+        internalType: 'bytes32',
+        type: 'bytes32',
+        indexed: true,
+      },
+      {
+        name: 'newAdminRole',
+        internalType: 'bytes32',
+        type: 'bytes32',
+        indexed: true,
+      },
+    ],
+    name: 'RoleAdminChanged',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'role', internalType: 'bytes32', type: 'bytes32', indexed: true },
+      {
+        name: 'account',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'sender',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+    ],
+    name: 'RoleGranted',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'role', internalType: 'bytes32', type: 'bytes32', indexed: true },
+      {
+        name: 'account',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'sender',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+    ],
+    name: 'RoleRevoked',
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'DEFAULT_ADMIN_ROLE',
+    outputs: [{ name: '', internalType: 'bytes32', type: 'bytes32' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'role', internalType: 'bytes32', type: 'bytes32' }],
+    name: 'getRoleAdmin',
+    outputs: [{ name: '', internalType: 'bytes32', type: 'bytes32' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'role', internalType: 'bytes32', type: 'bytes32' },
+      { name: 'account', internalType: 'address', type: 'address' },
+    ],
+    name: 'grantRole',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [
+      { name: 'role', internalType: 'bytes32', type: 'bytes32' },
+      { name: 'account', internalType: 'address', type: 'address' },
+    ],
+    name: 'hasRole',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'role', internalType: 'bytes32', type: 'bytes32' },
+      { name: 'account', internalType: 'address', type: 'address' },
+    ],
+    name: 'renounceRole',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'role', internalType: 'bytes32', type: 'bytes32' },
+      { name: 'account', internalType: 'address', type: 'address' },
+    ],
+    name: 'revokeRole',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'interfaceId', internalType: 'bytes4', type: 'bytes4' }],
+    name: 'supportsInterface',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+]
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // BasePaymaster
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -405,12 +541,6 @@ export const basePaymasterABI = [
 ]
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Constants
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-export const constantsABI = []
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ContextUpgradeable
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -473,6 +603,28 @@ export const counterABI = [
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export const erc165ABI = [
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'interfaceId', internalType: 'bytes4', type: 'bytes4' }],
+    name: 'supportsInterface',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+]
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ERC165Upgradeable
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const erc165UpgradeableABI = [
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'version', internalType: 'uint8', type: 'uint8', indexed: false },
+    ],
+    name: 'Initialized',
+  },
   {
     stateMutability: 'view',
     type: 'function',
@@ -819,6 +971,120 @@ export const gsnEip712LibraryABI = [
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export const iAccessControlABI = [
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'role', internalType: 'bytes32', type: 'bytes32', indexed: true },
+      {
+        name: 'previousAdminRole',
+        internalType: 'bytes32',
+        type: 'bytes32',
+        indexed: true,
+      },
+      {
+        name: 'newAdminRole',
+        internalType: 'bytes32',
+        type: 'bytes32',
+        indexed: true,
+      },
+    ],
+    name: 'RoleAdminChanged',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'role', internalType: 'bytes32', type: 'bytes32', indexed: true },
+      {
+        name: 'account',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'sender',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+    ],
+    name: 'RoleGranted',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'role', internalType: 'bytes32', type: 'bytes32', indexed: true },
+      {
+        name: 'account',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'sender',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+    ],
+    name: 'RoleRevoked',
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'role', internalType: 'bytes32', type: 'bytes32' }],
+    name: 'getRoleAdmin',
+    outputs: [{ name: '', internalType: 'bytes32', type: 'bytes32' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'role', internalType: 'bytes32', type: 'bytes32' },
+      { name: 'account', internalType: 'address', type: 'address' },
+    ],
+    name: 'grantRole',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [
+      { name: 'role', internalType: 'bytes32', type: 'bytes32' },
+      { name: 'account', internalType: 'address', type: 'address' },
+    ],
+    name: 'hasRole',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'role', internalType: 'bytes32', type: 'bytes32' },
+      { name: 'account', internalType: 'address', type: 'address' },
+    ],
+    name: 'renounceRole',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'role', internalType: 'bytes32', type: 'bytes32' },
+      { name: 'account', internalType: 'address', type: 'address' },
+    ],
+    name: 'revokeRole',
+    outputs: [],
+  },
+]
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// IAccessControlUpgradeable
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const iAccessControlUpgradeableABI = [
   {
     type: 'event',
     anonymous: false,
@@ -1429,6 +1695,20 @@ export const ierc165ABI = [
 ]
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// IERC165Upgradeable
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const ierc165UpgradeableABI = [
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'interfaceId', internalType: 'bytes4', type: 'bytes4' }],
+    name: 'supportsInterface',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+]
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // IERC1822ProxiableUpgradeable
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -1845,6 +2125,69 @@ export const ierc721ABI = [
       { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
     ],
     name: 'transferFrom',
+    outputs: [],
+  },
+]
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// IERC721GeneralMint
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const ierc721GeneralMintABI = [
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'recipient', internalType: 'address', type: 'address' },
+      { name: 'amount', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'mintAmountToOneRecipient',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'recipients', internalType: 'address[]', type: 'address[]' },
+    ],
+    name: 'mintOneToMultipleRecipients',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: 'recipient', internalType: 'address', type: 'address' }],
+    name: 'mintOneToOneRecipient',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'recipients', internalType: 'address[]', type: 'address[]' },
+      { name: 'amount', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'mintSameAmountToMultipleRecipients',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'recipient', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'mintSpecificTokenToOneRecipient',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'recipient', internalType: 'address', type: 'address' },
+      { name: 'tokenIds', internalType: 'uint256[]', type: 'uint256[]' },
+    ],
+    name: 'mintSpecificTokensToOneRecipient',
     outputs: [],
   },
 ]
@@ -4436,9 +4779,10 @@ export const synthABI = [
         internalType: 'address',
         type: 'address',
       },
-      { name: '_artist', internalType: 'address', type: 'address' },
+      { name: '_art', internalType: 'address', type: 'address' },
       { name: '_organizer', internalType: 'address', type: 'address' },
       { name: '_name', internalType: 'string', type: 'string' },
+      { name: '_metadataURI', internalType: 'string', type: 'string' },
       { name: '_nftWhitelist', internalType: 'address[]', type: 'address[]' },
     ],
   },
@@ -4486,6 +4830,22 @@ export const synthABI = [
       { name: 'approved', internalType: 'bool', type: 'bool', indexed: false },
     ],
     name: 'ApprovalForAll',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'art', internalType: 'address', type: 'address', indexed: true },
+    ],
+    name: 'ArtWhitelistAdded',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'art', internalType: 'address', type: 'address', indexed: true },
+    ],
+    name: 'ArtWhitelistRemoved',
   },
   {
     type: 'event',
@@ -4674,6 +5034,13 @@ export const synthABI = [
   {
     stateMutability: 'nonpayable',
     type: 'function',
+    inputs: [{ name: '_art', internalType: 'address', type: 'address' }],
+    name: 'addToArtWhitelist',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
     inputs: [{ name: '_nft', internalType: 'address', type: 'address' }],
     name: 'addToNFTWhitelist',
     outputs: [],
@@ -4694,6 +5061,13 @@ export const synthABI = [
     ],
     name: 'approve',
     outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: '', internalType: 'address', type: 'address' }],
+    name: 'artWhitelist',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
   },
   {
     stateMutability: 'view',
@@ -4798,7 +5172,14 @@ export const synthABI = [
   {
     stateMutability: 'nonpayable',
     type: 'function',
-    inputs: [{ name: 'nft', internalType: 'address', type: 'address' }],
+    inputs: [{ name: '_art', internalType: 'address', type: 'address' }],
+    name: 'removeFromArtWhitelist',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: '_nft', internalType: 'address', type: 'address' }],
     name: 'removeFromNFTWhitelist',
     outputs: [],
   },
@@ -4865,6 +5246,13 @@ export const synthABI = [
   {
     stateMutability: 'nonpayable',
     type: 'function',
+    inputs: [{ name: '_metadataURI', internalType: 'string', type: 'string' }],
+    name: 'setMetadataURI',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
     inputs: [{ name: '_bool', internalType: 'bool', type: 'bool' }],
     name: 'setNFTOwnershipToMint',
     outputs: [],
@@ -4922,6 +5310,218 @@ export const synthABI = [
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export const synthAccountABI = [
+  { stateMutability: 'nonpayable', type: 'constructor', inputs: [] },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'previousAdmin',
+        internalType: 'address',
+        type: 'address',
+        indexed: false,
+      },
+      {
+        name: 'newAdmin',
+        internalType: 'address',
+        type: 'address',
+        indexed: false,
+      },
+    ],
+    name: 'AdminChanged',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'beacon',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+    ],
+    name: 'BeaconUpgraded',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'version', internalType: 'uint8', type: 'uint8', indexed: false },
+    ],
+    name: 'Initialized',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'buyer',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      { name: 'art', internalType: 'address', type: 'address', indexed: false },
+      {
+        name: 'tokenId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: true,
+      },
+      {
+        name: 'orderId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: true,
+      },
+      {
+        name: 'palette',
+        internalType: 'enum SynthAccount.PaletteEnum',
+        type: 'uint8',
+        indexed: false,
+      },
+    ],
+    name: 'PalettePurchased',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'buyer',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      { name: 'art', internalType: 'address', type: 'address', indexed: false },
+      {
+        name: 'tokenId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: true,
+      },
+      {
+        name: 'orderId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: true,
+      },
+      {
+        name: 'style',
+        internalType: 'enum SynthAccount.StyleEnum',
+        type: 'uint8',
+        indexed: false,
+      },
+    ],
+    name: 'PrintPurchased',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'role', internalType: 'bytes32', type: 'bytes32', indexed: true },
+      {
+        name: 'previousAdminRole',
+        internalType: 'bytes32',
+        type: 'bytes32',
+        indexed: true,
+      },
+      {
+        name: 'newAdminRole',
+        internalType: 'bytes32',
+        type: 'bytes32',
+        indexed: true,
+      },
+    ],
+    name: 'RoleAdminChanged',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'role', internalType: 'bytes32', type: 'bytes32', indexed: true },
+      {
+        name: 'account',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'sender',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+    ],
+    name: 'RoleGranted',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'role', internalType: 'bytes32', type: 'bytes32', indexed: true },
+      {
+        name: 'account',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'sender',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+    ],
+    name: 'RoleRevoked',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'implementation',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+    ],
+    name: 'Upgraded',
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'DEFAULT_ADMIN_ROLE',
+    outputs: [{ name: '', internalType: 'bytes32', type: 'bytes32' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'UPGRADER_ROLE',
+    outputs: [{ name: '', internalType: 'bytes32', type: 'bytes32' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [
+      {
+        name: '',
+        internalType: 'enum SynthAccount.PaletteEnum',
+        type: 'uint8',
+      },
+    ],
+    name: 'artPalettePurchased',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'artStylesRemaining',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
   {
     stateMutability: 'payable',
     type: 'function',
@@ -4935,14 +5535,47 @@ export const synthAccountABI = [
     outputs: [{ name: 'result', internalType: 'bytes', type: 'bytes' }],
   },
   {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'getImplementation',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'role', internalType: 'bytes32', type: 'bytes32' }],
+    name: 'getRoleAdmin',
+    outputs: [{ name: '', internalType: 'bytes32', type: 'bytes32' }],
+  },
+  {
     stateMutability: 'nonpayable',
     type: 'function',
     inputs: [
-      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
-      { name: 'to', internalType: 'address', type: 'address' },
-      { name: 'data', internalType: 'bytes', type: 'bytes' },
+      { name: 'role', internalType: 'bytes32', type: 'bytes32' },
+      { name: 'account', internalType: 'address', type: 'address' },
     ],
-    name: 'generateArt',
+    name: 'grantRole',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [
+      { name: 'role', internalType: 'bytes32', type: 'bytes32' },
+      { name: 'account', internalType: 'address', type: 'address' },
+    ],
+    name: 'hasRole',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: '_printAmount', internalType: 'uint256', type: 'uint256' },
+      { name: '_organizer', internalType: 'address', type: 'address' },
+    ],
+    name: 'initialize',
     outputs: [],
   },
   {
@@ -4976,6 +5609,82 @@ export const synthAccountABI = [
     stateMutability: 'view',
     type: 'function',
     inputs: [],
+    name: 'proxiableUUID',
+    outputs: [{ name: '', internalType: 'bytes32', type: 'bytes32' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: '_art', internalType: 'address', type: 'address' },
+      {
+        name: '_palette',
+        internalType: 'enum SynthAccount.PaletteEnum',
+        type: 'uint8',
+      },
+    ],
+    name: 'purchasePalette',
+    outputs: [
+      { name: '', internalType: 'uint256', type: 'uint256' },
+      { name: '', internalType: 'uint256', type: 'uint256' },
+    ],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      {
+        name: '_order',
+        internalType: 'struct SynthAccount.Order',
+        type: 'tuple',
+        components: [
+          { name: 'quantity', internalType: 'uint8', type: 'uint8' },
+          {
+            name: 'style',
+            internalType: 'enum SynthAccount.StyleEnum',
+            type: 'uint8',
+          },
+          { name: 'art', internalType: 'address', type: 'address' },
+        ],
+      },
+    ],
+    name: 'purchasePrint',
+    outputs: [
+      { name: '', internalType: 'uint256', type: 'uint256' },
+      { name: '', internalType: 'uint256', type: 'uint256' },
+    ],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'purchasesRemaining',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'role', internalType: 'bytes32', type: 'bytes32' },
+      { name: 'account', internalType: 'address', type: 'address' },
+    ],
+    name: 'renounceRole',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'role', internalType: 'bytes32', type: 'bytes32' },
+      { name: 'account', internalType: 'address', type: 'address' },
+    ],
+    name: 'revokeRole',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
     name: 'state',
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
   },
@@ -4996,6 +5705,25 @@ export const synthAccountABI = [
       { name: '', internalType: 'address', type: 'address' },
       { name: '', internalType: 'uint256', type: 'uint256' },
     ],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'newImplementation', internalType: 'address', type: 'address' },
+    ],
+    name: 'upgradeTo',
+    outputs: [],
+  },
+  {
+    stateMutability: 'payable',
+    type: 'function',
+    inputs: [
+      { name: 'newImplementation', internalType: 'address', type: 'address' },
+      { name: 'data', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: 'upgradeToAndCall',
+    outputs: [],
   },
   { stateMutability: 'payable', type: 'receive' },
 ]
@@ -5110,6 +5838,12 @@ export const synthRegistryABI = [
         indexed: true,
       },
       { name: 'name', internalType: 'string', type: 'string', indexed: false },
+      {
+        name: 'metadata',
+        internalType: 'string',
+        type: 'string',
+        indexed: false,
+      },
     ],
     name: 'SynthCreated',
   },
@@ -5144,8 +5878,9 @@ export const synthRegistryABI = [
     type: 'function',
     inputs: [
       { name: '_nftOwnershipToMint', internalType: 'bool', type: 'bool' },
-      { name: '_artist', internalType: 'address', type: 'address' },
+      { name: '_art', internalType: 'address', type: 'address' },
       { name: '_name', internalType: 'string', type: 'string' },
+      { name: '_metadata', internalType: 'string', type: 'string' },
       { name: '_nftWhitelist', internalType: 'address[]', type: 'address[]' },
     ],
     name: 'createSynth',
@@ -5366,7 +6101,7 @@ export const waveABI = [
       { name: '_admin', internalType: 'address', type: 'address' },
       { name: '_resolver', internalType: 'address', type: 'address' },
       { name: '_name', internalType: 'string', type: 'string' },
-      { name: '_data', internalType: 'bytes', type: 'bytes' },
+      { name: '_data', internalType: 'string', type: 'string' },
     ],
   },
   {
@@ -5588,6 +6323,13 @@ export const waveABI = [
   {
     stateMutability: 'view',
     type: 'function',
+    inputs: [],
+    name: 'artist',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
     inputs: [{ name: 'owner', internalType: 'address', type: 'address' }],
     name: 'balanceOf',
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
@@ -5596,8 +6338,22 @@ export const waveABI = [
     stateMutability: 'view',
     type: 'function',
     inputs: [],
+    name: 'creative',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
     name: 'data',
-    outputs: [{ name: '', internalType: 'bytes', type: 'bytes' }],
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'duration',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
   },
   {
     stateMutability: 'view',
@@ -5761,6 +6517,13 @@ export const waveABI = [
     inputs: [{ name: '_startTime', internalType: 'uint256', type: 'uint256' }],
     name: 'setStartTime',
     outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'startTime',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
   },
   {
     stateMutability: 'view',
@@ -5940,7 +6703,7 @@ export const waveRegistryABI = [
         indexed: true,
       },
       { name: 'name', internalType: 'string', type: 'string', indexed: false },
-      { name: 'data', internalType: 'bytes', type: 'bytes', indexed: false },
+      { name: 'data', internalType: 'string', type: 'string', indexed: false },
     ],
     name: 'WaveCreated',
   },
@@ -5954,7 +6717,7 @@ export const waveRegistryABI = [
       { name: '_artist', internalType: 'address', type: 'address' },
       { name: '_creative', internalType: 'address', type: 'address' },
       { name: '_name', internalType: 'string', type: 'string' },
-      { name: '_data', internalType: 'bytes', type: 'bytes' },
+      { name: '_data', internalType: 'string', type: 'string' },
     ],
     name: 'createWave',
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
@@ -6183,6 +6946,13 @@ export const waveResolverABI = [
       },
     ],
     name: 'attest',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: '', internalType: 'address', type: 'address' }],
+    name: 'attesters',
     outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
   },
   {
@@ -6796,6 +7566,13 @@ export function usePrepareAccessControlRevokeRole(config = {}) {
 }
 
 /**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link accessControlABI}__.
+ */
+export function useAccessControlEvent(config = {}) {
+  return useContractEvent({ abi: accessControlABI, ...config })
+}
+
+/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link accessControlABI}__ and `eventName` set to `"RoleAdminChanged"`.
  */
 export function useAccessControlRoleAdminChangedEvent(config = {}) {
@@ -6823,6 +7600,140 @@ export function useAccessControlRoleGrantedEvent(config = {}) {
 export function useAccessControlRoleRevokedEvent(config = {}) {
   return useContractEvent({
     abi: accessControlABI,
+    eventName: 'RoleRevoked',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link accessControlUpgradeableABI}__.
+ */
+export function useAccessControlUpgradeableWrite(config = {}) {
+  return useContractWrite({ abi: accessControlUpgradeableABI, ...config })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link accessControlUpgradeableABI}__ and `functionName` set to `"grantRole"`.
+ */
+export function useAccessControlUpgradeableGrantRole(config = {}) {
+  return useContractWrite({
+    abi: accessControlUpgradeableABI,
+    functionName: 'grantRole',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link accessControlUpgradeableABI}__ and `functionName` set to `"renounceRole"`.
+ */
+export function useAccessControlUpgradeableRenounceRole(config = {}) {
+  return useContractWrite({
+    abi: accessControlUpgradeableABI,
+    functionName: 'renounceRole',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link accessControlUpgradeableABI}__ and `functionName` set to `"revokeRole"`.
+ */
+export function useAccessControlUpgradeableRevokeRole(config = {}) {
+  return useContractWrite({
+    abi: accessControlUpgradeableABI,
+    functionName: 'revokeRole',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link accessControlUpgradeableABI}__.
+ */
+export function usePrepareAccessControlUpgradeableWrite(config = {}) {
+  return usePrepareContractWrite({
+    abi: accessControlUpgradeableABI,
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link accessControlUpgradeableABI}__ and `functionName` set to `"grantRole"`.
+ */
+export function usePrepareAccessControlUpgradeableGrantRole(config = {}) {
+  return usePrepareContractWrite({
+    abi: accessControlUpgradeableABI,
+    functionName: 'grantRole',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link accessControlUpgradeableABI}__ and `functionName` set to `"renounceRole"`.
+ */
+export function usePrepareAccessControlUpgradeableRenounceRole(config = {}) {
+  return usePrepareContractWrite({
+    abi: accessControlUpgradeableABI,
+    functionName: 'renounceRole',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link accessControlUpgradeableABI}__ and `functionName` set to `"revokeRole"`.
+ */
+export function usePrepareAccessControlUpgradeableRevokeRole(config = {}) {
+  return usePrepareContractWrite({
+    abi: accessControlUpgradeableABI,
+    functionName: 'revokeRole',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link accessControlUpgradeableABI}__.
+ */
+export function useAccessControlUpgradeableEvent(config = {}) {
+  return useContractEvent({ abi: accessControlUpgradeableABI, ...config })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link accessControlUpgradeableABI}__ and `eventName` set to `"Initialized"`.
+ */
+export function useAccessControlUpgradeableInitializedEvent(config = {}) {
+  return useContractEvent({
+    abi: accessControlUpgradeableABI,
+    eventName: 'Initialized',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link accessControlUpgradeableABI}__ and `eventName` set to `"RoleAdminChanged"`.
+ */
+export function useAccessControlUpgradeableRoleAdminChangedEvent(config = {}) {
+  return useContractEvent({
+    abi: accessControlUpgradeableABI,
+    eventName: 'RoleAdminChanged',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link accessControlUpgradeableABI}__ and `eventName` set to `"RoleGranted"`.
+ */
+export function useAccessControlUpgradeableRoleGrantedEvent(config = {}) {
+  return useContractEvent({
+    abi: accessControlUpgradeableABI,
+    eventName: 'RoleGranted',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link accessControlUpgradeableABI}__ and `eventName` set to `"RoleRevoked"`.
+ */
+export function useAccessControlUpgradeableRoleRevokedEvent(config = {}) {
+  return useContractEvent({
+    abi: accessControlUpgradeableABI,
     eventName: 'RoleRevoked',
     ...config,
   })
@@ -6997,6 +7908,13 @@ export function usePrepareBasePaymasterWithdrawRelayHubDepositTo(config = {}) {
 }
 
 /**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link basePaymasterABI}__.
+ */
+export function useBasePaymasterEvent(config = {}) {
+  return useContractEvent({ abi: basePaymasterABI, ...config })
+}
+
+/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link basePaymasterABI}__ and `eventName` set to `"OwnershipTransferred"`.
  */
 export function useBasePaymasterOwnershipTransferredEvent(config = {}) {
@@ -7005,6 +7923,13 @@ export function useBasePaymasterOwnershipTransferredEvent(config = {}) {
     eventName: 'OwnershipTransferred',
     ...config,
   })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link contextUpgradeableABI}__.
+ */
+export function useContextUpgradeableEvent(config = {}) {
+  return useContractEvent({ abi: contextUpgradeableABI, ...config })
 }
 
 /**
@@ -7077,10 +8002,42 @@ export function usePrepareCounterSetNumber(config = {}) {
 }
 
 /**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link counterABI}__.
+ */
+export function useCounterEvent(config = {}) {
+  return useContractEvent({ abi: counterABI, ...config })
+}
+
+/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link counterABI}__ and `eventName` set to `"Transfer"`.
  */
 export function useCounterTransferEvent(config = {}) {
   return useContractEvent({ abi: counterABI, eventName: 'Transfer', ...config })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link erc165UpgradeableABI}__.
+ */
+export function useErc165UpgradeableEvent(config = {}) {
+  return useContractEvent({ abi: erc165UpgradeableABI, ...config })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link erc165UpgradeableABI}__ and `eventName` set to `"Initialized"`.
+ */
+export function useErc165UpgradeableInitializedEvent(config = {}) {
+  return useContractEvent({
+    abi: erc165UpgradeableABI,
+    eventName: 'Initialized',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link erc1967UpgradeUpgradeableABI}__.
+ */
+export function useErc1967UpgradeUpgradeableEvent(config = {}) {
+  return useContractEvent({ abi: erc1967UpgradeUpgradeableABI, ...config })
 }
 
 /**
@@ -7230,6 +8187,13 @@ export function usePrepareErc721TransferFrom(config = {}) {
 }
 
 /**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link erc721ABI}__.
+ */
+export function useErc721Event(config = {}) {
+  return useContractEvent({ abi: erc721ABI, ...config })
+}
+
+/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link erc721ABI}__ and `eventName` set to `"Approval"`.
  */
 export function useErc721ApprovalEvent(config = {}) {
@@ -7335,6 +8299,13 @@ export function usePrepareIAccessControlRevokeRole(config = {}) {
 }
 
 /**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link iAccessControlABI}__.
+ */
+export function useIAccessControlEvent(config = {}) {
+  return useContractEvent({ abi: iAccessControlABI, ...config })
+}
+
+/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link iAccessControlABI}__ and `eventName` set to `"RoleAdminChanged"`.
  */
 export function useIAccessControlRoleAdminChangedEvent(config = {}) {
@@ -7362,6 +8333,129 @@ export function useIAccessControlRoleGrantedEvent(config = {}) {
 export function useIAccessControlRoleRevokedEvent(config = {}) {
   return useContractEvent({
     abi: iAccessControlABI,
+    eventName: 'RoleRevoked',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link iAccessControlUpgradeableABI}__.
+ */
+export function useIAccessControlUpgradeableWrite(config = {}) {
+  return useContractWrite({ abi: iAccessControlUpgradeableABI, ...config })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link iAccessControlUpgradeableABI}__ and `functionName` set to `"grantRole"`.
+ */
+export function useIAccessControlUpgradeableGrantRole(config = {}) {
+  return useContractWrite({
+    abi: iAccessControlUpgradeableABI,
+    functionName: 'grantRole',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link iAccessControlUpgradeableABI}__ and `functionName` set to `"renounceRole"`.
+ */
+export function useIAccessControlUpgradeableRenounceRole(config = {}) {
+  return useContractWrite({
+    abi: iAccessControlUpgradeableABI,
+    functionName: 'renounceRole',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link iAccessControlUpgradeableABI}__ and `functionName` set to `"revokeRole"`.
+ */
+export function useIAccessControlUpgradeableRevokeRole(config = {}) {
+  return useContractWrite({
+    abi: iAccessControlUpgradeableABI,
+    functionName: 'revokeRole',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link iAccessControlUpgradeableABI}__.
+ */
+export function usePrepareIAccessControlUpgradeableWrite(config = {}) {
+  return usePrepareContractWrite({
+    abi: iAccessControlUpgradeableABI,
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link iAccessControlUpgradeableABI}__ and `functionName` set to `"grantRole"`.
+ */
+export function usePrepareIAccessControlUpgradeableGrantRole(config = {}) {
+  return usePrepareContractWrite({
+    abi: iAccessControlUpgradeableABI,
+    functionName: 'grantRole',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link iAccessControlUpgradeableABI}__ and `functionName` set to `"renounceRole"`.
+ */
+export function usePrepareIAccessControlUpgradeableRenounceRole(config = {}) {
+  return usePrepareContractWrite({
+    abi: iAccessControlUpgradeableABI,
+    functionName: 'renounceRole',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link iAccessControlUpgradeableABI}__ and `functionName` set to `"revokeRole"`.
+ */
+export function usePrepareIAccessControlUpgradeableRevokeRole(config = {}) {
+  return usePrepareContractWrite({
+    abi: iAccessControlUpgradeableABI,
+    functionName: 'revokeRole',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link iAccessControlUpgradeableABI}__.
+ */
+export function useIAccessControlUpgradeableEvent(config = {}) {
+  return useContractEvent({ abi: iAccessControlUpgradeableABI, ...config })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link iAccessControlUpgradeableABI}__ and `eventName` set to `"RoleAdminChanged"`.
+ */
+export function useIAccessControlUpgradeableRoleAdminChangedEvent(config = {}) {
+  return useContractEvent({
+    abi: iAccessControlUpgradeableABI,
+    eventName: 'RoleAdminChanged',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link iAccessControlUpgradeableABI}__ and `eventName` set to `"RoleGranted"`.
+ */
+export function useIAccessControlUpgradeableRoleGrantedEvent(config = {}) {
+  return useContractEvent({
+    abi: iAccessControlUpgradeableABI,
+    eventName: 'RoleGranted',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link iAccessControlUpgradeableABI}__ and `eventName` set to `"RoleRevoked"`.
+ */
+export function useIAccessControlUpgradeableRoleRevokedEvent(config = {}) {
+  return useContractEvent({
+    abi: iAccessControlUpgradeableABI,
     eventName: 'RoleRevoked',
     ...config,
   })
@@ -7638,6 +8732,13 @@ export function usePrepareIeasTimestamp(config = {}) {
 }
 
 /**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link ieasABI}__.
+ */
+export function useIeasEvent(config = {}) {
+  return useContractEvent({ abi: ieasABI, ...config })
+}
+
+/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link ieasABI}__ and `eventName` set to `"Attested"`.
  */
 export function useIeasAttestedEvent(config = {}) {
@@ -7750,6 +8851,13 @@ export function usePrepareIerc20TransferFrom(config = {}) {
 }
 
 /**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link ierc20ABI}__.
+ */
+export function useIerc20Event(config = {}) {
+  return useContractEvent({ abi: ierc20ABI, ...config })
+}
+
+/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link ierc20ABI}__ and `eventName` set to `"Approval"`.
  */
 export function useIerc20ApprovalEvent(config = {}) {
@@ -7833,6 +8941,13 @@ export function usePrepareIerc6551RegistryCreateAccount(config = {}) {
     functionName: 'createAccount',
     ...config,
   })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link ierc6551RegistryABI}__.
+ */
+export function useIerc6551RegistryEvent(config = {}) {
+  return useContractEvent({ abi: ierc6551RegistryABI, ...config })
 }
 
 /**
@@ -7949,6 +9064,13 @@ export function usePrepareIerc721TransferFrom(config = {}) {
 }
 
 /**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link ierc721ABI}__.
+ */
+export function useIerc721Event(config = {}) {
+  return useContractEvent({ abi: ierc721ABI, ...config })
+}
+
+/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link ierc721ABI}__ and `eventName` set to `"Approval"`.
  */
 export function useIerc721ApprovalEvent(config = {}) {
@@ -7971,6 +9093,168 @@ export function useIerc721ApprovalForAllEvent(config = {}) {
  */
 export function useIerc721TransferEvent(config = {}) {
   return useContractEvent({ abi: ierc721ABI, eventName: 'Transfer', ...config })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link ierc721GeneralMintABI}__.
+ */
+export function useIerc721GeneralMintWrite(config = {}) {
+  return useContractWrite({ abi: ierc721GeneralMintABI, ...config })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link ierc721GeneralMintABI}__ and `functionName` set to `"mintAmountToOneRecipient"`.
+ */
+export function useIerc721GeneralMintMintAmountToOneRecipient(config = {}) {
+  return useContractWrite({
+    abi: ierc721GeneralMintABI,
+    functionName: 'mintAmountToOneRecipient',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link ierc721GeneralMintABI}__ and `functionName` set to `"mintOneToMultipleRecipients"`.
+ */
+export function useIerc721GeneralMintMintOneToMultipleRecipients(config = {}) {
+  return useContractWrite({
+    abi: ierc721GeneralMintABI,
+    functionName: 'mintOneToMultipleRecipients',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link ierc721GeneralMintABI}__ and `functionName` set to `"mintOneToOneRecipient"`.
+ */
+export function useIerc721GeneralMintMintOneToOneRecipient(config = {}) {
+  return useContractWrite({
+    abi: ierc721GeneralMintABI,
+    functionName: 'mintOneToOneRecipient',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link ierc721GeneralMintABI}__ and `functionName` set to `"mintSameAmountToMultipleRecipients"`.
+ */
+export function useIerc721GeneralMintMintSameAmountToMultipleRecipients(
+  config = {},
+) {
+  return useContractWrite({
+    abi: ierc721GeneralMintABI,
+    functionName: 'mintSameAmountToMultipleRecipients',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link ierc721GeneralMintABI}__ and `functionName` set to `"mintSpecificTokenToOneRecipient"`.
+ */
+export function useIerc721GeneralMintMintSpecificTokenToOneRecipient(
+  config = {},
+) {
+  return useContractWrite({
+    abi: ierc721GeneralMintABI,
+    functionName: 'mintSpecificTokenToOneRecipient',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link ierc721GeneralMintABI}__ and `functionName` set to `"mintSpecificTokensToOneRecipient"`.
+ */
+export function useIerc721GeneralMintMintSpecificTokensToOneRecipient(
+  config = {},
+) {
+  return useContractWrite({
+    abi: ierc721GeneralMintABI,
+    functionName: 'mintSpecificTokensToOneRecipient',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link ierc721GeneralMintABI}__.
+ */
+export function usePrepareIerc721GeneralMintWrite(config = {}) {
+  return usePrepareContractWrite({ abi: ierc721GeneralMintABI, ...config })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link ierc721GeneralMintABI}__ and `functionName` set to `"mintAmountToOneRecipient"`.
+ */
+export function usePrepareIerc721GeneralMintMintAmountToOneRecipient(
+  config = {},
+) {
+  return usePrepareContractWrite({
+    abi: ierc721GeneralMintABI,
+    functionName: 'mintAmountToOneRecipient',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link ierc721GeneralMintABI}__ and `functionName` set to `"mintOneToMultipleRecipients"`.
+ */
+export function usePrepareIerc721GeneralMintMintOneToMultipleRecipients(
+  config = {},
+) {
+  return usePrepareContractWrite({
+    abi: ierc721GeneralMintABI,
+    functionName: 'mintOneToMultipleRecipients',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link ierc721GeneralMintABI}__ and `functionName` set to `"mintOneToOneRecipient"`.
+ */
+export function usePrepareIerc721GeneralMintMintOneToOneRecipient(config = {}) {
+  return usePrepareContractWrite({
+    abi: ierc721GeneralMintABI,
+    functionName: 'mintOneToOneRecipient',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link ierc721GeneralMintABI}__ and `functionName` set to `"mintSameAmountToMultipleRecipients"`.
+ */
+export function usePrepareIerc721GeneralMintMintSameAmountToMultipleRecipients(
+  config = {},
+) {
+  return usePrepareContractWrite({
+    abi: ierc721GeneralMintABI,
+    functionName: 'mintSameAmountToMultipleRecipients',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link ierc721GeneralMintABI}__ and `functionName` set to `"mintSpecificTokenToOneRecipient"`.
+ */
+export function usePrepareIerc721GeneralMintMintSpecificTokenToOneRecipient(
+  config = {},
+) {
+  return usePrepareContractWrite({
+    abi: ierc721GeneralMintABI,
+    functionName: 'mintSpecificTokenToOneRecipient',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link ierc721GeneralMintABI}__ and `functionName` set to `"mintSpecificTokensToOneRecipient"`.
+ */
+export function usePrepareIerc721GeneralMintMintSpecificTokensToOneRecipient(
+  config = {},
+) {
+  return usePrepareContractWrite({
+    abi: ierc721GeneralMintABI,
+    functionName: 'mintSpecificTokensToOneRecipient',
+    ...config,
+  })
 }
 
 /**
@@ -8073,6 +9357,13 @@ export function usePrepareIerc721MetadataTransferFrom(config = {}) {
     functionName: 'transferFrom',
     ...config,
   })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link ierc721MetadataABI}__.
+ */
+export function useIerc721MetadataEvent(config = {}) {
+  return useContractEvent({ abi: ierc721MetadataABI, ...config })
 }
 
 /**
@@ -8222,6 +9513,13 @@ export function usePrepareIForwarderRegisterRequestType(config = {}) {
     functionName: 'registerRequestType',
     ...config,
   })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link iForwarderABI}__.
+ */
+export function useIForwarderEvent(config = {}) {
+  return useContractEvent({ abi: iForwarderABI, ...config })
 }
 
 /**
@@ -8561,6 +9859,13 @@ export function usePrepareIRelayHubWithdrawMultiple(config = {}) {
 }
 
 /**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link iRelayHubABI}__.
+ */
+export function useIRelayHubEvent(config = {}) {
+  return useContractEvent({ abi: iRelayHubABI, ...config })
+}
+
+/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link iRelayHubABI}__ and `eventName` set to `"AbandonedRelayManagerBalanceEscheated"`.
  */
 export function useIRelayHubAbandonedRelayManagerBalanceEscheatedEvent(
@@ -8706,6 +10011,13 @@ export function usePrepareISchemaRegistryRegister(config = {}) {
     functionName: 'register',
     ...config,
   })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link iSchemaRegistryABI}__.
+ */
+export function useISchemaRegistryEvent(config = {}) {
+  return useContractEvent({ abi: iSchemaRegistryABI, ...config })
 }
 
 /**
@@ -9144,6 +10456,13 @@ export function usePrepareIStakeManagerWithdrawStake(config = {}) {
 }
 
 /**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link iStakeManagerABI}__.
+ */
+export function useIStakeManagerEvent(config = {}) {
+  return useContractEvent({ abi: iStakeManagerABI, ...config })
+}
+
+/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link iStakeManagerABI}__ and `eventName` set to `"AbandonedRelayManagerStakeEscheated"`.
  */
 export function useIStakeManagerAbandonedRelayManagerStakeEscheatedEvent(
@@ -9275,6 +10594,13 @@ export function useIStakeManagerStakeWithdrawnEvent(config = {}) {
     eventName: 'StakeWithdrawn',
     ...config,
   })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link initializableABI}__.
+ */
+export function useInitializableEvent(config = {}) {
+  return useContractEvent({ abi: initializableABI, ...config })
 }
 
 /**
@@ -9567,6 +10893,13 @@ export function usePrepareMockTicketUnpause(config = {}) {
 }
 
 /**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link mockTicketABI}__.
+ */
+export function useMockTicketEvent(config = {}) {
+  return useContractEvent({ abi: mockTicketABI, ...config })
+}
+
+/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link mockTicketABI}__ and `eventName` set to `"Approval"`.
  */
 export function useMockTicketApprovalEvent(config = {}) {
@@ -9713,6 +11046,13 @@ export function usePrepareOwnableTransferOwnership(config = {}) {
 }
 
 /**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link ownableABI}__.
+ */
+export function useOwnableEvent(config = {}) {
+  return useContractEvent({ abi: ownableABI, ...config })
+}
+
+/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link ownableABI}__ and `eventName` set to `"OwnershipTransferred"`.
  */
 export function useOwnableOwnershipTransferredEvent(config = {}) {
@@ -9782,6 +11122,13 @@ export function usePrepareOwnableUpgradeableTransferOwnership(config = {}) {
 }
 
 /**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link ownableUpgradeableABI}__.
+ */
+export function useOwnableUpgradeableEvent(config = {}) {
+  return useContractEvent({ abi: ownableUpgradeableABI, ...config })
+}
+
+/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link ownableUpgradeableABI}__ and `eventName` set to `"Initialized"`.
  */
 export function useOwnableUpgradeableInitializedEvent(config = {}) {
@@ -9804,6 +11151,13 @@ export function useOwnableUpgradeableOwnershipTransferredEvent(config = {}) {
 }
 
 /**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link pausableABI}__.
+ */
+export function usePausableEvent(config = {}) {
+  return useContractEvent({ abi: pausableABI, ...config })
+}
+
+/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link pausableABI}__ and `eventName` set to `"Paused"`.
  */
 export function usePausablePausedEvent(config = {}) {
@@ -9819,6 +11173,13 @@ export function usePausableUnpausedEvent(config = {}) {
     eventName: 'Unpaused',
     ...config,
   })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link pausableUpgradeableABI}__.
+ */
+export function usePausableUpgradeableEvent(config = {}) {
+  return useContractEvent({ abi: pausableUpgradeableABI, ...config })
 }
 
 /**
@@ -9964,6 +11325,17 @@ export function useSynthWrite(config = {}) {
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link synthABI}__ and `functionName` set to `"addToArtWhitelist"`.
+ */
+export function useSynthAddToArtWhitelist(config = {}) {
+  return useContractWrite({
+    abi: synthABI,
+    functionName: 'addToArtWhitelist',
+    ...config,
+  })
+}
+
+/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link synthABI}__ and `functionName` set to `"addToNFTWhitelist"`.
  */
 export function useSynthAddToNftWhitelist(config = {}) {
@@ -10011,6 +11383,17 @@ export function useSynthMint(config = {}) {
  */
 export function useSynthPause(config = {}) {
   return useContractWrite({ abi: synthABI, functionName: 'pause', ...config })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link synthABI}__ and `functionName` set to `"removeFromArtWhitelist"`.
+ */
+export function useSynthRemoveFromArtWhitelist(config = {}) {
+  return useContractWrite({
+    abi: synthABI,
+    functionName: 'removeFromArtWhitelist',
+    ...config,
+  })
 }
 
 /**
@@ -10080,6 +11463,17 @@ export function useSynthSetApprovalForAll(config = {}) {
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link synthABI}__ and `functionName` set to `"setMetadataURI"`.
+ */
+export function useSynthSetMetadataUri(config = {}) {
+  return useContractWrite({
+    abi: synthABI,
+    functionName: 'setMetadataURI',
+    ...config,
+  })
+}
+
+/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link synthABI}__ and `functionName` set to `"setNFTOwnershipToMint"`.
  */
 export function useSynthSetNftOwnershipToMint(config = {}) {
@@ -10113,6 +11507,17 @@ export function useSynthUnpause(config = {}) {
  */
 export function usePrepareSynthWrite(config = {}) {
   return usePrepareContractWrite({ abi: synthABI, ...config })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link synthABI}__ and `functionName` set to `"addToArtWhitelist"`.
+ */
+export function usePrepareSynthAddToArtWhitelist(config = {}) {
+  return usePrepareContractWrite({
+    abi: synthABI,
+    functionName: 'addToArtWhitelist',
+    ...config,
+  })
 }
 
 /**
@@ -10177,6 +11582,17 @@ export function usePrepareSynthPause(config = {}) {
   return usePrepareContractWrite({
     abi: synthABI,
     functionName: 'pause',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link synthABI}__ and `functionName` set to `"removeFromArtWhitelist"`.
+ */
+export function usePrepareSynthRemoveFromArtWhitelist(config = {}) {
+  return usePrepareContractWrite({
+    abi: synthABI,
+    functionName: 'removeFromArtWhitelist',
     ...config,
   })
 }
@@ -10248,6 +11664,17 @@ export function usePrepareSynthSetApprovalForAll(config = {}) {
 }
 
 /**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link synthABI}__ and `functionName` set to `"setMetadataURI"`.
+ */
+export function usePrepareSynthSetMetadataUri(config = {}) {
+  return usePrepareContractWrite({
+    abi: synthABI,
+    functionName: 'setMetadataURI',
+    ...config,
+  })
+}
+
+/**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link synthABI}__ and `functionName` set to `"setNFTOwnershipToMint"`.
  */
 export function usePrepareSynthSetNftOwnershipToMint(config = {}) {
@@ -10281,6 +11708,13 @@ export function usePrepareSynthUnpause(config = {}) {
 }
 
 /**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link synthABI}__.
+ */
+export function useSynthEvent(config = {}) {
+  return useContractEvent({ abi: synthABI, ...config })
+}
+
+/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link synthABI}__ and `eventName` set to `"Approval"`.
  */
 export function useSynthApprovalEvent(config = {}) {
@@ -10294,6 +11728,28 @@ export function useSynthApprovalForAllEvent(config = {}) {
   return useContractEvent({
     abi: synthABI,
     eventName: 'ApprovalForAll',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link synthABI}__ and `eventName` set to `"ArtWhitelistAdded"`.
+ */
+export function useSynthArtWhitelistAddedEvent(config = {}) {
+  return useContractEvent({
+    abi: synthABI,
+    eventName: 'ArtWhitelistAdded',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link synthABI}__ and `eventName` set to `"ArtWhitelistRemoved"`.
+ */
+export function useSynthArtWhitelistRemovedEvent(config = {}) {
+  return useContractEvent({
+    abi: synthABI,
+    eventName: 'ArtWhitelistRemoved',
     ...config,
   })
 }
@@ -10433,12 +11889,89 @@ export function useSynthAccountExecute(config = {}) {
 }
 
 /**
- * Wraps __{@link useContractWrite}__ with `abi` set to __{@link synthAccountABI}__ and `functionName` set to `"generateArt"`.
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link synthAccountABI}__ and `functionName` set to `"grantRole"`.
  */
-export function useSynthAccountGenerateArt(config = {}) {
+export function useSynthAccountGrantRole(config = {}) {
   return useContractWrite({
     abi: synthAccountABI,
-    functionName: 'generateArt',
+    functionName: 'grantRole',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link synthAccountABI}__ and `functionName` set to `"initialize"`.
+ */
+export function useSynthAccountInitialize(config = {}) {
+  return useContractWrite({
+    abi: synthAccountABI,
+    functionName: 'initialize',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link synthAccountABI}__ and `functionName` set to `"purchasePalette"`.
+ */
+export function useSynthAccountPurchasePalette(config = {}) {
+  return useContractWrite({
+    abi: synthAccountABI,
+    functionName: 'purchasePalette',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link synthAccountABI}__ and `functionName` set to `"purchasePrint"`.
+ */
+export function useSynthAccountPurchasePrint(config = {}) {
+  return useContractWrite({
+    abi: synthAccountABI,
+    functionName: 'purchasePrint',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link synthAccountABI}__ and `functionName` set to `"renounceRole"`.
+ */
+export function useSynthAccountRenounceRole(config = {}) {
+  return useContractWrite({
+    abi: synthAccountABI,
+    functionName: 'renounceRole',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link synthAccountABI}__ and `functionName` set to `"revokeRole"`.
+ */
+export function useSynthAccountRevokeRole(config = {}) {
+  return useContractWrite({
+    abi: synthAccountABI,
+    functionName: 'revokeRole',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link synthAccountABI}__ and `functionName` set to `"upgradeTo"`.
+ */
+export function useSynthAccountUpgradeTo(config = {}) {
+  return useContractWrite({
+    abi: synthAccountABI,
+    functionName: 'upgradeTo',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link synthAccountABI}__ and `functionName` set to `"upgradeToAndCall"`.
+ */
+export function useSynthAccountUpgradeToAndCall(config = {}) {
+  return useContractWrite({
+    abi: synthAccountABI,
+    functionName: 'upgradeToAndCall',
     ...config,
   })
 }
@@ -10462,12 +11995,195 @@ export function usePrepareSynthAccountExecute(config = {}) {
 }
 
 /**
- * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link synthAccountABI}__ and `functionName` set to `"generateArt"`.
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link synthAccountABI}__ and `functionName` set to `"grantRole"`.
  */
-export function usePrepareSynthAccountGenerateArt(config = {}) {
+export function usePrepareSynthAccountGrantRole(config = {}) {
   return usePrepareContractWrite({
     abi: synthAccountABI,
-    functionName: 'generateArt',
+    functionName: 'grantRole',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link synthAccountABI}__ and `functionName` set to `"initialize"`.
+ */
+export function usePrepareSynthAccountInitialize(config = {}) {
+  return usePrepareContractWrite({
+    abi: synthAccountABI,
+    functionName: 'initialize',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link synthAccountABI}__ and `functionName` set to `"purchasePalette"`.
+ */
+export function usePrepareSynthAccountPurchasePalette(config = {}) {
+  return usePrepareContractWrite({
+    abi: synthAccountABI,
+    functionName: 'purchasePalette',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link synthAccountABI}__ and `functionName` set to `"purchasePrint"`.
+ */
+export function usePrepareSynthAccountPurchasePrint(config = {}) {
+  return usePrepareContractWrite({
+    abi: synthAccountABI,
+    functionName: 'purchasePrint',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link synthAccountABI}__ and `functionName` set to `"renounceRole"`.
+ */
+export function usePrepareSynthAccountRenounceRole(config = {}) {
+  return usePrepareContractWrite({
+    abi: synthAccountABI,
+    functionName: 'renounceRole',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link synthAccountABI}__ and `functionName` set to `"revokeRole"`.
+ */
+export function usePrepareSynthAccountRevokeRole(config = {}) {
+  return usePrepareContractWrite({
+    abi: synthAccountABI,
+    functionName: 'revokeRole',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link synthAccountABI}__ and `functionName` set to `"upgradeTo"`.
+ */
+export function usePrepareSynthAccountUpgradeTo(config = {}) {
+  return usePrepareContractWrite({
+    abi: synthAccountABI,
+    functionName: 'upgradeTo',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link synthAccountABI}__ and `functionName` set to `"upgradeToAndCall"`.
+ */
+export function usePrepareSynthAccountUpgradeToAndCall(config = {}) {
+  return usePrepareContractWrite({
+    abi: synthAccountABI,
+    functionName: 'upgradeToAndCall',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link synthAccountABI}__.
+ */
+export function useSynthAccountEvent(config = {}) {
+  return useContractEvent({ abi: synthAccountABI, ...config })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link synthAccountABI}__ and `eventName` set to `"AdminChanged"`.
+ */
+export function useSynthAccountAdminChangedEvent(config = {}) {
+  return useContractEvent({
+    abi: synthAccountABI,
+    eventName: 'AdminChanged',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link synthAccountABI}__ and `eventName` set to `"BeaconUpgraded"`.
+ */
+export function useSynthAccountBeaconUpgradedEvent(config = {}) {
+  return useContractEvent({
+    abi: synthAccountABI,
+    eventName: 'BeaconUpgraded',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link synthAccountABI}__ and `eventName` set to `"Initialized"`.
+ */
+export function useSynthAccountInitializedEvent(config = {}) {
+  return useContractEvent({
+    abi: synthAccountABI,
+    eventName: 'Initialized',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link synthAccountABI}__ and `eventName` set to `"PalettePurchased"`.
+ */
+export function useSynthAccountPalettePurchasedEvent(config = {}) {
+  return useContractEvent({
+    abi: synthAccountABI,
+    eventName: 'PalettePurchased',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link synthAccountABI}__ and `eventName` set to `"PrintPurchased"`.
+ */
+export function useSynthAccountPrintPurchasedEvent(config = {}) {
+  return useContractEvent({
+    abi: synthAccountABI,
+    eventName: 'PrintPurchased',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link synthAccountABI}__ and `eventName` set to `"RoleAdminChanged"`.
+ */
+export function useSynthAccountRoleAdminChangedEvent(config = {}) {
+  return useContractEvent({
+    abi: synthAccountABI,
+    eventName: 'RoleAdminChanged',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link synthAccountABI}__ and `eventName` set to `"RoleGranted"`.
+ */
+export function useSynthAccountRoleGrantedEvent(config = {}) {
+  return useContractEvent({
+    abi: synthAccountABI,
+    eventName: 'RoleGranted',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link synthAccountABI}__ and `eventName` set to `"RoleRevoked"`.
+ */
+export function useSynthAccountRoleRevokedEvent(config = {}) {
+  return useContractEvent({
+    abi: synthAccountABI,
+    eventName: 'RoleRevoked',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link synthAccountABI}__ and `eventName` set to `"Upgraded"`.
+ */
+export function useSynthAccountUpgradedEvent(config = {}) {
+  return useContractEvent({
+    abi: synthAccountABI,
+    eventName: 'Upgraded',
     ...config,
   })
 }
@@ -10723,6 +12439,19 @@ export function usePrepareSynthRegistryUpgradeToAndCall(config = {}) {
 }
 
 /**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link synthRegistryABI}__.
+ *
+ *
+ */
+export function useSynthRegistryEvent(config = {}) {
+  return useContractEvent({
+    abi: synthRegistryABI,
+    address: synthRegistryAddress[85431],
+    ...config,
+  })
+}
+
+/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link synthRegistryABI}__ and `eventName` set to `"AdminChanged"`.
  *
  *
@@ -10890,6 +12619,13 @@ export function usePrepareUupsUpgradeableUpgradeToAndCall(config = {}) {
     functionName: 'upgradeToAndCall',
     ...config,
   })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link uupsUpgradeableABI}__.
+ */
+export function useUupsUpgradeableEvent(config = {}) {
+  return useContractEvent({ abi: uupsUpgradeableABI, ...config })
 }
 
 /**
@@ -11196,6 +12932,13 @@ export function usePrepareWaveUnpause(config = {}) {
     functionName: 'unpause',
     ...config,
   })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link waveABI}__.
+ */
+export function useWaveEvent(config = {}) {
+  return useContractEvent({ abi: waveABI, ...config })
 }
 
 /**
@@ -11537,6 +13280,19 @@ export function usePrepareWaveRegistryUpgradeToAndCall(config = {}) {
     abi: waveRegistryABI,
     address: waveRegistryAddress[85431],
     functionName: 'upgradeToAndCall',
+    ...config,
+  })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link waveRegistryABI}__.
+ *
+ *
+ */
+export function useWaveRegistryEvent(config = {}) {
+  return useContractEvent({
+    abi: waveRegistryABI,
+    address: waveRegistryAddress[85431],
     ...config,
   })
 }
@@ -11910,6 +13666,13 @@ export function usePrepareWaveResolverUpgradeToAndCall(config = {}) {
 }
 
 /**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link waveResolverABI}__.
+ */
+export function useWaveResolverEvent(config = {}) {
+  return useContractEvent({ abi: waveResolverABI, ...config })
+}
+
+/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link waveResolverABI}__ and `eventName` set to `"AdminChanged"`.
  */
 export function useWaveResolverAdminChangedEvent(config = {}) {
@@ -12218,6 +13981,13 @@ export function usePrepareWavesPaymasterWithdrawRelayHubDepositTo(config = {}) {
     functionName: 'withdrawRelayHubDepositTo',
     ...config,
   })
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link wavesPaymasterABI}__.
+ */
+export function useWavesPaymasterEvent(config = {}) {
+  return useContractEvent({ abi: wavesPaymasterABI, ...config })
 }
 
 /**

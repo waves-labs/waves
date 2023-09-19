@@ -1,5 +1,5 @@
 # WAVES TYPES
-type SynthWaveNFT @entity {
+type SynthWaveNFT @entity(immutable: true) {
   id: Bytes! # Set to `waveNft.id.concat(synthNft.id)`
   synthNft: SynthNFT! # SynthNFT id
   waveNft: WaveNFT! # WaveNFT id
@@ -8,7 +8,7 @@ type SynthWaveNFT @entity {
   transactionHash: Bytes!
 }
 
-type SynthNFT @entity(immutable: true) {
+type SynthNFT @entity {
   id: Bytes! # address
   nftOwnershipRequired: Boolean! # bool
   # contract: Bytes!
@@ -20,11 +20,12 @@ type SynthNFT @entity(immutable: true) {
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 
+  artWhitelist: [Bytes!]! # addresses
   nftWhitelist: [Bytes!]! # addresses
   waveNFTs: [SynthWaveNFT!]! @derivedFrom(field: "synthNft")
 }
 
-type WaveNFT @entity(immutable: true) {
+type WaveNFT @entity {
   id: Bytes! # address
   # contract: Bytes!
   startTime: BigInt! # uint256
@@ -32,7 +33,7 @@ type WaveNFT @entity(immutable: true) {
   artist: Bytes! # address
   creative: Bytes! # address
   name: String! # string
-  data: Bytes! # bytes
+  data: String! # string
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
@@ -40,7 +41,7 @@ type WaveNFT @entity(immutable: true) {
   synthNfts: [SynthWaveNFT!]! @derivedFrom(field: "waveNft")
 }
 
-type SynthWave @entity {
+type SynthWave @entity(immutable: true) {
   id: Bytes! # Set to `wave.id.concat(synth.id)`
   synth: Synth! # Synth
   wave: Wave! # Wave
@@ -49,7 +50,7 @@ type SynthWave @entity {
   transactionHash: Bytes!
 }
 
-type Synth @entity(immutable: true) {
+type Synth @entity {
   id: Bytes! # address
   owner: Bytes! # address
   # account: Bytes!
@@ -62,7 +63,7 @@ type Synth @entity(immutable: true) {
   waves: [SynthWave!]! @derivedFrom(field: "synth")
 }
 
-type Wave @entity(immutable: true) {
+type Wave @entity {
   id: Bytes!
   owner: Bytes! # address
   contract: Bytes! # address
@@ -72,6 +73,38 @@ type Wave @entity(immutable: true) {
   transactionHash: Bytes!
 
   synths: [SynthWave!]! @derivedFrom(field: "wave")
+}
+
+enum OrderTypeEnum {
+  Print
+  Pallette
+}
+
+enum OrderGoodEnum {
+  SHIRT
+  HOODIE
+  HAT
+  DASHIKI
+  PANTS
+  BLANKET
+  POSTER
+  MARKER
+  CRAYON
+  PENCIL
+}
+
+type Order @entity(immutable: true) {
+  id: Bytes! # Set to `order.id,toBytes()
+  buyer: Bytes! # address
+  art: Bytes! # address
+  artTokenId: BigInt!
+  orderId: BigInt!
+  synth: Synth! # Synth
+  type: OrderTypeEnum! # OrderType
+  good: OrderGoodEnum # OrderGood
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
 }
 
 # REGISTRY TYPES

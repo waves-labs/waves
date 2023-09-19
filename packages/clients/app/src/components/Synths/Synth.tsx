@@ -22,7 +22,7 @@ export const Synth: React.FC<SynthProps> = ({
   name,
   organizer,
   blockTimestamp,
-  waveNfts,
+  waveNFTs,
 }) => {
   const { transform, opacity } = useSpring({
     opacity: flipped ? 1 : 0,
@@ -34,8 +34,8 @@ export const Synth: React.FC<SynthProps> = ({
     view === "synth" && setFlipped && setFlipped((state) => !state);
   }
 
-  const colors = waveNfts?.map((wave) => wave.data);
-  const date = new Date(Number(blockTimestamp)).toDateString();
+  const colors = waveNFTs?.map((wave) => wave.waveNft.data);
+  const date = new Date(Number(blockTimestamp) * 1000).toDateString();
 
   return (
     <div
@@ -49,10 +49,21 @@ export const Synth: React.FC<SynthProps> = ({
           box-shadow: 20px 20px 100px 0px rgba(0, 0, 0, 0.35);
         `}
       >
-        <Sketch background={waveNfts && waveNfts[0].data} colors={colors} />
+        {view === "synth" ? (
+          <>
+            {/* <Sketch background={waveNfts && waveNfts[0].data} colors={colors} /> */}
+          </>
+        ) : (
+          <>
+            <h4 className="text-2xl font-semibold text-white text-center absolute mix-blend-screen">
+              {name}
+            </h4>
+            <img src="/assets/mocks/synth.png" className="overflow-hidden" />
+          </>
+        )}
       </a.div>
       <a.div
-        className="border-[0.75rem] sm:border-[1rem] md:border-[1.5rem] dark:border-white border-black bg-black absolute w-full h-full flex flex-col"
+        className="border-[0.75rem] sm:border-[1rem] md:border-[1.5rem] dark:border-white border-black bg-black absolute w-full h-full flex flex-col text-white p-3"
         style={{
           opacity,
           transform,
@@ -62,11 +73,15 @@ export const Synth: React.FC<SynthProps> = ({
           box-shadow: 20px 20px 100px 0px rgba(0, 0, 0, 0.35);
         `}
       >
-        <h3>{name}</h3>
-        <p>Created At: {date}</p>
-        <p>Address: {id}</p>
-        <p>Artist: {artist}</p>
-        <p>Organizer: {organizer}</p>
+        <h4 className="text-2xl">{name}</h4>
+        <div className="ml-2">
+          <p className="line-clamp-2">
+            Created: <span className="max-w-prose">{date}</span>
+          </p>
+          <p className="line-clamp-2">Address: {id}</p>
+          <p className="line-clamp-2">Artist: {artist}</p>
+          <p className="line-clamp-2">Organizer: {organizer}</p>
+        </div>
       </a.div>
     </div>
   );

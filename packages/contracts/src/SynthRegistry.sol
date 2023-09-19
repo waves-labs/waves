@@ -36,18 +36,18 @@ contract SynthRegistry is Initializable, PausableUpgradeable, OwnableUpgradeable
 
     function createSynth(
         bool _nftOwnershipToMint,
-        address _artist,
+        address _art,
         string memory _name,
         string memory _metadata,
         address[] memory _nftWhitelist
     ) external whenNotPaused returns (address) {
         Synth synth =
-        new Synth(_nftOwnershipToMint, synthAccountImplementation, _artist, msg.sender, _name, _metadata, _nftWhitelist);
+        new Synth(_nftOwnershipToMint, synthAccountImplementation, _art, msg.sender, _name, _metadata, _nftWhitelist);
 
         address synthAddrs = address(synth);
         synthExists[synthAddrs] = true;
 
-        emit SynthCreated(_nftOwnershipToMint, synthAddrs, _artist, msg.sender, _name, _metadata);
+        emit SynthCreated(_nftOwnershipToMint, synthAddrs, _art, msg.sender, _name, _metadata);
 
         return synthAddrs;
     }

@@ -11,6 +11,7 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
 
+import {Synth} from "./Synth.sol";
 import "./interfaces/IERC6551Account.sol";
 import "./interfaces/IERC6551Executable.sol";
 
@@ -23,6 +24,13 @@ contract SynthAccount is
     AccessControlUpgradeable,
     UUPSUpgradeable
 {
+    event PrintPurchased(
+        address indexed buyer, address art, uint256 indexed tokenId, uint256 indexed orderId, StyleEnum style
+    );
+    event PalettePurchased(
+        address indexed buyer, address art, uint256 indexed tokenId, uint256 indexed orderId, PaletteEnum palette
+    );
+
     enum StyleEnum {
         SHIRT,
         HOODIE,
@@ -39,12 +47,18 @@ contract SynthAccount is
         PENCIL
     }
 
+    struct Order {
+        uint8 quantity;
+        StyleEnum style;
+        address art;
+    }
+    // uint256 tokenId;
+
     bytes32 public constant UPGRADER_ROLE = keccak256("UPGRADER_ROLE");
 
     uint256 private _state;
     uint256 public purchasesRemaining;
     uint256 public artStylesRemaining;
-    mapping(address => bool) public artStyleWhitelist;
     mapping(PaletteEnum => bool) public artPalettePurchased;
 
     /// @custom:oz-upgrades-unsafe-allow constructor
@@ -53,10 +67,7 @@ contract SynthAccount is
     }
 
     // External functions
-    function initialize(uint256 _printAmount, address _organizer, address[] memory _artWhitelist)
-        external
-        initializer
-    {
+    function initialize(uint256 _printAmount, address _organizer) external initializer {
         __AccessControl_init();
         __UUPSUpgradeable_init();
 
@@ -64,23 +75,25 @@ contract SynthAccount is
         _grantRole(UPGRADER_ROLE, _organizer);
 
         purchasesRemaining = _printAmount;
-
-        for (uint256 i = 0; i < _artWhitelist.length; ++i) {
-            artStyleWhitelist[_artWhitelist[i]] = true;
-        }
     }
 
-    function purchasePrint(address _art, StyleEnum _style) external returns (uint256, uint256) {
+    function purchasePrint(Order memory _order) external returns (uint256, uint256) {
         require(_isValidSigner(_msgSender()), "Invalid signer");
-        require(artStyleWhitelist[_art], "Art not whitelisted");
         require(purchasesRemaining > 0, "No prints remaining");
 
-        uint256 tokenId = IERC721GeneralMint(_art).mintOneToOneRecipient(_msgSender());
+        (, address synth,) = _token();
+
+        bool artWhitelisted = Synth(synth).artWhitelist(_order.art);
+
+        require(artWhitelisted, "Art not whitelisted");
+
+        uint256 tokenId = IERC721GeneralMint(_order.art).mintOneToOneRecipient(_msgSender());
         // TODO: Send order ro Market Contract
 
         --purchasesRemaining;
 
-        // TODO: Return the NFT and Order ID
+        emit PrintPurchased(_msgSender(), _order.art, tokenId, 0, _order.style);
+
         return (tokenId, 0);
     }
 
@@ -88,19 +101,21 @@ contract SynthAccount is
         require(_isValidSigner(_msgSender()), "Invalid signer");
         require(!artPalettePurchased[_palette], "Palette already purchased");
 
+        (, address synth,) = _token();
+
+        bool artWhitelisted = Synth(synth).artWhitelist(_art);
+
+        require(artWhitelisted, "Art not whitelisted");
+
         uint256 tokenId = IERC721GeneralMint(_art).mintOneToOneRecipient(_msgSender());
         // TODO: Send order ro Market Contract
 
         --purchasesRemaining;
         artPalettePurchased[_palette] = true;
 
-        // TODO: Return the NFT and Order ID
-        return (tokenId, 0);
-    }
+        emit PalettePurchased(_msgSender(), _art, tokenId, 0, _palette);
 
-    function whitelistArt(address _art) external onlyRole(DEFAULT_ADMIN_ROLE) {
-        require(_isValidSigner(_msgSender()), "Invalid signer");
-        artStyleWhitelist[_art] = true;
+        return (tokenId, 0);
     }
 
     function execute(address to, uint256 value, bytes calldata data, uint256 operation)

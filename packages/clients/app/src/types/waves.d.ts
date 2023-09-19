@@ -101,7 +101,7 @@ declare interface SynthNFT extends BlockData {
   organizer: string; // Live Event Organizer
   metadata: string; // JSON Metadata
 
-  waveNfts?: WaveNFT[];
+  waveNFTs?: { waveNft: WaveNFT }[];
 }
 
 declare interface WaveNFT extends BlockData {
@@ -118,7 +118,7 @@ declare interface Synth extends BlockData {
   contract?: string; // Synth ERC-721 Address
   tokenId?: number; // Synth Token ID
 
-  waves?: Wave[];
+  waves?: { wave: Wave }[];
 }
 
 declare interface Wave extends BlockData {

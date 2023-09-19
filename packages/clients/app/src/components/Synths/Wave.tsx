@@ -13,9 +13,11 @@ export const Wave: React.FC<WaveProps> = ({ data }) => {
     data.endsWith(".jpeg") ||
     data.endsWith(".gif");
 
+  // console.log(String.fromCharCode(data.));
+
   return (
     <label
-      htmlFor="synths-dialog"
+      htmlFor="wave-dialog"
       className={`aspect-square unselectable shadow-xl cursor-pointer grid place-items-center rounded-xl border-1 dark:border-white`}
     >
       {isImage ? (

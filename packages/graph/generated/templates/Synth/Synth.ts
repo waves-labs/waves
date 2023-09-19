@@ -62,6 +62,42 @@ export class ApprovalForAll__Params {
   }
 }
 
+export class ArtWhitelistAdded extends ethereum.Event {
+  get params(): ArtWhitelistAdded__Params {
+    return new ArtWhitelistAdded__Params(this);
+  }
+}
+
+export class ArtWhitelistAdded__Params {
+  _event: ArtWhitelistAdded;
+
+  constructor(event: ArtWhitelistAdded) {
+    this._event = event;
+  }
+
+  get art(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+}
+
+export class ArtWhitelistRemoved extends ethereum.Event {
+  get params(): ArtWhitelistRemoved__Params {
+    return new ArtWhitelistRemoved__Params(this);
+  }
+}
+
+export class ArtWhitelistRemoved__Params {
+  _event: ArtWhitelistRemoved;
+
+  constructor(event: ArtWhitelistRemoved) {
+    this._event = event;
+  }
+
+  get art(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+}
+
 export class NFTOwnershipToMintSet extends ethereum.Event {
   get params(): NFTOwnershipToMintSet__Params {
     return new NFTOwnershipToMintSet__Params(this);
@@ -348,6 +384,25 @@ export class Synth extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBytes());
+  }
+
+  artWhitelist(param0: Address): boolean {
+    let result = super.call("artWhitelist", "artWhitelist(address):(bool)", [
+      ethereum.Value.fromAddress(param0)
+    ]);
+
+    return result[0].toBoolean();
+  }
+
+  try_artWhitelist(param0: Address): ethereum.CallResult<boolean> {
+    let result = super.tryCall("artWhitelist", "artWhitelist(address):(bool)", [
+      ethereum.Value.fromAddress(param0)
+    ]);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
   balanceOf(owner: Address): BigInt {
@@ -703,6 +758,36 @@ export class ConstructorCall__Outputs {
   }
 }
 
+export class AddToArtWhitelistCall extends ethereum.Call {
+  get inputs(): AddToArtWhitelistCall__Inputs {
+    return new AddToArtWhitelistCall__Inputs(this);
+  }
+
+  get outputs(): AddToArtWhitelistCall__Outputs {
+    return new AddToArtWhitelistCall__Outputs(this);
+  }
+}
+
+export class AddToArtWhitelistCall__Inputs {
+  _call: AddToArtWhitelistCall;
+
+  constructor(call: AddToArtWhitelistCall) {
+    this._call = call;
+  }
+
+  get _art(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class AddToArtWhitelistCall__Outputs {
+  _call: AddToArtWhitelistCall;
+
+  constructor(call: AddToArtWhitelistCall) {
+    this._call = call;
+  }
+}
+
 export class AddToNFTWhitelistCall extends ethereum.Call {
   get inputs(): AddToNFTWhitelistCall__Inputs {
     return new AddToNFTWhitelistCall__Inputs(this);
@@ -891,6 +976,36 @@ export class PauseCall__Outputs {
   }
 }
 
+export class RemoveFromArtWhitelistCall extends ethereum.Call {
+  get inputs(): RemoveFromArtWhitelistCall__Inputs {
+    return new RemoveFromArtWhitelistCall__Inputs(this);
+  }
+
+  get outputs(): RemoveFromArtWhitelistCall__Outputs {
+    return new RemoveFromArtWhitelistCall__Outputs(this);
+  }
+}
+
+export class RemoveFromArtWhitelistCall__Inputs {
+  _call: RemoveFromArtWhitelistCall;
+
+  constructor(call: RemoveFromArtWhitelistCall) {
+    this._call = call;
+  }
+
+  get _art(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class RemoveFromArtWhitelistCall__Outputs {
+  _call: RemoveFromArtWhitelistCall;
+
+  constructor(call: RemoveFromArtWhitelistCall) {
+    this._call = call;
+  }
+}
+
 export class RemoveFromNFTWhitelistCall extends ethereum.Call {
   get inputs(): RemoveFromNFTWhitelistCall__Inputs {
     return new RemoveFromNFTWhitelistCall__Inputs(this);
@@ -908,7 +1023,7 @@ export class RemoveFromNFTWhitelistCall__Inputs {
     this._call = call;
   }
 
-  get nft(): Address {
+  get _nft(): Address {
     return this._call.inputValues[0].value.toAddress();
   }
 }

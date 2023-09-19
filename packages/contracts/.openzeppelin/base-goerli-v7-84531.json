@@ -2,30 +2,30 @@
   "manifestVersion": "3.2",
   "proxies": [
     {
-      "address": "0x516e65fC8A699574bff09bF0deCd75DA9328e8C2",
-      "txHash": "0x9d618ddf0b2e77f3ad23371f36c162356dcb526be3e329d001812d27cdeba23f",
+      "address": "0xa9f9AE929c6D7B28CF0522AdFe418c1003356e0C",
+      "txHash": "0xd4b881f5d63c0b891695be39e0a41a9abbf22a990de3155d1af2e197cde84b0a",
       "kind": "uups"
     },
     {
-      "address": "0xf2F63b48498e72CA39EB168B096F39C5affA5922",
-      "txHash": "0x6efb324d13b741432d2950df30e58112859cc6752252f6d3aa1357101bed964f",
+      "address": "0x9a92f3654Ac144176a2F62b589e606B93E477cc3",
+      "txHash": "0xe939421860aceafe829c18da3c8169e7ce11013ded2af4907319e4a633cffcaa",
       "kind": "uups"
     },
     {
-      "address": "0xa8a95Eb39a255BDA3412982AAf6c1a3DBdC8148d",
-      "txHash": "0x446fd7bb04d069aaf16e238a0b878a8b6e3b9006c3f23e166d48cb0a1c2344d3",
+      "address": "0xb3D9C3d34fDf59617ecDAd96852d6229AC391f70",
+      "txHash": "0x8a28506e2b2c8a4cb6b4f81d66501494b436827a5ce89a674316d2ba41d0f5ff",
       "kind": "uups"
     },
     {
-      "address": "0xD1d4e8D1Ce270e7076Fe9476CB0Bdc05b092190B",
-      "txHash": "0x64d7ab194ac5c4f592cbfc41e2ca1b5d5ea117ad1240998edcd061a964db0ab3",
+      "address": "0xFAA8c12007162E0D22149aAC198814df49EDf984",
+      "txHash": "0x5826753d339c5f9ac5f30310de9d586a087e4112dae0663bc3152a24ce21210d",
       "kind": "uups"
     }
   ],
   "impls": {
     "3af43adbb41f657ecbc6ef5a8ee138fa95d4aae329dfeb284e1f557da110bdf3": {
-      "address": "0x35F091111C0956e320625F7E0780ce77BA99c9BB",
-      "txHash": "0x987f1b260a3ff4c8233e2b8b1d807ccc137e613df36af1f6253aa021552c2a41",
+      "address": "0xC738A21Ca2ACb88d83224865BEb9e8E243c0a92b",
+      "txHash": "0x29f0ecd42926dbd34001ddcc58e110d2a6d791a90a291a74acc56525f9f4d5bd",
       "layout": {
         "solcVersion": "0.8.10",
         "storage": [
@@ -127,9 +127,9 @@
         }
       }
     },
-    "35b9add4237b975d22c415ca8027c90c060a02944c15868d9eeb334bb5a6377c": {
-      "address": "0x4DE230F55EB393377026BD339AaE5910d0440Bc6",
-      "txHash": "0x0a9a44c50348472dcebe4cbabca3ad1b426cf3f63c85b3b874a343eae7d15351",
+    "d192993396f6145eb01232a0a0f5a37b666f1719347fdf03591392e55ebb9d33": {
+      "address": "0x5e312Bf491371A1111cb390f1CB21023022F2bc9",
+      "txHash": "0x37cb6d9f2aa659bf0eeaa823547c54a4041c80c34299a1e6c70510645a40a45b",
       "layout": {
         "solcVersion": "0.8.10",
         "storage": [
@@ -255,9 +255,9 @@
         }
       }
     },
-    "5bea86815c040260e1e9f9a08982a951cd301b2dac4c4df94a7e1cf749842a39": {
-      "address": "0x5155BABb978cBEb78C60aFEe903cb74c99CC6391",
-      "txHash": "0x6bef1b6fcbc6f819fb7aa840bf39fd419b8df3c92a7621c246d483e9751cabfc",
+    "3f37a3c094e52f7b414c0d80c73de0b8139134237472cb9686917ccac3965987": {
+      "address": "0x4A993830A33e0FB0194a4e9a4f85B1C9BA85C476",
+      "txHash": "0xc0e7c0e314e028a35ca128d37c59a41b941c853c3047b02eb2faa65981999f87",
       "layout": {
         "solcVersion": "0.8.10",
         "storage": [
@@ -332,7 +332,7 @@
             "slot": "251",
             "type": "t_uint256",
             "contract": "SynthAccount",
-            "src": "src/SynthAccount.sol:44"
+            "src": "src/SynthAccount.sol:59"
           },
           {
             "label": "purchasesRemaining",
@@ -340,7 +340,7 @@
             "slot": "252",
             "type": "t_uint256",
             "contract": "SynthAccount",
-            "src": "src/SynthAccount.sol:45"
+            "src": "src/SynthAccount.sol:60"
           },
           {
             "label": "artStylesRemaining",
@@ -348,23 +348,15 @@
             "slot": "253",
             "type": "t_uint256",
             "contract": "SynthAccount",
-            "src": "src/SynthAccount.sol:46"
-          },
-          {
-            "label": "artStyleWhitelist",
-            "offset": 0,
-            "slot": "254",
-            "type": "t_mapping(t_address,t_bool)",
-            "contract": "SynthAccount",
-            "src": "src/SynthAccount.sol:47"
+            "src": "src/SynthAccount.sol:61"
           },
           {
             "label": "artPalettePurchased",
             "offset": 0,
-            "slot": "255",
-            "type": "t_mapping(t_enum(PaletteEnum)6193,t_bool)",
+            "slot": "254",
+            "type": "t_mapping(t_enum(PaletteEnum)6252,t_bool)",
             "contract": "SynthAccount",
-            "src": "src/SynthAccount.sol:48"
+            "src": "src/SynthAccount.sol:62"
           }
         ],
         "types": {
@@ -388,7 +380,7 @@
             "label": "bytes32",
             "numberOfBytes": "32"
           },
-          "t_enum(PaletteEnum)6193": {
+          "t_enum(PaletteEnum)6252": {
             "label": "enum SynthAccount.PaletteEnum",
             "members": [
               "MARKER",
@@ -405,7 +397,7 @@
             "label": "mapping(bytes32 => struct AccessControlUpgradeable.RoleData)",
             "numberOfBytes": "32"
           },
-          "t_mapping(t_enum(PaletteEnum)6193,t_bool)": {
+          "t_mapping(t_enum(PaletteEnum)6252,t_bool)": {
             "label": "mapping(enum SynthAccount.PaletteEnum => bool)",
             "numberOfBytes": "32"
           },
@@ -438,9 +430,9 @@
         }
       }
     },
-    "1489fa159f40459909ef82547206100959ecbcaa44b32f8781d0498844f21a38": {
-      "address": "0x4dF1C03EA04e782dC0523a0715Ab8c2384C45fc3",
-      "txHash": "0xae8fa663e7ecaa4e708e7d95dff634d138b278ad8e347ed04a14777a5e8b832c",
+    "0763857bb924e5e120fe1f61cb68cd832feedac99848b3f1650121031c818358": {
+      "address": "0x0a57b820C8DcfA9546c5EddB89A6Fbd233Afa503",
+      "txHash": "0x993ad959774254784940d78e1f48401cb0c6498ba3c4953482a0b3ddfad11196",
       "layout": {
         "solcVersion": "0.8.10",
         "storage": [

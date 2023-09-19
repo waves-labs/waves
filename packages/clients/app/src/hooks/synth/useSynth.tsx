@@ -4,10 +4,9 @@ import { useMachine } from "@xstate/react";
 import { createContext, useContext, useState } from "react";
 
 import {
-  useSynthAccountGenerateArt,
+  useSynthAccountPurchasePrint,
   useSynthMint,
-  useSynthSynthMintedEvent,
-  synthABI,
+  // synthABI,
 } from "../../generated";
 
 import { useWaves } from "../providers/waves";
@@ -55,7 +54,7 @@ export const SynthProvider = ({ children }: Props) => {
     // variables: synthAccountGenerateArtVariables,
     writeAsync: synthAccountGenerateArt,
     // error: synthAccountGenerateArtError,
-  } = useSynthAccountGenerateArt(synthAccountAddrs);
+  } = useSynthAccountPurchasePrint(synthAccountAddrs);
 
   const [state, send] = useMachine(synthMachine, {
     actions: {
@@ -72,7 +71,7 @@ export const SynthProvider = ({ children }: Props) => {
       }),
     },
     services: {
-      mintService: async (_context, event: { address?: string }, _meta) => {
+      mintService: async (_context, _event: { address?: string }, _meta) => {
         try {
           console.log("Synth start mint!", synthAddrs);
 

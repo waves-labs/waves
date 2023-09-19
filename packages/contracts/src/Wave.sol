@@ -19,7 +19,7 @@ contract Wave is ERC721, Pausable, AccessControl, ERC2771Recipient {
     uint256 public duration; // length of set in minutes
     address public artist;
     address public creative;
-    bytes public data;
+    string public data;
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 
     using Counters for Counters.Counter;
@@ -35,7 +35,7 @@ contract Wave is ERC721, Pausable, AccessControl, ERC2771Recipient {
         address _admin,
         address _resolver,
         string memory _name,
-        bytes memory _data
+        string memory _data
     ) ERC721(_name, "WAVE") {
         maxAmount = _maxAmount;
         startTime = _startTime;

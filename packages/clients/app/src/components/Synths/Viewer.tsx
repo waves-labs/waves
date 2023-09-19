@@ -22,7 +22,7 @@ export const SynthsViewer: React.FC<SynthsViewerProps> = ({ synths }) => {
     creative: "",
   });
 
-  const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
+  const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
   const synth = synths.find((synth) => synth.id === address);
 
@@ -30,15 +30,17 @@ export const SynthsViewer: React.FC<SynthsViewerProps> = ({ synths }) => {
   const secondWave = darkThemeMq ? "#191c1c" : "#b2a79e";
   const thirdWave = darkThemeMq ? "#101414" : "#d6d0cb";
 
+  console.log("Synth", synth);
+
   const neutralWave =
     synth?.waves && synth?.waves.length > 0 ? "#e9e3dd" : undefined;
 
   const firstSynthWave =
-    synth?.waveNfts && synth?.waveNfts[0] && synth?.waveNfts[0].data;
+    synth?.waves && synth?.waves[0] && synth?.waves[0].data;
   const secondSynthWave =
-    synth?.waveNfts && synth?.waveNfts[1] && synth?.waveNfts[1].data;
+    synth?.waves && synth?.waves[1] && synth?.waves[1].data;
   const thirdSynthWave =
-    synth?.waveNfts && synth?.waveNfts[2] && synth?.waveNfts[2].data;
+    synth?.waves && synth?.waves[2] && synth?.waves[2].data;
 
   const backgroundSpring = useSpring({
     from: {
@@ -80,10 +82,12 @@ export const SynthsViewer: React.FC<SynthsViewerProps> = ({ synths }) => {
     }
   }
 
+  console.log("Synth", synth);
+
   return (
     <a.div
       style={backgroundSpring}
-      className="flex flex-col gap-3 pt-16 w-full h-full"
+      className="flex flex-col gap-3 pt-16 w-full h-full px-6"
     >
       <Link
         className="absolute dark:fill-white fill-black left-6 top-2 grid place-items-center w-12 h-12 unselectable"
@@ -101,13 +105,13 @@ export const SynthsViewer: React.FC<SynthsViewerProps> = ({ synths }) => {
               {...synth}
             />
           </div>
-          <div className="h-auto">
-            <SynthsGallery
-              view={"synth"}
-              items={synth.waves ?? []}
-              onItemClick={handleItemClick}
-            />
-          </div>
+          {/* <div className="h-auto"> */}
+          <SynthsGallery
+            view={"synth"}
+            items={synth.waves ?? []}
+            onItemClick={handleItemClick}
+          />
+          {/* </div> */}
         </>
       ) : (
         <h4 className="w-full h-full grid place-items-center text-center">

@@ -1,10 +1,10 @@
 {
   "base-testnet": {
     "SynthRegistry": {
-      "address": "0xD1d4e8D1Ce270e7076Fe9476CB0Bdc05b092190B"
+      "address": "0xFAA8c12007162E0D22149aAC198814df49EDf984"
     },
     "WaveRegistry": {
-      "address": "0xf2F63b48498e72CA39EB168B096F39C5affA5922"
+      "address": "0x9a92f3654Ac144176a2F62b589e606B93E477cc3"
     }
   }
 }

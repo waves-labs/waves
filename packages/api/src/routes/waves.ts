@@ -2,7 +2,7 @@ import { ethers, Contract } from "ethers";
 import { Request, Response, Router } from "express";
 import { EAS, SchemaEncoder } from "@ethereum-attestation-service/eas-sdk";
 
-import { synthABI, synthAccountABI, waveABI } from "../../../clients/app/src/generated";
+// import { synthABI, synthAccountABI, waveABI } from "../../../clients/app/src/generated";
 
 const chainIdMap = {
   420: "optimism-goerli",
@@ -38,9 +38,9 @@ wavesRouter.post("/mint", async function (req: Request, res: Response) {
 
   // TODO: Verify that user owns synth
   // TODO: Verify that wave is not already minted
-  const synth = new Contract(body.synth, synthABI, provider);
-  const synthAccount = new Contract(body.synthAccount, synthAccountABI, provider);
-  const wave = new Contract(body.wave, waveABI, provider);
+  // const synth = new Contract(body.synth, synthABI, provider);
+  // const synthAccount = new Contract(body.synthAccount, synthAccountABI, provider);
+  // const wave = new Contract(body.wave, waveABI, provider);
 
   const eas = new EAS(chainIdToEASMap[req.session.chainId ?? 85431]);
   eas.connect(wallet);
@@ -54,7 +54,7 @@ wavesRouter.post("/mint", async function (req: Request, res: Response) {
   ]);
 
   // Make on-chain attestaion
-  const schemaUID = "0xd0657911e3b233d759279f381f3a56cdc9d050da12339d6051a9ff2725d2ca22";
+  const schemaUID = "0xea661a71e489106d7e14202004fa984bb857db3956c358fac2bdb115f6e21dc1";
 
   const tx = await eas.attest({
     schema: schemaUID,

@@ -189,7 +189,7 @@ export class SynthRegistry extends ethereum.SmartContract {
 
   createSynth(
     _nftOwnershipToMint: boolean,
-    _artist: Address,
+    _art: Address,
     _name: string,
     _metadata: string,
     _nftWhitelist: Array<Address>
@@ -199,7 +199,7 @@ export class SynthRegistry extends ethereum.SmartContract {
       "createSynth(bool,address,string,string,address[]):(address)",
       [
         ethereum.Value.fromBoolean(_nftOwnershipToMint),
-        ethereum.Value.fromAddress(_artist),
+        ethereum.Value.fromAddress(_art),
         ethereum.Value.fromString(_name),
         ethereum.Value.fromString(_metadata),
         ethereum.Value.fromAddressArray(_nftWhitelist)
@@ -211,7 +211,7 @@ export class SynthRegistry extends ethereum.SmartContract {
 
   try_createSynth(
     _nftOwnershipToMint: boolean,
-    _artist: Address,
+    _art: Address,
     _name: string,
     _metadata: string,
     _nftWhitelist: Array<Address>
@@ -221,7 +221,7 @@ export class SynthRegistry extends ethereum.SmartContract {
       "createSynth(bool,address,string,string,address[]):(address)",
       [
         ethereum.Value.fromBoolean(_nftOwnershipToMint),
-        ethereum.Value.fromAddress(_artist),
+        ethereum.Value.fromAddress(_art),
         ethereum.Value.fromString(_name),
         ethereum.Value.fromString(_metadata),
         ethereum.Value.fromAddressArray(_nftWhitelist)
@@ -373,7 +373,7 @@ export class CreateSynthCall__Inputs {
     return this._call.inputValues[0].value.toBoolean();
   }
 
-  get _artist(): Address {
+  get _art(): Address {
     return this._call.inputValues[1].value.toAddress();
   }
 

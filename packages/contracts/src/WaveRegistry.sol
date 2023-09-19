@@ -16,7 +16,7 @@ contract WaveRegistry is Initializable, PausableUpgradeable, OwnableUpgradeable,
         address indexed artist,
         address indexed creative,
         string name,
-        bytes data
+        string data
     );
 
     address public waveResolver;
@@ -42,7 +42,7 @@ contract WaveRegistry is Initializable, PausableUpgradeable, OwnableUpgradeable,
         address _artist,
         address _creative,
         string calldata _name,
-        bytes calldata _data
+        string calldata _data
     ) external returns (address) {
         Wave wave =
             new Wave(_maxAmount, _startTime, _duration, _artist, _creative, msg.sender, waveResolver, _name, _data);
