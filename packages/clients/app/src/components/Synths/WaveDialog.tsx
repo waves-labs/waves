@@ -32,7 +32,7 @@ export const WaveDialog: React.FC<WaveDialogProps> = ({
   return createPortal(
     <>
       <input type="checkbox" id="wave-dialog" className="modal-toggle" />
-      <label htmlFor="wave-dialog" className="modal cursor-pointer">
+      <label htmlFor="wave-dialog" className="modal cursor-pointer px-6">
         <label
           className="modal-box relative flex w-full max-w-sm flex-col gap-4"
           htmlFor=""

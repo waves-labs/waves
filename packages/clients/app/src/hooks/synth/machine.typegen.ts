@@ -21,6 +21,12 @@ export interface Typegen0 {
       type: "error.platform.mintService";
       data: unknown;
     };
+    "xstate.after(1200)#synth.generatedArt": {
+      type: "xstate.after(1200)#synth.generatedArt";
+    };
+    "xstate.after(1200)#synth.minted": {
+      type: "xstate.after(1200)#synth.minted";
+    };
     "xstate.init": { type: "xstate.init" };
   };
   invokeSrcNameMap: {
@@ -47,6 +53,11 @@ export interface Typegen0 {
     genArtService: "GENERATE_ART";
     mintService: "MINT";
   };
-  matchesStates: "generatingArt" | "idle" | "minting";
+  matchesStates:
+    | "generatedArt"
+    | "generatingArt"
+    | "idle"
+    | "minted"
+    | "minting";
   tags: never;
 }

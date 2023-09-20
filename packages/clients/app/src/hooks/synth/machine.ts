@@ -55,7 +55,7 @@ export const synthMachine = createMachine(
           id: "mintService",
           src: "mintService",
           onDone: {
-            target: "idle",
+            target: "minted",
             actions: "minted",
           },
           onError: {
@@ -64,18 +64,28 @@ export const synthMachine = createMachine(
           },
         },
       },
+      minted: {
+        after: {
+          1200: "idle",
+        },
+      },
       generatingArt: {
         invoke: {
           id: "genArtService",
           src: "genArtService",
           onDone: {
-            target: "idle",
+            target: "generatedArt",
             actions: "generatedArt",
           },
           onError: {
             target: "idle",
             actions: "error",
           },
+        },
+      },
+      generatedArt: {
+        after: {
+          1200: "idle",
         },
       },
     },

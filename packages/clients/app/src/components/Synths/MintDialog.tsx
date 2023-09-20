@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { createPortal } from "react-dom";
 
 import { SynthDataProps } from "../../hooks/synth/useSynth";
@@ -17,8 +17,14 @@ export const SynthsMintDialog: React.FC<SynthsMintDialogProps> = ({
   synthAddrs,
   setSynthAddrs,
 }) => {
+  const [ticketAddrs, setTicketAddrs] = useState("");
+
   function handleSetAddress(event: React.ChangeEvent<HTMLSelectElement>) {
     setSynthAddrs(event.target.value);
+  }
+
+  function handleSetTicket(event: React.ChangeEvent<HTMLInputElement>) {
+    setTicketAddrs(event.target.value);
   }
 
   return createPortal(
@@ -46,9 +52,16 @@ export const SynthsMintDialog: React.FC<SynthsMintDialogProps> = ({
                 ))
               : null}
           </select>
+          <input
+            type="text"
+            placeholder="Ticket"
+            value={ticketAddrs}
+            onChange={handleSetTicket}
+            className="input input-bordered w-full max-w-xs"
+          />
           <Button
             title={isMinting ? "Minting..." : "Mint"}
-            onClick={() => mintSynth(synthAddrs)}
+            onClick={() => mintSynth(synthAddrs, ticketAddrs)}
             disabled={!synthAddrs}
             active={isMinting}
           />

@@ -71,8 +71,8 @@ const WaveNFTsQuery = gql`
 //   synths(address: $address) {
 
 const SynthsQuery = gql`
-  query ($address: String!) {
-    synths(owner: $address) {
+  query {
+    synths {
       id
       owner
       contract

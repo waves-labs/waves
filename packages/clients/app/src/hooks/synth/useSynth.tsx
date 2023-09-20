@@ -20,7 +20,7 @@ export interface SynthDataProps extends SynthMachineContext {
   address?: `0x${string}`;
   synthAddrs: string;
   setSynthAddrs: React.Dispatch<React.SetStateAction<string>>;
-  mintSynth: (address: string) => void;
+  mintSynth: (address: string, ticket?: string) => void;
   generateArt: (synthAddrs: string, artAddrs: string) => void;
 }
 
@@ -44,17 +44,15 @@ export const SynthProvider = ({ children }: Props) => {
   const [synthAccountAddrs, setSynthAccountAddrs] = useState("");
 
   const {
-    // data: synthMintData,
+    data: synthMintData,
     writeAsync: synthMint,
-    // error: synthMintError,
+    error: synthMintError,
   } = useSynthMint({ address: synthAddrs });
 
-  const {
-    // data: synthAccountGenerateArtData,
-    // variables: synthAccountGenerateArtVariables,
-    writeAsync: synthAccountGenerateArt,
-    // error: synthAccountGenerateArtError,
-  } = useSynthAccountPurchasePrint(synthAccountAddrs);
+  console.log("Synth mint data", synthMintData, synthMintError);
+
+  const { writeAsync: synthAccountGenerateArt } =
+    useSynthAccountPurchasePrint(synthAccountAddrs);
 
   const [state, send] = useMachine(synthMachine, {
     actions: {
@@ -71,19 +69,21 @@ export const SynthProvider = ({ children }: Props) => {
       }),
     },
     services: {
-      mintService: async (_context, _event: { address?: string }, _meta) => {
+      mintService: async (
+        _context,
+        event: { address: string; ticket?: string },
+        _meta,
+      ) => {
         try {
           console.log("Synth start mint!", synthAddrs);
 
           const req = await synthMint({
             args: ["0x6Bd018B28CE7016b65384e15faC102dbC4190E03"],
-            // maxFeePerGas: BigInt(10000000000000000n),
-            // maxPriorityFeePerGas
           });
 
           console.log("Synth minted!", req);
 
-          fetchSynths({});
+          fetchSynths();
 
           return {
             hash: req.hash,
@@ -116,8 +116,8 @@ export const SynthProvider = ({ children }: Props) => {
     },
   });
 
-  function mintSynth(address?: string) {
-    send({ type: "MINT", address });
+  function mintSynth(address: string, ticket?: string) {
+    send({ type: "MINT", address, ticket });
   }
 
   function generateArt(synthAddrs: string, artAddrs: string) {

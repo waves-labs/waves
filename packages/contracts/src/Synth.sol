@@ -77,7 +77,7 @@ contract Synth is ERC721, Pausable, AccessControl, ERC2771Recipient {
             synthAccountImplementation, block.chainid, address(this), synthId, 7, initCallData
         );
 
-        emit SynthMinted(_msgSender(), address(this), address(0), synthId);
+        emit SynthMinted(_msgSender(), address(this), synthAccount, synthId);
 
         return synthAccount;
     }
