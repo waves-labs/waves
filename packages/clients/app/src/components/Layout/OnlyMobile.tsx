@@ -3,7 +3,7 @@ import { a, useSpring } from "@react-spring/web";
 
 // import { musicColorWavesMap, musicColorWaves } from "../../constants";
 
-// TODO: Update copy and add social links
+// TODO: Add Subscribe button
 
 export const OnlyMobile: React.FC = () => {
   const contentSpring = useSpring({

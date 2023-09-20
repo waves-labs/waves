@@ -67,6 +67,7 @@ contract WaveResolver is SchemaResolver, Initializable, OwnableUpgradeable, UUPS
     }
 
     function onRevoke(Attestation calldata attestation, uint256 /*value*/ ) internal override returns (bool) {
+        require(attesters[attestation.attester], "WaveResolver: not valid attester");
         // TODO: Burn token if minted for attestation
         // TODO: Call burnWave on Wave (ERC-721)
 

@@ -5,6 +5,8 @@ import { SynthDataProps } from "../../hooks/synth/useSynth";
 
 import { Button } from "../Button";
 
+// TODO: Add is Minted state
+
 interface SynthsMintDialogProps extends SynthDataProps {
   synthNfts?: SynthNFT[];
 }

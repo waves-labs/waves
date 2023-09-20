@@ -6,6 +6,8 @@ interface P5Props extends SketchProps {
   colors?: string[];
 }
 
+// TODO: Refactor a p5 sketch to work with library
+
 export const curvesSketch: Sketch = (p5) => {
   p5.setup = () => p5.createCanvas(600, 400, p5.WEBGL);
 

@@ -1,12 +1,10 @@
 import React from "react";
-import {
-  // P5WrapperClassName,
-  ReactP5Wrapper,
-  Sketch as SketchData,
-} from "@p5-wrapper/react";
-// import { css } from "@emotion/react";
+import { ReactP5Wrapper, Sketch as SketchData } from "@p5-wrapper/react";
 
 import { flowSketch, noiseSketch, shapesSketch } from "./scripts";
+
+// TODO: Debug why carousel not working
+// TODO: Verify background color is being applied
 
 export interface SketchProps {
   background?: string;

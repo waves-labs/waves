@@ -26,6 +26,7 @@ export function handleWaveCreated(event: WaveCreatedEvent): void {
   entity.creative = event.params.creative;
   entity.name = event.params.name;
   entity.data = event.params.data;
+  // entity.metadata = event.params.metadata;
   entity.startTime = event.params.startTime;
   entity.duration = event.params.duration;
 

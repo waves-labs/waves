@@ -30,7 +30,7 @@ export default function Views() {
 
   return transitions((style, location) => (
     <a.main
-      className={`flex h-[calc(100dvh-4rem)] overflow-hidden max-h-[calc(100dvh-4rem)] overflow-y-contain`}
+      className={`flex h-[calc(100dvh-3.5rem)] overflow-hidden max-h-[calc(100dvh-3.5rem)] overflow-y-contain`}
       style={style}
     >
       <Routes location={location}>
@@ -41,8 +41,8 @@ export default function Views() {
               <SynthsViewer
                 synths={synths.synths}
                 synthNfts={synths.synthNfts}
+                synthWavesMap={synths.synthWavesMap}
                 waveNftMap={synths.waveNftMap}
-                waveSynthMap={synths.waveSynthMap}
                 waveTokenMap={synths.waveTokenMap}
                 fetchSynths={synths.fetchSynths}
                 fetchSynthNfts={synths.fetchSynthNfts}

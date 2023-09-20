@@ -741,7 +741,7 @@ export class ConstructorCall__Inputs {
     return this._call.inputValues[4].value.toString();
   }
 
-  get _metadataURI(): string {
+  get _metadata(): string {
     return this._call.inputValues[5].value.toString();
   }
 
@@ -1265,7 +1265,7 @@ export class SetMetadataURICall__Inputs {
     this._call = call;
   }
 
-  get _metadataURI(): string {
+  get _metadata(): string {
     return this._call.inputValues[0].value.toString();
   }
 }

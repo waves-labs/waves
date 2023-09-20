@@ -63,7 +63,6 @@ export const SynthsViewer: React.FC<SynthsViewerProps> = ({ synths }) => {
           100%
       )`,
     },
-    delay: 2000,
     config: {
       ...config.slow,
     },

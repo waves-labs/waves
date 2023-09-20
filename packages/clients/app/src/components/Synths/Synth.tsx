@@ -5,6 +5,9 @@ import { a, useSpring } from "@react-spring/web";
 import { Sketch } from "../Sketch";
 import { SynthsView } from "./Gallery";
 
+// TODO: Add metadata to back of card
+// TODO: Redo styling for back of card
+
 export interface SynthProps extends SynthUI {
   view: SynthsView;
   flipped?: boolean;

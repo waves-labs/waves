@@ -44,13 +44,18 @@ export const waveMachine = createMachine(
           id: "scanService",
           src: "scanService",
           onDone: {
-            target: "idle",
+            target: "scanned",
             actions: ["scanned", "revealWave"],
           },
           onError: {
             target: "idle",
             actions: "error",
           },
+        },
+      },
+      scanned: {
+        after: {
+          1200: "idle",
         },
       },
     },

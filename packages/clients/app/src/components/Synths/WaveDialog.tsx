@@ -1,6 +1,8 @@
 import React from "react";
 import { createPortal } from "react-dom";
 
+// TODO: Polish styling
+
 export interface WaveDialogData {
   data: string;
   name: string;

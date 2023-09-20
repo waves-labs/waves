@@ -13,10 +13,17 @@ import { useWaves } from "../providers/waves";
 
 import { SynthContext as SynthMachineContext, synthMachine } from "./machine";
 
+// TODO: Add the minted synth to the user's collection
+// TODO: Set Mint Dialog to closed
+
+// TODO: Update synth state to generated
+
 export interface SynthDataProps extends SynthMachineContext {
   isIdle: boolean;
   isMinting: boolean;
+  isMinted: boolean;
   isGeneratingArt: boolean;
+  isGeneratedArt: boolean;
   address?: `0x${string}`;
   synthAddrs: string;
   setSynthAddrs: React.Dispatch<React.SetStateAction<string>>;
@@ -49,39 +56,35 @@ export const SynthProvider = ({ children }: Props) => {
     error: synthMintError,
   } = useSynthMint({ address: synthAddrs });
 
-  console.log("Synth mint data", synthMintData, synthMintError);
-
   const { writeAsync: synthAccountGenerateArt } =
     useSynthAccountPurchasePrint(synthAccountAddrs);
 
   const [state, send] = useMachine(synthMachine, {
     actions: {
       minted: assign((context, _event) => {
-        // TODO: Add the minted synth to the user's collection
-        // TODO: Set Mint Dialog to closed
-
         return context;
       }),
       generatedArt: assign((context, _event) => {
-        // TODO: Update synth state to generated
-
         return context;
       }),
     },
     services: {
       mintService: async (
         _context,
-        event: { address: string; ticket?: string },
+        event: { synth: string; ticket?: string },
         _meta,
       ) => {
         try {
           console.log("Synth start mint!", synthAddrs);
 
+          const ticket =
+            event.ticket || "0x6Bd018B28CE7016b65384e15faC102dbC4190E03";
+
           const req = await synthMint({
-            args: ["0x6Bd018B28CE7016b65384e15faC102dbC4190E03"],
+            args: [ticket],
           });
 
-          console.log("Synth minted!", req);
+          console.log("Synth minted!", synthMintData);
 
           fetchSynths();
 
@@ -89,23 +92,23 @@ export const SynthProvider = ({ children }: Props) => {
             hash: req.hash,
           };
         } catch (error) {
-          console.log("Synth minting failed!", error);
+          console.log("Synth minting failed!", synthMintError, error);
           throw error;
         }
       },
       genArtService: async (
         _context,
-        event: { synthAccount: string; artAddrs: string },
+        event: { synthAccount: string; art: string },
       ) => {
         try {
           const req = await synthAccountGenerateArt({
-            args: [event.artAddrs],
+            args: [event.art],
           });
 
           console.log("Art generated!", req);
 
           return {
-            tokenAddress: event.artAddrs,
+            tokenAddress: event.art,
             tokenId: 0,
           };
         } catch (error) {
@@ -116,13 +119,13 @@ export const SynthProvider = ({ children }: Props) => {
     },
   });
 
-  function mintSynth(address: string, ticket?: string) {
-    send({ type: "MINT", address, ticket });
+  function mintSynth(synth: string, ticket?: string) {
+    send({ type: "MINT", synth, ticket });
   }
 
-  function generateArt(synthAddrs: string, artAddrs: string) {
-    setSynthAccountAddrs(synthAddrs);
-    send({ type: "GENERATE_ART", synthAddrs, artAddrs });
+  function generateArt(synthAccount: string, art: string) {
+    setSynthAccountAddrs(synthAccount);
+    send({ type: "GENERATE_ART", synthAccount, art });
   }
 
   return (
@@ -130,7 +133,9 @@ export const SynthProvider = ({ children }: Props) => {
       value={{
         isIdle: state.matches("idle"),
         isMinting: state.matches("minting"),
+        isMinted: state.matches("minted"),
         isGeneratingArt: state.matches("generatingArt"),
+        isGeneratedArt: state.matches("generatedArt"),
         synthAddrs,
         setSynthAddrs,
         mintSynth,

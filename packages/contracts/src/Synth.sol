@@ -12,6 +12,8 @@ import {SynthAccount} from "./SynthAccount.sol";
 import {ERC6551_REGISTRY_ADDRESS} from "./Constants.sol";
 import {IERC6551Registry} from "./interfaces/IERC6551Registry.sol";
 
+// TODO: add eventDate and postEventFreezeDuration
+
 contract Synth is ERC721, Pausable, AccessControl, ERC2771Recipient {
     event SynthMinted(address indexed owner, address indexed synth, address indexed synthAccount, uint256 synthId);
     event WaveAdded(address indexed wave);
@@ -23,11 +25,11 @@ contract Synth is ERC721, Pausable, AccessControl, ERC2771Recipient {
     event NFTOwnershipToMintSet(bool indexed nftOwnershipToMint);
 
     // uint256 public eventDate;
-    // uint256 public postEventFreeDuration;
+    // uint256 public postEventFreezeDuration;
     bool private nftOwnershipToMint;
     address private organizer;
     address private synthAccountImplementation;
-    string private metadataURI;
+    string private metadata;
     mapping(address => bool) private nftWhitelist;
     mapping(address => bool) public artWhitelist;
     mapping(address => bool) public waveExists;
@@ -42,13 +44,13 @@ contract Synth is ERC721, Pausable, AccessControl, ERC2771Recipient {
         address _art,
         address _organizer,
         string memory _name,
-        string memory _metadataURI,
+        string memory _metadata,
         address[] memory _nftWhitelist
     ) ERC721(_name, "SYNTH") {
         nftOwnershipToMint = _nftOwnershipToMint;
         synthAccountImplementation = _synthAccountImplementation;
         organizer = _organizer;
-        metadataURI = _metadataURI;
+        metadata = _metadata;
 
         artWhitelist[_art] = true;
 
@@ -112,8 +114,8 @@ contract Synth is ERC721, Pausable, AccessControl, ERC2771Recipient {
         emit NFTOwnershipToMintSet(_bool);
     }
 
-    function setMetadataURI(string memory _metadataURI) external onlyRole(DEFAULT_ADMIN_ROLE) {
-        metadataURI = _metadataURI;
+    function setMetadataURI(string memory _metadata) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        metadata = _metadata;
     }
 
     function addWave(address _wave) external onlyRole(DEFAULT_ADMIN_ROLE) {

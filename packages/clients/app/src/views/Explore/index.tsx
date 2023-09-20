@@ -20,9 +20,9 @@ const Explore: React.FC<ExploreProps> = ({
     <section className="flex flex-col w-full h-full items-center gap-3 px-6 text-center">
       {address ? (
         <div className="h-full w-full flex flex-col justify-center items-center">
-          <h3>
+          {/* <h3>
             {error ? error : isScanning ? "Catching Wave" : "Catch a Wave"}
-          </h3>
+          </h3> */}
           <QRScanner
             isIdle={isIdle}
             isScanning={isScanning}

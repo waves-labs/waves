@@ -5,6 +5,7 @@ import { RC as WavesIcon } from "../../assets/icons/waves.svg";
 import { RC as WorldIcon } from "../../assets/icons/world.svg";
 import { RC as ProfileIcon } from "../../assets/icons/profile.svg";
 
+// TODO: Add an active state
 const tabs: {
   path: string;
   title: string;

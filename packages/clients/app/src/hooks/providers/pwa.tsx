@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 
 import { useApp } from "./app";
 
+// TODO: Debug why event listeners not working
+// TODO: Cleanup functions
+
 export type InstallState =
   | "idle"
   | "prompt"
@@ -16,6 +19,22 @@ export const usePWA = () => {
   const [installState, setInstalledState] = useState<InstallState>(
     isHandheld ? "idle" : "unsupported",
   );
+  const [displayMode, setDisplayMode] = useState<
+    "standalone" | "browser" | "twa"
+  >(getPWADisplayMode());
+
+  function getPWADisplayMode() {
+    const isStandalone = window.matchMedia(
+      "(display-mode: standalone)",
+    ).matches;
+
+    if (document.referrer.startsWith("android-app://")) {
+      return "twa";
+    } else if ((navigator as any).standalone || isStandalone) {
+      return "standalone";
+    }
+    return "browser";
+  }
 
   async function handleInstallCheck(e: any) {
     console.log("Related apps:", e);
@@ -54,25 +73,18 @@ export const usePWA = () => {
   }
 
   useEffect(() => {
-    // PROMPT TO INSTALL PWA
     function handleInstallPrompt(e: any) {
       e.preventDefault();
 
       // Activate install prompt dialog
     }
 
-    // CHECK PWA DISPLAY MODE
-    // function getPWADisplayMode() {
-    //   const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
-    //   if (document.referrer.startsWith('android-app://')) {
-    //     return 'twa';
-    //   } else if (navigator.standalone || isStandalone) {
-    //     return 'standalone';
-    //   }
-    //   return 'browser';
-    // }
     function handleDisplayMode(e: any) {
       e.preventDefault();
+
+      const displayMode = getPWADisplayMode();
+
+      setDisplayMode(displayMode);
     }
 
     handleInstallCheck(null);
@@ -96,6 +108,7 @@ export const usePWA = () => {
   return {
     deferredPrompt,
     installState,
+    displayMode,
     handleInstallCheck,
     handlePromptAction,
   };

@@ -11,6 +11,7 @@ import { WaveContext as WaveMachineContext, waveMachine } from "./machine";
 export interface WaveState {
   isIdle: boolean;
   isScanning: boolean;
+  isScanned: boolean;
 }
 
 export interface WaveDataProps extends WaveMachineContext, WaveState {
@@ -84,6 +85,7 @@ export const WaveProvider = ({ children }: Props) => {
         scan,
         isIdle: state.matches("idle"),
         isScanning: state.matches("scanning"),
+        isScanned: state.matches("scanned"),
         ...state.context,
       }}
     >

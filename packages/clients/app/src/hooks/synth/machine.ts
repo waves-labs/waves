@@ -1,6 +1,8 @@
 // import { toast } from "react-toastify";
 import { createMachine, assign } from "xstate";
 
+// TODO: Add Error states messages for minting and generating art
+
 export interface SynthContext {
   address?: `0x${string}`;
   error: string | null;
@@ -92,8 +94,8 @@ export const synthMachine = createMachine(
   },
   {
     guards: {
-      isMintValid: (_context, _event: { image: string | ArrayBuffer }) => {
-        return true;
+      isMintValid: (_context, event: { address: string }) => {
+        return !!event.address;
       },
       isGenArtValid: (_context, _event: { element: any }) => {
         return true;

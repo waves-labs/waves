@@ -3,7 +3,8 @@ import { QrReader } from "react-qr-reader";
 
 import { Loader } from "../Loader";
 
-// TODO: Polish styles to match designs
+// TODO: Capture QR code
+// TODO: Make the QR canvas full screen
 
 interface QRScannerProps {
   isIdle: boolean;

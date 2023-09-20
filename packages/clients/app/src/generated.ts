@@ -4782,7 +4782,7 @@ export const synthABI = [
       { name: '_art', internalType: 'address', type: 'address' },
       { name: '_organizer', internalType: 'address', type: 'address' },
       { name: '_name', internalType: 'string', type: 'string' },
-      { name: '_metadataURI', internalType: 'string', type: 'string' },
+      { name: '_metadata', internalType: 'string', type: 'string' },
       { name: '_nftWhitelist', internalType: 'address[]', type: 'address[]' },
     ],
   },
@@ -5246,7 +5246,7 @@ export const synthABI = [
   {
     stateMutability: 'nonpayable',
     type: 'function',
-    inputs: [{ name: '_metadataURI', internalType: 'string', type: 'string' }],
+    inputs: [{ name: '_metadata', internalType: 'string', type: 'string' }],
     name: 'setMetadataURI',
     outputs: [],
   },

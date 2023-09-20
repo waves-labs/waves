@@ -14,7 +14,7 @@ const Synths: React.FC<SynthsProps> = ({ synths, address, ...synthProps }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  function handleItemClick(item: Synth | Wave) {
+  function handleItemClick(item: SynthUI | WaveUI) {
     if ("organizer" in item) {
       navigate(`/synths/${item.id}`);
     }

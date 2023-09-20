@@ -12,6 +12,9 @@ export interface Typegen0 {
       type: "error.platform.scanService";
       data: unknown;
     };
+    "xstate.after(1200)#wave.scanned": {
+      type: "xstate.after(1200)#wave.scanned";
+    };
     "xstate.init": { type: "xstate.init" };
   };
   invokeSrcNameMap: {
@@ -33,6 +36,6 @@ export interface Typegen0 {
   eventsCausingServices: {
     scanService: "SCAN";
   };
-  matchesStates: "idle" | "scanning";
+  matchesStates: "idle" | "scanned" | "scanning";
   tags: never;
 }

@@ -11,6 +11,9 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 import { apiClient } from "../../modules/axios";
 
+// TODO: Verify SIWE is working
+// TODO: Add with credentials to login
+
 const domain = document.location.host;
 const origin = document.location.origin;
 

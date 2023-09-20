@@ -2,12 +2,15 @@ import { useAccount } from "wagmi";
 import { UseQueryExecute, gql, useQuery } from "urql";
 import { createContext, useContext } from "react";
 
+// TODO:  Update with Query By Synth Owner fpr synths
+// TODO: Add both the art and nft whitelist to synthNFTs
+
 export interface WavesDataProps {
   synths: SynthUI[];
   synthNfts?: SynthNFT[];
   waveNftMap: Map<string, WaveNFT>; // wave contract => synth nft
   waveTokenMap: Map<string, Wave>; // wave contract => wave data
-  waveSynthMap: Map<string, string[]>; // synth contract => wave contracts
+  synthWavesMap: Map<string, string[]>; // synth contract => wave contracts
   fetchSynths: UseQueryExecute;
   fetchSynthNfts: UseQueryExecute;
   fetchWaveNfts: UseQueryExecute;
@@ -67,9 +70,6 @@ const WaveNFTsQuery = gql`
   }
 `;
 
-// query ($address: String!) {
-//   synths(address: $address) {
-
 const SynthsQuery = gql`
   query {
     synths {
@@ -111,12 +111,11 @@ export const WavesProvider = ({ children }: Props) => {
   });
   const [tokens, fetchSynths] = useQuery<{ synths: Synth[] }>({
     query: SynthsQuery,
-    // variables: { from, limit },
   });
 
   const waveTokenMap: Map<string, Wave> = new Map(); // wave contract => wave data
   const waveNftMap: Map<string, WaveNFT> = new Map(); // wave contract => wave nft
-  const waveSynthMap: Map<string, string[]> = new Map(); // synth contract => wave contracts
+  const synthWavesMap: Map<string, string[]> = new Map(); // synth contract => wave contracts
   const synthTokenMap: Map<string, Synth> | undefined =
     tokens.data?.synths && tokens.data.synths.length > 0
       ? tokens.data.synths
@@ -132,7 +131,7 @@ export const WavesProvider = ({ children }: Props) => {
                   wave.contract && waveTokenMap.set(wave.contract, wave);
                 });
 
-                waveSynthMap.set(token.contract, [
+                synthWavesMap.set(token.contract, [
                   ...token.waves.map(({ wave }) => wave.contract ?? ""),
                 ]);
               }
@@ -218,7 +217,7 @@ export const WavesProvider = ({ children }: Props) => {
         synthNfts: nfts.data?.synthNFTs ?? [],
         waveNftMap,
         waveTokenMap,
-        waveSynthMap,
+        synthWavesMap,
         fetchSynths,
         fetchSynthNfts,
         fetchWaveNfts,
