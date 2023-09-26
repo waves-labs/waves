@@ -94,6 +94,13 @@ body {
   }
 }
 
+h1,
+h2,
+h3 {
+  font-family: "Azedo", sans-serif;
+}
+
+
 ::-webkit-scrollbar {
   display: none;
 }
