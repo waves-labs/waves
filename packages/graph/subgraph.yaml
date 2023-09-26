@@ -1,12 +1,16 @@
 specVersion: 0.0.5
+description: Waves Subgraph for querying Synth and Wave data
 schema:
   file: ./schema.graphql
+features:
+  - fullTextSearch
+  - nonFatalErrors
 dataSources:
   - name: SynthRegistry
     kind: ethereum
     network: base-testnet
     source:
-      address: "0xFAA8c12007162E0D22149aAC198814df49EDf984"
+      address: "0x3F53a611878999D5BDf2f385A6D5A7e9e9Aa880C"
       abi: SynthRegistry
       startBlock: 9945581
     mapping:
@@ -44,7 +48,7 @@ dataSources:
     kind: ethereum
     network: base-testnet
     source:
-      address: "0x9a92f3654Ac144176a2F62b589e606B93E477cc3"
+      address: "0xDAd97DD8EE3809b06258dd6F86a852118fE41f7d"
       abi: WaveRegistry
       startBlock: 9945581
     mapping:

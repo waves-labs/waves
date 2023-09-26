@@ -1,40 +1,40 @@
-type _Schema_
-  @fulltext(
-    name: "querySynthNFTsByOrganizer"
-    language: en
-    algorithm: rank
-    include: [{ entity: "SynthNFT", fields: [{ name: "organizer" }] }]
-  )
-  @fulltext(
-    name: "querySynthNFTsByArtist"
-    language: en
-    algorithm: rank
-    include: [{ entity: "SynthNFT", fields: [{ name: "artist" }] }]
-  )
-  @fulltext(
-    name: "queryWaveNFTsByArtist"
-    language: en
-    algorithm: rank
-    include: [{ entity: "WaveNFT", fields: [{ name: "artist" }] }]
-  )
-  @fulltext(
-    name: "queryWaveNFTsByCreative"
-    language: en
-    algorithm: rank
-    include: [{ entity: "WaveNFT", fields: [{ name: "creative" }] }]
-  )
-  @fulltext(
-    name: "querySynthsByOwner"
-    language: en
-    algorithm: rank
-    include: [{ entity: "Synth", fields: [{ name: "owner" }] }]
-  )
-  @fulltext(
-    name: "queryWavesByOwner"
-    language: en
-    algorithm: rank
-    include: [{ entity: "Wave", fields: [{ name: "owner" }] }]
-  )
+# @fulltext(
+#   name: "querySynthNFTsByOrganizer"
+#   language: en
+#   algorithm: rank
+#   include: [{ entity: "SynthNFT", fields: [{ name: "organizer" }] }]
+# )
+# @fulltext(
+#   name: "querySynthNFTsByArtist"
+#   language: en
+#   algorithm: rank
+#   include: [{ entity: "SynthNFT", fields: [{ name: "artist" }] }]
+# )
+# @fulltext(
+#   name: "queryWaveNFTsByArtist"
+#   language: en
+#   algorithm: rank
+#   include: [{ entity: "WaveNFT", fields: [{ name: "artist" }] }]
+# )
+# @fulltext(
+#   name: "queryWaveNFTsByCreative"
+#   language: en
+#   algorithm: rank
+#   include: [{ entity: "WaveNFT", fields: [{ name: "creative" }] }]
+# )
+# type _Schema_
+#   @fulltext(
+#     name: "querySynthsByOwner"
+#     language: en
+#     algorithm: rank
+#     include: [{ entity: "Synth", fields: [{ name: "owner" }] }]
+#   )
+# @fulltext(
+#   name: "queryWavesByOwner"
+#   language: en
+#   algorithm: rank
+#   include: [{ entity: "Wave", fields: [{ name: "owner" }] }]
+# )
 
 # WAVES TYPES
 type SynthWaveNFT @entity(immutable: true) {
