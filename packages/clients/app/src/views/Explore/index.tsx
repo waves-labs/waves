@@ -11,24 +11,24 @@ const Explore: React.FC<ExploreProps> = ({
   isIdle,
   isScanning,
   error,
-  scan,
   synths,
+  ...wave
 }) => {
   const { address } = useAccount();
 
   return (
     <section className="flex flex-col w-full h-full items-center gap-3 px-6 text-center">
       {address ? (
-        <div className="h-full w-full flex flex-col justify-center items-center">
-          {/* <h3>
+        <div className="h-full w-full flex justify-center">
+          <h3 className="pt-20">
             {error ? error : isScanning ? "Catching Wave" : "Catch a Wave"}
-          </h3> */}
+          </h3>
           <QRScanner
             isIdle={isIdle}
             isScanning={isScanning}
-            onQRDetection={scan}
             error={error}
             synths={synths}
+            {...wave}
           />
         </div>
       ) : (

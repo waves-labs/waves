@@ -29,9 +29,9 @@ const Synths: React.FC<SynthsProps> = ({ synths, address, ...synthProps }) => {
           >
             <label
               htmlFor="synths-mint-dialog"
-              className={`dark:fill-white fill-black absolute right-6 top-2 grid place-items-center w-12 h-12 unselectable`}
+              className={`dark:fill-white fill-stone-950 absolute right-4 top-2 grid place-items-center w-12 h-12 unselectable`}
             >
-              <AddIcon />
+              <AddIcon width={40} height={40} />
             </label>
             <SynthsGallery
               items={synths}
@@ -40,7 +40,7 @@ const Synths: React.FC<SynthsProps> = ({ synths, address, ...synthProps }) => {
             />
           </div>
         ) : (
-          <h4 className="w-full h-full grid place-items-center text-center">
+          <h4 className="w-full h-full grid place-items-center text-center px-6">
             Connect Wallet To Mint Synths
           </h4>
         )
