@@ -54,7 +54,7 @@ export default defineConfig({
         "assets/logo-64.png",
         "assets/logo-310.png",
         "assets/waves.png",
-        "assets/qr.png",
+        "assets/world.png",
         "assets/profile.png",
       ],
       injectRegister: "auto",
@@ -87,7 +87,8 @@ export default defineConfig({
         ],
         start_url: "/",
         scope: "/",
-        display: "standalone",
+        display: "fullscreen",
+        orientation: "portrait-primary",
         theme_color: "#38bdf8",
         background_color: "#f0fdfa",
         shortcuts: [
@@ -131,9 +132,10 @@ export default defineConfig({
         related_applications: [
           {
             platform: "webapp",
-            url: "https://waves.syn.art/manifest.json",
+            url: "https://app.waves.house/manifest.webmanifest",
           },
         ],
+        categories: ["entertainment", "music", "social"],
       },
     }),
   ],

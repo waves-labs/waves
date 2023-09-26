@@ -72,7 +72,9 @@ export default defineConfig({
           },
         ],
         start_url: "/",
-        display: "standalone",
+        scope: "/",
+        display: "fullscreen",
+        orientation: "portrait-primary",
         theme_color: "#38bdf8",
         background_color: "#f0fdfa",
         shortcuts: [
@@ -113,6 +115,13 @@ export default defineConfig({
             ],
           },
         ],
+        related_applications: [
+          {
+            platform: "webapp",
+            url: "https://localhost:5173/manifest.webmanifest",
+          },
+        ],
+        categories: ["entertainment", "music", "social"],
       },
     }),
   ],
