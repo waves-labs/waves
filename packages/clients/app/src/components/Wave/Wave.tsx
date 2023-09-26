@@ -4,10 +4,6 @@ interface WaveProps extends WaveUI {
   onItemClick?: (item: SynthUI | WaveUI) => void;
 }
 
-// TODO: Update styling for wave
-// TODO: Add metadata for dialog usage
-// TODO: Set Ddefault Gradient and name for wave
-
 export const Wave: React.FC<WaveProps> = ({ data, onItemClick, ...wave }) => {
   const isImage =
     data.startsWith("data:image") ||
@@ -23,13 +19,22 @@ export const Wave: React.FC<WaveProps> = ({ data, onItemClick, ...wave }) => {
   return (
     <label
       htmlFor="wave-dialog"
-      className={`aspect-square unselectable shadow-xl cursor-pointer grid place-items-center rounded-xl border-1 dark:border-white`}
+      className={`aspect-square unselectable shadow-lg cursor-pointer grid place-items-center rounded-md border-8 dark:border-white border-stone-400`}
       onClick={handleWaveClick}
     >
       {isImage ? (
         <img src={data} alt="Wave" className="w-full object-cover" />
       ) : (
-        <div className={` bg-[${data}]`}></div>
+        <div
+          className={`w-full h-full grid place-items-center`}
+          style={{
+            background: data,
+          }}
+        >
+          <h4 className="capitalize font-medium dark:text-stone-400 text-3xl text-center px-2">
+            {wave.name}
+          </h4>
+        </div>
       )}
     </label>
   );

@@ -1,8 +1,6 @@
 import React from "react";
 import { createPortal } from "react-dom";
 
-// TODO: Polish styling
-
 export interface WaveDialogData {
   data: string;
   name: string;
@@ -31,6 +29,8 @@ export const WaveDialog: React.FC<WaveDialogProps> = ({
     data.endsWith(".jpeg") ||
     data.endsWith(".gif");
 
+  console.log("WaveDialog", data);
+
   return createPortal(
     <>
       <input type="checkbox" id="wave-dialog" className="modal-toggle" />
@@ -46,12 +46,17 @@ export const WaveDialog: React.FC<WaveDialogProps> = ({
               className="w-full aspect-square object-cover rounded-xl"
             />
           ) : (
-            <div className={`bg-[${data}]`} />
+            <div
+              className={`w-full aspect-square`}
+              style={{
+                background: data,
+              }}
+            />
           )}
           <div className="flex gap-3">
-            {isCatched && (
+            {isCatched ? (
               <span className={`badge badge-lg bg-blue`}>Catched</span>
-            )}
+            ) : null}
             <span
               className={`badge badge-lg ${
                 isAvailable ? "bg-green" : "bg-red"
@@ -60,7 +65,7 @@ export const WaveDialog: React.FC<WaveDialogProps> = ({
               {isAvailable ? "Available" : "Unavailable"}
             </span>
           </div>
-          <h2 className="font-bold text-2xl capitalize">{name}</h2>
+          <h4 className="font-medium text-3xl capitalize">{name}</h4>
           <p>{`by ${artist} ${
             artist === creative ? undefined : `and ${creative}`
           }`}</p>

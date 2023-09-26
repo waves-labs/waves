@@ -6,7 +6,7 @@ import { RC as ArrowLeft } from "../../assets/icons/arrow-left.svg";
 
 import { WavesDataProps } from "../../hooks/providers/waves";
 
-import { WaveDialog, WaveDialogData } from "./WaveDialog";
+import { WaveDialog, WaveDialogData } from "../Wave/WaveDialog";
 import { SynthsGallery } from "./Gallery";
 import { Synth } from "./Synth";
 
@@ -82,13 +82,13 @@ export const SynthsViewer: React.FC<SynthsViewerProps> = ({ synths }) => {
   return (
     <a.div
       style={backgroundSpring}
-      className="flex flex-col gap-3 pt-16 w-full h-full px-6"
+      className="flex flex-col pt-16 w-full h-full px-6"
     >
       <Link
-        className="absolute dark:fill-white fill-black left-6 top-2 grid place-items-center w-12 h-12 unselectable"
+        className="absolute dark:fill-white fill-stone-950 left-4 top-2 grid place-items-center w-12 h-12 unselectable"
         to="/synths"
       >
-        <ArrowLeft />
+        <ArrowLeft width={40} height={40} />
       </Link>
       {synth ? (
         <>
@@ -100,6 +100,7 @@ export const SynthsViewer: React.FC<SynthsViewerProps> = ({ synths }) => {
               {...synth}
             />
           </div>
+          <h4 className="dark:text-stone-200 mt-3">Waves</h4>
           <SynthsGallery
             view={"synth"}
             items={synth.waves ?? []}

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 import { Synth } from "./Synth";
-import { Wave } from "./Wave";
+import { Wave } from "../Wave/Wave";
 
 export type SynthsView = "synths" | "synth";
 
@@ -34,9 +34,9 @@ export const SynthsGallery: React.FC<SynthsGalleryProps> = ({
 
   return (
     <ul
-      className={
-        "grid grid-cols-2 auto-rows-auto overflow-scroll h-full w-full gap-3 pt-4 pb-20"
-      }
+      className={`${
+        view === "synth" ? "" : "pt-4 "
+      } grid grid-cols-2 auto-rows-auto overflow-scroll h-full w-full gap-3 pb-20`}
     >
       {items.map((item, index) => {
         if (!item) return null;

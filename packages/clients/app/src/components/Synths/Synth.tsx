@@ -46,7 +46,7 @@ export const Synth: React.FC<SynthProps> = ({
       onClick={onClick ?? handleSynthClick}
     >
       <a.div
-        className="border-[0.75rem] sm:border-[1rem] lg:border-[1.5rem] dark:border-white border-black bg-black absolute w-full h-full grid place-items-center"
+        className="border-[0.75rem] sm:border-[1rem] lg:border-[1.5rem] dark:border-white border-black bg-stone-700 absolute w-full h-full grid place-items-center rounded-sm"
         style={{ opacity: opacity.to((o) => 1 - o), transform }}
         css={css`
           box-shadow: 20px 20px 100px 0px rgba(0, 0, 0, 0.35);
@@ -61,7 +61,7 @@ export const Synth: React.FC<SynthProps> = ({
           </>
         ) : (
           <>
-            <h4 className="text-2xl font-semibold text-white text-center absolute mix-blend-screen">
+            <h4 className="text-xl font-semibold text-white text-center absolute mix-blend-screen px-2">
               {name}
             </h4>
             <img src="/assets/mocks/synth.png" className="overflow-hidden" />
@@ -69,7 +69,7 @@ export const Synth: React.FC<SynthProps> = ({
         )}
       </a.div>
       <a.div
-        className="border-[0.75rem] sm:border-[1rem] md:border-[1.5rem] dark:border-white border-black bg-black absolute w-full h-full flex flex-col text-white p-3"
+        className="border-[0.5rem] sm:border-[1rem] md:border-[1.5rem] dark:border-white border-black bg-stone-800 absolute w-full h-full flex flex-col text-white p-3 rounded-sm"
         style={{
           opacity,
           transform,
