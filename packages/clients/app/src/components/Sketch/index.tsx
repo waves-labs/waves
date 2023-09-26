@@ -4,7 +4,6 @@ import { ReactP5Wrapper, Sketch as SketchData } from "@p5-wrapper/react";
 import { flowSketch, noiseSketch, shapesSketch } from "./scripts";
 
 // TODO: Debug why carousel not working
-// TODO: Verify background color is being applied
 
 export interface SketchProps {
   background?: string;
@@ -13,15 +12,16 @@ export interface SketchProps {
 }
 
 export const Sketch: React.FC<SketchProps> = ({
-  sketches = [shapesSketch, noiseSketch, flowSketch],
+  sketches = [noiseSketch, flowSketch],
   background,
   colors,
 }) => {
   return (
     <div
-      className={`w-full h-full carousel ${
-        background ? `bg-[${background}]` : ""
-      }`}
+      className={`w-full h-full carousel`}
+      style={{
+        background,
+      }}
     >
       {sketches?.map((sketch) => (
         <div className="carousel-item w-full" key={sketch.name}>
