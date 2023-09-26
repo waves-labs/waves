@@ -29,7 +29,7 @@ contract BaseScript is Script {
         vm.startBroadcast(deployerPrivateKey);
 
         // Deploy Waves with Wave Registry
-        WaveRegistry waveRegistry = WaveRegistry(0x9a92f3654Ac144176a2F62b589e606B93E477cc3);
+        WaveRegistry waveRegistry = WaveRegistry(0xDAd97DD8EE3809b06258dd6F86a852118fE41f7d);
         // WaveRegistry waveRegistry = new WaveRegistry();
 
         address burnaBoyWave =
@@ -56,7 +56,7 @@ contract BaseScript is Script {
 
         // Deploy Synths with Synth Registry
         // SynthRegistry synthRegistry = new SynthRegistry();
-        SynthRegistry synthRegistry = SynthRegistry(0xFAA8c12007162E0D22149aAC198814df49EDf984);
+        SynthRegistry synthRegistry = SynthRegistry(0x3F53a611878999D5BDf2f385A6D5A7e9e9Aa880C);
 
         address[] memory nftWhitelist = new address[](1);
         address[] memory emptyWhitelist = new address[](0);
