@@ -6,9 +6,10 @@ import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { config, chains } from "./modules/wagmi";
 import { apolloClient } from "./modules/apollo";
 
-import { About } from "./components/Layout/About";
+import { OnlyMobile } from "./components/Layout/OnlyMobile";
+// import { About } from "./components/Layout/About";
 
-import Views from "./views";
+// import Views from "./views";
 
 function App() {
   return (
@@ -16,8 +17,7 @@ function App() {
       <WagmiConfig config={config}>
         <RainbowKitProvider chains={chains}>
           <BrowserRouter>
-            <About />
-            <Views />
+            <OnlyMobile />
           </BrowserRouter>
         </RainbowKitProvider>
       </WagmiConfig>

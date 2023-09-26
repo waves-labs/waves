@@ -1,9 +1,10 @@
 import React from "react";
 import { a, useSpring } from "@react-spring/web";
+// import { RC as TwitterIcon } from "../../assets/twitter.svg";
 
 // import { musicColorWavesMap, musicColorWaves } from "../../constants";
 
-// TODO: Update copy and add social links
+// TODO: Add Subscribe button
 
 export const OnlyMobile: React.FC = () => {
   const contentSpring = useSpring({
@@ -33,9 +34,21 @@ export const OnlyMobile: React.FC = () => {
           </p>
         </div>
         <p className="text-2xl font-normal tracking-wide">
-          📲 Visit <span className="font-bold">app.waves.house</span> on phone
-          to install app
+          More info coming soon
+          {/* 📲 Visit <span className="font-bold">app.waves.house</span> on phone
+          to install app */}
         </p>
+        {/* <div>
+          <a
+            className="w-10 h-10 flex justify-end items-center"
+            href="https://twitter.com/syndotart"
+            target="_blank"
+          >
+            <TwitterIcon
+              className={`fill-black dark:fill-white cursor-pointer opacity-80 hover:opacity-100 transform-gpu transition-opacity duration-200 ease-in-out`}
+            />
+          </a>
+        </div> */}
       </a.div>
     </a.div>
   );
