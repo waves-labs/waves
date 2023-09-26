@@ -3,13 +3,11 @@ import { a, useSpring } from "@react-spring/web";
 
 // import { musicColorWavesMap, musicColorWaves } from "../../constants";
 
-// TODO: Add Subscribe button
-
 export const OnlyMobile: React.FC = () => {
   const contentSpring = useSpring({
     from: { opacity: 0 },
     to: { opacity: 1 },
-    delay: 1200,
+    delay: 720,
     config: { friction: 120, tension: 240 },
   });
 

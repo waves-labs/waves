@@ -1,11 +1,10 @@
-import { a, config, useSpring } from "@react-spring/web";
 import { Link, useLocation } from "react-router-dom";
+import { a, config, useSpring } from "@react-spring/web";
 
 import { RC as WavesIcon } from "../../assets/icons/waves.svg";
 import { RC as WorldIcon } from "../../assets/icons/world.svg";
 import { RC as ProfileIcon } from "../../assets/icons/profile.svg";
 
-// TODO: Add an active state
 const tabs: {
   path: string;
   title: string;
@@ -62,10 +61,12 @@ export const Appbar = () => {
         <Link to={path} key={title}>
           <button
             className={`flex flex-col items-center ${
-              pathname === path ? "active tab-active" : ""
+              pathname === path
+                ? "active tab-active fill-stone-950"
+                : "fill-stone-500"
             }`}
           >
-            <Icon width={32} height={32} />
+            <Icon width={36} height={36} />
             {/* <p
               className={`text-sm tracking-wide ${
                 pathname === path ? "text-primary" : "text-neutral"
