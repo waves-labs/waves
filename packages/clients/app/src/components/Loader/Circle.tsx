@@ -1,7 +1,7 @@
 import React from "react";
 import { a, config, useSpring } from "@react-spring/web";
 
-export const Loader: React.FC = () => {
+export const CircleLoader: React.FC = () => {
   const spring = useSpring({
     from: { opacity: 0 },
     to: { opacity: 1 },
