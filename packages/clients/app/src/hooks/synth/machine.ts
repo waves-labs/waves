@@ -1,8 +1,6 @@
 // import { toast } from "react-toastify";
 import { createMachine, assign } from "xstate";
 
-// TODO: Add Error states messages for minting and generating art
-
 export interface SynthContext {
   address?: `0x${string}`;
   error: string | null;
@@ -62,13 +60,13 @@ export const synthMachine = createMachine(
           },
           onError: {
             target: "idle",
-            actions: "error",
+            actions: ["error", "minted"],
           },
         },
       },
       minted: {
         after: {
-          1200: "idle",
+          2000: "idle",
         },
       },
       generatingArt: {
@@ -94,8 +92,8 @@ export const synthMachine = createMachine(
   },
   {
     guards: {
-      isMintValid: (_context, event: { address: string }) => {
-        return !!event.address;
+      isMintValid: (_context, event: { synth: string }) => {
+        return !!event.synth;
       },
       isGenArtValid: (_context, _event: { element: any }) => {
         return true;
@@ -105,22 +103,28 @@ export const synthMachine = createMachine(
       error: assign((context, event) => {
         switch (event.type) {
           case "error.platform.mintService":
-            // context.imageVerified = false;
-            // context.image = null;
-
             // @ts-ignore
-            context.error = event.data.message;
+            context.error = event.data.message
+              .split("reason:")[1]
+              .split("Contract Call")[0]
+              .trim();
+
             break;
 
           case "error.platform.genArtService":
             // @ts-ignore
-            context.error = event.data.message;
+            context.error = event.data.message
+              .split("reason:")[1]
+              .split("Contract Call")[0]
+              .trim();
+
             break;
 
           default:
             break;
         }
-        console.log("Error!", context, event);
+
+        console.log("Error!", context);
 
         return context;
       }),

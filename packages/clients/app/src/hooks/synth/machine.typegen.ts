@@ -24,8 +24,8 @@ export interface Typegen0 {
     "xstate.after(1200)#synth.generatedArt": {
       type: "xstate.after(1200)#synth.generatedArt";
     };
-    "xstate.after(1200)#synth.minted": {
-      type: "xstate.after(1200)#synth.minted";
+    "xstate.after(2000)#synth.minted": {
+      type: "xstate.after(2000)#synth.minted";
     };
     "xstate.init": { type: "xstate.init" };
   };
@@ -42,7 +42,7 @@ export interface Typegen0 {
   eventsCausingActions: {
     error: "error.platform.genArtService" | "error.platform.mintService";
     generatedArt: "done.invoke.genArtService";
-    minted: "done.invoke.mintService";
+    minted: "done.invoke.mintService" | "error.platform.mintService";
   };
   eventsCausingDelays: {};
   eventsCausingGuards: {

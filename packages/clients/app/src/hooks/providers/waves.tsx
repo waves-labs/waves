@@ -2,9 +2,6 @@ import { useAccount } from "wagmi";
 import { UseQueryExecute, gql, useQuery } from "urql";
 import { createContext, useContext } from "react";
 
-// TODO:  Update with Query By Synth Owner fpr synths
-// TODO: Add both the art and nft whitelist to synthNFTs
-
 export interface WavesDataProps {
   synths: SynthUI[];
   synthNfts?: SynthNFT[];
@@ -34,7 +31,8 @@ const SynthNFTsQuery = gql`
       blockTimestamp
       transactionHash
 
-      # nftWhitelist
+      nftWhitelist
+      artWhitelist
       waveNFTs {
         waveNft {
           id
@@ -59,7 +57,7 @@ const WaveNFTsQuery = gql`
       id
       startTime
       duration
-      artiist
+      artist
       creative
       name
       data
@@ -157,46 +155,44 @@ export const WavesProvider = ({ children }: Props) => {
           };
 
           if (synth) {
-            const inactiveWaves: WaveUI[] =
-              synth.waves
-                ?.filter(({ wave }) =>
-                  nft.waveNFTs?.find((nft) => nft.waveNft.id === wave.contract),
-                )
-                .map(({ wave }) => {
-                  const nft = wave.contract && waveNftMap.get(wave.contract);
-                  if (nft) {
-                    return {
-                      ...nft,
-                      ...wave,
-                    };
-                  }
+            // const inactiveWaves: WaveUI[] =
+            //   synth.waves
+            //     ?.filter(({ wave }) =>
+            //       nft.waveNFTs?.find((nft) => nft.waveNft.id === wave.contract),
+            //     )
+            //     .map(({ wave }) => {
+            //       const nft = wave.contract && waveNftMap.get(wave.contract);
+            //       if (nft) {
+            //         return {
+            //           ...nft,
+            //           ...wave,
+            //         };
+            //       }
 
-                  return {
-                    ...wave,
-                    id: wave.contract ?? "",
-                    name: "Unknown",
-                    artist: "Unknown",
-                    creative: "Unknown",
-                    data: "",
-                  };
-                }) ?? [];
+            //       return {
+            //         ...wave,
+            //         id: wave.contract ?? "",
+            //         name: "Unknown",
+            //         artist: "Unknown",
+            //         creative: "Unknown",
+            //         data: "",
+            //       };
+            //     }) ?? [];
 
-            synthUI.waves =
-              nft.waveNFTs
-                ?.map(({ waveNft }) => {
-                  const wave = waveTokenMap.get(waveNft.id);
-                  if (wave) {
-                    return {
-                      ...wave,
-                      ...waveNft,
-                    };
-                  }
+            synthUI.waves = nft.waveNFTs?.map(({ waveNft }) => {
+              const wave = waveTokenMap.get(waveNft.id);
+              if (wave) {
+                return {
+                  ...wave,
+                  ...waveNft,
+                };
+              }
 
-                  return {
-                    ...waveNft,
-                  };
-                })
-                .concat(inactiveWaves) ?? [];
+              return {
+                ...waveNft,
+              };
+            });
+
             synthUI.owner = synth.owner;
             synthUI.account = synth.id;
             synthUI.tokenId = synth.tokenId;

@@ -16,8 +16,6 @@ import { SynthContext as SynthMachineContext, synthMachine } from "./machine";
 // TODO: Add the minted synth to the user's collection
 // TODO: Set Mint Dialog to closed
 
-// TODO: Update synth state to generated
-
 export interface SynthDataProps extends SynthMachineContext {
   isIdle: boolean;
   isMinting: boolean;
@@ -61,20 +59,25 @@ export const SynthProvider = ({ children }: Props) => {
 
   const [state, send] = useMachine(synthMachine, {
     actions: {
-      minted: assign((context, _event) => {
-        return context;
-      }),
+      minted: (_context, _event) => {
+        const dialog =
+          document.querySelector<HTMLDialogElement>("synths-mint-dialog");
+
+        dialog?.close();
+      },
       generatedArt: assign((context, _event) => {
         return context;
       }),
     },
     services: {
       mintService: async (
-        _context,
+        context,
         event: { synth: string; ticket?: string },
         _meta,
       ) => {
         try {
+          context.error = null;
+
           console.log("Synth start mint!", synthAddrs);
 
           const ticket =

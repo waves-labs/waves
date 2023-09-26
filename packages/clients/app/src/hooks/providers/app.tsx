@@ -2,10 +2,12 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 export type Theme = "light" | "dark";
 export type DeviceType = "desktop" | "handheld";
+export type Platform = "ios" | "android" | "windows" | "unknown";
 
 export const themes: Theme[] = ["light", "dark"];
 
 export interface AppDataProps {
+  platform: Platform;
   theme: Theme;
   setTheme: React.Dispatch<React.SetStateAction<Theme>>;
   toggleTheme: () => void;
@@ -22,6 +24,28 @@ type Props = {
   children: React.ReactNode;
 };
 
+function getMobileOperatingSystem(): Platform {
+  // @ts-ignore
+  var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+  // Windows Phone must come first because its UA also contains "Android"
+  if (/windows phone/i.test(userAgent)) {
+    return "windows";
+  }
+
+  if (/android/i.test(userAgent)) {
+    return "android";
+  }
+
+  // iOS detection from: http://stackoverflow.com/a/9039885/177710
+  // @ts-ignore
+  if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+    return "ios";
+  }
+
+  return "unknown";
+}
+
 export const AppProvider = ({ children }: Props) => {
   const currentValue = useContext(AppContext);
 
@@ -29,6 +53,7 @@ export const AppProvider = ({ children }: Props) => {
 
   const device: DeviceType = isHandheld ? "handheld" : "desktop";
 
+  const platform = getMobileOperatingSystem();
   const [theme, setTheme] = useState<Theme>(
     (localStorage.getItem("theme") as Theme) ?? "light",
   );
@@ -54,6 +79,7 @@ export const AppProvider = ({ children }: Props) => {
   return (
     <AppContext.Provider
       value={{
+        platform,
         theme,
         setTheme,
         toggleTheme,
