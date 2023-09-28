@@ -33,21 +33,20 @@ contract BaseScript is Script {
         // WaveRegistry waveRegistry = new WaveRegistry();
 
         address burnaBoyWave =
-            waveRegistry.createWave(1000, block.timestamp, 6000 minutes, address(0), address(1), "burna boy", "#7C9D96");
+            waveRegistry.createWave(1000, block.timestamp, 7 days, address(0), address(1), "burna boy", "#7C9D96");
         address drakeWave =
-            waveRegistry.createWave(1000, block.timestamp, 6000 minutes, address(0), address(1), "drake", "#FF9EAA");
+            waveRegistry.createWave(1000, block.timestamp, 7 days, address(0), address(1), "drake", "#FF9EAA");
         address taylorSwiftWave = waveRegistry.createWave(
             2000, block.timestamp, 9000 minutes, address(0), address(1), "taylor swift", "#FFD0D0"
         );
         address badBunnyWave =
             waveRegistry.createWave(2000, block.timestamp, 9000 minutes, address(0), address(1), "bad bunny", "#3AA6B9");
-        address toroYMoiWave = waveRegistry.createWave(
-            1000, block.timestamp, 6000 minutes, address(0), address(1), "toro y moi", "#E9B384"
-        );
+        address toroYMoiWave =
+            waveRegistry.createWave(1000, block.timestamp, 7 days, address(0), address(1), "toro y moi", "#E9B384");
         address jungleWave =
-            waveRegistry.createWave(1000, block.timestamp, 6000 minutes, address(0), address(1), "jungle", "#F4F2DE");
+            waveRegistry.createWave(1000, block.timestamp, 7 days, address(0), address(1), "jungle", "#F4F2DE");
         address remaWave =
-            waveRegistry.createWave(1000, block.timestamp, 6000 minutes, address(0), address(1), "rema", "#A1CCD1");
+            waveRegistry.createWave(1000, block.timestamp, 7 days, address(0), address(1), "rema", "#A1CCD1");
 
         // Deploy a Mock ERC721 Ticket
         MockTicket ticket = new MockTicket();
