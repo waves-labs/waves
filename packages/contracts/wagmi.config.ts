@@ -45,10 +45,10 @@ export default defineConfig({
       ],
       deployments: {
         SynthRegistry: {
-          85431: "0xDBcd0b796aA86544FfaD2f27B13453918A78A51d",
+          85431: "0x3F53a611878999D5BDf2f385A6D5A7e9e9Aa880C",
         },
         WaveRegistry: {
-          85431: "0x9D641140e6c1F1B3CE7a75092893952d22692f40",
+          85431: "0xDAd97DD8EE3809b06258dd6F86a852118fE41f7d",
         },
       },
     }),
@@ -59,7 +59,7 @@ export default defineConfig({
     react({
       useContractEvent: true,
       useContractFunctionRead: false,
-      useContractRead: false,
+      useContractRead: true,
     }),
   ],
 });
