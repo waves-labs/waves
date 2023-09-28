@@ -1,14 +1,9 @@
 import React, { useState } from "react";
 import { QrReader } from "react-qr-reader";
 
-// import { Loader } from "../Loader";
 import { ScannerDialog } from "./Dialog";
 
 import { WaveDataProps } from "../../hooks/wave/useWave";
-import { LineLoader } from "../Loader/Line";
-import { WaveLoader } from "../Loader/Wave";
-
-// TODO: Capture QR code
 
 export interface QRScannerProps extends WaveDataProps {
   detected?: boolean;
@@ -31,11 +26,6 @@ export const QRScanner: React.FC<QRScannerProps> = ({
 
   return (
     <>
-      {!isScanning && (
-        <div className="absolute z-30 w-full h-full grid place-items-center">
-          <WaveLoader />
-        </div>
-      )}
       <QrReader
         className="qr-scanner"
         onResult={(result, error) => {
@@ -46,9 +36,11 @@ export const QRScanner: React.FC<QRScannerProps> = ({
               return;
             }
 
+            // scan(address, address, address);
+
             const synthWaves = synths.filter(
               (synth) =>
-                synth.waveNFTs?.find((wave) => wave.waveNft.id === address) &&
+                synth.waves?.find((wave) => wave.id === address) &&
                 !!synth.account,
             );
 
@@ -86,6 +78,7 @@ export const QRScanner: React.FC<QRScannerProps> = ({
             console.info(error);
           }
         }}
+        scanDelay={1200}
         constraints={{
           facingMode: "environment",
         }}
