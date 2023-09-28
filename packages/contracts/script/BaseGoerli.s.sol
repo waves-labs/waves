@@ -29,7 +29,7 @@ contract BaseScript is Script {
         vm.startBroadcast(deployerPrivateKey);
 
         // Deploy Waves with Wave Registry
-        WaveRegistry waveRegistry = WaveRegistry(0xDAd97DD8EE3809b06258dd6F86a852118fE41f7d);
+        WaveRegistry waveRegistry = WaveRegistry(0xd82e2a831315882D9a13B5780e2BDC4e64976AD5);
         // WaveRegistry waveRegistry = new WaveRegistry();
 
         address burnaBoyWave =
@@ -55,7 +55,7 @@ contract BaseScript is Script {
 
         // Deploy Synths with Synth Registry
         // SynthRegistry synthRegistry = new SynthRegistry();
-        SynthRegistry synthRegistry = SynthRegistry(0x3F53a611878999D5BDf2f385A6D5A7e9e9Aa880C);
+        SynthRegistry synthRegistry = SynthRegistry(0x935D99dC0f48f28794f13d4135d5Fe22A19ccE4c);
 
         address[] memory nftWhitelist = new address[](1);
         address[] memory emptyWhitelist = new address[](0);
@@ -63,7 +63,7 @@ contract BaseScript is Script {
         nftWhitelist[0] = address(ticket);
 
         address coachAddrs = synthRegistry.createSynth(
-            true, address(0), "Coachella 2024", "https://app.waves.house/events/coachella.json", nftWhitelist
+            false, address(0), "Coachella 2024", "https://app.waves.house/events/coachella.json", nftWhitelist
         );
         address lollaAddrs = synthRegistry.createSynth(
             false,

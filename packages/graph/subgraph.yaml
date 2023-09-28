@@ -10,9 +10,9 @@ dataSources:
     kind: ethereum
     network: base-testnet
     source:
-      address: "0x3F53a611878999D5BDf2f385A6D5A7e9e9Aa880C"
+      address: "0x935D99dC0f48f28794f13d4135d5Fe22A19ccE4c"
       abi: SynthRegistry
-      startBlock: 9945581
+      startBlock: 10349571
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -48,9 +48,9 @@ dataSources:
     kind: ethereum
     network: base-testnet
     source:
-      address: "0xDAd97DD8EE3809b06258dd6F86a852118fE41f7d"
+      address: "0xd82e2a831315882D9a13B5780e2BDC4e64976AD5"
       abi: WaveRegistry
-      startBlock: 9945581
+      startBlock: 10349571
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

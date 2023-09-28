@@ -45,10 +45,10 @@ export default defineConfig({
       ],
       deployments: {
         SynthRegistry: {
-          85431: "0x3F53a611878999D5BDf2f385A6D5A7e9e9Aa880C",
+          85431: "0x935D99dC0f48f28794f13d4135d5Fe22A19ccE4c",
         },
         WaveRegistry: {
-          85431: "0xDAd97DD8EE3809b06258dd6F86a852118fE41f7d",
+          85431: "0xd82e2a831315882D9a13B5780e2BDC4e64976AD5",
         },
       },
     }),
