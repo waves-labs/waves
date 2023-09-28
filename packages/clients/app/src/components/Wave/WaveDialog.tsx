@@ -1,15 +1,9 @@
 import React from "react";
 import { createPortal } from "react-dom";
+import { TextAddress } from "../Text/Address";
+import { Button } from "../Button";
 
-export interface WaveDialogData {
-  data: string;
-  name: string;
-  artist: string; // Generative Artist
-  creative?: string; // Musician, Performer, etc.
-  contract?: string; // Contract Address
-  isCatched?: boolean;
-  isAvailable?: boolean;
-}
+export interface WaveDialogData extends WaveUI {}
 
 interface WaveDialogProps extends WaveDialogData {}
 
@@ -18,9 +12,10 @@ export const WaveDialog: React.FC<WaveDialogProps> = ({
   name,
   artist,
   creative,
-  contract,
-  isCatched,
-  isAvailable,
+  owner,
+  // contract,
+  // isCatched,
+  // isAvailable,
 }) => {
   const isImage =
     data.startsWith("data:image") ||
@@ -29,47 +24,57 @@ export const WaveDialog: React.FC<WaveDialogProps> = ({
     data.endsWith(".jpeg") ||
     data.endsWith(".gif");
 
-  console.log("WaveDialog", data);
-
   return createPortal(
     <>
       <input type="checkbox" id="wave-dialog" className="modal-toggle" />
       <label htmlFor="wave-dialog" className="modal cursor-pointer px-6">
         <label
-          className="modal-box relative flex w-full max-w-sm flex-col gap-4"
+          className="modal-box p-0 card rounded-lg relative flex w-full max-w-sm flex-col"
           htmlFor=""
         >
-          {isImage ? (
-            <img
-              src={data}
-              alt={`${name} Wave by ${artist} and ${creative}`}
-              className="w-full aspect-square object-cover rounded-xl"
-            />
-          ) : (
-            <div
-              className={`w-full aspect-square`}
-              style={{
-                background: data,
-              }}
-            />
-          )}
-          <div className="flex gap-3">
-            {isCatched ? (
-              <span className={`badge badge-lg bg-blue`}>Catched</span>
-            ) : null}
-            <span
-              className={`badge badge-lg ${
-                isAvailable ? "bg-green" : "bg-red"
-              }`}
-            >
-              {isAvailable ? "Available" : "Unavailable"}
+          <figure className={`w-full h-full aspect-[4/3]`}>
+            {isImage ? (
+              <img
+                src={data}
+                alt={`${name} Wave by ${artist} and ${creative}`}
+                className="w-full object-cover"
+              />
+            ) : (
+              <div
+                className={`w-full h-full`}
+                style={{
+                  background: data,
+                }}
+              />
+            )}
+          </figure>
+          <div className="card-body">
+            <h4 className="card-title text-2xl capitalize">{name}</h4>
+            <div className="flex gap-3">
+              {owner && (
+                <div className="badge badge-info badge-outline">Caught</div>
+              )}
+              {name === "bad bunny" && (
+                <div className="badge badge-success badge-outline">Live</div>
+              )}
+            </div>
+            <span className="text-lg">
+              by <TextAddress address={artist} canCopy />{" "}
+              {creative && (
+                <>
+                  and <TextAddress address={creative} canCopy />
+                </>
+              )}
             </span>
+            {/* {contract && <p className="font-light w-3/4">{contract}</p>} */}
+            <div className="card-actions justify-end">
+              <Button
+                title="House"
+                //  className="btn bg-stone-950 text-white"
+                disabled={true}
+              />
+            </div>
           </div>
-          <h4 className="font-medium text-3xl capitalize">{name}</h4>
-          <p>{`by ${artist} ${
-            artist === creative ? undefined : `and ${creative}`
-          }`}</p>
-          {contract && <p className="font-light w-3/4">{contract}</p>}
         </label>
       </label>
     </>,

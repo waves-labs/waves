@@ -5,6 +5,7 @@ interface WaveProps extends WaveUI {
 }
 
 export const Wave: React.FC<WaveProps> = ({ data, onItemClick, ...wave }) => {
+  // const waveContract = useWave
   const isImage =
     data.startsWith("data:image") ||
     data.endsWith(".png") ||
@@ -19,23 +20,45 @@ export const Wave: React.FC<WaveProps> = ({ data, onItemClick, ...wave }) => {
   return (
     <label
       htmlFor="wave-dialog"
-      className={`aspect-square unselectable shadow-lg cursor-pointer grid place-items-center rounded-md border-8 dark:border-white border-stone-400`}
+      className={`card card-compact aspect-square unselectable shadow-xl rounded-md border-2 bg-white`}
       onClick={handleWaveClick}
     >
-      {isImage ? (
-        <img src={data} alt="Wave" className="w-full object-cover" />
-      ) : (
-        <div
-          className={`w-full h-full grid place-items-center`}
-          style={{
-            background: data,
-          }}
-        >
-          <h4 className="capitalize font-medium dark:text-stone-400 text-3xl text-center px-2">
-            {wave.name}
-          </h4>
+      <figure className={`w-full h-full`}>
+        {isImage ? (
+          <img src={data} alt="Wave" className="w-full object-cover" />
+        ) : (
+          <div
+            className={`w-full h-full`}
+            style={{
+              background: data,
+            }}
+          />
+        )}
+      </figure>
+      <div className="card-body">
+        {/* <div className="indicator">
+          <span className="indicator-item badge badge-secondary"></span>
+          <div className="grid w-32 h-32 bg-base-300 place-items-center">
+            content
+          </div>
+        </div> */}
+        <h4 className="card-title capitalize font-medium line-clamp-2">
+          {wave.name}
+        </h4>
+        <div className="card-actions justify-end">
+          {wave.owner && (
+            <div className="badge badge-xs badge-info badge-outline">
+              Caught
+            </div>
+          )}
+
+          {wave.name === "bad bunny" ? (
+            <div className="badge badge-xs badge-success badge-outline">
+              Live
+            </div>
+          ) : null}
         </div>
-      )}
+      </div>
     </label>
   );
 };
