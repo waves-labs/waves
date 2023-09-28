@@ -1,6 +1,6 @@
 import React from "react";
-import { a, config, useSpring } from "@react-spring/web";
 import { css } from "@emotion/react";
+import { a, config, useSpring } from "@react-spring/web";
 
 export const WaveLoader: React.FC = () => {
   const spring = useSpring({
@@ -10,78 +10,52 @@ export const WaveLoader: React.FC = () => {
   });
 
   return (
-    <a.div
+    <a.span
       // className="relative h-12 w-12"
       style={spring}
       css={css`
+        position: relative;
         display: flex;
-        /* height: 100vh;
-        width: 100vw; */
-        position: absolute;
-        align-items: center;
-        justify-content: center;
 
-        @keyframes arrows {
+        &:before,
+        &:after {
+          content: "";
+          width: 15px;
+          height: 15px;
+          display: inline-block;
+          position: relative;
+          margin: 0 5px;
+          border-radius: 50%;
+          color: #fff;
+          background: currentColor;
+          box-shadow: 50px 0, -50px 0;
+          animation: left 1s infinite ease-in-out;
+        }
+        &:after {
+          color: #171d1d;
+          animation: right 1.1s infinite ease-in-out;
+        }
+
+        @keyframes right {
           0%,
           100% {
-            color: black;
-            transform: translateY(0);
+            transform: translateY(-10px);
           }
           50% {
-            /* color: #3ab493; */
-            transform: translateY(20px);
+            transform: translateY(10px);
           }
         }
 
-        span {
-          --delay: 0s;
-          animation: arrows 1s var(--delay) infinite ease-in;
+        @keyframes left {
+          0%,
+          100% {
+            transform: translateY(10px);
+          }
+          50% {
+            transform: translateY(-10px);
+          }
         }
       `}
-    >
-      <span className="dark:text-[#e9e3dd] text-[#171d1d] text-2xl">C</span>
-      <span
-        className="dark:text-[#e9e3dd] text-[#171d1d] text-2xl"
-        style={{ "--delay": "0.1s" } as React.CSSProperties}
-      >
-        A
-      </span>
-      <span
-        className="dark:text-[#e9e3dd] text-[#171d1d] text-2xl"
-        style={{ "--delay": "0.3s" } as React.CSSProperties}
-      >
-        T
-      </span>
-      <span
-        className="dark:text-[#e9e3dd] text-[#171d1d] text-2xl"
-        style={{ "--delay": "0.4s" } as React.CSSProperties}
-      >
-        C
-      </span>
-      <span
-        className="dark:text-[#e9e3dd] text-[#171d1d] text-2xl"
-        style={{ "--delay": "0.5s" } as React.CSSProperties}
-      >
-        H
-      </span>
-      <span
-        className="dark:text-[#e9e3dd] text-[#171d1d] text-2xl"
-        style={{ "--delay": "0.6s" } as React.CSSProperties}
-      >
-        I
-      </span>
-      <span
-        className="dark:text-[#e9e3dd] text-[#171d1d] text-2xl"
-        style={{ "--delay": "0.7s" } as React.CSSProperties}
-      >
-        N
-      </span>
-      <span
-        className="dark:text-[#e9e3dd] text-[#171d1d] text-2xl"
-        style={{ "--delay": "0.8s" } as React.CSSProperties}
-      >
-        G
-      </span>
-    </a.div>
+    ></a.span>
   );
 };

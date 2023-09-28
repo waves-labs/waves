@@ -10,94 +10,52 @@ export const LineLoader: React.FC = () => {
   });
 
   return (
-    <a.div
+    <a.span
       // className="relative h-12 w-12"
       style={spring}
       css={css`
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        /* margin-left: 10%; */
-        transform: translate(-50%, -50%);
-
-        .dot {
-          width: 24px;
-          height: 24px;
-          border-radius: 100%;
-          display: inline-block;
-          animation: slide 1s infinite;
-        }
-        .dot:nth-child(1) {
-          animation-delay: 0.1s;
-        }
-        .dot:nth-child(2) {
-          animation-delay: 0.2s;
-        }
-        .dot:nth-child(3) {
-          animation-delay: 0.3s;
-        }
-        .dot:nth-child(4) {
-          animation-delay: 0.4s;
-        }
-        .dot:nth-child(5) {
-          animation-delay: 0.5s;
+        &,
+        &:before,
+        &:after {
+          border-radius: 50%;
+          width: 2.5em;
+          height: 2.5em;
+          animation-fill-mode: both;
+          animation: bblFadInOut 1.8s infinite ease-in-out;
         }
 
-        @-moz-keyframes slide {
-          0% {
-            transform: scale(1);
-          }
-          50% {
-            opacity: 0.3;
-            transform: scale(2);
-          }
-          100% {
-            transform: scale(1);
-          }
+        color: #fff;
+        font-size: 7px;
+        position: relative;
+        text-indent: -9999em;
+        transform: translateZ(0);
+        animation-delay: -0.16s;
+
+        &:before,
+        &:after {
+          content: "";
+          position: absolute;
+          top: 0;
         }
-        @-webkit-keyframes slide {
-          0% {
-            transform: scale(1);
-          }
-          50% {
-            opacity: 0.3;
-            transform: scale(2);
-          }
-          100% {
-            transform: scale(1);
-          }
+        &:before {
+          left: -3.5em;
+          animation-delay: -0.32s;
         }
-        @-o-keyframes slide {
-          0% {
-            transform: scale(1);
-          }
-          50% {
-            opacity: 0.3;
-            transform: scale(2);
-          }
-          100% {
-            transform: scale(1);
-          }
+        &:after {
+          left: 3.5em;
         }
-        @keyframes slide {
-          0% {
-            transform: scale(1);
-          }
-          50% {
-            opacity: 0.3;
-            transform: scale(2);
-          }
+
+        @keyframes bblFadInOut {
+          0%,
+          80%,
           100% {
-            transform: scale(1);
+            box-shadow: 0 2.5em 0 -1.3em;
+          }
+          40% {
+            box-shadow: 0 2.5em 0 0;
           }
         }
       `}
-    >
-      <div className="dot dark:bg-[#e9e3dd] bg-[#171d1d]"></div>
-      <div className="dot dark:bg-[#e9e3dd] bg-[#171d1d]"></div>
-      <div className="dot dark:bg-[#e9e3dd] bg-[#171d1d]"></div>
-      <div className="dot dark:bg-[#e9e3dd] bg-[#171d1d]"></div>
-      <div className="dot dark:bg-[#e9e3dd] bg-[#171d1d]"></div>
-    </a.div>
+    ></a.span>
   );
 };

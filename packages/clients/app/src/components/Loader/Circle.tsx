@@ -11,7 +11,7 @@ export const CircleLoader: React.FC = () => {
   return (
     <a.div className="relative h-12 w-12" style={spring}>
       <div
-        className="dot dark:bg-[#e9e3dd] bg-[#171d1d]"
+        className="dot bg-[#171d1d]"
         style={{
           top: "50%",
           left: "0%",
@@ -19,7 +19,7 @@ export const CircleLoader: React.FC = () => {
         }}
       />
       <div
-        className="dot dark:bg-[#e9e3dd] bg-[#171d1d]"
+        className="dot bg-[#171d1d]"
         style={{
           top: "0%",
           left: "50%",
@@ -27,7 +27,7 @@ export const CircleLoader: React.FC = () => {
         }}
       />
       <div
-        className="dot dark:bg-[#e9e3dd] bg-[#171d1d]"
+        className="dot bg-[#171d1d]"
         style={{
           top: "50%",
           left: "100%",
@@ -35,7 +35,7 @@ export const CircleLoader: React.FC = () => {
         }}
       />
       <div
-        className="dot dark:bg-[#e9e3dd] bg-[#171d1d]"
+        className="dot bg-[#171d1d]"
         style={{
           top: "100%",
           left: "50%",
