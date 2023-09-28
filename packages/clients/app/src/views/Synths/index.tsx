@@ -28,8 +28,14 @@ const Synths: React.FC<SynthsProps> = ({ synths, address, ...synthProps }) => {
             className={`flex flex-col w-full h-full items-center gap-3 px-6 pt-16 pb-20`}
           >
             <label
-              htmlFor="synths-mint-dialog"
-              className={`dark:fill-white fill-stone-950 absolute right-4 top-2 grid place-items-center w-12 h-12 unselectable`}
+              onClick={() => {
+                const dialog = document.getElementById(
+                  "synths-mint-dialog",
+                ) as HTMLDialogElement | null;
+
+                dialog?.showModal();
+              }}
+              className={`fill-stone-950 absolute right-4 top-2 grid place-items-center w-12 h-12 unselectable`}
             >
               <AddIcon width={40} height={40} />
             </label>

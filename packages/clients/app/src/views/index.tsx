@@ -42,11 +42,11 @@ export default function Views() {
                 synths={synths.synths}
                 synthNfts={synths.synthNfts}
                 synthWavesMap={synths.synthWavesMap}
-                waveNftMap={synths.waveNftMap}
+                // waveNftMap={synths.waveNftMap}
                 waveTokenMap={synths.waveTokenMap}
                 fetchSynths={synths.fetchSynths}
                 fetchSynthNfts={synths.fetchSynthNfts}
-                fetchWaveNfts={synths.fetchWaveNfts}
+                // fetchWaveNfts={synths.fetchWaveNfts}
               />
             }
           />
