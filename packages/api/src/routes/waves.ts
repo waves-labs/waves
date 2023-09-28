@@ -28,12 +28,12 @@ wavesRouter.post("/mint", async function (req: Request, res: Response) {
     return;
   }
 
-  if (!req.session.siwe?.address || !req.session.siwe.chainId) {
-    res.status(400).send({ error: "Missing address or chainId" });
-    return;
-  }
+  // if (!req.session.siwe?.address || !req.session.siwe.chainId) {
+  //   res.status(400).send({ error: "Missing address or chainId" });
+  //   return;
+  // }
 
-  const provider = ethers.getDefaultProvider(chainIdMap[req.session.chainId ?? 85431]);
+  const provider = new ethers.JsonRpcProvider("https://base-goerli.g.alchemy.com/v2/IoQ-Xhgcg-Yuc4h_6Yk_6c8iJoKysKWk");
   const wallet = new ethers.Wallet(process.env.PRIVATE_KEY as string, provider);
 
   // TODO: Verify that user owns synth
@@ -54,21 +54,26 @@ wavesRouter.post("/mint", async function (req: Request, res: Response) {
   ]);
 
   // Make on-chain attestaion
-  const schemaUID = "0xea661a71e489106d7e14202004fa984bb857db3956c358fac2bdb115f6e21dc1";
+  const schemaUID = "0xc50a8b3a0025746d43cf44e3d6559f1857f4525b4de1360f207c1578752f1726";
 
-  const tx = await eas.attest({
-    schema: schemaUID,
-    data: {
-      recipient: req.session.siwe.address,
-      // expirationTime: 0,
-      revocable: true, // Be aware that if your schema is not revocable, this MUST be false
-      data: encodedData,
-    },
-  });
+  try {
+    const tx = await eas.attest({
+      schema: schemaUID,
+      data: {
+        recipient: "0x6Bd018B28CE7016b65384e15faC102dbC4190E03",
+        // expirationTime: 0,
+        revocable: true, // Be aware that if your schema is not revocable, this MUST be false
+        data: encodedData,
+      },
+    });
 
-  const newAttestationUID = await tx.wait();
+    const newAttestationUID = await tx.wait();
 
-  console.log("New attestation UID:", newAttestationUID);
+    console.log("New attestation UID:", newAttestationUID);
 
-  res.status(200).send({ id: newAttestationUID });
+    res.status(200).send({ id: newAttestationUID });
+  } catch (e: any) {
+    console.log(e);
+    res.status(400).send({ code: e.code, reason: e.reason });
+  }
 });
