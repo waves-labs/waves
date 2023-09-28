@@ -33,18 +33,15 @@ export function handleSynthMinted(event: SynthMintedEvent): void {
 export function handleNftOwnershipToMintUpdated(
   event: NFTOwnershipToMintSetEvent
 ): void {
-  const entity = store.get(
-    "SynthNFT",
-    event.address.toHexString()
-  ) as SynthNFT | null;
-
-  if (!entity) {
-    return;
-  }
-
-  entity.nftOwnershipRequired = event.params.nftOwnershipToMint;
-
-  entity.save();
+  // const entity = store.get(
+  //   "SynthNFT",
+  //   event.address.toHexString()
+  // ) as SynthNFT | null;
+  // if (!entity) {
+  //   return;
+  // }
+  // entity.nftOwnershipRequired = event.params.nftOwnershipToMint;
+  // entity.save();
 }
 
 export function handleWaveAdded(event: WaveAddedEvent): void {
@@ -61,77 +58,63 @@ export function handleWaveAdded(event: WaveAddedEvent): void {
 }
 
 export function handleWaveRemoved(event: WaveRemovedEvent): void {
-  store.remove("SynthWaveNFT", event.address.concat(event.params.wave).toHex());
+  // store.remove("SynthWaveNFT", event.address.concat(event.params.wave).toHex());
 }
 
 export function handleWhitelistNftAdded(event: NFTWhitelistAddedEvent): void {
-  const entity = store.get(
-    "SynthNFT",
-    event.address.toHexString()
-  ) as SynthNFT | null;
-
-  if (!entity) {
-    return;
-  }
-
-  if (!entity.nftWhitelist) {
-    entity.nftWhitelist = [];
-  }
-
-  entity.nftWhitelist = entity.nftWhitelist.concat([event.params.nft]);
-
-  store.set("SynthNFT", event.address.toHexString(), entity);
+  // const entity = store.get(
+  //   "SynthNFT",
+  //   event.address.toHexString()
+  // ) as SynthNFT | null;
+  // if (!entity) {
+  //   return;
+  // }
+  // if (!entity.nftWhitelist) {
+  //   entity.nftWhitelist = [];
+  // }
+  // entity.nftWhitelist = entity.nftWhitelist.concat([event.params.nft]);
+  // store.set("SynthNFT", event.address.toHexString(), entity);
 }
 
 export function handleWhitelistNftRemoved(
   event: NFTWhitelistRemovedEvent
 ): void {
-  const entity = store.get(
-    "SynthNFT",
-    event.address.toHexString()
-  ) as SynthNFT | null;
-
-  if (!entity) {
-    return;
-  }
-
+  // const entity = store.get(
+  //   "SynthNFT",
+  //   event.address.toHexString()
+  // ) as SynthNFT | null;
+  // if (!entity) {
+  //   return;
+  // }
   // const nft = event.params.nft;
-
   // entity.nftWhitelist = entity.nftWhitelist.filter((data) => data !== nft);
-
   // store.set("SynthNFT", event.address.toHexString(), entity);
 }
 
 export function handleWhitelistArtAdded(event: ArtWhitelistAddedEvent): void {
-  const entity = store.get(
-    "SynthNFT",
-    event.address.toHexString()
-  ) as SynthNFT | null;
-
-  if (!entity) {
-    return;
-  }
-
-  if (!entity.artWhitelist) {
-    entity.artWhitelist = [];
-  }
-
-  entity.artWhitelist = entity.artWhitelist.concat([event.params.art]);
+  // const entity = store.get(
+  //   "SynthNFT",
+  //   event.address.toHexString()
+  // ) as SynthNFT | null;
+  // if (!entity) {
+  //   return;
+  // }
+  // if (!entity.artWhitelist) {
+  //   entity.artWhitelist = [];
+  // }
+  // entity.artWhitelist = entity.artWhitelist.concat([event.params.art]);
 }
 
 export function handleWhitelistArtRemoved(
   event: ArtWhitelistRemovedEvent
 ): void {
-  const entity = store.get(
-    "SynthNFT",
-    event.address.toHexString()
-  ) as SynthNFT | null;
-
-  if (!entity) {
-    return;
-  }
-
+  // const entity = store.get(
+  //   "SynthNFT",
+  //   event.address.toHexString()
+  // ) as SynthNFT | null;
+  // if (!entity) {
+  //   return;
+  // }
   // const art = event.params.art;
-
   // entity.artWhitelist = entity.artWhitelist.filter((data) => data !== art);
 }

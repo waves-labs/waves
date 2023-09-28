@@ -33,18 +33,15 @@ export function handleWaveMinted(event: WaveMintedEvent): void {
 }
 
 export function handleStartTimeUpdated(event: StartTimeUpdatedEvent): void {
-  const entity = store.get(
-    "WaveNFT",
-    event.address.toHexString()
-  ) as WaveNFT | null;
-
-  if (!entity) {
-    return;
-  }
-
-  entity.startTime = event.params.startTime; // synth account address
-
-  store.set("WaveNFT", event.address.toHexString(), entity);
+  // const entity = store.get(
+  //   "WaveNFT",
+  //   event.address.toHexString()
+  // ) as WaveNFT | null;
+  // if (!entity) {
+  //   return;
+  // }
+  // entity.startTime = event.params.startTime; // synth account address
+  // store.set("WaveNFT", event.address.toHexString(), entity);
 }
 
 export function handleDurationUpdated(event: DurationUpdatedEvent): void {
