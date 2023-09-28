@@ -2,9 +2,9 @@ import cors from "cors";
 import helmet from "helmet";
 import express from "express";
 import { SiweMessage } from "siwe";
-import { createClient } from "redis";
+// import { createClient } from "redis";
 import session from "express-session";
-import RedisStore from "connect-redis";
+// import RedisStore from "connect-redis";
 
 import { wavesRouter } from "./routes/waves";
 import { identityRouter } from "./routes/identity";
@@ -20,19 +20,19 @@ declare module "express-session" {
 const server = express();
 
 // Redis
-const redisClient = createClient();
-redisClient.connect().catch(console.error);
-redisClient.on("error", function (err) {
-  console.log("Could not establish a connection with redis. " + err);
-});
-redisClient.on("connect", function (err) {
-  console.log("Connected to redis successfully");
-});
+// const redisClient = createClient();
+// redisClient.connect().catch(console.error);
+// redisClient.on("error", function (err) {
+//   console.log("Could not establish a connection with redis. " + err);
+// });
+// redisClient.on("connect", function (err) {
+//   console.log("Connected to redis successfully");
+// });
 
-const redisStore = new RedisStore({
-  client: redisClient,
-  prefix: "waves:",
-});
+// const redisStore = new RedisStore({
+//   client: redisClient,
+//   prefix: "waves:",
+// });
 
 // Middleware
 server.use(require("express").json());
@@ -44,7 +44,7 @@ server.use(
     secret: `${process.env.SESSION_SECRET ?? "issa a secret with minimum length of 32 characters"}}`,
     resave: false,
     saveUninitialized: true,
-    store: redisStore,
+    // store: redisStore,
     // cookie: {
     //   secure: true,
     //   sameSite: true,

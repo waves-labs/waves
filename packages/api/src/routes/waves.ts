@@ -54,7 +54,7 @@ wavesRouter.post("/mint", async function (req: Request, res: Response) {
   ]);
 
   // Make on-chain attestaion
-  const schemaUID = "0xc50a8b3a0025746d43cf44e3d6559f1857f4525b4de1360f207c1578752f1726";
+  const schemaUID = "0x7e760f1cb5fe69453174c8ca7d586578673fee412f52d2b0c3bbf83318516111";
 
   try {
     const tx = await eas.attest({
