@@ -78,7 +78,7 @@
   -webkit-text-size-adjust: 100%;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --text-color: #c4c7c6;
     --surface-color: #101414;
@@ -91,7 +91,7 @@
       #101414 100%
     );
   }
-}
+} */
 
 /*
   App
