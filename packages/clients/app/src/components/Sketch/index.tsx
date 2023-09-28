@@ -1,18 +1,25 @@
 import React from "react";
 import { ReactP5Wrapper, Sketch as SketchData } from "@p5-wrapper/react";
 
-import { flowSketch, noiseSketch, shapesSketch } from "./scripts";
+import { curvesSketch, noiseSketch } from "./scripts";
 
-// TODO: Debug why carousel not working
+export type { SketchData };
+
+export type SketchType = "curves" | "noise";
 
 export interface SketchProps {
   background?: string;
-  sketches?: SketchData[];
+  sketch: SketchType;
   colors?: string[];
 }
 
+const sketches: Record<SketchType, SketchData> = {
+  curves: curvesSketch,
+  noise: noiseSketch,
+};
+
 export const Sketch: React.FC<SketchProps> = ({
-  sketches = [noiseSketch, flowSketch],
+  sketch,
   background,
   colors,
 }) => {
@@ -23,11 +30,9 @@ export const Sketch: React.FC<SketchProps> = ({
         background,
       }}
     >
-      {sketches?.map((sketch) => (
-        <div className="carousel-item w-full" key={sketch.name}>
-          <ReactP5Wrapper sketch={sketch} colors={colors} />
-        </div>
-      ))}
+      <div className="carousel-item w-full" key={sketch}>
+        <ReactP5Wrapper sketch={sketches[sketch]} colors={colors} />
+      </div>
     </div>
   );
 };
