@@ -24,7 +24,7 @@ export const SynthsGallery: React.FC<SynthsGalleryProps> = ({
 
   if (!items.length) {
     return view === "synths" ? (
-      <h4 className="h-full w-full grid place-items-center">
+      <h4 className="h-full w-full grid place-items-center text-center">
         No Synths Found, Mint One!
       </h4>
     ) : (
@@ -35,8 +35,8 @@ export const SynthsGallery: React.FC<SynthsGalleryProps> = ({
   return (
     <ul
       className={`${
-        view === "synth" ? "" : "pt-4 "
-      } grid grid-cols-2 auto-rows-auto overflow-scroll h-full w-full gap-3 pb-20`}
+        view === "synth" ? "" : "pt-4 overflow-scroll"
+      } grid grid-cols-2 auto-rows-auto h-full w-full gap-3 pb-20`}
     >
       {items.map((item, index) => {
         if (!item) return null;
@@ -45,6 +45,7 @@ export const SynthsGallery: React.FC<SynthsGalleryProps> = ({
             <li key={index}>
               <Synth
                 {...item}
+                sketch={index === 0 ? "curves" : "noise"}
                 view={view}
                 onClick={() => handleSynthClick(item)}
               />

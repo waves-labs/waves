@@ -22,13 +22,13 @@ export const SynthsViewer: React.FC<SynthsViewerProps> = ({ synths }) => {
     creative: "",
   });
 
-  const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  // const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
   const synth = synths.find((synth) => synth.id === address);
 
-  const firstWave = darkThemeMq ? "#171d1d" : "#e9e3dd";
-  const secondWave = darkThemeMq ? "#191c1c" : "#b2a79e";
-  const thirdWave = darkThemeMq ? "#101414" : "#d6d0cb";
+  const firstWave = false ? "#171d1d" : "#e9e3dd";
+  const secondWave = false ? "#191c1c" : "#b2a79e";
+  const thirdWave = false ? "#101414" : "#d6d0cb";
 
   const neutralWave =
     synth?.waves && synth?.waves.length > 0 ? "#e9e3dd" : undefined;
@@ -41,17 +41,17 @@ export const SynthsViewer: React.FC<SynthsViewerProps> = ({ synths }) => {
     synth?.waves && synth?.waves[2] && synth?.waves[2].data;
 
   const backgroundSpring = useSpring({
-    from: {
-      background: `linear-gradient(
-      151deg,
-      ${firstWave}
-        10.39%,
-      ${secondWave}
-        56.43%,
-      ${thirdWave}
-        100%
-    )`,
-    },
+    // from: {
+    //   background: `linear-gradient(
+    //   151deg,
+    //   ${firstWave}
+    //     10.39%,
+    //   ${secondWave}
+    //     56.43%,
+    //   ${thirdWave}
+    //     100%
+    // )`,
+    // },
     to: {
       background: `linear-gradient(
         151deg,
@@ -82,10 +82,10 @@ export const SynthsViewer: React.FC<SynthsViewerProps> = ({ synths }) => {
   return (
     <a.div
       style={backgroundSpring}
-      className="flex flex-col pt-16 w-full h-full px-6"
+      className="flex flex-col pt-16 w-full h-full overflow-scroll gap-6 px-6"
     >
       <Link
-        className="absolute dark:fill-white fill-stone-950 left-4 top-2 grid place-items-center w-12 h-12 unselectable"
+        className="absolute fill-stone-950 left-4 top-2 grid place-items-center w-12 h-12 unselectable"
         to="/synths"
       >
         <ArrowLeft width={40} height={40} />
@@ -94,13 +94,14 @@ export const SynthsViewer: React.FC<SynthsViewerProps> = ({ synths }) => {
         <>
           <div className="h-fit">
             <Synth
+              sketch={synth.name === "Coachella 2024" ? "noise" : "curves"}
               view={"synth"}
               flipped={flipped}
               setFlipped={setFlipped}
               {...synth}
             />
           </div>
-          <h4 className="dark:text-stone-200 mt-3">Waves</h4>
+          <h4 className="text-3xl">Waves</h4>
           <SynthsGallery
             view={"synth"}
             items={synth.waves ?? []}

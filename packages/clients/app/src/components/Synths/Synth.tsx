@@ -4,11 +4,11 @@ import { a, useSpring } from "@react-spring/web";
 
 import { Sketch } from "../Sketch";
 import { SynthsView } from "./Gallery";
-
-// TODO: Add metadata to back of card
-// TODO: Redo styling for back of card
+import { TextAddress } from "../Text/Address";
+import { Button } from "../Button";
 
 export interface SynthProps extends SynthUI {
+  sketch: "curves" | "noise";
   view: SynthsView;
   flipped?: boolean;
   setFlipped?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -21,11 +21,12 @@ export const Synth: React.FC<SynthProps> = ({
   setFlipped,
   onClick,
   id,
-  artist,
+  // artist,
   name,
   organizer,
-  blockTimestamp,
+  // blockTimestamp,
   waveNFTs,
+  sketch,
 }) => {
   const { transform, opacity } = useSpring({
     opacity: flipped ? 1 : 0,
@@ -34,42 +35,44 @@ export const Synth: React.FC<SynthProps> = ({
   });
 
   function handleSynthClick() {
-    view === "synth" && setFlipped && setFlipped((state) => !state);
+    setFlipped && setFlipped((state) => !state);
   }
 
   const colors = waveNFTs?.map((wave) => wave.waveNft.data);
-  const date = new Date(Number(blockTimestamp) * 1000).toDateString();
+  // const date = new Date(Number(blockTimestamp) * 1000).toDateString();
+
+  if (view === "synths") {
+    return (
+      <div
+        className="card card-compact w-full shadow-xl border-2 bg-white"
+        onClick={onClick}
+      >
+        <figure className={`w-full aspect-square`}>
+          <Sketch sketch={sketch} colors={colors} />
+        </figure>
+        <div className="card-body">
+          <h4 className="card-title line-clamp-2">{name}</h4>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
       className={`relative aspect-square bg-transparent`}
-      onClick={onClick ?? handleSynthClick}
+      onClick={handleSynthClick}
     >
       <a.div
-        className="border-[0.75rem] sm:border-[1rem] lg:border-[1.5rem] dark:border-white border-black bg-stone-700 absolute w-full h-full grid place-items-center rounded-sm"
+        className="border-8 bg-stone-700 absolute w-full h-full rounded-sm"
         style={{ opacity: opacity.to((o) => 1 - o), transform }}
         css={css`
           box-shadow: 20px 20px 100px 0px rgba(0, 0, 0, 0.35);
         `}
       >
-        {view === "synth" ? (
-          <>
-            <Sketch
-              // background={waveNfts && waveNfts[0].data}
-              colors={colors}
-            />
-          </>
-        ) : (
-          <>
-            <h4 className="text-xl font-semibold text-white text-center absolute mix-blend-screen px-2">
-              {name}
-            </h4>
-            <img src="/assets/mocks/synth.png" className="overflow-hidden" />
-          </>
-        )}
+        <Sketch sketch={sketch} colors={colors} />
       </a.div>
       <a.div
-        className="border-[0.5rem] sm:border-[1rem] md:border-[1.5rem] dark:border-white border-black bg-stone-800 absolute w-full h-full flex flex-col text-white p-3 rounded-sm"
+        className="border-8 border-stone-200 bg-stone-200 absolute w-full h-full rounded-sm flex flex-col py-4 p-3 justify-between"
         style={{
           opacity,
           transform,
@@ -79,14 +82,30 @@ export const Synth: React.FC<SynthProps> = ({
           box-shadow: 20px 20px 100px 0px rgba(0, 0, 0, 0.35);
         `}
       >
-        <h4 className="text-2xl">{name}</h4>
-        <div className="ml-2">
-          <p className="line-clamp-2">
-            Created: <span className="max-w-prose">{date}</span>
+        <div className="text-xl flex flex-col gap-3 ml-2">
+          <h4 className="text-4xl capitalize -ml-2 mb-2 font-light">{name}</h4>
+          <p className="font-medium">
+            Synth Address <TextAddress address={id} />
           </p>
-          <p className="line-clamp-2">Address: {id}</p>
-          <p className="line-clamp-2">Artist: {artist}</p>
-          <p className="line-clamp-2">Organizer: {organizer}</p>
+          <p className="font-medium">
+            Gen Artist <TextAddress address={id} />
+          </p>
+          <p className="font-medium">
+            Creator <TextAddress address={organizer} />
+          </p>
+          {/* <p className="line-clamp-2">
+            Created: <span className="max-w-prose">{date}</span>
+          </p> */}
+        </div>
+        <div className="card-actions justify-self-end justify-end">
+          <Button
+            title="House"
+            // className="btn bg-stone-950 text-white"
+            onClick={(e) => {
+              e.stopPropagation();
+              // setFlipped && setFlipped((state) => !state);
+            }}
+          />
         </div>
       </a.div>
     </div>
