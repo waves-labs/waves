@@ -10,7 +10,10 @@
   },
   "dependencies": {
     "@emotion/react": "11.11.1",
+    "@huddle01/auth": "0.0.2",
+    "@huddle01/react": "0.0.15",
     "@p5-wrapper/react": "4.2.0",
+    "@privy-io/react-auth": "^1.40.3",
     "@rainbow-me/rainbowkit": "^1.0.11",
     "@react-spring/web": "9.7.3",
     "@xstate/react": "3.2.2",
@@ -20,6 +23,7 @@
     "process": "^0.11.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hot-toast": "2.4.1",
     "react-qr-reader": "3.0.0-beta-1",
     "react-router-dom": "6.15.0",
     "siwe": "2.1.4",
