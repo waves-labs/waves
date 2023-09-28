@@ -18,6 +18,10 @@ export interface WaveDataProps extends WaveMachineContext, WaveState {
   scan: (synth: string, synthAccount: string, wave: string) => void;
 }
 
+function wait(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 const WaveContext = createContext<WaveDataProps | null>(null);
 
 type Props = {
@@ -34,8 +38,9 @@ export const WaveProvider = ({ children }: Props) => {
 
   const [state, send] = useMachine(waveMachine, {
     actions: {
-      revealWave: (_context, event) => {
-        navigate(`/synths/${event.data.synth}?wave=${event.data.wave}`);
+      revealWave: async (_context, event) => {
+        await wait(1000);
+        navigate(`/synths/${event.data.synth}`);
       },
     },
     services: {
@@ -45,28 +50,33 @@ export const WaveProvider = ({ children }: Props) => {
       ) => {
         try {
           const { data } = await apiClient.post<{ id: string }>(
-            "/waves/claim",
+            "/waves/mint",
             {
               synth: event.synth,
               synthAccount: event.synthAccount,
               wave: event.wave,
             },
-            {
-              withCredentials: true,
-            },
+            // {
+            //   withCredentials: true,
+            // },
           );
 
           if (!data) {
             throw new Error("Error catching wave, try again.");
           }
 
+          // await wait(2000);
+
           fetchSynths();
+
+          await wait(2000);
 
           return {
             synth: event.synth,
             wave: event.wave,
             waveId: null,
             transactionHash: data.id,
+            // transactionHash: "0x1234567890",
           };
         } catch (error) {
           throw error;

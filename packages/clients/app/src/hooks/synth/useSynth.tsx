@@ -14,7 +14,6 @@ import { useWaves } from "../providers/waves";
 import { SynthContext as SynthMachineContext, synthMachine } from "./machine";
 
 // TODO: Add the minted synth to the user's collection
-// TODO: Set Mint Dialog to closed
 
 export interface SynthDataProps extends SynthMachineContext {
   isIdle: boolean;
@@ -49,7 +48,7 @@ export const SynthProvider = ({ children }: Props) => {
   const [synthAccountAddrs, setSynthAccountAddrs] = useState("");
 
   const {
-    data: synthMintData,
+    // data: synthMintData,
     writeAsync: synthMint,
     error: synthMintError,
   } = useSynthMint({ address: synthAddrs });
@@ -60,8 +59,9 @@ export const SynthProvider = ({ children }: Props) => {
   const [state, send] = useMachine(synthMachine, {
     actions: {
       minted: (_context, _event) => {
-        const dialog =
-          document.querySelector<HTMLDialogElement>("synths-mint-dialog");
+        const dialog = document.getElementById(
+          "synths-mint-dialog",
+        ) as HTMLDialogElement | null;
 
         dialog?.close();
       },
@@ -86,8 +86,6 @@ export const SynthProvider = ({ children }: Props) => {
           const req = await synthMint({
             args: [ticket],
           });
-
-          console.log("Synth minted!", synthMintData);
 
           fetchSynths();
 
@@ -123,12 +121,13 @@ export const SynthProvider = ({ children }: Props) => {
   });
 
   function mintSynth(synth: string, ticket?: string) {
-    send({ type: "MINT", synth, ticket });
+    if (state.matches("idle")) send({ type: "MINT", synth, ticket });
   }
 
   function generateArt(synthAccount: string, art: string) {
     setSynthAccountAddrs(synthAccount);
-    send({ type: "GENERATE_ART", synthAccount, art });
+    if (state.matches("idle"))
+      send({ type: "GENERATE_ART", synthAccount, art });
   }
 
   return (
