@@ -13,6 +13,10 @@
       "path": "../packages/clients/web"
     },
     {
+      "name": "dashboard",
+      "path": "../packages/clients/dashboard"
+    },
+    {
       "name": "api",
       "path": "../packages/api"
     },
