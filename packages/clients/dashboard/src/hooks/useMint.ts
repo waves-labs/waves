@@ -1,36 +1,28 @@
 import {
   useAccount,
-  // useContractWrite,
   useDisconnect,
-  // usePrepareContractWrite,
-  // useWaitForTransaction,
 } from "wagmi";
 import {
   LazyQueryExecFunction,
   OperationVariables,
   useLazyQuery,
 } from "@apollo/client";
-// import { WriteContractResult } from "wagmi/actions";
-import { useConnectModal } from "@rainbow-me/rainbowkit";
 
-// import abi from "../abi/MinterDAExpV4.json";
 import { GET_STATS } from "../modules/apollo";
 
-interface SynthesizeHookData {
+interface MintHookData {
   address?: `0x${string}`;
   stats?: StatsQuery;
   // transactionHash: string | null;
   // error: string | null;
   getStats: LazyQueryExecFunction<{ stats: StatsQuery }, OperationVariables>;
   // writeAsync?: () => Promise<WriteContractResult>;
-  openConnectModal?: () => void;
   disconnectAsync: () => Promise<void>;
 }
 
-export const useMint = (): SynthesizeHookData => {
+export const useMint = (): MintHookData => {
   const { address } = useAccount();
   const { disconnectAsync } = useDisconnect();
-  const { openConnectModal } = useConnectModal();
   const [getStats, { data }] = useLazyQuery<{ stats: StatsQuery }>(GET_STATS, {
     variables: {
       address: import.meta.env.DEV
@@ -49,6 +41,5 @@ export const useMint = (): SynthesizeHookData => {
     // transactionHash: mint?.hash ?? null,
     getStats,
     disconnectAsync,
-    openConnectModal,
   };
 };

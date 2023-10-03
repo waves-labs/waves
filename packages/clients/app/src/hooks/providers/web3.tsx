@@ -1,12 +1,12 @@
 import {
-  useConnect,
   useAccount,
   useChainId,
   useDisconnect,
   useSignMessage,
 } from "wagmi";
 import { SiweMessage } from "siwe";
-import { useConnectModal } from "@rainbow-me/rainbowkit";
+import { usePrivyWagmi } from '@privy-io/wagmi-connector';
+import { ConnectedWallet, useLogin, useWallets, useLogout, usePrivy,  } from '@privy-io/react-auth';
 import { createContext, useContext, useEffect, useState } from "react";
 
 import { apiClient } from "../../modules/axios";
@@ -19,7 +19,10 @@ const origin = document.location.origin;
 
 export interface Web3Props {
   error: null | string;
+  ready: boolean;
   address?: `0x${string}`;
+  activeWallet?: ConnectedWallet;
+  wallets: ConnectedWallet[]
   handleConnect: () => Promise<void>;
   signMessage: (message: string) => Promise<string | void>;
   login: () => Promise<void>;
@@ -55,24 +58,25 @@ export const Web3Provider = ({ children }: Props) => {
 
   if (currentValue) throw new Error("AppProvider can only be used once");
 
-  const [authenticated, setAuthenticated] = useState(
-    localStorage.getItem("authenticated") === "true",
-  );
+
   const [authenticating, setAuthenticating] = useState(false);
 
   const chainId = useChainId();
   const { address } = useAccount();
   const { disconnectAsync } = useDisconnect();
-  const { error: connectError } = useConnect();
   const { signMessageAsync } = useSignMessage();
-  const { openConnectModal, connectModalOpen } = useConnectModal();
+
+  const { wallets } = useWallets();
+  const {login: privyLogin, ready, authenticated } = usePrivy();
+  const { wallet: activeWallet} = usePrivyWagmi();
+
 
   const [error, setError] = useState<null | string>(null);
 
   async function handleConnect(): Promise<void> {
     try {
+      privyLogin()
       setError(null);
-      openConnectModal?.();
     } catch (err: any) {
       err && err.message && setError(err.message);
       console.error("ERROR CONNECTING WALLET", err);
@@ -99,9 +103,9 @@ export const Web3Provider = ({ children }: Props) => {
       setAuthenticating(true);
       setError(null);
 
-      if (!address) {
-        await handleConnect();
 
+      if (!address) {
+        handleConnect();
         setAuthenticating(false);
 
         return;
@@ -128,7 +132,6 @@ export const Web3Provider = ({ children }: Props) => {
         // {},
       );
 
-      setAuthenticated(true);
       setAuthenticating(false);
 
       localStorage.setItem("authenticated", "true");
@@ -152,27 +155,22 @@ export const Web3Provider = ({ children }: Props) => {
       err && err.message && setError(err.message);
       console.error("ERROR DICONNECTING WALLET", err);
     }
-
-    setAuthenticated(false);
   }
 
   useEffect(() => {
-    if (connectError) {
-      setError(connectError.message);
-    }
-  }, [connectError]);
-
-  useEffect(() => {
-    if (address && !authenticated && !connectModalOpen) {
+    if (address) {
       login();
     }
-  }, [address, connectModalOpen]);
+  }, [address]);
 
   return (
     <Web3Context.Provider
       value={{
         error,
         address,
+        ready,
+        activeWallet,
+        wallets,
         handleConnect,
         signMessage,
         login,

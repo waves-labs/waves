@@ -1,50 +1,10 @@
-import {
-  foundry,
-  // optimismGoerli,
-  baseGoerli,
-  // zoraTestnet,
-  // optimism,
-  // base,
-  // zora,
-} from "wagmi/chains";
-import { Chain, configureChains, createConfig } from "wagmi";
+import { foundry, baseGoerli } from "wagmi/chains";
+import { configureChains, createConfig } from "wagmi";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 import { alchemyProvider } from "wagmi/providers/alchemy";
-import { getDefaultWallets } from "@rainbow-me/rainbowkit";
 
-export const modeTestnet = {
-  id: 919,
-  name: "Mode Testnet",
-  network: "mode-testnet",
-  nativeCurrency: { name: "Ether", symbol: "ETH", decimals: 18 },
-  rpcUrls: {
-    default: {
-      http: ["https://sepolia.mode.network"],
-    },
-    public: {
-      http: ["https://sepolia.mode.network"],
-    },
-  },
-  blockExplorers: {
-    default: {
-      name: "Blockscout",
-      url: "https://sepolia.explorer.mode.network",
-    },
-  },
-  testnet: true,
-} as const satisfies Chain;
-
-const { chains, publicClient } = configureChains(
-  [
-    // base,
-    baseGoerli,
-    // optimism,
-    // optimismGoerli,
-    // zora,
-    // zoraTestnet,
-    // modeTestnet,
-    foundry,
-  ],
+export const chainConfig = configureChains(
+  [baseGoerli, foundry],
   [
     alchemyProvider({ apiKey: import.meta.env.VITE_ALCHEMY_API_KEY! }),
     jsonRpcProvider({
@@ -58,17 +18,8 @@ const { chains, publicClient } = configureChains(
   ],
 );
 
-export { chains };
-
-const { connectors } = getDefaultWallets({
-  appName: "waves-app",
-  chains,
-  projectId: import.meta.env.VITE_WALLETCONNECT_PROJECT_ID,
-});
-
 export const config = createConfig({
   autoConnect: true,
-  connectors: connectors,
-  publicClient,
-  webSocketPublicClient: publicClient,
+  publicClient: chainConfig.publicClient,
+  webSocketPublicClient: chainConfig.webSocketPublicClient,
 });

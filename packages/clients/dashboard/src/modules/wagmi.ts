@@ -1,29 +1,25 @@
-import { goerli } from "wagmi/chains";
-import { createConfig, configureChains } from "wagmi";
-import { publicProvider } from "wagmi/providers/public";
-// import { alchemyProvider } from "wagmi/providers/alchemy";
-import { getDefaultWallets } from "@rainbow-me/rainbowkit";
+import { foundry, baseGoerli } from "wagmi/chains";
+import { configureChains, createConfig } from "wagmi";
+import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
+import { alchemyProvider } from "wagmi/providers/alchemy";
 
-import "@rainbow-me/rainbowkit/styles.css";
-
-const chainConfig = configureChains(
-  [goerli],
+export const chainConfig = configureChains(
+  [baseGoerli, foundry],
   [
-    // alchemyProvider({ apiKey: import.meta.env.ALCHEMY_ID }), We should use this for mainnet
-    publicProvider(),
-  ]
+    alchemyProvider({ apiKey: import.meta.env.VITE_ALCHEMY_API_KEY! }),
+    jsonRpcProvider({
+      rpc: (chain) => {
+        if (chain.id === foundry.id) {
+          return { http: "http://localhost:8545" };
+        }
+        return { http: chain.rpcUrls.default.http[0] };
+      },
+    }),
+  ],
 );
 
-const { connectors } = getDefaultWallets({
-  appName: "waves house",
-  chains: chainConfig.chains,
-  projectId: import.meta.env.VITE_WALLETCONNECT_PROJECT_ID,
-});
-
-const config = createConfig({
-  autoConnect: false, // Should we enable auto-connection?
-  connectors,
+export const config = createConfig({
+  autoConnect: true,
   publicClient: chainConfig.publicClient,
+  webSocketPublicClient: chainConfig.webSocketPublicClient,
 });
-
-export { chainConfig, config };
