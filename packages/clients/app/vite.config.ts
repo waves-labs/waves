@@ -37,6 +37,7 @@ export default defineConfig({
     }),
     VitePWA({
       includeAssets: [
+        "assets/favicon.ico",
         "assets/logo-64.png",
         "assets/logo-310.png",
         "assets/waves.png",
@@ -75,8 +76,8 @@ export default defineConfig({
         scope: "/",
         display: "fullscreen",
         orientation: "portrait-primary",
-        theme_color: "#38bdf8",
-        background_color: "#f0fdfa",
+        theme_color: "#e9e3dd",
+        background_color: "#191c1c",
         shortcuts: [
           {
             name: "Synths",

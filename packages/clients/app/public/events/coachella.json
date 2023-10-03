@@ -6,22 +6,22 @@
   "image": "https://app.waves.house/events/coachella-synth-art.webp",
   "waves": [
     {
-      "artist": "Burna Boy",
+      "artist": "burna boy",
       "title": "African Giant",
       "description": "You can bank on it"
     },
     {
-      "artist": "Bad Bunny",
+      "artist": "bad bunny",
       "title": "Latin King",
       "description": "Aye aye aye"
     },
     {
-      "artist": "Taylor Swift",
-      "title": "Lover",
+      "artist": "taylor swift",
+      "title": "Catching Lover",
       "description": "Your Midas touch on the Chevy door."
     },
     {
-      "artist": "Drake",
+      "artist": "drake",
       "title": "6 God",
       "description": "I'm the one they gotta beat now"
     }
