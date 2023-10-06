@@ -26,13 +26,14 @@ export default defineConfig({
     }),
     VitePWA({
       includeAssets: [
-        "assets/favicon.ico",
-        "assets/logo.svg",
-        "assets/logo-64.png",
-        "assets/logo-310.png",
-        "assets/house.png",
-        "assets/market.png",
-        "assets/profile.png",
+        "icons/favicon.ico",
+        "icons/logo.svg",
+        "icons/logo-64.png",
+        "icons/logo-310.png",
+        "icons/banner-logo.png",
+        "icons/house.png",
+        "icons/market.png",
+        "icons/profile.png",
       ],
       injectRegister: "auto",
       registerType: "autoUpdate",
@@ -47,17 +48,17 @@ export default defineConfig({
         short_name: "Waves House",
         icons: [
           {
-            src: "assets/logo-64.png",
+            src: "icons/logo-64.png",
             sizes: "64x64",
             type: "image/png",
           },
           {
-            src: "assets/logo-310.png",
+            src: "icons/logo-310.png",
             sizes: "192X192",
             type: "image/png",
           },
           {
-            src: "assets/logo-310.png",
+            src: "icons/logo-310.png",
             sizes: "512x512",
             type: "image/png",
           },
@@ -75,7 +76,7 @@ export default defineConfig({
             url: "/house",
             icons: [
               {
-                src: "assets/house.png",
+                src: "icons/house.png",
                 sizes: "64x64",
                 type: "image/png",
               },
@@ -87,7 +88,7 @@ export default defineConfig({
             url: "/market",
             icons: [
               {
-                src: "assets/market.png",
+                src: "icons/market.png",
                 sizes: "64x64",
                 type: "image/png",
               },
@@ -99,7 +100,7 @@ export default defineConfig({
             url: "/profile",
             icons: [
               {
-                src: "assets/profile.png",
+                src: "icons/profile.png",
                 sizes: "64x64",
                 type: "image/png",
               },

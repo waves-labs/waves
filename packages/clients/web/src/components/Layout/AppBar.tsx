@@ -1,8 +1,8 @@
 import { a, config, useSpring } from "@react-spring/web";
 import { Link, useLocation } from "react-router-dom";
 
-import { RC as WavesIcon } from "../../assets/icons/waves.svg";
-import { RC as WorldIcon } from "../../assets/icons/world.svg";
+import { RC as HouseIcon } from "../../assets/icons/house.svg";
+import { RC as MarketIcon } from "../../assets/icons/market.svg";
 import { RC as ProfileIcon } from "../../assets/icons/profile.svg";
 
 const tabs: {
@@ -15,14 +15,14 @@ const tabs: {
   >;
 }[] = [
   {
-    path: "/synths",
-    title: "Synths",
-    Icon: WavesIcon,
+    path: "/house",
+    title: "House",
+    Icon: HouseIcon,
   },
   {
-    path: "/explore",
-    title: "Explore",
-    Icon: WorldIcon,
+    path: "/market",
+    title: "Market",
+    Icon: MarketIcon,
   },
   {
     path: "/profile",
