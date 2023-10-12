@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "test": "vite test --watch",
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
@@ -13,6 +13,9 @@
   "dependencies": {
     "@apollo/client": "^3.7.17",
     "@emotion/react": "11.11.1",
+    "@huddle01/auth": "0.0.2",
+    "@huddle01/react": "0.0.15",
+    "@p5-wrapper/react": "4.2.0",
     "@privy-io/react-auth": "^1.40.3",
     "@privy-io/wagmi-connector": "0.1.4",
     "@react-spring/web": "9.7.3",
@@ -22,6 +25,7 @@
     "lodash.shuffle": "4.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hot-toast": "2.4.1",
     "react-router-dom": "^6.15.0",
     "siwe": "2.1.4",
     "wagmi": "^1.4.1",

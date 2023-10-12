@@ -15,7 +15,7 @@ export const chainConfig = configureChains(
         return { http: chain.rpcUrls.default.http[0] };
       },
     }),
-  ],
+  ]
 );
 
 export const config = createConfig({
