@@ -1,7 +1,5 @@
 import { useAccount, useDisconnect } from "wagmi";
 
-import { GET_STATS } from "../modules/apollo";
-
 interface MintHookData {
   address?: `0x${string}`;
   stats?: StatsQuery;
