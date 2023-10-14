@@ -26,14 +26,14 @@ export default defineConfig({
     }),
     VitePWA({
       includeAssets: [
-        "icons/favicon.ico",
-        "icons/logo.svg",
-        "icons/logo-64.png",
-        "icons/logo-310.png",
-        "icons/banner-logo.png",
-        "icons/house.png",
-        "icons/market.png",
-        "icons/profile.png",
+        "assets/favicon.ico",
+        "assets/logo.svg",
+        "assets/logo-64.png",
+        "assets/logo-310.png",
+        "assets/banner-logo.png",
+        "assets/house.png",
+        "assets/market.png",
+        "assets/profile.png",
       ],
       injectRegister: "auto",
       registerType: "autoUpdate",
@@ -48,17 +48,17 @@ export default defineConfig({
         short_name: "Waves House",
         icons: [
           {
-            src: "icons/logo-64.png",
+            src: "assets/logo-64.png",
             sizes: "64x64",
             type: "image/png",
           },
           {
-            src: "icons/logo-310.png",
+            src: "assets/logo-310.png",
             sizes: "192X192",
             type: "image/png",
           },
           {
-            src: "icons/logo-310.png",
+            src: "assets/logo-310.png",
             sizes: "512x512",
             type: "image/png",
           },
@@ -76,7 +76,7 @@ export default defineConfig({
             url: "/house",
             icons: [
               {
-                src: "icons/house.png",
+                src: "assets/house.png",
                 sizes: "64x64",
                 type: "image/png",
               },
@@ -88,7 +88,7 @@ export default defineConfig({
             url: "/market",
             icons: [
               {
-                src: "icons/market.png",
+                src: "assets/market.png",
                 sizes: "64x64",
                 type: "image/png",
               },
@@ -100,7 +100,7 @@ export default defineConfig({
             url: "/profile",
             icons: [
               {
-                src: "icons/profile.png",
+                src: "assets/profile.png",
                 sizes: "64x64",
                 type: "image/png",
               },
@@ -132,6 +132,6 @@ export default defineConfig({
     }),
   ],
   server: {
-    port: 3005,
+    port: 3003,
   },
 });

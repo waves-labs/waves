@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { a, useSpring } from "@react-spring/web";
-// import { RC as TwitterIcon } from "../../assets/twitter.svg";
 
-// import { musicColorWavesMap, musicColorWaves } from "../../constants";
+type SubscribeState = "idle" | "subscribing" | "subscribed" | "error";
 
-// TODO: Add Subscribe button
+function wait(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+const url =
+  "https://house.us21.list-manage.com/subscribe/post-json?u=f9cd12d07ddbdbe80d68c3e28&amp;id=792284a5e1&amp&c=1;f_id=00ddeae6f0";
 
 export const OnlyMobile: React.FC = () => {
+  const [subscribeState, setSubscribeState] = useState<SubscribeState>("idle");
+  const [subscribeError, setSubscribeError] = useState<string | null>(null);
+
   const contentSpring = useSpring({
     from: { opacity: 0 },
     to: { opacity: 1 },
@@ -14,41 +21,87 @@ export const OnlyMobile: React.FC = () => {
     config: { friction: 120, tension: 240 },
   });
 
+  function handleSubscribe(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    setSubscribeState("subscribing");
+    setSubscribeError(null);
+
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get("email") as string;
+
+    console.log(email);
+
+    fetch(url + "&" + formData, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      cache: "default",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data["result"] !== "success") {
+          // ERROR
+          console.log(data["msg"]);
+
+          setSubscribeError("Something went wrong. Please try again.");
+          setSubscribeState("error");
+        } else {
+          // SUCCESS - Show notification
+          console.log(data["msg"]);
+
+          setSubscribeState("subscribed");
+
+          wait(2000).then(() => {
+            setSubscribeState("idle");
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+
+        setSubscribeError(error.message);
+        setSubscribeState("error");
+      });
+  }
+
   return (
     <a.div
       // style={backgroundSpring}
       className="grid place-items-center w-screen h-screen text-center z-10"
     >
-      <a.div style={contentSpring} className="flex flex-col gap-12">
-        {/* <video
-              className="w-full h-full object-cover"
-              src="/videos/waves.mp4"
-              autoPlay
-              muted
-              loop
-            /> */}
+      <div className="fixed top-0 left-0 flex justify-end w-full py-3 items-center px-6"></div>
+      <a.div
+        style={contentSpring}
+        className="flex flex-col gap-12 items-center"
+      >
         <div className="justify-self-start flex flex-col gap-2">
           <h1 className="text-9xl font-bold leading-[6rem]">WAVES</h1>
           <p className="text-4xl tracking-wider">
-            Connecting Generative Art & Culture
+            Fusing Generative Art & Live Culture.
           </p>
         </div>
         <p className="text-2xl font-normal tracking-wide">
-          More info coming soon
+          More info coming soon, stay updated
           {/* 📲 Visit <span className="font-bold">app.waves.house</span> on phone
           to install app */}
         </p>
-        {/* <div>
-          <a
-            className="w-10 h-10 flex justify-end items-center"
-            href="https://twitter.com/syndotart"
-            target="_blank"
+        <form onSubmit={handleSubscribe} className="flex flex-col gap-2">
+          <input
+            className="w-96 h-14 px-4 py-2 rounded-md bg-gray-100"
+            name="email"
+            type="email"
+            placeholder="Your email"
+          />
+          <button
+            className="w-96 h-14 px-4 py-2 rounded-md bg-black text-white font-bold"
+            type="submit"
           >
-            <TwitterIcon
-              className={`fill-black dark:fill-white cursor-pointer opacity-80 hover:opacity-100 transform-gpu transition-opacity duration-200 ease-in-out`}
-            />
-          </a>
-        </div> */}
+            Subscribe
+          </button>
+        </form>
       </a.div>
     </a.div>
   );

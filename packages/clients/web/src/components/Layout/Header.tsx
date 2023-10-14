@@ -1,32 +1,43 @@
 import React from "react";
-import { RC as MenuIcon } from "../../assets/menu.svg";
+
+import { RC as TwitterIcon } from "../../assets/twitter.svg";
+import { Link } from "react-router-dom";
+
+// import { RC as MenuIcon } from "../../assets/menu.svg";
 
 interface HeaderProps {
-  isStarted: boolean;
+  isStarted?: boolean;
 }
 
-export const Header: React.FC<HeaderProps> = ({ isStarted }) => {
+export const Header: React.FC<HeaderProps> = () => {
   return (
     <header
-      className={`${
-        isStarted ? "text-white" : ""
-      } fixed z-20 top-0 left-0 w-full`}
+      className={`bg-transparent py-4 px-8 flex items-center justify-between`}
     >
-      <div className="py-4 max-w-screen-2xl mx-auto md:py-8 flex items-center justify-end gap-4 w-full px-6 md:px-12">
-        <button
-          // @ts-ignore
-          onClick={() => document.getElementById("about").showModal()}
-          className="w-fit h-full"
+      <h1 className="font-bold text-4xl flex-1">WAVES</h1>
+      <div className="flex gap-4">
+        <Link to="/about" className="text-lg font-medium">
+          House
+        </Link>
+        <Link to="/market" className="text-lg font-medium">
+          Market
+        </Link>
+        <Link to="/roadmap" className="text-lg font-medium">
+          Drops
+        </Link>
+      </div>
+      <div className="flex-1 flex justify-end">
+        <a
+          className="w-10 h-10 flex justify-end items-center"
+          href="https://twitter.com/waves_house"
+          target="_blank"
         >
-          <span className="sm:block hidden uppercase text-sm font-medium tracking-tight opacity-80 hover:opacity-100 transform-gpu transition-opacity duration-200 ease-in-out">
-            A<br />B<br />O<br />U<br />T
-          </span>
-          <MenuIcon
-            className={`${
-              isStarted ? "fill-white stroke-white" : "fill-black stroke-black"
-            } sm:hidden block opacity-80 hover:opacity-100 transform-gpu transition-opacity duration-200 ease-in-out`}
+          <TwitterIcon
+            className={`fill-black cursor-pointer opacity-80 hover:opacity-100 transform-gpu transition-opacity duration-200 ease-in-out`}
+            height={30}
+            width={30}
           />
-        </button>
+        </a>
       </div>
     </header>
   );
