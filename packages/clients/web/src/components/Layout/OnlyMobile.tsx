@@ -11,8 +11,8 @@ const url =
   "https://house.us21.list-manage.com/subscribe/post-json?u=f9cd12d07ddbdbe80d68c3e28&amp;id=792284a5e1&amp&c=1;f_id=00ddeae6f0";
 
 export const OnlyMobile: React.FC = () => {
-  const [subscribeState, setSubscribeState] = useState<SubscribeState>("idle");
-  const [subscribeError, setSubscribeError] = useState<string | null>(null);
+  const [, setSubscribeState] = useState<SubscribeState>("idle");
+  const [, setSubscribeError] = useState<string | null>(null);
 
   const contentSpring = useSpring({
     from: { opacity: 0 },

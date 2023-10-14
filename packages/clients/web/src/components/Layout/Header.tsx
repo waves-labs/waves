@@ -23,7 +23,7 @@ export const Header: React.FC<HeaderProps> = () => {
           Market
         </Link>
         <Link to="/roadmap" className="text-lg font-medium">
-          Drops
+          Synths
         </Link>
       </div>
       <div className="flex-1 flex justify-end">
