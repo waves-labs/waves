@@ -16,7 +16,7 @@ export const ProfileActions: React.FC<ProfileActionsProps> = ({
         title={address ? "Disconnect" : "Connect"}
         onClick={address ? logout : handleConnect}
       />
-      <p className="text-red-500 h-6 line-clamp-2">{error}</p>
+      <p className="text-red-500 h-10 line-clamp-2">{error}</p>
     </div>
   );
 };

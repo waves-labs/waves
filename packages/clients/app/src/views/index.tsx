@@ -8,7 +8,7 @@ import { useProfile } from "../hooks/views/useProfile";
 import Synths from "./Synths";
 import Explore from "./Explore";
 import Profile from "./Profile";
-import { SynthsViewer } from "../components/Synths/Viewer";
+import { SynthsViewer } from "../components/Synth/Viewer";
 
 export default function Views() {
   const location = useLocation();

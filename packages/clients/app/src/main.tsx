@@ -5,6 +5,7 @@ import * as ReactDOM from "react-dom/client";
 
 import { Provider } from "urql";
 import { WagmiConfig } from "wagmi";
+import { foundry } from "viem/chains";
 import { BrowserRouter } from "react-router-dom";
 import { PrivyProvider } from "@privy-io/react-auth";
 import { PrivyWagmiConnector } from "@privy-io/wagmi-connector";
@@ -33,6 +34,7 @@ root.render(
               accentColor: "#d6d0cb",
               // logo: "https://your-logo-url",
             },
+            additionalChains: [foundry],
           }}
         >
           <PrivyWagmiConnector wagmiChainsConfig={chainConfig}>

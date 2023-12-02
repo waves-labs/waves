@@ -1260,7 +1260,7 @@ export const ieasABI = [
       },
       { name: 'uid', internalType: 'bytes32', type: 'bytes32', indexed: false },
       {
-        name: 'schema',
+        name: 'schemaUID',
         internalType: 'bytes32',
         type: 'bytes32',
         indexed: true,
@@ -1286,7 +1286,7 @@ export const ieasABI = [
       },
       { name: 'uid', internalType: 'bytes32', type: 'bytes32', indexed: false },
       {
-        name: 'schema',
+        name: 'schemaUID',
         internalType: 'bytes32',
         type: 'bytes32',
         indexed: true,
@@ -1390,7 +1390,7 @@ export const ieasABI = [
           },
           {
             name: 'signature',
-            internalType: 'struct EIP712Signature',
+            internalType: 'struct Signature',
             type: 'tuple',
             components: [
               { name: 'v', internalType: 'uint8', type: 'uint8' },
@@ -1399,6 +1399,7 @@ export const ieasABI = [
             ],
           },
           { name: 'attester', internalType: 'address', type: 'address' },
+          { name: 'deadline', internalType: 'uint64', type: 'uint64' },
         ],
       },
     ],
@@ -1525,7 +1526,7 @@ export const ieasABI = [
           },
           {
             name: 'signatures',
-            internalType: 'struct EIP712Signature[]',
+            internalType: 'struct Signature[]',
             type: 'tuple[]',
             components: [
               { name: 'v', internalType: 'uint8', type: 'uint8' },
@@ -1534,6 +1535,7 @@ export const ieasABI = [
             ],
           },
           { name: 'attester', internalType: 'address', type: 'address' },
+          { name: 'deadline', internalType: 'uint64', type: 'uint64' },
         ],
       },
     ],
@@ -1586,7 +1588,7 @@ export const ieasABI = [
           },
           {
             name: 'signatures',
-            internalType: 'struct EIP712Signature[]',
+            internalType: 'struct Signature[]',
             type: 'tuple[]',
             components: [
               { name: 'v', internalType: 'uint8', type: 'uint8' },
@@ -1595,6 +1597,7 @@ export const ieasABI = [
             ],
           },
           { name: 'revoker', internalType: 'address', type: 'address' },
+          { name: 'deadline', internalType: 'uint64', type: 'uint64' },
         ],
       },
     ],
@@ -1661,7 +1664,7 @@ export const ieasABI = [
           },
           {
             name: 'signature',
-            internalType: 'struct EIP712Signature',
+            internalType: 'struct Signature',
             type: 'tuple',
             components: [
               { name: 'v', internalType: 'uint8', type: 'uint8' },
@@ -1670,6 +1673,7 @@ export const ieasABI = [
             ],
           },
           { name: 'revoker', internalType: 'address', type: 'address' },
+          { name: 'deadline', internalType: 'uint64', type: 'uint64' },
         ],
       },
     ],
@@ -1689,6 +1693,13 @@ export const ieasABI = [
     inputs: [{ name: 'data', internalType: 'bytes32', type: 'bytes32' }],
     name: 'timestamp',
     outputs: [{ name: '', internalType: 'uint64', type: 'uint64' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'version',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
   },
 ]
 
@@ -3388,6 +3399,22 @@ export const iSchemaRegistryABI = [
         name: 'registerer',
         internalType: 'address',
         type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'schema',
+        internalType: 'struct SchemaRecord',
+        type: 'tuple',
+        components: [
+          { name: 'uid', internalType: 'bytes32', type: 'bytes32' },
+          {
+            name: 'resolver',
+            internalType: 'contract ISchemaResolver',
+            type: 'address',
+          },
+          { name: 'revocable', internalType: 'bool', type: 'bool' },
+          { name: 'schema', internalType: 'string', type: 'string' },
+        ],
         indexed: false,
       },
     ],
@@ -3430,6 +3457,13 @@ export const iSchemaRegistryABI = [
     ],
     name: 'register',
     outputs: [{ name: '', internalType: 'bytes32', type: 'bytes32' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'version',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
   },
 ]
 
@@ -3546,6 +3580,27 @@ export const iSchemaResolverABI = [
     ],
     name: 'revoke',
     outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'version',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
+  },
+]
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ISemver
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const iSemverABI = [
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'version',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
   },
 ]
 
@@ -4266,13 +4321,6 @@ export const mockTicketABI = [
     outputs: [{ name: '', internalType: 'bytes32', type: 'bytes32' }],
   },
   {
-    stateMutability: 'view',
-    type: 'function',
-    inputs: [],
-    name: 'getTrustedForwarder',
-    outputs: [{ name: 'forwarder', internalType: 'address', type: 'address' }],
-  },
-  {
     stateMutability: 'nonpayable',
     type: 'function',
     inputs: [
@@ -4300,13 +4348,6 @@ export const mockTicketABI = [
       { name: 'operator', internalType: 'address', type: 'address' },
     ],
     name: 'isApprovedForAll',
-    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
-  },
-  {
-    stateMutability: 'view',
-    type: 'function',
-    inputs: [{ name: 'forwarder', internalType: 'address', type: 'address' }],
-    name: 'isTrustedForwarder',
     outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
   },
   {
@@ -4650,6 +4691,7 @@ export const schemaResolverABI = [
   { type: 'error', inputs: [], name: 'AccessDenied' },
   { type: 'error', inputs: [], name: 'InsufficientValue' },
   { type: 'error', inputs: [], name: 'InvalidEAS' },
+  { type: 'error', inputs: [], name: 'InvalidLength' },
   { type: 'error', inputs: [], name: 'NotPayable' },
   {
     stateMutability: 'payable',
@@ -5120,13 +5162,6 @@ export const synthABI = [
     outputs: [{ name: '', internalType: 'bytes32', type: 'bytes32' }],
   },
   {
-    stateMutability: 'view',
-    type: 'function',
-    inputs: [],
-    name: 'getTrustedForwarder',
-    outputs: [{ name: 'forwarder', internalType: 'address', type: 'address' }],
-  },
-  {
     stateMutability: 'nonpayable',
     type: 'function',
     inputs: [
@@ -5154,13 +5189,6 @@ export const synthABI = [
       { name: 'operator', internalType: 'address', type: 'address' },
     ],
     name: 'isApprovedForAll',
-    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
-  },
-  {
-    stateMutability: 'view',
-    type: 'function',
-    inputs: [{ name: 'forwarder', internalType: 'address', type: 'address' }],
-    name: 'isTrustedForwarder',
     outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
   },
   {
@@ -6399,13 +6427,6 @@ export const waveABI = [
     outputs: [{ name: '', internalType: 'bytes32', type: 'bytes32' }],
   },
   {
-    stateMutability: 'view',
-    type: 'function',
-    inputs: [],
-    name: 'getTrustedForwarder',
-    outputs: [{ name: 'forwarder', internalType: 'address', type: 'address' }],
-  },
-  {
     stateMutability: 'nonpayable',
     type: 'function',
     inputs: [
@@ -6433,13 +6454,6 @@ export const waveABI = [
       { name: 'operator', internalType: 'address', type: 'address' },
     ],
     name: 'isApprovedForAll',
-    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
-  },
-  {
-    stateMutability: 'view',
-    type: 'function',
-    inputs: [{ name: 'forwarder', internalType: 'address', type: 'address' }],
-    name: 'isTrustedForwarder',
     outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
   },
   {
@@ -6872,6 +6886,7 @@ export const waveResolverABI = [
   { type: 'error', inputs: [], name: 'AccessDenied' },
   { type: 'error', inputs: [], name: 'InsufficientValue' },
   { type: 'error', inputs: [], name: 'InvalidEAS' },
+  { type: 'error', inputs: [], name: 'InvalidLength' },
   { type: 'error', inputs: [], name: 'NotPayable' },
   {
     type: 'event',
@@ -10421,6 +10436,13 @@ export function usePrepareISchemaResolverRevoke(config = {}) {
     functionName: 'revoke',
     ...config,
   })
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link iSemverABI}__.
+ */
+export function useISemverRead(config = {}) {
+  return useContractRead({ abi: iSemverABI, ...config })
 }
 
 /**

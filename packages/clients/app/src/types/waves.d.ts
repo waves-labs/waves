@@ -93,13 +93,20 @@ declare interface UIData {
   description?: string;
 }
 
+declare interface SynthMetaData {
+  date: string;
+  image: string;
+  location: string;
+  description: string;
+}
+
 declare interface SynthNFT extends BlockData {
   id: string; // Synth ERC-721 Address
   name: string;
   nftOwnershipRequired: boolean;
   artist: string; // Generative Artist
   organizer: string; // Live Event Organizer
-  metadata: string; // JSON Metadata
+  metadata: string;
 
   waveNFTs?: { waveNft: WaveNFT }[];
 }

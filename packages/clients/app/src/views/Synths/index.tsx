@@ -5,8 +5,8 @@ import { SynthsDataProps } from "../../hooks/views/useSynths";
 
 import { RC as AddIcon } from "../../assets/icons/add.svg";
 
-import { SynthsGallery } from "../../components/Synths/Gallery";
-import { SynthsMintDialog } from "../../components/Synths/MintDialog";
+import { SynthsGallery } from "../../components/Synth/Gallery";
+import { SynthsMintDialog } from "../../components/Synth/MintDialog";
 
 interface SynthsProps extends SynthsDataProps {}
 

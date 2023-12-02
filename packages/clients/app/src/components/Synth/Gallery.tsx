@@ -45,8 +45,13 @@ export const SynthsGallery: React.FC<SynthsGalleryProps> = ({
             <li key={index}>
               <Synth
                 {...item}
-                sketch={index === 0 ? "curves" : "noise"}
+                sketch={item.name === "Coachella 2024" ? "noise" : "curves"}
                 view={view}
+                image={
+                  item.name === "Coachella 2024"
+                    ? "/events/coachella-synth-art.webp"
+                    : "/events/lollapalooza-synth-art.webp"
+                }
                 onClick={() => handleSynthClick(item)}
               />
             </li>

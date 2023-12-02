@@ -27,6 +27,7 @@ export const Synth: React.FC<SynthProps> = ({
   // blockTimestamp,
   waveNFTs,
   sketch,
+  image,
 }) => {
   const { transform, opacity } = useSpring({
     opacity: flipped ? 1 : 0,
@@ -48,7 +49,7 @@ export const Synth: React.FC<SynthProps> = ({
         onClick={onClick}
       >
         <figure className={`w-full aspect-square`}>
-          <Sketch sketch={sketch} colors={colors} />
+          <img src={image} alt={`${name} Synth`} />
         </figure>
         <div className="card-body">
           <h4 className="card-title line-clamp-2">{name}</h4>
