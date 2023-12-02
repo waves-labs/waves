@@ -8,11 +8,11 @@ import { BrowserRouter } from "react-router-dom";
 import { PrivyProvider } from "@privy-io/react-auth";
 import { PrivyWagmiConnector } from "@privy-io/wagmi-connector";
 
-import { urqlClient } from "./modules/urql";
-import { config, chainConfig } from "./modules/wagmi";
+import { urqlClient } from "./modules/urql.ts";
+import { config, chainConfig } from "./modules/wagmi.ts";
 
-import { AppProvider } from "./hooks/providers/app";
-import { Web3Provider } from "./hooks/providers/web3";
+import { AppProvider } from "./hooks/providers/app.tsx";
+import { Web3Provider } from "./hooks/providers/web3.tsx";
 
 import App from "./App.tsx";
 

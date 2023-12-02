@@ -30,9 +30,8 @@ export default defineConfig({
         "assets/logo.svg",
         "assets/logo-64.png",
         "assets/logo-310.png",
-        "assets/banner-logo.png",
-        "assets/house.png",
-        "assets/market.png",
+        "assets/dashboards.png",
+        "assets/world.png",
         "assets/profile.png",
       ],
       injectRegister: "auto",
@@ -44,8 +43,8 @@ export default defineConfig({
         globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
       },
       manifest: {
-        name: "Waves House",
-        short_name: "Waves House",
+        name: "Waves Dashboard",
+        short_name: "Waves Dashboard",
         icons: [
           {
             src: "assets/logo-64.png",
@@ -71,24 +70,24 @@ export default defineConfig({
         background_color: "#191c1c",
         shortcuts: [
           {
-            name: "House",
-            description: "Check what's happening in your house",
-            url: "/house",
+            name: "Dashboards",
+            description: "Manage your Synths and Waves",
+            url: "/dashboards",
             icons: [
               {
-                src: "assets/house.png",
+                src: "assets/dashboards.png",
                 sizes: "64x64",
                 type: "image/png",
               },
             ],
           },
           {
-            name: "Market",
-            description: "Cop some new art, apparel, and more",
-            url: "/market",
+            name: "World",
+            description: "View nearby Synths and Waves",
+            url: "/world",
             icons: [
               {
-                src: "assets/market.png",
+                src: "assets/world.png",
                 sizes: "64x64",
                 type: "image/png",
               },
@@ -110,7 +109,7 @@ export default defineConfig({
         related_applications: [
           {
             platform: "webapp",
-            url: "https://localhost:5173/manifest.webmanifest",
+            url: "https://dashboard.waves.app/manifest.webmanifest",
           },
         ],
         categories: ["entertainment", "music", "social"],
@@ -132,6 +131,6 @@ export default defineConfig({
     }),
   ],
   server: {
-    port: 3003,
+    port: 3001,
   },
 });

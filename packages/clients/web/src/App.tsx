@@ -1,6 +1,6 @@
-// import Views from "./views";
+import Views from "./views";
 import { Header } from "./components/Layout/Header";
-import { OnlyMobile } from "./components/Layout/OnlyMobile";
+import { Navigation } from "./components/Layout/Navigation";
 
 import { WavesProvider } from "./hooks/providers/waves";
 
@@ -8,8 +8,8 @@ function App() {
   return (
     <WavesProvider>
       <Header />
-      <OnlyMobile />
-      {/* <Views /> */}
+      <Navigation />
+      <Views />
     </WavesProvider>
   );
 }
