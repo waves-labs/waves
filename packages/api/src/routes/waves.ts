@@ -1,4 +1,4 @@
-import { ethers, Contract } from "ethers";
+import { ethers } from "ethers";
 import { Request, Response, Router } from "express";
 import { EAS, SchemaEncoder } from "@ethereum-attestation-service/eas-sdk";
 

@@ -13,17 +13,17 @@ const host = IS_GOOGLE_CLOUD_RUN ? "0.0.0.0" : undefined;
 const port = Number(process.env.PORT) || 8080;
 
 if (process.env.NODE_ENV !== "production") {
-  const httpsPort = port + 1;
+  // const httpsPort = port + 1;
   const httpsServer = https.createServer(
     {
       key: fs.readFileSync(path.join(__dirname, "../cert/fastify.key")),
       cert: fs.readFileSync(path.join(__dirname, "../cert/fastify.cert")),
     },
-    server
+    server,
   );
 
-  httpsServer.listen({ port: httpsPort, host });
-  console.log(`🚀  WAVES API server running at https://localhost:${httpsPort}/status`);
+  httpsServer.listen({ port, host });
+  console.log(`🚀  WAVES API server running at https://localhost:${port}/status`);
 } else {
   const httpServer = http.createServer(server);
 
