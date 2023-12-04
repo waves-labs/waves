@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.10;
+pragma solidity ^0.8.21;
 
 import "forge-std/Test.sol";
 
-import "../src/Wave.sol";
+import "../src/tokens/Wave.sol";
 
 contract WaveTest is Test {
-    Wave public wave;
+    WaveToken public wave;
 
     function setUp() public {
         wave =

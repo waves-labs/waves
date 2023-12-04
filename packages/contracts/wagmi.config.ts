@@ -1,6 +1,5 @@
 import { defineConfig } from "@wagmi/cli";
 import { foundry, react } from "@wagmi/cli/plugins";
-// import * as chains from "wagmi/chains";
 
 /**
  * Wagmi cli will automatically generate react hooks from your forge contracts
@@ -18,39 +17,18 @@ import { foundry, react } from "@wagmi/cli/plugins";
  * @see https://wagmi.sh/cli/plugins/actions
  */
 export default defineConfig({
-  out: "../clients/app/src/generated.ts",
+  out: "../clients/generated.ts",
   plugins: [
     /**
      * Generates react hooks from your forge contracts
      * @see https://wagmi.sh/cli/plugins/foundry
      */
     foundry({
-      exclude: [
-        "Common.sol/**",
-        "Components.sol/**",
-        "Script.sol/**",
-        "StdAssertions.sol/**",
-        "StdError.sol/**",
-        "StdCheats.sol/**",
-        "StdMath.sol/**",
-        "StdJson.sol/**",
-        "StdStorage.sol/**",
-        "StdUtils.sol/**",
-        "Vm.sol/**",
-        "console.sol/**",
-        "console2.sol/**",
-        "test.sol/**",
-        "**.s.sol/*.json",
-        "**.t.sol/*.json",
-      ],
-      deployments: {
-        SynthRegistry: {
-          85431: "0x935D99dC0f48f28794f13d4135d5Fe22A19ccE4c",
-        },
-        WaveRegistry: {
-          85431: "0xd82e2a831315882D9a13B5780e2BDC4e64976AD5",
-        },
+      forge: {
+        clean: true,
+        build: true,
       },
+      exclude: ["IEAS.sol/**", "ISchemaResolver.sol/**", "contracts/**"],
     }),
     /**
      * Generates react hooks from your abis

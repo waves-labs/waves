@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.10;
+pragma solidity ^0.8.21;
 
 import "forge-std/Test.sol";
 
-import "../src/Synth.sol";
+import "../src/tokens/Synth.sol";
 
 contract SynthTest is Test {
-    Synth public synth;
+    SynthToken public synth;
 
     function setUp() public {
         address[] memory nfts = new address[](0);
