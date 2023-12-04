@@ -19,34 +19,33 @@
     ]
   },
   "scripts": {
-    "lint": "yarn workspace app lint && yarn workspace api lint && yarn workspace contracts lint",
-    "docker:compose": "docker-compose up -d --build",
-    "dev": "concurrently -n \"APP,API,CONTRACT\" -c \"bgBlue.bold,bgMagenta.bold,bgGreen.bold\" \"yarn dev:app\" \"yarn dev:api\" \"yarn dev:contracts\"",
-    "dev:app": "yarn workspace app dev",
-    "dev:web": "yarn workspace web dev",
-    "dev:dashboard": "yarn workspace dashboard dev",
-    "dev:api": "yarn workspace api dev",
-    "dev:graph": "yarn workspace graph deploy-local",
-    "dev:contracts": "yarn workspace contracts dev",
-    "deploy:op": "",
-    "deploy:base": "",
-    "deploy:zora": "",
-    "deploy:op-goerli": "",
-    "deploy:base-goerli": "",
-    "deploy:zora-goerli": "",
-    "deploy:mode-sepolia": ""
+    "lint": "pnpm recursive run lint",
+    "dev": "concurrently -n \"APP,WEB,API,CONTRACTS\" -c \"bgBlue.bold,bgMagenta.bold,bgCyan.bold,bgWhite.bold\" \"pnpm run dev:app\" \"pnpm run dev:web\" \"pnpm run dev:api\" \"pnpm run dev:contracts\"",
+    "dev:app": "pnpm --filter 'app' run dev",
+    "dev:web": "pnpm --filter 'web' run dev",
+    "dev:api": "pnpm --filter 'api' run dev",
+    "dev:contracts": "pnpm --filter 'contracts dev",
+    "deploy:op": "pnpm --filter 'contracts' run deploy:waves --network op",
+    "deploy:base": "pnpm --filter 'contracts' run deploy:base --network base",
+    "deploy:zora": "pnpm --filter 'contracts' run deploy:zora --network zora",
+    "deploy:op-goerli": "pnpm --filter 'contracts' run deploy:waves-goerli --network op-goerli",
+    "deploy:base-goerli": "pnpm --filter 'contracts' run deploy:base-goerli --network base-goerli",
+    "deploy:zora-goerli": "pnpm --filter 'contracts' run deploy:zora-goerli --network zora-goerli",
+    "deploy:polygon-mumbai": "pnpm --filter 'contracts' run deploy:polygon-mumbai --network polygon-mumbai"
   },
   "dependencies": {
     "dotenv": "16.3.1",
-    "ethers": "^6.7.1",
-    "viem": "^1.10.9"
+    "ethers": "^6.8.1",
+    "viem": "^1.19.9",
+    "siwe": "2.1.4"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^6.7.4",
-    "@typescript-eslint/parser": "^6.7.4",
-    "concurrently": "8.2.1",
+    "@typescript-eslint/eslint-plugin": "^6.12.0",
+    "@typescript-eslint/parser": "^6.12.0",
+    "concurrently": "8.2.2",
     "eslint": "^8.50.0",
-    "prettier": "^3.0.3",
-    "typescript": "^5.2.2"
+    "prettier": "^3.1.0",
+    "typescript": "^5.3.2",
+    "wait-port": "1.1.0"
   }
 }
