@@ -2,22 +2,6 @@
   "name": "waves",
   "version": "0.0.7",
   "private": true,
-  "workspaces": {
-    "packages": [
-      "packages/*",
-      "packages/clients/*"
-    ],
-    "nohoist": [
-      "**/@ethereum-attestation-service/eas-contracts",
-      "**/@ethereum-attestation-service/eas-contracts/**",
-      "**/@opengsn/contracts",
-      "**/@opengsn/contracts/**",
-      "**/@openzeppelin/contracts",
-      "**/@openzeppelin/contracts/**",
-      "**/@openzeppelin/contracts-upgradeable",
-      "**/@openzeppelin/contracts-upgradeable/**"
-    ]
-  },
   "scripts": {
     "lint": "pnpm recursive run lint",
     "dev": "concurrently -n \"APP,WEB,API,CONTRACTS\" -c \"bgBlue.bold,bgMagenta.bold,bgCyan.bold,bgWhite.bold\" \"pnpm run dev:app\" \"pnpm run dev:web\" \"pnpm run dev:api\" \"pnpm run dev:contracts\"",
