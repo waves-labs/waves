@@ -12,6 +12,7 @@ address constant EAS_POLYGON_MUMBAI = 0x4200000000000000000000000000000000000021
 
 error NotOwner();
 error NotValidMint();
+error NotValidOwner();
 error MintAlreadyClaimed();
 error InvalidChainId();
 error InvalidTokenId();

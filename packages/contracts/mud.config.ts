@@ -4,7 +4,7 @@ export default mudConfig({
   enums: {
     TokenTypeEnum: ["SYNTH", "WAVE", "ART", "ORDER"],
     SynthTypeEnum: ["FESTIVAL", "CONCERT", "TOUR", "CONFERENCE", "OTHER"],
-    WaveTypeEnum: ["MUSIC", "ART", "FILM", "GAME", "BOOK", "OTHER", "SPORT"],
+    WaveTypeEnum: ["MUSIC", "ART", "FILM", "GAME", "BOOK", "OTHER"],
     ArtTypeEnum: [
       "ABSTRACT",
       "REALISM",
@@ -38,6 +38,8 @@ export default mudConfig({
     },
     WaveAttributes: {
       valueSchema: {
+        longitude: "uint256",
+        latitude: "uint256",
         color: "string",
       },
     },
@@ -54,7 +56,7 @@ export default mudConfig({
       },
     },
     // Singletons
-    WaveResolverAddrs: {
+    WavesAddrs: {
       keySchema: {},
       valueSchema: "address",
     },
@@ -62,11 +64,11 @@ export default mudConfig({
       keySchema: {},
       valueSchema: "address",
     },
-    SynthAccountImplAddrs: {
+    WaveResolverAddrs: {
       keySchema: {},
       valueSchema: "address",
     },
-    WavesAddrs: {
+    SynthAccountImplAddrs: {
       keySchema: {},
       valueSchema: "address",
     },
@@ -86,9 +88,9 @@ export default mudConfig({
     TransferStatus: "TransferStatusEnum",
     // OWNERSHIP
     Owner: "address",
-    Organizer: "address",
     Artist: "address",
     Creative: "address",
+    Organizer: "address",
     Token: {
       valueSchema: {
         id: "uint256",
@@ -131,10 +133,10 @@ export default mudConfig({
       root: true,
       args: [],
     },
-    {
-      name: "KeysWithValueModule",
-      root: true,
-      args: [],
-    },
+    // {
+    //   name: "KeysWithValueModule",
+    //   root: true,
+    //   args: [],
+    // },
   ],
 });

@@ -9,28 +9,24 @@ import {Owner} from "../codegen/tables/Owner.sol";
 import {Artist} from "../codegen/tables/Artist.sol";
 import {Creative} from "../codegen/tables/Creative.sol";
 import {TransferStatus} from "../codegen/tables/TransferStatus.sol";
-import {WaveAttributes} from "../codegen/tables/WaveAttributes.sol";
+import {WaveAttributes, WaveAttributesData} from "../codegen/tables/WaveAttributes.sol";
 import {Identity, IdentityData} from "../codegen/tables/Identity.sol";
 import {WaveResolverAddrs} from "../codegen/tables/WaveResolverAddrs.sol";
 import {WaveContract, WaveContractData} from "../codegen/tables/WaveContract.sol";
 import {SynthContract, SynthContractData} from "../codegen/tables/SynthContract.sol";
 
-import "../Constants.sol";
 import "../addressToEntityKey.sol";
 import {WaveToken} from "../tokens/Wave.sol";
 import {SynthToken} from "../tokens/Synth.sol";
 import {SynthAccount} from "../accounts/Synth.sol";
+import {NotOwner, NotValidMint, NotValidOwner, MintAlreadyClaimed} from "../Constants.sol";
 
 import {TokenSystem} from "./TokenSystem.sol";
-
-error NotValidOwner();
-error NotValidStartTime();
-error NotValidDuration();
 
 contract WaveSystem is TokenSystem {
     function createWave(
         WaveTypeEnum waveType,
-        uint16 maxAmount,
+        uint16 max,
         uint256 startTime,
         uint256 duration,
         address artist,
@@ -44,7 +40,7 @@ contract WaveSystem is TokenSystem {
             revert NotValidOwner();
         }
 
-        WaveToken wave = new WaveToken(maxAmount, address(this), artist, creative, name);
+        WaveToken wave = new WaveToken(max, address(this), artist, creative, name);
 
         bytes32 waveId = addressToEntityKey(address(wave));
 
@@ -54,7 +50,7 @@ contract WaveSystem is TokenSystem {
         Identity.set(waveId, block.timestamp, "");
         TransferStatus.set(waveId, TransferStatusEnum.IDLE);
         WaveContract.set(waveId, waveType, startTime, duration);
-        WaveAttributes.set(waveId, color);
+        WaveAttributes.set(waveId, 0, 0, color);
     }
 
     function modifyWave(address wave, uint256 startTime, uint256 duration, string calldata color) public {
@@ -81,7 +77,7 @@ contract WaveSystem is TokenSystem {
         }
 
         if (bytes(color).length > 0) {
-            WaveAttributes.set(waveId, color);
+            WaveAttributes.setColor(waveId, color);
         }
 
         WaveContract.set(waveId, waveData);
@@ -122,45 +118,5 @@ contract WaveSystem is TokenSystem {
         bytes32 waveId = concatTokenID(wave, tokenId);
 
         Owner.set(waveId, account);
-    }
-
-    function setWaveStartTime(address wave, uint256 startTime) public {
-        address owner = _msgSender();
-        bytes32 waveId = addressToEntityKey(wave);
-
-        if (owner != Owner.get(waveId)) {
-            revert NotOwner();
-        }
-
-        if (startTime < block.timestamp) {
-            revert NotValidStartTime();
-        }
-
-        WaveToken(wave);
-        WaveContractData memory waveData = WaveContract.get(waveId);
-
-        waveData.startTime = startTime;
-
-        WaveContract.set(waveId, waveData);
-    }
-
-    function setWaveDuration(address wave, uint256 duration) public {
-        address owner = _msgSender();
-        bytes32 waveId = addressToEntityKey(wave);
-
-        if (owner != Owner.get(waveId)) {
-            revert NotOwner();
-        }
-
-        if (duration < 30 days) {
-            revert NotValidStartTime();
-        }
-
-        WaveToken(wave);
-        WaveContractData memory waveData = WaveContract.get(waveId);
-
-        waveData.duration = duration;
-
-        WaveContract.set(waveId, waveData);
     }
 }

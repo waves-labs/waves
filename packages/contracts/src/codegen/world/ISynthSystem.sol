@@ -22,14 +22,7 @@ interface ISynthSystem {
     address[] memory ticketWhitelist
   ) external;
 
-  function modifySynth(
-    address synth,
-    SynthTypeEnum synthType,
-    string memory metadata,
-    address[] memory artWhitelist,
-    address[] memory waveWhitelist,
-    address[] memory ticketWhitelist
-  ) external;
+  function modifySynth(address synth, SynthTypeEnum synthType, string memory metadata) external;
 
   function mintSynthToken(address synth, address ticket) external;
 

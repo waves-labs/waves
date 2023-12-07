@@ -11,11 +11,11 @@ import {Identity, IdentityData} from "../codegen/tables/Identity.sol";
 import {ArtContract, ArtContractData} from "../codegen/tables/ArtContract.sol";
 import {SynthContract, SynthContractData} from "../codegen/tables/SynthContract.sol";
 
-import "../Constants.sol";
 import "../addressToEntityKey.sol";
 import {ArtToken} from "../tokens/Art.sol";
 import {SynthToken} from "../tokens/Synth.sol";
 import {SynthAccount} from "../accounts/Synth.sol";
+import {NotOwner, NotValidMint, MintAlreadyClaimed} from "../Constants.sol";
 
 import {TokenSystem} from "./TokenSystem.sol";
 

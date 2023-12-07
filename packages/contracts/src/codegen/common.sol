@@ -23,8 +23,7 @@ enum WaveTypeEnum {
   FILM,
   GAME,
   BOOK,
-  OTHER,
-  SPORT
+  OTHER
 }
 
 enum ArtTypeEnum {

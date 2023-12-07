@@ -28,12 +28,7 @@ contract WaveToken is ERC721, Pausable, AccessControl {
         _setupRole(MINTER_ROLE, world);
     }
 
-    function mint(address _synthAccount)
-        external
-        whenNotPaused
-        onlyRole(MINTER_ROLE)
-        returns (uint256)
-    {
+    function mint(address _synthAccount) external whenNotPaused onlyRole(MINTER_ROLE) returns (uint256) {
         require(_waveIdCounter.current() < _maxAmount, "Wave: max amount minted");
         require(balanceOf(_synthAccount) == 0, "Wave: already claimed");
 
@@ -57,14 +52,5 @@ contract WaveToken is ERC721, Pausable, AccessControl {
 
     function supportsInterface(bytes4 interfaceId) public view override(ERC721, AccessControl) returns (bool) {
         return super.supportsInterface(interfaceId);
-    }
-
-    function _beforeTokenTransfer(address from, address to, uint256 tokenId, uint256 batchSize)
-        internal
-        virtual
-        override
-    {
-        require(from == address(0), "Err: token transfer is BLOCKED");
-        super._beforeTokenTransfer(from, to, tokenId, batchSize);
     }
 }

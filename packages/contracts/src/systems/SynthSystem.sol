@@ -13,13 +13,13 @@ import {Identity, IdentityData} from "../codegen/tables/Identity.sol";
 import {SynthAccountImplAddrs} from "../codegen/tables/SynthAccountImplAddrs.sol";
 import {SynthContract, SynthContractData} from "../codegen/tables/SynthContract.sol";
 
-import "../Constants.sol";
 import "../addressToEntityKey.sol";
 import {TBALib} from "../lib/TBA.sol";
 import {ArtToken} from "../tokens/Art.sol";
 import {WaveToken} from "../tokens/Wave.sol";
 import {SynthToken} from "../tokens/Synth.sol";
 import {SynthAccount} from "../accounts/Synth.sol";
+import {NotOwner, NotValidMint} from "../Constants.sol";
 
 import {TokenSystem} from "./TokenSystem.sol";
 
@@ -49,14 +49,7 @@ contract SynthSystem is TokenSystem {
         SynthContract.set(synthId, synthType, artWhitelist, waveWhitelist, ticketWhitelist);
     }
 
-    function modifySynth(
-        address synth,
-        SynthTypeEnum synthType,
-        string memory metadata,
-        address[] memory artWhitelist,
-        address[] memory waveWhitelist,
-        address[] memory ticketWhitelist
-    ) public {
+    function modifySynth(address synth, SynthTypeEnum synthType, string memory metadata) public {
         address owner = _msgSender();
         bytes32 synthId = addressToEntityKey(synth);
 
@@ -73,18 +66,6 @@ contract SynthSystem is TokenSystem {
 
         if (synthType != synthData.synthType) {
             synthData.synthType = synthType;
-        }
-
-        if ((artWhitelist).length > 0) {
-            synthData.artWhitelist = artWhitelist;
-        }
-
-        if (waveWhitelist.length > 0) {
-            synthData.waveWhitelist = waveWhitelist;
-        }
-
-        if (ticketWhitelist.length > 0) {
-            synthData.ticketWhitelist = ticketWhitelist;
         }
 
         SynthContract.set(synthId, synthData);

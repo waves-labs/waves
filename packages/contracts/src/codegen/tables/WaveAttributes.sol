@@ -26,8 +26,14 @@ ResourceId constant _tableId = ResourceId.wrap(
 ResourceId constant WaveAttributesTableId = _tableId;
 
 FieldLayout constant _fieldLayout = FieldLayout.wrap(
-  0x0000000100000000000000000000000000000000000000000000000000000000
+  0x0040020120200000000000000000000000000000000000000000000000000000
 );
+
+struct WaveAttributesData {
+  uint256 longitude;
+  uint256 latitude;
+  string color;
+}
 
 library WaveAttributes {
   /**
@@ -54,8 +60,10 @@ library WaveAttributes {
    * @return _valueSchema The value schema for the table.
    */
   function getValueSchema() internal pure returns (Schema) {
-    SchemaType[] memory _valueSchema = new SchemaType[](1);
-    _valueSchema[0] = SchemaType.STRING;
+    SchemaType[] memory _valueSchema = new SchemaType[](3);
+    _valueSchema[0] = SchemaType.UINT256;
+    _valueSchema[1] = SchemaType.UINT256;
+    _valueSchema[2] = SchemaType.STRING;
 
     return SchemaLib.encode(_valueSchema);
   }
@@ -74,8 +82,10 @@ library WaveAttributes {
    * @return fieldNames An array of strings with the names of value fields.
    */
   function getFieldNames() internal pure returns (string[] memory fieldNames) {
-    fieldNames = new string[](1);
-    fieldNames[0] = "color";
+    fieldNames = new string[](3);
+    fieldNames[0] = "longitude";
+    fieldNames[1] = "latitude";
+    fieldNames[2] = "color";
   }
 
   /**
@@ -93,6 +103,90 @@ library WaveAttributes {
   }
 
   /**
+   * @notice Get longitude.
+   */
+  function getLongitude(bytes32 key) internal view returns (uint256 longitude) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = key;
+
+    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 0, _fieldLayout);
+    return (uint256(bytes32(_blob)));
+  }
+
+  /**
+   * @notice Get longitude.
+   */
+  function _getLongitude(bytes32 key) internal view returns (uint256 longitude) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = key;
+
+    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 0, _fieldLayout);
+    return (uint256(bytes32(_blob)));
+  }
+
+  /**
+   * @notice Set longitude.
+   */
+  function setLongitude(bytes32 key, uint256 longitude) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = key;
+
+    StoreSwitch.setStaticField(_tableId, _keyTuple, 0, abi.encodePacked((longitude)), _fieldLayout);
+  }
+
+  /**
+   * @notice Set longitude.
+   */
+  function _setLongitude(bytes32 key, uint256 longitude) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = key;
+
+    StoreCore.setStaticField(_tableId, _keyTuple, 0, abi.encodePacked((longitude)), _fieldLayout);
+  }
+
+  /**
+   * @notice Get latitude.
+   */
+  function getLatitude(bytes32 key) internal view returns (uint256 latitude) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = key;
+
+    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 1, _fieldLayout);
+    return (uint256(bytes32(_blob)));
+  }
+
+  /**
+   * @notice Get latitude.
+   */
+  function _getLatitude(bytes32 key) internal view returns (uint256 latitude) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = key;
+
+    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 1, _fieldLayout);
+    return (uint256(bytes32(_blob)));
+  }
+
+  /**
+   * @notice Set latitude.
+   */
+  function setLatitude(bytes32 key, uint256 latitude) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = key;
+
+    StoreSwitch.setStaticField(_tableId, _keyTuple, 1, abi.encodePacked((latitude)), _fieldLayout);
+  }
+
+  /**
+   * @notice Set latitude.
+   */
+  function _setLatitude(bytes32 key, uint256 latitude) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = key;
+
+    StoreCore.setStaticField(_tableId, _keyTuple, 1, abi.encodePacked((latitude)), _fieldLayout);
+  }
+
+  /**
    * @notice Get color.
    */
   function getColor(bytes32 key) internal view returns (string memory color) {
@@ -107,28 +201,6 @@ library WaveAttributes {
    * @notice Get color.
    */
   function _getColor(bytes32 key) internal view returns (string memory color) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = key;
-
-    bytes memory _blob = StoreCore.getDynamicField(_tableId, _keyTuple, 0);
-    return (string(_blob));
-  }
-
-  /**
-   * @notice Get color.
-   */
-  function get(bytes32 key) internal view returns (string memory color) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = key;
-
-    bytes memory _blob = StoreSwitch.getDynamicField(_tableId, _keyTuple, 0);
-    return (string(_blob));
-  }
-
-  /**
-   * @notice Get color.
-   */
-  function _get(bytes32 key) internal view returns (string memory color) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = key;
 
@@ -157,26 +229,6 @@ library WaveAttributes {
   }
 
   /**
-   * @notice Set color.
-   */
-  function set(bytes32 key, string memory color) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = key;
-
-    StoreSwitch.setDynamicField(_tableId, _keyTuple, 0, bytes((color)));
-  }
-
-  /**
-   * @notice Set color.
-   */
-  function _set(bytes32 key, string memory color) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = key;
-
-    StoreCore.setDynamicField(_tableId, _keyTuple, 0, bytes((color)));
-  }
-
-  /**
    * @notice Get the length of color.
    */
   function lengthColor(bytes32 key) internal view returns (uint256) {
@@ -193,32 +245,6 @@ library WaveAttributes {
    * @notice Get the length of color.
    */
   function _lengthColor(bytes32 key) internal view returns (uint256) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = key;
-
-    uint256 _byteLength = StoreCore.getDynamicFieldLength(_tableId, _keyTuple, 0);
-    unchecked {
-      return _byteLength / 1;
-    }
-  }
-
-  /**
-   * @notice Get the length of color.
-   */
-  function length(bytes32 key) internal view returns (uint256) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = key;
-
-    uint256 _byteLength = StoreSwitch.getDynamicFieldLength(_tableId, _keyTuple, 0);
-    unchecked {
-      return _byteLength / 1;
-    }
-  }
-
-  /**
-   * @notice Get the length of color.
-   */
-  function _length(bytes32 key) internal view returns (uint256) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = key;
 
@@ -257,34 +283,6 @@ library WaveAttributes {
   }
 
   /**
-   * @notice Get an item of color.
-   * @dev Reverts with Store_IndexOutOfBounds if `_index` is out of bounds for the array.
-   */
-  function getItem(bytes32 key, uint256 _index) internal view returns (string memory) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = key;
-
-    unchecked {
-      bytes memory _blob = StoreSwitch.getDynamicFieldSlice(_tableId, _keyTuple, 0, _index * 1, (_index + 1) * 1);
-      return (string(_blob));
-    }
-  }
-
-  /**
-   * @notice Get an item of color.
-   * @dev Reverts with Store_IndexOutOfBounds if `_index` is out of bounds for the array.
-   */
-  function _getItem(bytes32 key, uint256 _index) internal view returns (string memory) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = key;
-
-    unchecked {
-      bytes memory _blob = StoreCore.getDynamicFieldSlice(_tableId, _keyTuple, 0, _index * 1, (_index + 1) * 1);
-      return (string(_blob));
-    }
-  }
-
-  /**
    * @notice Push a slice to color.
    */
   function pushColor(bytes32 key, string memory _slice) internal {
@@ -305,26 +303,6 @@ library WaveAttributes {
   }
 
   /**
-   * @notice Push a slice to color.
-   */
-  function push(bytes32 key, string memory _slice) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = key;
-
-    StoreSwitch.pushToDynamicField(_tableId, _keyTuple, 0, bytes((_slice)));
-  }
-
-  /**
-   * @notice Push a slice to color.
-   */
-  function _push(bytes32 key, string memory _slice) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = key;
-
-    StoreCore.pushToDynamicField(_tableId, _keyTuple, 0, bytes((_slice)));
-  }
-
-  /**
    * @notice Pop a slice from color.
    */
   function popColor(bytes32 key) internal {
@@ -338,26 +316,6 @@ library WaveAttributes {
    * @notice Pop a slice from color.
    */
   function _popColor(bytes32 key) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = key;
-
-    StoreCore.popFromDynamicField(_tableId, _keyTuple, 0, 1);
-  }
-
-  /**
-   * @notice Pop a slice from color.
-   */
-  function pop(bytes32 key) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = key;
-
-    StoreSwitch.popFromDynamicField(_tableId, _keyTuple, 0, 1);
-  }
-
-  /**
-   * @notice Pop a slice from color.
-   */
-  function _pop(bytes32 key) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = key;
 
@@ -391,29 +349,133 @@ library WaveAttributes {
   }
 
   /**
-   * @notice Update a slice of color at `_index`.
+   * @notice Get the full data.
    */
-  function update(bytes32 key, uint256 _index, string memory _slice) internal {
+  function get(bytes32 key) internal view returns (WaveAttributesData memory _table) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = key;
 
-    unchecked {
-      bytes memory _encoded = bytes((_slice));
-      StoreSwitch.spliceDynamicData(_tableId, _keyTuple, 0, uint40(_index * 1), uint40(_encoded.length), _encoded);
-    }
+    (bytes memory _staticData, PackedCounter _encodedLengths, bytes memory _dynamicData) = StoreSwitch.getRecord(
+      _tableId,
+      _keyTuple,
+      _fieldLayout
+    );
+    return decode(_staticData, _encodedLengths, _dynamicData);
   }
 
   /**
-   * @notice Update a slice of color at `_index`.
+   * @notice Get the full data.
    */
-  function _update(bytes32 key, uint256 _index, string memory _slice) internal {
+  function _get(bytes32 key) internal view returns (WaveAttributesData memory _table) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = key;
 
+    (bytes memory _staticData, PackedCounter _encodedLengths, bytes memory _dynamicData) = StoreCore.getRecord(
+      _tableId,
+      _keyTuple,
+      _fieldLayout
+    );
+    return decode(_staticData, _encodedLengths, _dynamicData);
+  }
+
+  /**
+   * @notice Set the full data using individual values.
+   */
+  function set(bytes32 key, uint256 longitude, uint256 latitude, string memory color) internal {
+    bytes memory _staticData = encodeStatic(longitude, latitude);
+
+    PackedCounter _encodedLengths = encodeLengths(color);
+    bytes memory _dynamicData = encodeDynamic(color);
+
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = key;
+
+    StoreSwitch.setRecord(_tableId, _keyTuple, _staticData, _encodedLengths, _dynamicData);
+  }
+
+  /**
+   * @notice Set the full data using individual values.
+   */
+  function _set(bytes32 key, uint256 longitude, uint256 latitude, string memory color) internal {
+    bytes memory _staticData = encodeStatic(longitude, latitude);
+
+    PackedCounter _encodedLengths = encodeLengths(color);
+    bytes memory _dynamicData = encodeDynamic(color);
+
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = key;
+
+    StoreCore.setRecord(_tableId, _keyTuple, _staticData, _encodedLengths, _dynamicData, _fieldLayout);
+  }
+
+  /**
+   * @notice Set the full data using the data struct.
+   */
+  function set(bytes32 key, WaveAttributesData memory _table) internal {
+    bytes memory _staticData = encodeStatic(_table.longitude, _table.latitude);
+
+    PackedCounter _encodedLengths = encodeLengths(_table.color);
+    bytes memory _dynamicData = encodeDynamic(_table.color);
+
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = key;
+
+    StoreSwitch.setRecord(_tableId, _keyTuple, _staticData, _encodedLengths, _dynamicData);
+  }
+
+  /**
+   * @notice Set the full data using the data struct.
+   */
+  function _set(bytes32 key, WaveAttributesData memory _table) internal {
+    bytes memory _staticData = encodeStatic(_table.longitude, _table.latitude);
+
+    PackedCounter _encodedLengths = encodeLengths(_table.color);
+    bytes memory _dynamicData = encodeDynamic(_table.color);
+
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = key;
+
+    StoreCore.setRecord(_tableId, _keyTuple, _staticData, _encodedLengths, _dynamicData, _fieldLayout);
+  }
+
+  /**
+   * @notice Decode the tightly packed blob of static data using this table's field layout.
+   */
+  function decodeStatic(bytes memory _blob) internal pure returns (uint256 longitude, uint256 latitude) {
+    longitude = (uint256(Bytes.slice32(_blob, 0)));
+
+    latitude = (uint256(Bytes.slice32(_blob, 32)));
+  }
+
+  /**
+   * @notice Decode the tightly packed blob of dynamic data using the encoded lengths.
+   */
+  function decodeDynamic(
+    PackedCounter _encodedLengths,
+    bytes memory _blob
+  ) internal pure returns (string memory color) {
+    uint256 _start;
+    uint256 _end;
     unchecked {
-      bytes memory _encoded = bytes((_slice));
-      StoreCore.spliceDynamicData(_tableId, _keyTuple, 0, uint40(_index * 1), uint40(_encoded.length), _encoded);
+      _end = _encodedLengths.atIndex(0);
     }
+    color = (string(SliceLib.getSubslice(_blob, _start, _end).toBytes()));
+  }
+
+  /**
+   * @notice Decode the tightly packed blobs using this table's field layout.
+   * @param _staticData Tightly packed static fields.
+   * @param _encodedLengths Encoded lengths of dynamic fields.
+   * @param _dynamicData Tightly packed dynamic fields.
+   */
+  function decode(
+    bytes memory _staticData,
+    PackedCounter _encodedLengths,
+    bytes memory _dynamicData
+  ) internal pure returns (WaveAttributesData memory _table) {
+    (_table.longitude, _table.latitude) = decodeStatic(_staticData);
+
+    (_table.color) = decodeDynamic(_encodedLengths, _dynamicData);
   }
 
   /**
@@ -434,6 +496,14 @@ library WaveAttributes {
     _keyTuple[0] = key;
 
     StoreCore.deleteRecord(_tableId, _keyTuple, _fieldLayout);
+  }
+
+  /**
+   * @notice Tightly pack static (fixed length) data using this table's schema.
+   * @return The static data, encoded into a sequence of bytes.
+   */
+  function encodeStatic(uint256 longitude, uint256 latitude) internal pure returns (bytes memory) {
+    return abi.encodePacked(longitude, latitude);
   }
 
   /**
@@ -461,8 +531,13 @@ library WaveAttributes {
    * @return The lengths of the dynamic fields (packed into a single bytes32 value).
    * @return The dyanmic (variable length) data, encoded into a sequence of bytes.
    */
-  function encode(string memory color) internal pure returns (bytes memory, PackedCounter, bytes memory) {
-    bytes memory _staticData;
+  function encode(
+    uint256 longitude,
+    uint256 latitude,
+    string memory color
+  ) internal pure returns (bytes memory, PackedCounter, bytes memory) {
+    bytes memory _staticData = encodeStatic(longitude, latitude);
+
     PackedCounter _encodedLengths = encodeLengths(color);
     bytes memory _dynamicData = encodeDynamic(color);
 

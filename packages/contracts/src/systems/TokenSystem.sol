@@ -5,7 +5,6 @@ import {System} from "@latticexyz/world/src/System.sol";
 
 import {TokenTypeEnum} from "../codegen/common.sol";
 
-import "../addressToEntityKey.sol";
 import {ArtToken} from "../tokens/Art.sol";
 import {WaveToken} from "../tokens/Wave.sol";
 import {SynthToken} from "../tokens/Synth.sol";

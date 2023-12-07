@@ -49,13 +49,4 @@ contract SynthToken is ERC721, Pausable, AccessControl {
     function supportsInterface(bytes4 interfaceId) public view override(ERC721, AccessControl) returns (bool) {
         return super.supportsInterface(interfaceId);
     }
-
-    function _beforeTokenTransfer(address from, address to, uint256 tokenId, uint256 batchSize)
-        internal
-        virtual
-        override
-    {
-        require(from == address(0), "Err: token transfer is BLOCKED");
-        super._beforeTokenTransfer(from, to, tokenId, batchSize);
-    }
 }

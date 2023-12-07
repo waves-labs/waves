@@ -10,13 +10,9 @@ import { WaveTypeEnum } from "./../common.sol";
  * @dev This interface is automatically generated from the corresponding system contract. Do not edit manually.
  */
 interface IWaveSystem {
-  error NotValidOwner();
-  error NotValidStartTime();
-  error NotValidDuration();
-
   function createWave(
     WaveTypeEnum waveType,
-    uint16 maxAmount,
+    uint16 max,
     uint256 startTime,
     uint256 duration,
     address artist,
@@ -28,8 +24,4 @@ interface IWaveSystem {
   function modifyWave(address wave, uint256 startTime, uint256 duration, string calldata color) external;
 
   function mintWaveToken(address wave, address synth, address account) external;
-
-  function setWaveStartTime(address wave, uint256 startTime) external;
-
-  function setWaveDuration(address wave, uint256 duration) external;
 }
