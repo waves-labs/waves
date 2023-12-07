@@ -1,4 +1,5 @@
 import "./index.css";
+import "leaflet/dist/leaflet.css";
 
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
