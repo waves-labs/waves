@@ -145,6 +145,9 @@ importers:
       buffer:
         specifier: ^6.0.3
         version: 6.0.3
+      ethers:
+        specifier: 6.9.0
+        version: 6.9.0
       graphql:
         specifier: 16.8.0
         version: 16.8.0
@@ -174,7 +177,7 @@ importers:
         version: 6.15.0(react-dom@18.2.0)(react@18.2.0)
       siwe:
         specifier: 2.1.4
-        version: 2.1.4(ethers@6.8.1)
+        version: 2.1.4(ethers@6.9.0)
       urql:
         specifier: 4.0.5
         version: 4.0.5(graphql@16.8.0)(react@18.2.0)
@@ -289,7 +292,7 @@ importers:
         version: 6.15.0(react-dom@18.2.0)(react@18.2.0)
       siwe:
         specifier: 2.1.4
-        version: 2.1.4(ethers@6.8.1)
+        version: 2.1.4(ethers@6.9.0)
       urql:
         specifier: 4.0.5
         version: 4.0.5(graphql@16.8.0)(react@18.2.0)
@@ -8837,6 +8840,22 @@ packages:
       - utf-8-validate
     dev: false
 
+  /ethers@6.9.0:
+    resolution: {integrity: sha512-pmfNyQzc2mseLe91FnT2vmNaTt8dDzhxZ/xItAV7uGsF4dI4ek2ufMu3rAkgQETL/TIs0GS5A+U05g9QyWnv3Q==}
+    engines: {node: '>=14.0.0'}
+    dependencies:
+      '@adraffy/ens-normalize': 1.10.0
+      '@noble/curves': 1.2.0
+      '@noble/hashes': 1.3.2
+      '@types/node': 18.15.13
+      aes-js: 4.0.0-beta.5
+      tslib: 2.4.0
+      ws: 8.5.0
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+    dev: false
+
   /ethjs-unit@0.1.6:
     resolution: {integrity: sha512-/Sn9Y0oKl0uqQuvgFk/zQgR7aw1g36qX/jzSQ5lSwlO0GigPymk4eGQfeNTD03w1dPOqfz8V77Cy43jH56pagw==}
     engines: {node: '>=6.5.0', npm: '>=3'}
@@ -13197,6 +13216,18 @@ packages:
       '@spruceid/siwe-parser': 2.0.2
       '@stablelib/random': 1.0.2
       ethers: 6.8.1
+      uri-js: 4.4.1
+      valid-url: 1.0.9
+    dev: false
+
+  /siwe@2.1.4(ethers@6.9.0):
+    resolution: {integrity: sha512-Dke1Qqa3mgiLm3vjqw/+SQ7dl8WV/Pfk3AlQBF94cBFydTYhztngqYrikzE3X5UTsJ6565dfVbQptszsuYZNYg==}
+    peerDependencies:
+      ethers: ^5.6.8 || ^6.0.8
+    dependencies:
+      '@spruceid/siwe-parser': 2.0.2
+      '@stablelib/random': 1.0.2
+      ethers: 6.9.0
       uri-js: 4.4.1
       valid-url: 1.0.9
     dev: false
