@@ -2,12 +2,12 @@ import React from "react";
 import { css } from "@emotion/react";
 import { a, useSpring } from "@react-spring/web";
 
+import { Button } from "../Button";
 import { Sketch } from "../Sketch";
 import { SynthsView } from "./Gallery";
 import { TextAddress } from "../Text/Address";
-import { Button } from "../Button";
 
-export interface SynthProps extends SynthUI {
+export interface SynthCardProps extends SynthUI {
   sketch: "curves" | "noise";
   view: SynthsView;
   flipped?: boolean;
@@ -15,7 +15,7 @@ export interface SynthProps extends SynthUI {
   onClick?: () => void;
 }
 
-export const Synth: React.FC<SynthProps> = ({
+export const SynthCard: React.FC<SynthCardProps> = ({
   view,
   flipped,
   setFlipped,

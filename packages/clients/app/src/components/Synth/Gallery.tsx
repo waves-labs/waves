@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
-import { Synth } from "./Synth";
-import { Wave } from "../Wave/Wave";
+import { SynthCard } from "./Card";
+import { WaveCard } from "../Wave/Card";
 
 export type SynthsView = "synths" | "synth";
 
@@ -43,7 +43,7 @@ export const SynthsGallery: React.FC<SynthsGalleryProps> = ({
         if ("organizer" in item) {
           return (
             <li key={index}>
-              <Synth
+              <SynthCard
                 {...item}
                 sketch={item.name === "Coachella 2024" ? "noise" : "curves"}
                 view={view}
@@ -57,7 +57,7 @@ export const SynthsGallery: React.FC<SynthsGalleryProps> = ({
             </li>
           );
         } else {
-          return <Wave key={index} {...item} onItemClick={onItemClick} />;
+          return <WaveCard key={index} {...item} onItemClick={onItemClick} />;
         }
       })}
     </ul>

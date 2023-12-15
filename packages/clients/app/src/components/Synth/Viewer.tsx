@@ -6,9 +6,9 @@ import { RC as ArrowLeft } from "../../assets/icons/arrow-left.svg";
 
 import { WavesDataProps } from "../../hooks/providers/waves";
 
-import { WaveDialog, WaveDialogData } from "../Wave/WaveDialog";
+import { WaveDialog, WaveDialogData } from "../Wave/Dialog";
 import { SynthsGallery } from "./Gallery";
-import { Synth } from "./Synth";
+import { SynthCard } from "./Card";
 
 export interface SynthsViewerProps extends WavesDataProps {}
 
@@ -16,6 +16,7 @@ export const SynthsViewer: React.FC<SynthsViewerProps> = ({ synths }) => {
   const { address } = useParams();
   const [flipped, setFlipped] = useState(false);
   const [dialogData, setDialogData] = useState<WaveDialogData>({
+    id: "",
     data: "",
     name: "",
     artist: "",
@@ -71,6 +72,7 @@ export const SynthsViewer: React.FC<SynthsViewerProps> = ({ synths }) => {
   function handleItemClick(item: SynthUI | WaveUI) {
     if ("creative" in item) {
       setDialogData({
+        id: item.id,
         data: item.data,
         name: item.name,
         artist: item.artist,
@@ -93,7 +95,7 @@ export const SynthsViewer: React.FC<SynthsViewerProps> = ({ synths }) => {
       {synth ? (
         <>
           <div className="h-fit">
-            <Synth
+            <SynthCard
               sketch={synth.name === "Coachella 2024" ? "noise" : "curves"}
               view={"synth"}
               flipped={flipped}

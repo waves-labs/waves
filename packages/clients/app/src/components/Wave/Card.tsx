@@ -1,10 +1,14 @@
 import React from "react";
 
-interface WaveProps extends WaveUI {
+interface WaveCardProps extends WaveUI {
   onItemClick?: (item: SynthUI | WaveUI) => void;
 }
 
-export const Wave: React.FC<WaveProps> = ({ data, onItemClick, ...wave }) => {
+export const WaveCard: React.FC<WaveCardProps> = ({
+  data,
+  onItemClick,
+  ...wave
+}) => {
   // const waveContract = useWave
   const isImage =
     data.startsWith("data:image") ||
