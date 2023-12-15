@@ -8,16 +8,16 @@ services:
     volumes:
       - ./data/redis:/data
     entrypoint: redis-server --appendonly yes
-  # postgres:
-  #   container_name: waves-postgres-db
-  #   hostname: postgres
-  #   image: postgres:15.2-alpine
-  #   ports:
-  #     - "5432:5432"
-  #   environment:
-  #     POSTGRES_USER: admin
-  #     POSTGRES_PASSWORD: pass
-  #     POSTGRES_DB: waves
-  #   volumes:
-  #     - ./data/postgres:/var/lib/postgresql/data
-  #   restart: unless-stopped
+  postgres:
+    container_name: waves-postgres-db
+    hostname: postgres
+    image: postgres:15.2-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: waves
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    restart: unless-stopped

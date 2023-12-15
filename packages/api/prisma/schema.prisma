@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum OrderType {
+  DASHIKI
+  TSHIRT
+  HOODIE
+  BEANIE
+}
+
+enum OrderStatus {
+  PENDING
+  FULFILLED
+  CANCELLED
+}
+
+enum DeviceType {
+  WRISTBAND
+}
+
+enum ClaimPointCapability {
+  NFC
+  BLE
+  WIFI
+  QR
+  GPS
+}
+
+model Order {
+  id                  String         @id
+  owner               String         @unique
+  artToken            String         @unique
+  artTokenID          Int
+  metadata            String
+  type                OrderType
+  status              OrderStatus
+  createdAt           DateTime?      @default(now())
+}
+
+model Device {
+  id                  String         @id
+  owner               String         @unique
+  metadata            String
+  type                DeviceType
+  lastScanned         DateTime?
+  createdAt           DateTime?      @default(now())
+}
+
+model ClaimPoint {
+  id                  String         @id
+  artist              String         @unique
+  metadata            String
+  createdAt           DateTime?      @default(now())
+
+  synthWhitelist      String[]
+  capabilities        ClaimPointCapability[]
+}
