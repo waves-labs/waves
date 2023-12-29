@@ -1,14 +1,26 @@
 import { TileLayer, useMapEvents } from "react-leaflet";
 
 import { SynthPointProps } from "./SynthPoint";
-import { WavePointProps } from "./WavePoint";
+// import { WavePointProps } from "./ClaimPoint";
+import { MapControlsProps } from "./Controls";
 
-interface MapProps {
-  synthPoints?: SynthPointProps[];
-  wavePoints?: WavePointProps[];
+export interface MapDataProps {
+  synthPoints: SynthPointProps[];
+  // wavePoints: WavePointProps[];
 }
 
-export const Container: React.FC<MapProps> = () => {
+export interface ContainerProps extends MapDataProps, MapControlsProps {
+  onSynthTouch: (synth: SynthPointProps) => void;
+  // onWaveTouch: (wave: WavePointProps) => void;
+}
+
+export const Container: React.FC<ContainerProps> = ({
+  synthPoints,
+  // wavePoints,
+  onSynthTouch,
+  // onWaveTouch,
+  ...props
+}) => {
   useMapEvents({
     click() {
       // map.locate();

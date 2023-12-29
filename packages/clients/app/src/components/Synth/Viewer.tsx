@@ -10,9 +10,9 @@ import { WaveDialog, WaveDialogData } from "../Wave/Dialog";
 import { SynthsGallery } from "./Gallery";
 import { SynthCard } from "./Card";
 
-export interface SynthsViewerProps extends WavesDataProps {}
+export interface SynthViewerProps extends WavesDataProps {}
 
-export const SynthsViewer: React.FC<SynthsViewerProps> = ({ synths }) => {
+export const SynthViewer: React.FC<SynthViewerProps> = ({ synths }) => {
   const { address } = useParams();
   const [flipped, setFlipped] = useState(false);
   const [dialogData, setDialogData] = useState<WaveDialogData>({

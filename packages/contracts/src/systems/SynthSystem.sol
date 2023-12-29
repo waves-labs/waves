@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.21;
 
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+// import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import {getUniqueEntity} from "@latticexyz/world-modules/src/modules/uniqueentity/getUniqueEntity.sol";
 
 import {SynthTypeEnum, TransferStatusEnum, TokenTypeEnum} from "../codegen/common.sol";
@@ -156,7 +156,7 @@ contract SynthSystem is TokenSystem {
             revert NotOwner();
         }
 
-        ERC721(ticket);
+        // ERC721(ticket);
 
         SynthContractData memory synthData = SynthContract.get(synthId);
         address[] memory newTicketWhitelist = new address[](synthData.ticketWhitelist.length + 1);
@@ -183,7 +183,7 @@ contract SynthSystem is TokenSystem {
             revert NotOwner();
         }
 
-        ERC721(ticket);
+        // ERC721(ticket);
         SynthContractData memory synthData = SynthContract.get(synthId);
 
         for (uint256 i = 0; i < synthData.ticketWhitelist.length; i++) {

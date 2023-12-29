@@ -7,9 +7,9 @@ const center = {
   lng: -116.234,
 };
 
-export interface WavePointProps extends PointProps, WaveNFT {}
+export interface ClaimPointProps extends PointProps, WaveNFT {}
 
-export const WavePoint: React.FC<WavePointProps> = () => {
+export const ClaimPoint: React.FC<ClaimPointProps> = () => {
   return (
     <Marker position={center}>
       <Popup>
